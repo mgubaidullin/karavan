@@ -21,7 +21,7 @@ jobs:
 
       - name: Build application
         run: |
-          mvn package -f -DskipTest
+          mvn package -DskipTest
 #          mvn package -f main -DskipTest \
 #          -Dquarkus.container-image.build=true \
 #          -Dquarkus.container-image.push=true \
