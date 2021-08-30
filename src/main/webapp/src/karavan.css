@@ -1,0 +1,533 @@
+.karavan {
+  flex-direction: row;
+  display: flex;
+  height: 100%;
+}
+
+.karavan .kamelets {
+  border-right: 1px solid #eee;
+  padding: 10px 10px;
+  font-size: 12px;
+  background: #fcfcfc;
+  overflow:scroll;
+}
+
+.karavan .kamelets > * {
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+.karavan .kamelets .text-field {
+  margin-top: 5px;
+  font-size: 13px;
+  height: auto;
+}
+
+.karavan .kamelets .description {
+  margin-bottom: 10px;
+}
+
+.karavan .reactflow-wrapper {
+  flex-grow: 1;
+  height: 100%;
+}
+
+  .karavan .kamelets {
+    width: 20%;
+    max-width: 180px;
+}
+
+.kamelet-icon {
+  height: 16px;
+  width: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.karavan .node, .karavan .react-flow__node {
+  align-items: center;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  cursor: grab;
+  justify-content: center;
+  display: block;
+  width: 150px;
+  height: 65px;
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  background-color: white;
+}
+
+.karavan .react-flow__handle {
+  width: 11px;
+  height: 11px;
+  background-color: #e97826;
+}
+
+.karavan .react-flow__node-kamelet {
+  background: #fff;
+  border-color: #e97826;
+}
+.karavan .react-flow__node.selected {
+  box-shadow: 0 0 0 1px #e97826;
+}
+.karavan .node .kamelet-title, .karavan .react-flow__node .kamelet-title {
+  line-height: 14px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.karavan .react-flow__edge-path {
+  stroke: #b1b1b7;
+  stroke-width: 1;
+}
+
+.karavan .react-flow__edge.selected .react-flow__edge-path {
+    stroke: #e97826;
+    stroke-width: 2;
+}
+
+.karavan .empty-connection-button {
+  color: #b1b1b7;
+  padding: 0px;
+  margin: 0px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  background-color: transparent;
+}
+
+.karavan .message-connection-button {
+  color: #b1b1b7;
+  padding: 0px;
+  margin: 0px;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  background-color: white;
+}
+
+.karavan .message-connection-button .pf-c-button__icon  {
+  background-color: white;
+}
+
+.karavan .selected .empty-connection-button,
+.karavan .selected .message-connection-button {
+  color: #e97826;
+}
+
+.karavan .empty-connection-button svg,
+.karavan .message-connection-button svg {
+  margin-bottom: 7px;
+}
+
+.karavan .hidden{
+  display: none;
+}
+
+.page .header-button {
+  margin-left:  var(--pf-c-page__header-tools--MarginRight);
+}
+
+.page .top-toolbar {
+  margin-right: 16px;
+}
+
+.page .page-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filler {
+  width: 100%;
+}
+
+.modal-footer {
+  width: 100%;
+}
+
+.modal-footer .deploy-buttons .pf-c-form__actions {
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.modal-footer .deploy-buttons .pf-c-button {
+  margin-left: 16px;
+}
+
+.action-buttons  .pf-c-form__actions {
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.action-buttons .pf-c-button {
+  margin-left: 16px;
+}
+
+.pf-c-modal-box__footer .hidden {
+  display: none;
+}
+
+.upload-buttons .pf-c-form__actions {
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.open-file .table {
+  border-color: var(--pf-global--BorderColor--light-100);
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 16px;
+}
+
+
+/*route-designer*/
+
+.route-designer {
+  flex-direction: row;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.route-designer .components {
+  border-right: 1px solid #eee;
+  padding: 10px 10px;
+  font-size: 12px;
+  background: #fcfcfc;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.route-designer .components .text-field {
+  margin-top: 5px;
+  font-size: 13px;
+  height: auto;
+}
+
+.route-designer .components .pf-c-accordion__expanded-content-body {
+  max-height: 100%;
+  height: 100%;
+}
+
+.route-designer .components .pf-c-accordion__expanded-content-body::after {
+  width:3px;
+}
+.route-designer .components .inner {
+  height: 100%;
+  overflow-y: scroll;
+}
+.route-designer .components .description {
+  margin-bottom: 10px;
+}
+
+.route-designer .components .node {
+  align-items: center;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  cursor: grab;
+  justify-content: center;
+  display: block;
+  height: 65px;
+  font-size: 13px;
+  margin: 0 0 8px 0;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  background-color: white;
+  border-color: #e97826;
+}
+.route-designer .components .node .kamelet-title {
+  line-height: 14px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.route-designer .route-root {
+  padding-top: 20px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.route-designer .route-builder {
+  width: 100%;
+  padding-bottom: 4px;
+}
+
+.route-designer .route-builder .dropper{
+  align-items: baseline;
+  box-sizing: content-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.route-designer .dragging-route-step .route-step {
+  border-width: 2px;
+  cursor: grab;
+  background-color: transparent;
+}
+
+.route-designer .route-step {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.route-designer .route-step .rect {
+  min-width: 160px;
+  min-height: 65px;
+  border-color: #e97826;
+  border-style: solid;
+  border-radius: 3px;
+  background: #fff;
+  padding-top: 3px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.route-designer .route-step .unselected-rect {
+  border-width: 1px;
+}
+
+.route-designer .route-step .selected-rect {
+  border-width: 2px;
+}
+
+.route-designer .route-step .header {
+  display: block;
+  justify-content:center;
+  position: relative;
+}
+
+.route-designer .route-step .delete-button {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  font-size: 13px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #b1b1b7;
+  visibility: hidden;
+}
+
+.route-designer .route-step:hover .header .delete-button {
+  visibility: visible;;
+}
+
+.route-designer .route-step .add-button {
+  top: 0;
+  right: 5px;
+  font-size: 15px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #e97826;
+  visibility: hidden;
+}
+
+.route-designer .route-step:hover .add-button {
+  visibility: visible;
+}
+
+.route-designer .route-step .icon {
+  height: 16px;
+  width: auto;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.route-designer .route-step .title {
+}
+
+.route-designer .route-step-draggable {
+  cursor: grab;
+}
+
+.route-designer .route-step .arrow-down {
+  font-size: 13px;
+  margin-top: 0px;
+  margin-bottom: -5px;
+  height: 20px;
+  color: #e97826;
+}
+
+.route-designer .dragging-route-step .arrow-down {
+  visibility: hidden;
+}
+
+.route-designer .hover .rect {
+  border-style: dashed;
+}
+
+
+.route-designer .route-step .rect-placeholder {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 13px;
+  min-width: 160px;
+  min-height: 65px;
+  border-color: #e97826;
+  border-width: 1px;
+  border-style: dotted;
+  border-radius: 3px;
+  background: #fff;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding-top:20px;
+}
+
+.route-designer .hover .rect-placeholder {
+  border-style: dashed;
+}
+
+.route-designer .route-step .rect-placeholder .title-placeholder {
+  color: grey;
+}
+
+.route-designer .route-code {
+  width: 100%;
+}
+.route-designer .route-code #code-content{
+  font-size: 13px;
+}
+
+/*Properties*/
+.route-designer .properties{
+  border: 1px solid #eee;
+  padding: 10px 10px 10px 10px;
+  font-size: 13px;
+  background: #fcfcfc;
+  width: 350px;
+  height: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.route-designer .properties .headers{
+  grid-row-gap: 10px;
+  row-gap: 10px;
+  display: contents;
+}
+
+.route-designer .properties .footer {
+  height: 100%;
+  display: contents;
+}
+
+.route-designer .properties .footer .toggle .pf-c-toggle-group__item {
+  width: 100%;
+}
+.route-designer .properties .footer .toggle .pf-c-toggle-group__button {
+  width: 100%;
+}
+
+.route-designer .properties .footer .toggle .pf-c-toggle-group__button .pf-c-toggle-group__text {
+  margin: auto;
+}
+
+.route-designer .properties .pf-c-form {
+  row-gap: 10px;
+}
+.route-designer .properties .pf-c-form__group-label {
+  padding-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+.route-designer .properties .pf-c-form__label {
+  font-size: 13px;
+}
+
+.route-designer .properties .text-field {
+  font-size: 13px;
+  height: auto;
+}
+.route-designer .properties .expression-title {
+  font-size: 17px;
+  font-weught: bold;
+}
+
+.route-designer .properties .text-area {
+  font-size: 13px;
+}
+
+.route-designer .properties  .pf-c-select__menu-search {
+  padding: 0px 6px 6px 6px;
+}
+
+.route-designer .properties .pf-c-select__toggle-typeahead {
+  font-size: 13px;
+  height: auto;
+}
+
+.route-designer .properties .pf-c-select__menu-item {
+  width: 280px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 12px;
+}
+
+.route-designer .properties .number {
+  display: flex;
+  justify-content: space-between;
+}
+
+.route-designer .properties .number .number-property {
+  width: 100%;
+}
+
+.route-designer .properties .number .clear-button {
+  color: #b1b1b7;
+  --pf-c-button--BorderRadius: var(--pf-c-button--m-control--BorderRadius);
+  --pf-c-button--disabled--BackgroundColor: var(--pf-c-button--m-control--disabled--BackgroundColor);
+  --pf-c-button--after--BorderWidth: var(--pf-c-button--m-control--after--BorderWidth);
+  --pf-c-button--after--BorderColor: var(--pf-c-button--m-control--after--BorderTopColor) var(--pf-c-button--m-control--after--BorderRightColor) var(--pf-c-button--m-control--after--BorderBottomColor) var(--pf-c-button--m-control--after--BorderLeftColor);
+  color: var(--pf-c-button--m-control--Color);
+  background-color: var(--pf-c-button--m-control--BackgroundColor);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.route-designer .properties .help-button {
+  font-size: 12px;
+}
+
+.route-designer .properties .component-selector {
+  border-width: var(--pf-global--BorderWidth--sm);
+  border-top-color: var(--pf-global--BorderColor--300);
+  border-right-color: var(--pf-global--BorderColor--300);
+  border-bottom-color: var(--pf-global--BorderColor--200);
+  border-left-color: var(--pf-global--BorderColor--300);
+  border-style: solid;
+}
