@@ -1,150 +1,21 @@
-.karavan {
-  flex-direction: row;
-  display: flex;
-  height: 100%;
+.karavan .tools-section {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
-.karavan .kamelets {
-  border-right: 1px solid #eee;
-  padding: 10px 10px;
-  font-size: 12px;
-  background: #fcfcfc;
-  overflow:scroll;
+.karavan .brand {
+  height: 36px;
 }
 
-.karavan .kamelets > * {
-  margin-bottom: 10px;
-  cursor: grab;
-}
-
-.karavan .kamelets .text-field {
-  margin-top: 5px;
-  font-size: 13px;
-  height: auto;
-}
-
-.karavan .kamelets .description {
-  margin-bottom: 10px;
-}
-
-.karavan .reactflow-wrapper {
-  flex-grow: 1;
-  height: 100%;
-}
-
-  .karavan .kamelets {
-    width: 20%;
-    max-width: 180px;
-}
-
-.kamelet-icon {
-  height: 16px;
-  width: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  cursor: pointer;
-  border: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-.karavan .node, .karavan .react-flow__node {
-  align-items: center;
-  text-align: center;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  cursor: grab;
-  justify-content: center;
-  display: block;
-  width: 150px;
-  height: 65px;
-  font-size: 13px;
-  margin: 0 0 8px 0;
-  padding-top: 7px;
-  padding-bottom: 5px;
-  background-color: white;
-}
-
-.karavan .react-flow__handle {
-  width: 11px;
-  height: 11px;
-  background-color: #e97826;
-}
-
-.karavan .react-flow__node-kamelet {
-  background: #fff;
-  border-color: #e97826;
-}
-.karavan .react-flow__node.selected {
-  box-shadow: 0 0 0 1px #e97826;
-}
-.karavan .node .kamelet-title, .karavan .react-flow__node .kamelet-title {
-  line-height: 14px;
-  padding-left: 1px;
-  padding-right: 1px;
-}
-
-.karavan .react-flow__edge-path {
-  stroke: #b1b1b7;
-  stroke-width: 1;
-}
-
-.karavan .react-flow__edge.selected .react-flow__edge-path {
-    stroke: #e97826;
-    stroke-width: 2;
-}
-
-.karavan .empty-connection-button {
-  color: #b1b1b7;
-  padding: 0px;
-  margin: 0px;
-  height: 16px;
-  width: 16px;
-  line-height: 16px;
-  background-color: transparent;
-}
-
-.karavan .message-connection-button {
-  color: #b1b1b7;
-  padding: 0px;
-  margin: 0px;
-  height: 16px;
-  width: 16px;
-  line-height: 16px;
-  background-color: white;
-}
-
-.karavan .message-connection-button .pf-c-button__icon  {
-  background-color: white;
-}
-
-.karavan .selected .empty-connection-button,
-.karavan .selected .message-connection-button {
-  color: #e97826;
-}
-
-.karavan .empty-connection-button svg,
-.karavan .message-connection-button svg {
-  margin-bottom: 7px;
-}
-
-.karavan .hidden{
-  display: none;
-}
-
-.page .header-button {
+.karavan .header-button {
   margin-left:  var(--pf-c-page__header-tools--MarginRight);
 }
 
-.page .top-toolbar {
+.karavan .top-toolbar {
   margin-right: 16px;
 }
 
-.page .page-header {
+.karavan .page-header {
   display: flex;
   justify-content: space-between;
 }
@@ -255,6 +126,20 @@
   line-height: 14px;
   padding-left: 1px;
   padding-right: 1px;
+}
+
+.route-designer .components .node .kamelet-icon {
+  height: 16px;
+  width: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .route-designer .route-root {

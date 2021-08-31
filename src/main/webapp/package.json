@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@patternfly/patternfly": "^4.125.3",
+    "@patternfly/patternfly": "^4.132.2",
     "@patternfly/react-code-editor": "^4.3.42",
     "@patternfly/react-core": "^4.147.0",
     "@patternfly/react-table": "^4.29.37",

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import "@patternfly/patternfly/patternfly.css";
 import './index.css';
-import {RouteDesigner} from "./components/RouteDesigner";
+import {Main} from "./Main";
 
 const routes = [
-    { path: '/', component: RouteDesigner,},
+    { path: '/', component: Main}
 ];
 
 ReactDOM.render(

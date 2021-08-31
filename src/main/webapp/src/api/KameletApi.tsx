@@ -63,7 +63,7 @@ export const KameletApi = {
         if (k && k.length > 0){
             const list:[] = JSON.parse(k);
             Kamelets.push(...list.map(x => new Kamelet(x)));
-            EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
+            // EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
         } else {
             const repos: string[] = KameletApi.getKameletRepositories();
             storage.setItem(STORAGE_KAMELET_REPOSITORIES, JSON.stringify(repos));
@@ -80,7 +80,7 @@ export const KameletApi = {
                     Kamelets.push(...result);
                     Kamelets.push(...Kamelet.default());
                     KameletApi.saveKameletsToStorage();
-                    EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
+                    // EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
                 });
             })
         });

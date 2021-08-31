@@ -11,7 +11,7 @@ import {
 } from '@patternfly/react-core';
 import {TableComposable, Thead, Tbody, Tr, Th, Td, Caption} from '@patternfly/react-table';
 import {ConfigOpenshift} from "../model/ConfigModels";
-import {ConfigOpenshiftPanel} from "../components/ConfigOpenshiftPanel";
+import {ConfigOpenshiftPanel} from "../designer/ConfigOpenshiftPanel";
 import {OpenshiftApi} from "../api/OpenshiftApi";
 import '../karavan.css';
 

@@ -4,7 +4,7 @@ import {
     Modal,
     ActionGroup, AlertGroup, Alert, getUniqueId, AlertActionCloseButton
 } from '@patternfly/react-core';
-import {ConfigOpenshiftPanel} from '../components/ConfigOpenshiftPanel';
+import {ConfigOpenshiftPanel} from '../designer/ConfigOpenshiftPanel';
 import {Subscription} from 'rxjs';
 import '../karavan.css';
 import {ConfigOpenshift} from "../model/ConfigModels";

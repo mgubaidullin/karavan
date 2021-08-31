@@ -26,7 +26,7 @@ public class ConfigurationResource {
     public RestResponse<Map<String, String>> getVersion() throws Exception {
         return RestResponse.ResponseBuilder.ok(
                 Map.of(
-                        "version", version,
+                        "karavan.version", version,
                         "karavan.git.uri", uri,
                         "karavan.git.path", path
                 )

@@ -1,17 +1,10 @@
 import React from 'react';
 import {
-    Brand,
-    Button,
     CodeBlock,
     CodeBlockCode,
-    Page,
-    PageHeader, PageSection,
-    PageSectionVariants,
-    Title,
+    PageSection,
 } from '@patternfly/react-core';
-import logo from '../logo.svg';
 import {RouteBuilder} from "./RouteBuilder";
-import {KameletApi} from '../api/KameletApi';
 import {EmptyStep, RouteStep} from "../model/RouteModels";
 import RouteComponentPanel from "./RouteComponentPanel";
 import {RouteStepApi} from "../api/RouteStepApi";
@@ -20,7 +13,6 @@ import '../karavan.css';
 import {RouteStepProperties} from "./RouteStepProperties";
 import {Integration, Spec} from "../model/IntegrationModels";
 import {ResourceGenerator} from "../api/ResourceGenerator";
-import OpenshiftIcon from '@patternfly/react-icons/dist/esm/icons/openshift-icon';
 import {SaveFileModal} from "../modal/SaveFileModal";
 
 interface Props {
@@ -46,10 +38,6 @@ export class RouteDesigner extends React.Component<Props, State> {
         view: "design",
         saveWindowOpen: false
     };
-
-    componentDidMount() {
-        KameletApi.prepareKamelets();
-    }
 
     updateState = (steps: RouteStep[], current?: RouteStep) => {
         const i = Object.assign({}, this.state.integration);
@@ -99,27 +87,9 @@ export class RouteDesigner extends React.Component<Props, State> {
         return ResourceGenerator.integrationToYaml(this.state.integration);
     }
 
-    toolBar = (
-        <div className="top-toolbar">
-            <Button variant="secondary" onClick={event => this.setState({saveWindowOpen: true})} icon={<OpenshiftIcon />}>Deploy</Button>
-        </div>
-    );
-
-    header = (
-        <PageHeader className="page-header"
-            logo={
-                <div className="logo">
-                    <Brand src={logo} alt="Karavan"/>
-                    <Title headingLevel="h1" size="3xl">Karavan</Title>
-                </div>
-            }
-            headerTools={this.toolBar}
-        />
-    );
-
     render() {
         return (
-            <Page className="page" header={this.header}>
+            <PageSection className="route-designer-section" isFilled>
                 <div className="route-designer">
                     <RouteComponentPanel/>
                     {this.state.view === 'design' &&
@@ -148,7 +118,7 @@ export class RouteDesigner extends React.Component<Props, State> {
                     />
                 </div>
                 <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
-            </Page>
+            </PageSection>
         );
     }
 };
