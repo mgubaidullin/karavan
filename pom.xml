@@ -105,6 +105,9 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
+                            <environmentVariables>
+                                <CI>false</CI>
+                            </environmentVariables>
                             <arguments>run prod</arguments>
                         </configuration>
                     </execution>
