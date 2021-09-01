@@ -63,6 +63,7 @@ export class Main extends React.Component<Props, State> {
 
     onNavSelect = (result: any) => {
         this.setState({
+            isNavOpen: result.itemId !== 'designer',
             pageId: result.itemId
         });
     };

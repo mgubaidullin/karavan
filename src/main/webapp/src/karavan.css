@@ -20,6 +20,10 @@
   justify-content: space-between;
 }
 
+.karavan .route-designer-section{
+  padding: 0;
+}
+
 .filler {
   width: 100%;
 }

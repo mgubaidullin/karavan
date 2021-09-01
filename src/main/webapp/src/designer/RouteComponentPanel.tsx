@@ -49,12 +49,6 @@ const RouteComponentPanel = () => {
     setFiltered(map);
   };
 
-  useEffect(() => {
-    const sub = EventBus.onEvent()?.subscribe(evt => {
-      if (KaravanEvent.KAMELETS_PREPARED === evt) refine();
-    });
-    return sub?.unsubscribe;
-  }, []);
   useEffect(() => refine(), [filter]);
 
   const onToggle = (id: string) => {
