@@ -195,4 +195,20 @@ export class RouteStepApi {
                 return new EmptyStep();
         }
     }
+
+    static nameFomTitle = (title: string): string => {
+        return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
+    }
+
+    static titleFromName = (name:string) => {
+        return name
+            .replace(".yaml", '')
+            .split('-')
+            .map(value => RouteStepApi.capitalizeName(value))
+            .reduce((previousValue, currentValue) => previousValue + " " + currentValue);
+    }
+
+    static capitalizeName = (name:string) => {
+        return name[0].toUpperCase() + name.substring(1)
+    }
 }

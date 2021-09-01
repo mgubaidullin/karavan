@@ -4,6 +4,7 @@ import {
 } from '@patternfly/react-core';
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
+import {RouteStepApi} from "../api/RouteStepApi";
 
 interface Props {
     name: string,
@@ -37,17 +38,7 @@ export class IntegrationCard extends React.Component<Props, State> {
         //     }));
     }
 
-    toTitle = (name:string) => {
-        return name
-            .replace(".yaml", '')
-            .split('-')
-            .map(value => this.capitalizeName(value))
-            .reduce((previousValue, currentValue) => previousValue + " " + currentValue);
-    }
 
-    capitalizeName = (name:string) => {
-        return name[0].toUpperCase() + name.substring(1)
-    }
 
     render() {
         return (
@@ -58,7 +49,7 @@ export class IntegrationCard extends React.Component<Props, State> {
                         <Button variant="link" className="delete-button"><DeleteIcon/></Button>
                     </CardActions>
                 </CardHeader>
-                <CardTitle>{this.toTitle(this.state.name)}</CardTitle>
+                <CardTitle>{RouteStepApi.titleFromName(this.state.name)}</CardTitle>
                 <CardBody>{this.state.name}</CardBody>
             </Card>
         );

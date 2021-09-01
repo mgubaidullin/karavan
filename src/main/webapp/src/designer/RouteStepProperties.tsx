@@ -44,8 +44,10 @@ export class RouteStepProperties extends React.Component<Props, State> {
     }
     onIntegrationChange = (field: string, value: string) => {
         let clone = new Integration({...this.state.integration});
-        if (field === 'name') clone.metadata.name = value;
-        if (field === 'title') clone.metadata.annotations["camel.apache.org/integration.title"] = value;
+        if (field === 'title') {
+            clone.metadata.name = RouteStepApi.nameFomTitle(value);
+            clone.metadata.annotations["camel.apache.org/integration.title"] = value;
+        }
         this.props.onIntegrationUpdate?.call(this, clone);
     };
 
@@ -88,15 +90,15 @@ export class RouteStepProperties extends React.Component<Props, State> {
         return (
             <div className="headers">
                 <Title headingLevel="h1" size="md">Integration</Title>
-                <FormGroup label="Name" fieldId="name">
-                    <TextInput className="text-field" type="text" id="name" name="name"
-                               value={this.state.integration.metadata.name}
-                               onChange={e => this.onIntegrationChange('name', e)}/>
-                </FormGroup>
                 <FormGroup label="Title" fieldId="title">
                     <TextInput className="text-field" type="text" id="title" name="title"
                                value={this.state.integration.metadata.annotations["camel.apache.org/integration.title"]}
                                onChange={e => this.onIntegrationChange('title', e)}/>
+                </FormGroup>
+                <FormGroup label="Name" fieldId="name" >
+                    <TextInput className="text-field" type="text" id="name" name="name" isReadOnly
+                               value={this.state.integration.metadata.name}
+                               onChange={e => this.onIntegrationChange('name', e)}/>
                 </FormGroup>
             </div>
         )
