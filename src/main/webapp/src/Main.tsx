@@ -92,6 +92,10 @@ export class Main extends React.Component<Props, State> {
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
             </NavItem>
+            <NavItem id="configuration" to="#designer" itemId={"designer"}
+                     isActive={this.state.pageId === 'designer'}>
+                Designer
+            </NavItem>
         </NavList>
     </Nav>);
 

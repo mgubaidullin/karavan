@@ -50,10 +50,10 @@ const RouteComponentPanel = () => {
   };
 
   useEffect(() => {
-    // const sub = EventBus.onEvent()?.subscribe(evt => {
-    //   if (KaravanEvent.KAMELETS_PREPARED === evt) refine();
-    // });
-    // return sub?.unsubscribe;
+    const sub = EventBus.onEvent()?.subscribe(evt => {
+      if (KaravanEvent.KAMELETS_PREPARED === evt) refine();
+    });
+    return sub?.unsubscribe;
   }, []);
   useEffect(() => refine(), [filter]);
 

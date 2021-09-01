@@ -2,12 +2,8 @@ import {Kamelet} from "../model/KameletModels";
 import {EventBus, KaravanEvent} from "./EventBus";
 import * as yaml from 'js-yaml';
 import axios from "axios";
+import {KaravanApi} from "./KaravanApi";
 
-const STORAGE_KAMELET_REPOSITORIES: string = "STORAGE_KAMELET_REPOSITORIES";
-const STORAGE_KAMELETS: string = "STORAGE_KAMELETS";
-const URL_KAMELETS = "https://api.github.com/repos/apache/camel-kamelets/contents/library/camel-kamelets/src/main/resources/kamelets";
-
-const storage: Storage = window.localStorage;
 export const Kamelets: Kamelet[] = [];
 
 export const KameletApi = {
@@ -18,19 +14,6 @@ export const KameletApi = {
         return k;
     },
 
-    saveKameletsToStorage: () => {
-        storage.setItem(STORAGE_KAMELETS, JSON.stringify(Kamelets));
-    },
-
-    getKameletRepositories: (): string[] => {
-        const result: string[] = [];
-        const reps = storage.getItem(STORAGE_KAMELET_REPOSITORIES);
-        if (reps && reps.length > 0) {
-            const list: string[] = JSON.parse(reps);
-            result.push(...list);
-        }
-        return result.length > 0 ? result : [URL_KAMELETS];
-    },
 
     findKameletByName: (name: string): Kamelet | any => {
         return Kamelets.find((k: Kamelet) => k.metadata.name === name);
@@ -59,16 +42,11 @@ export const KameletApi = {
 
     prepareKamelets: () => {
         Kamelets.splice(0, Kamelets.length);
-        const k = storage.getItem(STORAGE_KAMELETS);
-        if (k && k.length > 0){
-            const list:[] = JSON.parse(k);
-            Kamelets.push(...list.map(x => new Kamelet(x)));
-            // EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
-        } else {
-            const repos: string[] = KameletApi.getKameletRepositories();
-            storage.setItem(STORAGE_KAMELET_REPOSITORIES, JSON.stringify(repos));
+        KaravanApi.getConfiguration((config: any) => {
+            const repos: string[] = config?.['karavan.catalogs'] as [];
+            console.log(repos)
             KameletApi.loadKamelets(repos);
-        }
+        })
     },
 
     loadKamelets: (repos: string[]) => {
@@ -79,8 +57,7 @@ export const KameletApi = {
                     const result: Kamelet[] = list as Kamelet[];
                     Kamelets.push(...result);
                     Kamelets.push(...Kamelet.default());
-                    KameletApi.saveKameletsToStorage();
-                    // EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
+                    EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
                 });
             })
         });

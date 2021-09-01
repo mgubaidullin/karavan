@@ -6,7 +6,7 @@ import './index.css';
 import {Main} from "./Main";
 
 const routes = [
-    { path: '/', component: Main}
+    { path: '/', component: Main},
 ];
 
 ReactDOM.render(
