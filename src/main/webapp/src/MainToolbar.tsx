@@ -5,12 +5,12 @@ import {
 import './karavan.css';
 
 interface Props {
-    title: string
+    title: any
     tools: any
 }
 
 interface State {
-    title: string
+    title: any
     tools: React.Component
 }
 
@@ -30,9 +30,7 @@ export class MainToolbar extends React.Component<Props, State> {
             <PageSection className="tools-section" variant={PageSectionVariants.light}>
                 <Flex className="tools" justifyContent={{default: 'justifyContentSpaceBetween'}}>
                     <FlexItem>
-                        <TextContent>
-                            <Text component="h1">{this.state.title}</Text>
-                        </TextContent>
+                        {this.state.title}
                     </FlexItem>
                     <FlexItem>
                         {this.state.tools}

@@ -2,6 +2,7 @@
   padding-top: 0px;
   padding-bottom: 0px;
   padding-right: 0;
+  border-bottom: 1px solid #eee;
 }
 
 .karavan .brand {
@@ -352,17 +353,6 @@
 .route-designer .properties .footer {
   height: 100%;
   display: contents;
-}
-
-.route-designer .properties .footer .toggle .pf-c-toggle-group__item {
-  width: 100%;
-}
-.route-designer .properties .footer .toggle .pf-c-toggle-group__button {
-  width: 100%;
-}
-
-.route-designer .properties .footer .toggle .pf-c-toggle-group__button .pf-c-toggle-group__text {
-  margin: auto;
 }
 
 .route-designer .properties .pf-c-form {

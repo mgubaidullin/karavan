@@ -7,7 +7,7 @@ import {
     Toolbar, ToolbarContent, Gallery, FlexItem, Flex, ToolbarItem, TextInput, PageSidebar, NavItem, NavList, Nav
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
-import {IntegrationPage} from "./list/IntegrationPage";
+import {IntegrationPage} from "./integrations/IntegrationPage";
 import {RouteDesignerPage} from "./designer/RouteDesignerPage";
 import {KameletApi} from "./api/KameletApi";
 import logo from './logo.svg';

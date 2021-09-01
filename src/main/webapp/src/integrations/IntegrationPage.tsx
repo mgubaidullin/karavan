@@ -5,7 +5,7 @@ import {
     Gallery,
     ToolbarItem,
     TextInput,
-    PageSection
+    PageSection, TextContent, Text, ToggleGroup, ToggleGroupItem
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
@@ -43,17 +43,21 @@ export class IntegrationPage extends React.Component<Props, State> {
 
     tools = () => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
-            <ToolbarItem variant="overflow-menu">
+            <ToolbarItem>
                 <TextInput className="text-field" type="search" id="search" name="search"
                            autoComplete="off" placeholder="Search by name"/>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);
 
+    title = () => (<TextContent>
+                    <Text component="h1">Integrations</Text>
+                </TextContent>);
+
     render() {
         return (
             <PageSection  padding={{ default: 'noPadding' }}>
-                <MainToolbar title="Integrations" tools={this.tools()}/>
+                <MainToolbar title={this.title()} tools={this.tools()}/>
                 <PageSection isFilled className="integration-list">
                     <Gallery hasGutter>
                         {this.state.integrations.map(value => (

@@ -3,7 +3,7 @@ import {
     Button,
     CodeBlock,
     CodeBlockCode, Flex, Page,
-    PageSection, TextInput, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem,
+    PageSection, Text, TextContent, TextInput, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem,
 } from '@patternfly/react-core';
 import {RouteBuilder} from "./RouteBuilder";
 import {EmptyStep, RouteStep} from "../model/RouteModels";
@@ -96,53 +96,63 @@ export class RouteDesignerPage extends React.Component<Props, State> {
 
     tools = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
-            <ToolbarItem variant="overflow-menu">
-                <ToggleGroup isCompact aria-label="Switch view" className="toggle">
+            <ToolbarItem>
+                <Button>Save</Button>
+            </ToolbarItem>
+        </ToolbarContent>
+    </Toolbar>);
+
+    title = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
+        <ToolbarContent>
+            <ToolbarItem>
+                <TextContent>
+                    <Text component="h1">Designer</Text>
+                </TextContent>
+            </ToolbarItem>
+            <ToolbarItem>
+                <ToggleGroup aria-label="Switch view" className="toggle">
                     <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}
                                      onChange={e => this.setView('design')}/>
                     <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}
                                      onChange={e => this.setView('code')}/>
                 </ToggleGroup>
-            </ToolbarItem><ToolbarItem variant="overflow-menu">
-                <Button>Save</Button>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);
 
     render() {
         return (
-            // <PageSection  padding={{ default: 'noPadding' }}>
-                <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
-                    <MainToolbar title="Designer" tools={this.tools(this.state.view)}/>
-                    <div className="route-designer">
-                        <RouteComponentPanel/>
-                        {this.state.view === 'design' &&
-                        <div className="route-root" onClick={event => this.unselectSteps()}>
-                            <RouteBuilder key={this.state.key}
-                                          parentAddFunction={this.addStep}
-                                          parentDeleteFunction={this.deleteStep}
-                                          parentAddChildFunction={this.addChild}
-                                          parentSelectFunction={this.selectStep}
-                                          isRoot
-                                          steps={this.state.integration.spec.flows}
-                                          display={"block"}/>
-                        </div>
-                        }
-                        {this.state.view === 'code' && <CodeBlock className="route-code">
-                            <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
-                        </CodeBlock>
-                        }
-                        <RouteStepProperties
-                            integration={this.state.integration}
-                            step={this.state.currentStep}
-                            onIntegrationUpdate={this.updateIntegration}
-                            onStepUpdate={this.updateStep}
-                            onChangeView={this.changeView}
-                        />
+            <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
+                <MainToolbar key={this.state.view} title={this.title(this.state.view)}
+                             tools={this.tools(this.state.view)}/>
+                <div className="route-designer">
+                    <RouteComponentPanel/>
+                    {this.state.view === 'design' &&
+                    <div className="route-root" onClick={event => this.unselectSteps()}>
+                        <RouteBuilder key={this.state.key}
+                                      parentAddFunction={this.addStep}
+                                      parentDeleteFunction={this.deleteStep}
+                                      parentAddChildFunction={this.addChild}
+                                      parentSelectFunction={this.selectStep}
+                                      isRoot
+                                      steps={this.state.integration.spec.flows}
+                                      display={"block"}/>
                     </div>
-                    <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
-                </PageSection>
-            // </PageSection>
+                    }
+                    {this.state.view === 'code' && <CodeBlock className="route-code">
+                        <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
+                    </CodeBlock>
+                    }
+                    <RouteStepProperties
+                        integration={this.state.integration}
+                        step={this.state.currentStep}
+                        onIntegrationUpdate={this.updateIntegration}
+                        onStepUpdate={this.updateStep}
+                        onChangeView={this.changeView}
+                    />
+                </div>
+                <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
+            </PageSection>
         );
     }
 };
