@@ -99,19 +99,31 @@ export class Main extends React.Component<Props, State> {
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
             </NavItem>
-            <NavItem id="designer" to="#" itemId={"designer"}
-                     isActive={this.state.pageId === 'designer'}>
-                Designer
-            </NavItem>
         </NavList>
     </Nav>);
 
     sidebar = () => (<PageSidebar nav={this.pageNav()} isNavOpen={this.state.isNavOpen}/>);
 
+    onIntegrationSelect = (name: string) => {
+        console.log(name)
+        this.setState({
+            isNavOpen: false,
+            pageId: 'designer'
+        });
+    };
+
+    onIntegrationCreate = () => {
+        console.log("onIntegrationCreate")
+        this.setState({
+            isNavOpen: false,
+            pageId: 'designer'
+        });
+    };
+
     render() {
         return (
             <Page key={this.state.version} className="karavan" header={this.header()} sidebar={this.sidebar()}>
-                {this.state.pageId === 'integrations' && <IntegrationPage/>}
+                {this.state.pageId === 'integrations' && <IntegrationPage onSelect={this.onIntegrationSelect} onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
                 {this.state.pageId === 'designer' && <RouteDesignerPage/>}

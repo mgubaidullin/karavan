@@ -5,17 +5,29 @@ import {
     Gallery,
     ToolbarItem,
     TextInput,
-    PageSection, TextContent, Text, ToggleGroup, ToggleGroupItem
+    PageSection,
+    TextContent,
+    Text,
+    ToggleGroup,
+    ToggleGroupItem,
+    CardHeader,
+    CardActions,
+    Button,
+    CardTitle,
+    CardBody,
+    Card
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
 import {KaravanApi} from "../api/KaravanApi";
 import {MainToolbar} from "../MainToolbar";
-import { Page } from '@patternfly/react-core/dist/esm/components/Page';
-import {Kamelet} from "../model/KameletModels";
-import {Integration} from "../model/IntegrationModels";
+import {RouteStep} from "../model/RouteModels";
+import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
+import {RouteStepApi} from "../api/RouteStepApi";
 
 interface Props {
+    onSelect:any
+    onCreate:any
 }
 
 interface State {
@@ -43,16 +55,14 @@ export class IntegrationPage extends React.Component<Props, State> {
             }));
     }
 
-    onSelect = (name: string) => {
-        console.log(name)
-        // this.setState({kamelet: k, isModalOpen: true})
-    }
-
     tools = () => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
             <ToolbarItem>
                 <TextInput className="text-field" type="search" id="search" name="search"
                            autoComplete="off" placeholder="Search by name"/>
+            </ToolbarItem>
+            <ToolbarItem>
+                <Button onClick={e => this.props.onCreate.call(this)}>Create</Button>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);
@@ -68,7 +78,7 @@ export class IntegrationPage extends React.Component<Props, State> {
                 <PageSection isFilled className="integration-page">
                     <Gallery hasGutter>
                         {this.state.integrations.map(value => (
-                            <IntegrationCard key={value} name={value} onClick={this.onSelect}/>
+                            <IntegrationCard key={value} name={value} onClick={this.props.onSelect}/>
                         ))}
                     </Gallery>
                 </PageSection>
