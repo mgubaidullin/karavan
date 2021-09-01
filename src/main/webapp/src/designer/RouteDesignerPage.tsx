@@ -1,8 +1,9 @@
 import React from 'react';
 import {
+    Button,
     CodeBlock,
     CodeBlockCode, Flex, Page,
-    PageSection, TextInput, Toolbar, ToolbarContent, ToolbarItem,
+    PageSection, TextInput, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem,
 } from '@patternfly/react-core';
 import {RouteBuilder} from "./RouteBuilder";
 import {EmptyStep, RouteStep} from "../model/RouteModels";
@@ -88,11 +89,22 @@ export class RouteDesignerPage extends React.Component<Props, State> {
         return ResourceGenerator.integrationToYaml(this.state.integration);
     }
 
-    tools = () => (<Toolbar id="toolbar-group-types">
+    setView = (view: "design" | "code") => {
+        this.setState({view: view});
+        // this.props.onChangeView.call(this, view);
+    }
+
+    tools = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
             <ToolbarItem variant="overflow-menu">
-                <TextInput className="text-field" type="search" id="search" name="search"
-                           autoComplete="off" placeholder="Search by name"/>
+                <ToggleGroup isCompact aria-label="Switch view" className="toggle">
+                    <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}
+                                     onChange={e => this.setView('design')}/>
+                    <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}
+                                     onChange={e => this.setView('code')}/>
+                </ToggleGroup>
+            </ToolbarItem><ToolbarItem variant="overflow-menu">
+                <Button>Save</Button>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);
@@ -100,7 +112,7 @@ export class RouteDesignerPage extends React.Component<Props, State> {
     render() {
         return (
             <PageSection  padding={{ default: 'noPadding' }}>
-                <MainToolbar title="Integrations" tools={this.tools()}/>
+                <MainToolbar title="Designer" tools={this.tools(this.state.view)}/>
                 <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
                     <div className="route-designer">
                         <RouteComponentPanel/>
@@ -125,7 +137,6 @@ export class RouteDesignerPage extends React.Component<Props, State> {
                             step={this.state.currentStep}
                             onIntegrationUpdate={this.updateIntegration}
                             onStepUpdate={this.updateStep}
-                            view={this.state.view}
                             onChangeView={this.changeView}
                         />
                     </div>

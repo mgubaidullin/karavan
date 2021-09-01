@@ -24,7 +24,6 @@ interface Props {
     step?: RouteStep,
     onIntegrationUpdate?: any,
     onStepUpdate?: any,
-    view: "design" | "code",
     onChangeView: any
 }
 
@@ -99,19 +98,6 @@ export class RouteStepProperties extends React.Component<Props, State> {
                                value={this.state.integration.metadata.annotations["camel.apache.org/integration.title"]}
                                onChange={e => this.onIntegrationChange('title', e)}/>
                 </FormGroup>
-            </div>
-        )
-    }
-
-    getIntegrationFooter = (): JSX.Element => {
-        return (
-            <div className="footer">
-                <ToggleGroup isCompact aria-label="Switch view" className="toggle">
-                    <ToggleGroupItem text="Design" buttonId="design" isSelected={this.props.view === 'design'}
-                                     onChange={e => this.setView('design')}/>
-                    <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={this.props.view === 'code'}
-                                     onChange={e => this.setView('code')}/>
-                </ToggleGroup>
             </div>
         )
     }
@@ -234,7 +220,6 @@ export class RouteStepProperties extends React.Component<Props, State> {
                     {/* Properties configurator */}
                     {this.state.step && (this.state.step as ComponentStep).properties?.map((property: Property) => this.getProperties(property))}
                 </Form>
-                {this.state.step === undefined && this.getIntegrationFooter()}
             </div>
         );
     }
