@@ -7,11 +7,12 @@ import {
     Toolbar, ToolbarContent, Gallery, FlexItem, Flex, ToolbarItem, TextInput, PageSidebar, NavItem, NavList, Nav
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
-import {IntegrationList} from "./list/IntegrationList";
-import {RouteDesigner} from "./designer/RouteDesigner";
+import {IntegrationPage} from "./list/IntegrationPage";
+import {RouteDesignerPage} from "./designer/RouteDesignerPage";
 import {KameletApi} from "./api/KameletApi";
 import logo from './logo.svg';
 import './karavan.css';
+import {ConfigurationPage} from "./config/ConfigurationPage";
 
 interface Props {
 }
@@ -124,9 +125,9 @@ export class Main extends React.Component<Props, State> {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                {this.state.pageId === 'integrations' && <IntegrationList/>}
-                {this.state.pageId === 'designer' && <RouteDesigner/>}
-                {this.state.pageId === 'configuration' && <IntegrationList/>}
+                {this.state.pageId === 'integrations' && <IntegrationPage/>}
+                {this.state.pageId === 'designer' && <RouteDesignerPage/>}
+                {this.state.pageId === 'configuration' && <ConfigurationPage/>}
             </Page>
         );
     }

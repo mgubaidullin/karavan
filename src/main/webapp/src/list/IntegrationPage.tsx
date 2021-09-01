@@ -27,7 +27,7 @@ interface State {
     integrations: []
 }
 
-export class IntegrationList extends React.Component<Props, State> {
+export class IntegrationPage extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);

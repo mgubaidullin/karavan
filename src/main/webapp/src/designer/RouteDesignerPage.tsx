@@ -26,7 +26,7 @@ interface State {
     saveWindowOpen: boolean
 }
 
-export class RouteDesigner extends React.Component<Props, State> {
+export class RouteDesignerPage extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -89,7 +89,7 @@ export class RouteDesigner extends React.Component<Props, State> {
 
     render() {
         return (
-            <PageSection className="route-designer-section" isFilled>
+            <PageSection className="route-designer-section" isFilled padding={{ default: 'noPadding' }}>
                 <div className="route-designer">
                     <RouteComponentPanel/>
                     {this.state.view === 'design' &&
