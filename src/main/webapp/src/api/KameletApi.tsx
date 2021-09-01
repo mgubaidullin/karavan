@@ -8,6 +8,10 @@ export const Kamelets: Kamelet[] = [];
 
 export const KameletApi = {
 
+    getKamelets:():Kamelet[] => {
+        return Kamelets;
+    },
+
     jsonToKamelet: (json: string) => {
         const fromJson: Kamelet = JSON.parse(json) as Kamelet;
         const k: Kamelet = new Kamelet(fromJson);
@@ -44,7 +48,6 @@ export const KameletApi = {
         Kamelets.splice(0, Kamelets.length);
         KaravanApi.getConfiguration((config: any) => {
             const repos: string[] = config?.['karavan.catalogs'] as [];
-            console.log(repos)
             KameletApi.loadKamelets(repos);
         })
     },

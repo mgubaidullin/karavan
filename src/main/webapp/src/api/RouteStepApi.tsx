@@ -173,8 +173,8 @@ export class RouteStepApi {
             properties.push(prop);
         })
         return kamelet.type() === 'source'
-            ? new FromStep({component: "kamelet",path: kamelet.metadata.name, properties: properties})
-            : new ToStep({component: "kamelet",path: kamelet.metadata.name, properties: properties})
+            ? new FromStep({component: "kamelet", path: kamelet.metadata.name, properties: properties})
+            : new ToStep({component: "kamelet", path: kamelet.metadata.name, properties: properties})
     }
     static fromTransferKamelet = (json: string): RouteStep => {
         const k: Kamelet = new Kamelet(JSON.parse(json));
@@ -200,15 +200,21 @@ export class RouteStepApi {
         return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
     }
 
-    static titleFromName = (name:string) => {
-        return name
-            .replace(".yaml", '')
-            .split('-')
-            .map(value => RouteStepApi.capitalizeName(value))
-            .reduce((previousValue, currentValue) => previousValue + " " + currentValue);
+    static titleFromName = (name?: string) => {
+        return name ?
+            name
+                .replace(".yaml", '')
+                .split('-')
+                .map(value => RouteStepApi.capitalizeName(value))
+                .reduce((previousValue, currentValue) => previousValue + " " + currentValue)
+            : name;
     }
 
-    static capitalizeName = (name:string) => {
-        return name[0].toUpperCase() + name.substring(1)
+    static capitalizeName = (name: string) => {
+        try {
+            return name[0].toUpperCase() + name.substring(1);
+        } catch (e) {
+            return name;
+        }
     }
 }

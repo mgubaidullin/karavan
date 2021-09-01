@@ -431,3 +431,57 @@
   border-left-color: var(--pf-global--BorderColor--300);
   border-style: solid;
 }
+
+/*kamelets*/
+.kamelets-page .kamelet-card {
+  cursor: pointer;
+  height: 160px;
+}
+.kamelets-page .kamelet-card .pf-c-card__header {
+  padding-right: 6px;
+}
+
+.kamelets-page .kamelet-card .pf-c-card__body {
+  overflow: hidden;
+  position: relative;
+}
+
+.kamelets-page .kamelet-card .kamelet-icon {
+  height: 24px;
+  margin-top: auto;
+  margin-bottom: auto;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/*kamelet modal*/
+.kamelet-modal-card .pf-c-card__header {
+  padding-right: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.kamelet-modal-card .pf-c-card__title {
+  font-weight: 600;
+}
+.kamelet-modal-card .description {
+  overflow: hidden;
+  position: relative;
+  max-width: 600px;
+}
+
+.kamelet-modal-card .kamelet-icon {
+  height: 36px;
+  margin-top: auto;
+  margin-bottom: auto;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}

@@ -13,6 +13,7 @@ import {KameletApi} from "./api/KameletApi";
 import logo from './logo.svg';
 import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
+import {KameletsPage} from "./kamelets/KameletsPage";
 
 interface Props {
 }
@@ -22,7 +23,7 @@ interface State {
     path: string,
     version: string,
     isNavOpen: boolean,
-    pageId: 'integrations' | 'configuration' | 'designer',
+    pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets'
     integrations: []
 }
 
@@ -86,17 +87,21 @@ export class Main extends React.Component<Props, State> {
 
     pageNav = () => (<Nav onSelect={this.onNavSelect}>
         <NavList>
-            <NavItem id="integrations" to="#integrations" itemId={'integrations'}
+            <NavItem id="integrations" to="#" itemId={'integrations'}
                      isActive={this.state.pageId === 'integrations'}>
                 Integrations
             </NavItem>
-            <NavItem id="configuration" to="#configuration" itemId={"configuration"}
+            <NavItem id="configuration" to="#" itemId={"configuration"}
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
             </NavItem>
-            <NavItem id="configuration" to="#designer" itemId={"designer"}
+            <NavItem id="designer" to="#" itemId={"designer"}
                      isActive={this.state.pageId === 'designer'}>
                 Designer
+            </NavItem>
+            <NavItem id="kamelets" to="#" itemId={"kamelets"}
+                     isActive={this.state.pageId === 'kamelets'}>
+                Kamelets
             </NavItem>
         </NavList>
     </Nav>);
@@ -107,8 +112,9 @@ export class Main extends React.Component<Props, State> {
         return (
             <Page key={this.state.version} className="karavan" header={this.header()} sidebar={this.sidebar()}>
                 {this.state.pageId === 'integrations' && <IntegrationPage/>}
-                {this.state.pageId === 'designer' && <RouteDesignerPage/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
+                {this.state.pageId === 'kamelets' && <KameletsPage/>}
+                {this.state.pageId === 'designer' && <RouteDesignerPage/>}
             </Page>
         );
     }
