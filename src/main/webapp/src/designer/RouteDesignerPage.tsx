@@ -16,6 +16,7 @@ import {Integration, Spec} from "../model/IntegrationModels";
 import {ResourceGenerator} from "../api/ResourceGenerator";
 import {SaveFileModal} from "../modal/SaveFileModal";
 import {MainToolbar} from "../MainToolbar";
+import {KaravanApi} from "../api/KaravanApi";
 
 interface Props {
 }
@@ -91,13 +92,22 @@ export class RouteDesignerPage extends React.Component<Props, State> {
 
     setView = (view: "design" | "code") => {
         this.setState({view: view});
-        // this.props.onChangeView.call(this, view);
+    }
+
+    save = () => {
+        KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
+            if (res.status == 200){
+                console.log(res)
+            } else {
+                console.log(res)
+            }
+        })
     }
 
     tools = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
             <ToolbarItem>
-                <Button>Save</Button>
+                <Button onClick={e => this.save()}>Save</Button>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);

@@ -26,5 +26,15 @@ export const KaravanApi = {
             }).catch(err => {
             console.log(err);
         });
+    },
+
+    postIntegrations: async (name:string, yaml:string, after: (res: AxiosResponse<any>) => void) => {
+        axios.post( '/integration/' + name, yaml,
+            {headers: {'Accept': 'text/plain', 'Content-Type' : 'text/plain'}})
+            .then(res => {
+                    after(res);
+            }).catch(err => {
+                after(err);
+        });
     }
 }
