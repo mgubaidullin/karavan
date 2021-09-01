@@ -111,9 +111,9 @@ export class RouteDesignerPage extends React.Component<Props, State> {
 
     render() {
         return (
-            <PageSection  padding={{ default: 'noPadding' }}>
-                <MainToolbar title="Designer" tools={this.tools(this.state.view)}/>
+            // <PageSection  padding={{ default: 'noPadding' }}>
                 <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
+                    <MainToolbar title="Designer" tools={this.tools(this.state.view)}/>
                     <div className="route-designer">
                         <RouteComponentPanel/>
                         {this.state.view === 'design' &&
@@ -142,7 +142,7 @@ export class RouteDesignerPage extends React.Component<Props, State> {
                     </div>
                     <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
                 </PageSection>
-            </PageSection>
+            // </PageSection>
         );
     }
 };

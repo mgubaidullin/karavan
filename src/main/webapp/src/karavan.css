@@ -94,6 +94,7 @@
 
 .karavan .route-designer-section {
   height: 100%;
+  overflow: hidden;
 }
 
 .route-designer .components {
@@ -335,7 +336,7 @@
   font-size: 13px;
   background: #fcfcfc;
   width: 350px;
-  height: 100%;
+  height: 94%;
   overflow: scroll;
   display: flex;
   flex-direction: column;
