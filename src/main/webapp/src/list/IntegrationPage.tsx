@@ -1,22 +1,17 @@
 import React from 'react';
 import {
-    Title,
     Toolbar,
     ToolbarContent,
     Gallery,
-    FlexItem,
-    Flex,
     ToolbarItem,
     TextInput,
-    PageSidebar,
-    NavItem,
-    NavList,
-    Nav,
     PageSection
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
 import {KaravanApi} from "../api/KaravanApi";
+import {MainToolbar} from "../MainToolbar";
+import { Page } from '@patternfly/react-core/dist/esm/components/Page';
 
 interface Props {
 }
@@ -46,14 +41,26 @@ export class IntegrationPage extends React.Component<Props, State> {
             }));
     }
 
+    tools = () => (<Toolbar id="toolbar-group-types">
+        <ToolbarContent>
+            <ToolbarItem variant="overflow-menu">
+                <TextInput className="text-field" type="search" id="search" name="search"
+                           autoComplete="off" placeholder="Search by name"/>
+            </ToolbarItem>
+        </ToolbarContent>
+    </Toolbar>);
+
     render() {
         return (
-            <PageSection isFilled className="integration-list">
-                <Gallery hasGutter>
-                    {this.state.integrations.map(value => (
-                        <IntegrationCard name={value}/>
-                    ))}
-                </Gallery>
+            <PageSection  padding={{ default: 'noPadding' }}>
+                <MainToolbar title="Integrations" tools={this.tools()}/>
+                <PageSection isFilled className="integration-list">
+                    <Gallery hasGutter>
+                        {this.state.integrations.map(value => (
+                            <IntegrationCard name={value}/>
+                        ))}
+                    </Gallery>
+                </PageSection>
             </PageSection>
         );
     }

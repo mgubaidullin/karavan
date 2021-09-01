@@ -91,6 +91,10 @@
   width: 100%;
 }
 
+.karavan .route-designer-section {
+  height: 100%;
+}
+
 .route-designer .components {
   border-right: 1px solid #eee;
   padding: 10px 10px;

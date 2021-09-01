@@ -47,7 +47,7 @@ export class ConfigurationPage extends React.Component<Props, State> {
 
     render() {
         return (
-            <PageSection isFilled className="integration-list">
+            <PageSection  padding={{ default: 'noPadding' }}>
                 <Gallery hasGutter>
                     {/*{this.state.integrations.map(value => (*/}
                     {/*    // <IntegrationCard name={value}/>*/}

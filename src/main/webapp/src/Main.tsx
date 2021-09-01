@@ -106,25 +106,6 @@ export class Main extends React.Component<Props, State> {
     render() {
         return (
             <Page key={this.state.version} className="karavan" header={this.header()} sidebar={this.sidebar()}>
-                <PageSection className="tools-section" variant={PageSectionVariants.light}>
-                    <Flex className="tools" justifyContent={{default: 'justifyContentSpaceBetween'}}>
-                        <FlexItem>
-                            <TextContent>
-                                <Text component="h1">Integrations</Text>
-                            </TextContent>
-                        </FlexItem>
-                        <FlexItem>
-                            <Toolbar id="toolbar-group-types">
-                                <ToolbarContent>
-                                    <ToolbarItem variant="overflow-menu">
-                                        <TextInput className="text-field" type="search" id="search" name="search"
-                                                   autoComplete="off" placeholder="Search by name"/>
-                                    </ToolbarItem>
-                                </ToolbarContent>
-                            </Toolbar>
-                        </FlexItem>
-                    </Flex>
-                </PageSection>
                 {this.state.pageId === 'integrations' && <IntegrationPage/>}
                 {this.state.pageId === 'designer' && <RouteDesignerPage/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}

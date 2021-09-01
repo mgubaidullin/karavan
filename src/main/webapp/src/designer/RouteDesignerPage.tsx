@@ -1,8 +1,8 @@
 import React from 'react';
 import {
     CodeBlock,
-    CodeBlockCode,
-    PageSection,
+    CodeBlockCode, Flex, Page,
+    PageSection, TextInput, Toolbar, ToolbarContent, ToolbarItem,
 } from '@patternfly/react-core';
 import {RouteBuilder} from "./RouteBuilder";
 import {EmptyStep, RouteStep} from "../model/RouteModels";
@@ -14,6 +14,7 @@ import {RouteStepProperties} from "./RouteStepProperties";
 import {Integration, Spec} from "../model/IntegrationModels";
 import {ResourceGenerator} from "../api/ResourceGenerator";
 import {SaveFileModal} from "../modal/SaveFileModal";
+import {MainToolbar} from "../MainToolbar";
 
 interface Props {
 }
@@ -41,7 +42,7 @@ export class RouteDesignerPage extends React.Component<Props, State> {
 
     updateState = (steps: RouteStep[], current?: RouteStep) => {
         const i = Object.assign({}, this.state.integration);
-        i.spec.flows = steps.length >0 ? steps : [new EmptyStep()];
+        i.spec.flows = steps.length > 0 ? steps : [new EmptyStep()];
         this.setState({integration: i, key: uuidv4(), currentStep: current});
     }
 
@@ -83,41 +84,53 @@ export class RouteDesignerPage extends React.Component<Props, State> {
         this.setState({view: view});
     };
 
-    getCode = ():string => {
+    getCode = (): string => {
         return ResourceGenerator.integrationToYaml(this.state.integration);
     }
 
+    tools = () => (<Toolbar id="toolbar-group-types">
+        <ToolbarContent>
+            <ToolbarItem variant="overflow-menu">
+                <TextInput className="text-field" type="search" id="search" name="search"
+                           autoComplete="off" placeholder="Search by name"/>
+            </ToolbarItem>
+        </ToolbarContent>
+    </Toolbar>);
+
     render() {
         return (
-            <PageSection className="route-designer-section" isFilled padding={{ default: 'noPadding' }}>
-                <div className="route-designer">
-                    <RouteComponentPanel/>
-                    {this.state.view === 'design' &&
-                    <div className="route-root" onClick={event => this.unselectSteps()}>
-                        <RouteBuilder key={this.state.key}
-                                      parentAddFunction={this.addStep}
-                                      parentDeleteFunction={this.deleteStep}
-                                      parentAddChildFunction={this.addChild}
-                                      parentSelectFunction={this.selectStep}
-                                      isRoot
-                                      steps={this.state.integration.spec.flows}
-                                      display={"block"}/>
+            <PageSection  padding={{ default: 'noPadding' }}>
+                <MainToolbar title="Integrations" tools={this.tools()}/>
+                <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
+                    <div className="route-designer">
+                        <RouteComponentPanel/>
+                        {this.state.view === 'design' &&
+                        <div className="route-root" onClick={event => this.unselectSteps()}>
+                            <RouteBuilder key={this.state.key}
+                                          parentAddFunction={this.addStep}
+                                          parentDeleteFunction={this.deleteStep}
+                                          parentAddChildFunction={this.addChild}
+                                          parentSelectFunction={this.selectStep}
+                                          isRoot
+                                          steps={this.state.integration.spec.flows}
+                                          display={"block"}/>
+                        </div>
+                        }
+                        {this.state.view === 'code' && <CodeBlock className="route-code">
+                            <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
+                        </CodeBlock>
+                        }
+                        <RouteStepProperties
+                            integration={this.state.integration}
+                            step={this.state.currentStep}
+                            onIntegrationUpdate={this.updateIntegration}
+                            onStepUpdate={this.updateStep}
+                            view={this.state.view}
+                            onChangeView={this.changeView}
+                        />
                     </div>
-                    }
-                    {this.state.view === 'code' && <CodeBlock className="route-code">
-                        <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
-                    </CodeBlock>
-                    }
-                    <RouteStepProperties
-                        integration={this.state.integration}
-                        step={this.state.currentStep}
-                        onIntegrationUpdate={this.updateIntegration}
-                        onStepUpdate={this.updateStep}
-                        view={this.state.view}
-                        onChangeView={this.changeView}
-                    />
-                </div>
-                <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
+                    <SaveFileModal isOpen={this.state.saveWindowOpen} integration={this.state.integration}/>
+                </PageSection>
             </PageSection>
         );
     }
