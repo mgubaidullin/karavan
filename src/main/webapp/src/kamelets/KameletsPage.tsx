@@ -43,7 +43,6 @@ export class KameletsPage extends React.Component<Props, State> {
     }
 
     select = (k: Kamelet)=> {
-        console.log(k)
         this.setState({kamelet: k, isModalOpen: true})
     }
 

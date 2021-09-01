@@ -91,6 +91,10 @@ export class Main extends React.Component<Props, State> {
                      isActive={this.state.pageId === 'integrations'}>
                 Integrations
             </NavItem>
+            <NavItem id="kamelets" to="#" itemId={"kamelets"}
+                     isActive={this.state.pageId === 'kamelets'}>
+                Kamelets
+            </NavItem>
             <NavItem id="configuration" to="#" itemId={"configuration"}
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
@@ -98,10 +102,6 @@ export class Main extends React.Component<Props, State> {
             <NavItem id="designer" to="#" itemId={"designer"}
                      isActive={this.state.pageId === 'designer'}>
                 Designer
-            </NavItem>
-            <NavItem id="kamelets" to="#" itemId={"kamelets"}
-                     isActive={this.state.pageId === 'kamelets'}>
-                Kamelets
             </NavItem>
         </NavList>
     </Nav>);

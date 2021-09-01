@@ -5,9 +5,11 @@ import {
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
 import {RouteStepApi} from "../api/RouteStepApi";
+import {RouteStep} from "../model/RouteModels";
 
 interface Props {
     name: string,
+    onClick: any
 }
 
 interface State {
@@ -25,26 +27,13 @@ export class IntegrationCard extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        // KaravanApi.getConfiguration((config: any) =>
-        //     this.setState({
-        //         version: config?.['karavan.version'],
-        //         path: config?.['karavan.git.path'],
-        //         repository: config?.['karavan.git.uri']
-        //     }));
-        //
-        // KaravanApi.getIntegrations((integrations: []) =>
-        //     this.setState({
-        //         integrations: integrations
-        //     }));
     }
-
-
 
     render() {
         return (
-            <Card isHoverable isCompact key={this.state.name} className="integration-card">
+            <Card isHoverable isCompact key={this.state.name} className="integration-card" onClick={event => this.props.onClick.call(this, this.state.name)}>
                 <CardHeader>
-                    {/*<img src={icons[product.icon]} alt={`${product.name} icon`} style={{ maxWidth: '60px' }} />*/}
+                    <img src={new RouteStep().icon} alt='icon' className="icon"/>
                     <CardActions>
                         <Button variant="link" className="delete-button"><DeleteIcon/></Button>
                     </CardActions>

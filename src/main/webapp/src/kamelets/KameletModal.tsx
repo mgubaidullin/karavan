@@ -52,6 +52,7 @@ export class KameletModal extends Component<Props, State> {
     render() {
         return (
             <Modal
+                aria-label={"Kamelet"}
                 width={'fit-content'}
                 maxLength={200}
                 title={this.state.kamelet?.spec.definition.title}
@@ -99,15 +100,6 @@ export class KameletModal extends Component<Props, State> {
                             ))}
                         </Tbody>
                     </TableComposable>
-                    {/*<CardFooter>*/}
-                    {/*    {this.state.kamelet.spec.definition.properties.map((p: Property) =>(*/}
-                    {/*        <FormGroup label={p.title} fieldId="name" >*/}
-                    {/*            <TextInput className="text-field" type="text" id="name" name="name" isReadOnly*/}
-                    {/*                       value={this.state.integration.metadata.name}*/}
-                    {/*                       onChange={e => this.onIntegrationChange('name', e)}/>*/}
-                    {/*        </FormGroup>*/}
-                    {/*    ))}*/}
-                    {/*</CardFooter>*/}
                 </Flex>
             </Modal>
         );

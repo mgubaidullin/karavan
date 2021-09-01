@@ -12,6 +12,8 @@ import {IntegrationCard} from "./IntegrationCard";
 import {KaravanApi} from "../api/KaravanApi";
 import {MainToolbar} from "../MainToolbar";
 import { Page } from '@patternfly/react-core/dist/esm/components/Page';
+import {Kamelet} from "../model/KameletModels";
+import {Integration} from "../model/IntegrationModels";
 
 interface Props {
 }
@@ -41,6 +43,11 @@ export class IntegrationPage extends React.Component<Props, State> {
             }));
     }
 
+    onSelect = (name: string) => {
+        console.log(name)
+        // this.setState({kamelet: k, isModalOpen: true})
+    }
+
     tools = () => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
             <ToolbarItem>
@@ -58,10 +65,10 @@ export class IntegrationPage extends React.Component<Props, State> {
         return (
             <PageSection  padding={{ default: 'noPadding' }}>
                 <MainToolbar title={this.title()} tools={this.tools()}/>
-                <PageSection isFilled className="integration-list">
+                <PageSection isFilled className="integration-page">
                     <Gallery hasGutter>
                         {this.state.integrations.map(value => (
-                            <IntegrationCard name={value}/>
+                            <IntegrationCard key={value} name={value} onClick={this.onSelect}/>
                         ))}
                     </Gallery>
                 </PageSection>

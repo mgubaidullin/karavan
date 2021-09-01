@@ -65,11 +65,19 @@
 }
 
 
-/*integration list*/
-.integration-list .integration-card .pf-c-card__header {
+/*integration page*/
+.integration-page .integration-card {
+  cursor: pointer;
+  height: 160px;
+}
+
+.integration-page .integration-card .pf-c-card__header {
   padding-right: 6px;
 }
-.integration-list .integration-card .delete-button {
+.integration-page .integration-card .icon {
+  height: 24px;
+}
+.integration-page .integration-card .delete-button {
   font-size: 17px;
   line-height: 1;
   border: 0;
@@ -80,7 +88,7 @@
   visibility: hidden;
 }
 
-.integration-list .integration-card:hover .delete-button {
+.integration-page .integration-card:hover .delete-button {
   visibility: visible;;
 }
 
