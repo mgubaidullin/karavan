@@ -1,13 +1,11 @@
 package org.apache.camel.karavan;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.nio.file.Paths;
 import java.util.List;
@@ -42,5 +40,16 @@ public class IntegrationResource {
     @Path("/{name}")
     public String getYaml(@PathParam("name") String name) {
         return vertx.fileSystem().readFileBlocking(Paths.get(folder, path, name).toString()).toString();
+    }
+
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/{name}")
+    public String postYaml(@PathParam("name") String name, String yaml) {
+        System.out.println(name);
+        System.out.println(yaml);
+        vertx.fileSystem().writeFileBlocking(Paths.get(folder, path, name).toString(), Buffer.buffer(yaml));
+        return yaml;
     }
 }
