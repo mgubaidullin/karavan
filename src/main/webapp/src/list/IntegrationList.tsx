@@ -48,7 +48,7 @@ export class IntegrationList extends React.Component<Props, State> {
 
     render() {
         return (
-            <PageSection isFilled>
+            <PageSection isFilled className="integration-list">
                 <Gallery hasGutter>
                     {this.state.integrations.map(value => (
                         <IntegrationCard name={value}/>

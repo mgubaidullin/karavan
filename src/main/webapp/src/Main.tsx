@@ -6,10 +6,12 @@ import {
     PageSectionVariants, TextContent, Text,
     Toolbar, ToolbarContent, Gallery, FlexItem, Flex, ToolbarItem, TextInput, PageSidebar, NavItem, NavList, Nav
 } from '@patternfly/react-core';
-import logo from './logo.svg';
-import './karavan.css';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationList} from "./list/IntegrationList";
+import {RouteDesigner} from "./designer/RouteDesigner";
+import {KameletApi} from "./api/KameletApi";
+import logo from './logo.svg';
+import './karavan.css';
 
 interface Props {
 }
@@ -19,7 +21,7 @@ interface State {
     path: string,
     version: string,
     isNavOpen: boolean,
-    activeItem: 'integrations' | 'configuration',
+    pageId: 'integrations' | 'configuration' | 'designer',
     integrations: []
 }
 
@@ -33,8 +35,8 @@ export class Main extends React.Component<Props, State> {
         repository: '',
         path: '',
         version: '',
-        isNavOpen: false,
-        activeItem: 'integrations',
+        isNavOpen: true,
+        pageId: "integrations",
         integrations: []
     };
 
@@ -45,11 +47,12 @@ export class Main extends React.Component<Props, State> {
                 path: config?.['karavan.git.path'],
                 repository: config?.['karavan.git.uri']
             }));
-
         KaravanApi.getIntegrations((integrations: []) =>
             this.setState({
                 integrations: integrations
             }));
+
+        KameletApi.prepareKamelets();
     }
 
     onNavToggle = () => {
@@ -60,7 +63,7 @@ export class Main extends React.Component<Props, State> {
 
     onNavSelect = (result: any) => {
         this.setState({
-            activeItem: result.itemId
+            pageId: result.itemId
         });
     };
 
@@ -81,10 +84,12 @@ export class Main extends React.Component<Props, State> {
 
     pageNav = () => (<Nav onSelect={this.onNavSelect}>
         <NavList>
-            <NavItem id="integrations" to="#integrations" itemId={'integrations'} isActive={this.state.activeItem === 'integrations'}>
+            <NavItem id="integrations" to="#integrations" itemId={'integrations'}
+                     isActive={this.state.pageId === 'integrations'}>
                 Integrations
             </NavItem>
-            <NavItem id="configuration" to="#configuration" itemId={"configuration"} isActive={this.state.activeItem === 'configuration'}>
+            <NavItem id="configuration" to="#configuration" itemId={"configuration"}
+                     isActive={this.state.pageId === 'configuration'}>
                 Configuration
             </NavItem>
         </NavList>
@@ -114,9 +119,9 @@ export class Main extends React.Component<Props, State> {
                         </FlexItem>
                     </Flex>
                 </PageSection>
-                <PageSection isFilled>
-                    <IntegrationList/>
-                </PageSection>
+                {this.state.pageId === 'integrations' && <IntegrationList/>}
+                {this.state.pageId === 'designer' && <RouteDesigner/>}
+                {this.state.pageId === 'configuration' && <IntegrationList/>}
             </Page>
         );
     }

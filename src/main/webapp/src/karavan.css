@@ -63,6 +63,25 @@
 }
 
 
+/*integration list*/
+.integration-list .integration-card .pf-c-card__header {
+  padding-right: 6px;
+}
+.integration-list .integration-card .delete-button {
+  font-size: 17px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #b1b1b7;
+  visibility: hidden;
+}
+
+.integration-list .integration-card:hover .delete-button {
+  visibility: visible;;
+}
+
 /*route-designer*/
 
 .route-designer {
