@@ -11,7 +11,7 @@ import {RouteStepApi} from "../api/RouteStepApi";
 import {v4 as uuidv4} from "uuid";
 import '../karavan.css';
 import {RouteStepProperties} from "./RouteStepProperties";
-import {Integration, Spec} from "../model/IntegrationModels";
+import {Integration} from "../model/IntegrationModels";
 import {ResourceGenerator} from "../api/ResourceGenerator";
 import {MainToolbar} from "../MainToolbar";
 import {KaravanApi} from "../api/KaravanApi";

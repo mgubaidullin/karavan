@@ -13,7 +13,7 @@ import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
 import {IntegrationGenerator} from "./api/IntegrationGenerator";
-import {Integration, Spec} from "./model/IntegrationModels";
+import {Integration} from "./model/IntegrationModels";
 
 interface Props {
 }

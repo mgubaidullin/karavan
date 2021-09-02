@@ -13,6 +13,18 @@ import {Kamelet, Property} from "../model/KameletModels";
 
 export class RouteStepApi {
 
+    static addEmptyStepsIfRequired = (steps: RouteStep[], parent?: RouteStep): RouteStep[] => {
+        const result: RouteStep[] = [];
+        steps.forEach(s => {
+            s.steps = RouteStepApi.addEmptyStepsIfRequired(s.steps, s);
+            result.push(s);
+        })
+        if (parent && ['from', 'to', 'when', 'otherwise', 'filter'].includes(parent.type) && result[result.length-1].type !== 'empty'){
+            result.push(new EmptyStep())
+        }
+        return result;
+    }
+
     static selectStep = (steps: RouteStep[], step: RouteStep): RouteStep[] => {
         const result: RouteStep[] = [];
         steps.forEach(s => {
