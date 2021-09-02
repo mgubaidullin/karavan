@@ -105,12 +105,11 @@ export class Main extends React.Component<Props, State> {
     sidebar = () => (<PageSidebar nav={this.pageNav()} isNavOpen={this.state.isNavOpen}/>);
 
     onIntegrationSelect = (name: string) => {
-        console.log("select " + name)
         KaravanApi.getIntegration(name, res => {
             if (res.status === 200){
                 const code: string = res.data;
                 const i = IntegrationGenerator.yamlToIntegration(code);
-                this.setState({isNavOpen: false, pageId: 'designer', integration: i});
+                this.setState({isNavOpen: true, pageId: 'designer', integration: i});
             } else {
                 console.log(res);
             }
@@ -118,10 +117,9 @@ export class Main extends React.Component<Props, State> {
     };
 
     onIntegrationCreate = () => {
-        console.log("onIntegrationCreate")
         this.setState({isNavOpen: false, pageId: 'designer'});
         const i = Integration.createNew();
-        this.setState({isNavOpen: false, pageId: 'designer', integration: i});
+        this.setState({isNavOpen: true, pageId: 'designer', integration: i});
     };
 
     render() {
