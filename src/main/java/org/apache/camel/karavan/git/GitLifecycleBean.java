@@ -16,14 +16,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @ApplicationScoped
-
 public class GitLifecycleBean {
 
     @ConfigProperty(name = "karavan.folder")
     String folder;
-
-    @ConfigProperty(name = "karavan.git.uri")
-    String uri;
 
     @Inject
     Vertx vertx;
@@ -32,15 +28,15 @@ public class GitLifecycleBean {
 
     void onStart(@Observes StartupEvent ev) throws IOException, GitAPIException {
         LOGGER.info("The application is starting...");
-        File dir = Paths.get(folder).toFile();
-
-        if (vertx.fileSystem().existsBlocking(folder)){
-            vertx.fileSystem().deleteRecursiveBlocking(folder, true);
-        }
-        Files.createDirectory(dir.toPath());
-
-        try (Git git = Git.cloneRepository().setDirectory(dir).setURI(uri).call()) {
-            System.out.println(git.status().call());
-        }
+//        File dir = Paths.get(folder).toFile();
+//
+//        if (vertx.fileSystem().existsBlocking(folder)){
+//            vertx.fileSystem().deleteRecursiveBlocking(folder, true);
+//        }
+//        Files.createDirectory(dir.toPath());
+//
+//        try (Git git = Git.cloneRepository().setDirectory(dir).setURI(uri).call()) {
+//            System.out.println(git.status().call());
+//        }
     }
 }

@@ -17,7 +17,7 @@ public class IntegrationResource {
     @ConfigProperty(name = "karavan.folder")
     String folder;
 
-    @ConfigProperty(name = "karavan.git.path")
+    @ConfigProperty(name = "karavan.path")
     String path;
 
     @Inject
@@ -47,8 +47,6 @@ public class IntegrationResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{name}")
     public String postYaml(@PathParam("name") String name, String yaml) {
-        System.out.println(name);
-        System.out.println(yaml);
         vertx.fileSystem().writeFileBlocking(Paths.get(folder, path, name).toString(), Buffer.buffer(yaml));
         return yaml;
     }
