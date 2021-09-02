@@ -62,7 +62,7 @@ const RouteComponentPanel = () => {
     <div className="components" key="components">
       <Title headingLevel="h1" size="md">Components</Title>
       <TextInput className="text-field" type="search" id="search" name="search" value={filter.filter || ''} onChange={search} autoComplete="off" placeholder="Search by name" />
-        <Accordion asDefinitionList={false} style={{height:"87%", background: "transparent"}}>
+        <Accordion asDefinitionList={false} style={{height:"86%", background: "transparent"}}>
           {['source', 'action', 'sink'].map(x =>
               <AccordionItem key={x}>
                 <AccordionToggle
