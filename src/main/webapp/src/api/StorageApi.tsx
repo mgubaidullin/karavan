@@ -1,6 +1,5 @@
 import {ConfigOpenshift} from "../model/ConfigModels";
 
-const STORAGE_GITHUB_CONFIG: string = "STORAGE_GITHUB_CONFIG";
 const STORAGE_OPENSHIFT_CONFIG: string = "STORAGE_OPENSHIFT_CONFIG";
 
 const storage: Storage = window.localStorage;

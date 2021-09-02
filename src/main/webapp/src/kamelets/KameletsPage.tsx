@@ -5,7 +5,7 @@ import {
     Gallery,
     ToolbarItem,
     TextInput,
-    PageSection, TextContent, Text, ToggleGroup, ToggleGroupItem
+    PageSection, TextContent, Text
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {KameletCard} from "./KameletCard";
@@ -26,10 +26,6 @@ interface State {
 }
 
 export class KameletsPage extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         isModalOpen: false,

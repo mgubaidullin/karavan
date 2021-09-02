@@ -18,10 +18,6 @@ interface State {
 
 export class IntegrationCard extends React.Component<Props, State> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     public state: State = {
         name: this.props.name
     };

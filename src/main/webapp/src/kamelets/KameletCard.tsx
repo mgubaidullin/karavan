@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    CardHeader, Card, CardTitle, CardBody, Button, CardActions, CardFooter,Badge
+    CardHeader, Card, CardTitle, CardBody, CardActions, CardFooter,Badge
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {RouteStepApi} from "../api/RouteStepApi";
@@ -16,10 +16,6 @@ interface State {
 }
 
 export class KameletCard extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         kamelet: this.props.kamelet

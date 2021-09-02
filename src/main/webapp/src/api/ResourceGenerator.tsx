@@ -1,7 +1,7 @@
 import * as yaml from 'js-yaml';
 import {Integration} from "../model/IntegrationModels";
 import {RouteStepApi} from "./RouteStepApi";
-import {ChoiceStep, ComponentStep, ExpressionStep, FromStep, RouteStep, ToStep} from "../model/RouteModels";
+import {ChoiceStep, ComponentStep, ExpressionStep, RouteStep} from "../model/RouteModels";
 
 export class ResourceGenerator {
 

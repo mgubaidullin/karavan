@@ -6,13 +6,12 @@ import {
     Text,
     CardHeader,
     CardActions,
-    Badge, Flex, List, CardTitle,
+    Badge, Flex, CardTitle,
 } from '@patternfly/react-core';
 import {Subscription} from 'rxjs';
 import '../karavan.css';
 import {Kamelet, Property} from "../model/KameletModels";
-import {Caption, TableComposable, Tbody, Td, Th, Thead, Tr} from "@patternfly/react-table";
-import {RouteStepApi} from "../api/RouteStepApi";
+import {TableComposable, Tbody, Td, Th, Thead, Tr} from "@patternfly/react-table";
 
 interface Props {
     kamelet?: Kamelet,

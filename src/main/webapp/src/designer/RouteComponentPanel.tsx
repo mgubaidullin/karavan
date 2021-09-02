@@ -7,7 +7,6 @@ import {
 } from '@patternfly/react-core';
 import { Kamelet } from "../model/KameletModels";
 import { Kamelets } from "../api/KameletApi";
-import { EventBus, KaravanEvent } from "../api/EventBus";
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
 import {RouteStepApi} from "../api/RouteStepApi";
@@ -31,9 +30,9 @@ const RouteComponentPanel = () => {
   const [filter, setFilter] = useState<Filter>(new Filter({ group: '' }));
   const [filtered, setFiltered] = useState<Kamelet[]>([]);
 
-  const selectGroup = (isSelected: any, event: any) => {
-    setFilter(new Filter({ filter: filter.filter, group: event.currentTarget.id }));
-  };
+  // const selectGroup = (isSelected: any, event: any) => {
+  //   setFilter(new Filter({ filter: filter.filter, group: event.currentTarget.id }));
+  // };
   const search = (event: string) => {
     setFilter(new Filter({ filter: event, group: filter.group }));
   };

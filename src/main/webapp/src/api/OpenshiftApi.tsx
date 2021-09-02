@@ -1,4 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
 import {ConfigOpenshift} from "../model/ConfigModels";
 import {StorageApi} from "./StorageApi";
 

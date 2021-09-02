@@ -2,9 +2,7 @@ import React from 'react';
 import {
     Brand,
     Page,
-    PageHeader, PageSection,
-    PageSectionVariants, TextContent, Text,
-    Toolbar, ToolbarContent, Gallery, FlexItem, Flex, ToolbarItem, TextInput, PageSidebar, NavItem, NavList, Nav
+    PageHeader, PageSidebar, NavItem, NavList, Nav
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationPage} from "./integrations/IntegrationPage";
@@ -14,6 +12,7 @@ import logo from './logo.svg';
 import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
+import {IntegrationGenerator} from "./api/IntegrationGenerator";
 
 interface Props {
 }
@@ -29,10 +28,6 @@ interface State {
 
 export class Main extends React.Component<Props, State> {
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     public state: State = {
         repository: '',
         path: '',
@@ -43,6 +38,8 @@ export class Main extends React.Component<Props, State> {
     };
 
     componentDidMount() {
+
+        IntegrationGenerator.yamlToIntegration("");
         KaravanApi.getConfiguration((config: any) =>
             this.setState({
                 version: config?.['karavan.version'],

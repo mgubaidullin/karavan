@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    PageSectionVariants, TextContent, Text, Flex, PageSection, FlexItem
+    PageSectionVariants, Flex, PageSection, FlexItem
 } from '@patternfly/react-core';
 import './karavan.css';
 
@@ -15,10 +15,6 @@ interface State {
 }
 
 export class MainToolbar extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         title: this.props.title,

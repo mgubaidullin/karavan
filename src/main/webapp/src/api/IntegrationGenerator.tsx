@@ -3,53 +3,74 @@ import {Integration} from "../model/IntegrationModels";
 import {RouteStepApi} from "./RouteStepApi";
 import {ChoiceStep, ComponentStep, ExpressionStep, FromStep, RouteStep, ToStep} from "../model/RouteModels";
 
-export class ResourceGenerator {
+const x:string = "apiVersion: camel.apache.org/v1\n" +
+    "kind: Integration\n" +
+    "metadata:\n" +
+    "  name: demo-timer\n" +
+    "spec:\n" +
+    "  flows:\n" +
+    "    - from:\n" +
+    "        uri: kamelet:timer-source\n" +
+    "        parameters:\n" +
+    "          payload: \"Hello World\"\n" +
+    "        steps:\n" +
+    "          - log: \"${body}\""
 
-    static integrationToYaml = (integration: Integration): string => {
-        const i = ResourceGenerator.integrationToObj(integration);
-        const text = yaml.dump(i);
-        return text;
+
+export class IntegrationGenerator {
+
+    static yamlToIntegration = (code: String): string => {
+        const obj:any = yaml.load(x);
+        const i:Integration = IntegrationGenerator.objToIntegration(obj)
+        console.log("----");
+        console.log(obj);
+        console.log(i);
+        return 'text';
     }
 
-    static integrationToObj = (integration: Integration): {} => {
-        const i = JSON.parse(JSON.stringify(integration, null, 3)); // fix undefined in string attributes
-        const steps = RouteStepApi.deleteEmptySteps(i.spec.flows);
-        i.spec.flows = ResourceGenerator.convertStepsToObjects(steps);
+    static objToIntegration = (obj: any): Integration => {
+        const i = new Integration(obj);
+        i.spec.flows = IntegrationGenerator.convertObjectsToSteps(i.spec.flows);
         return i;
     }
 
+    static convertObjectsToSteps = (steps: any[]): RouteStep[] => {
+        const result: RouteStep[] = [];
+
+        return result;
+    }
     static convertStepsToObjects = (steps: RouteStep[]): any[] => {
         const result: any[] = [];
         steps.forEach(s => {
             switch (s.type) {
                 case "from":
-                    const fromSteps: any[] = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const from: any = ResourceGenerator.componentStepToObj(s as ComponentStep, s.type, fromSteps);
+                    const fromSteps: any[] = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const from: any = IntegrationGenerator.componentStepToObj(s as ComponentStep, s.type, fromSteps);
                     result.push(from);
                     break;
                 case "to":
-                    const toSteps: any[] = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const to: any = ResourceGenerator.componentStepToObj(s as ComponentStep, s.type, toSteps);
+                    const toSteps: any[] = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const to: any = IntegrationGenerator.componentStepToObj(s as ComponentStep, s.type, toSteps);
                     result.push(to);
                     break;
                 case "choice":
-                    const choiceSteps = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const choice: any = ResourceGenerator.choiceStepToObj(s as ChoiceStep, s.type, choiceSteps);
+                    const choiceSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const choice: any = IntegrationGenerator.choiceStepToObj(s as ChoiceStep, s.type, choiceSteps);
                     result.push(choice);
                     break;
                 case "filter":
-                    const filterSteps = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const filter: any = ResourceGenerator.expressionStepToObj(s as ExpressionStep, s.type, filterSteps);
+                    const filterSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const filter: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, filterSteps);
                     result.push(filter);
                     break;
                 case "when":
-                    const whenSteps = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const when: any = ResourceGenerator.expressionStepToObj(s as ExpressionStep, s.type, whenSteps);
+                    const whenSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const when: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, whenSteps);
                     result.push(when);
                     break;
                 case "otherwise":
-                    const otherwiseSteps = ResourceGenerator.convertStepsToObjects(s.steps);
-                    const otherwise: any = ResourceGenerator.expressionStepToObj(s as ExpressionStep, s.type, otherwiseSteps);
+                    const otherwiseSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
+                    const otherwise: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, otherwiseSteps);
                     result.push(otherwise);
                     break;
             }

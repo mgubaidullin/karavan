@@ -1,4 +1,4 @@
-import React, {useState, useEffect, FC} from 'react';
+import React from 'react';
 import {
     Form,
     FormGroup,
@@ -8,11 +8,11 @@ import {
     Switch,
     NumberInput,
     Button,
-    CodeBlockCode, CodeBlock, TextArea, Tooltip, ToggleGroupItem, ToggleGroup
+    TextArea, Tooltip
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
-import {ComponentStep, EmptyStep, ExpressionStep, OtherwiseStep, RouteStep, WhenStep} from "../model/RouteModels";
+import {ComponentStep, ExpressionStep, OtherwiseStep, RouteStep, WhenStep} from "../model/RouteModels";
 import {RouteStepApi} from "../api/RouteStepApi";
 import {Integration} from "../model/IntegrationModels";
 import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";

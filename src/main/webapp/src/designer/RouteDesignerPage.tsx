@@ -2,8 +2,7 @@ import React from 'react';
 import {
     Button,
     CodeBlock,
-    CodeBlockCode, Flex, Page,
-    PageSection, Text, TextContent, TextInput, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem,
+    CodeBlockCode, PageSection, Text, TextContent, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem,
 } from '@patternfly/react-core';
 import {RouteBuilder} from "./RouteBuilder";
 import {EmptyStep, RouteStep} from "../model/RouteModels";
@@ -30,10 +29,6 @@ interface State {
 }
 
 export class RouteDesignerPage extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         integration: new Integration({spec: new Spec({flows: [new EmptyStep()]})}),
@@ -96,7 +91,7 @@ export class RouteDesignerPage extends React.Component<Props, State> {
 
     save = () => {
         KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
-            if (res.status == 200){
+            if (res.status === 200){
                 console.log(res)
             } else {
                 console.log(res)

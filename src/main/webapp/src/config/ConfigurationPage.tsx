@@ -1,17 +1,6 @@
 import React from 'react';
 import {
-    Title,
-    Toolbar,
-    ToolbarContent,
     Gallery,
-    FlexItem,
-    Flex,
-    ToolbarItem,
-    TextInput,
-    PageSidebar,
-    NavItem,
-    NavList,
-    Nav,
     PageSection
 } from '@patternfly/react-core';
 import '../karavan.css';
@@ -27,10 +16,6 @@ interface State {
 }
 
 export class ConfigurationPage extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         repository: '',

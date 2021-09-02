@@ -1,6 +1,4 @@
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {ConfigOpenshift} from "../model/ConfigModels";
-import {StorageApi} from "./StorageApi";
+import axios, { AxiosResponse} from "axios";
 
 export const KaravanApi = {
 

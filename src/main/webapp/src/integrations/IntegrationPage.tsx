@@ -8,22 +8,12 @@ import {
     PageSection,
     TextContent,
     Text,
-    ToggleGroup,
-    ToggleGroupItem,
-    CardHeader,
-    CardActions,
-    Button,
-    CardTitle,
-    CardBody,
-    Card
+    Button
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
 import {KaravanApi} from "../api/KaravanApi";
 import {MainToolbar} from "../MainToolbar";
-import {RouteStep} from "../model/RouteModels";
-import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
-import {RouteStepApi} from "../api/RouteStepApi";
 
 interface Props {
     onSelect:any
@@ -37,10 +27,6 @@ interface State {
 }
 
 export class IntegrationPage extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-    }
 
     public state: State = {
         repository: '',
