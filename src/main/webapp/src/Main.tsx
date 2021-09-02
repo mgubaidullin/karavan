@@ -38,8 +38,6 @@ export class Main extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-
-        IntegrationGenerator.yamlToIntegration("");
         KaravanApi.getConfiguration((config: any) =>
             this.setState({
                 version: config?.['karavan.version'],

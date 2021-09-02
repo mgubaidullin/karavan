@@ -1,4 +1,4 @@
-import {Kamelet} from "../model/KameletModels";
+import {Kamelet, Property} from "../model/KameletModels";
 import {EventBus, KaravanEvent} from "./EventBus";
 import * as yaml from 'js-yaml';
 import axios from "axios";
@@ -8,7 +8,30 @@ export const Kamelets: Kamelet[] = [];
 
 export const KameletApi = {
 
-    getKamelets:():Kamelet[] => {
+    getKameletProperties: (kameletName: string): Property[] => {
+        const kamelet: Kamelet = KameletApi.findKameletByName(kameletName);
+        const properties: Property[] = [];
+        try {
+            const map: Map<string, any> = kamelet.spec.definition.properties ? new Map(Object.entries(kamelet.spec.definition.properties)) : new Map();
+            map.forEach((value, key, map) => {
+                const prop = new Property();
+                prop.id = key;
+                prop.title = value.title;
+                prop.default = value.default;
+                prop.description = value.description;
+                prop.format = value.format;
+                prop.example = value.example;
+                prop.type = value.type;
+                if (value.default) prop.value = value.default
+                prop["x-descriptors"] = value["x-descriptors"];
+                properties.push(prop);
+            })
+        } finally {
+            return properties;
+        }
+    },
+
+    getKamelets: (): Kamelet[] => {
         return Kamelets;
     },
 

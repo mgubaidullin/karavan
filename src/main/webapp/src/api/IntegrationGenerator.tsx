@@ -1,121 +1,101 @@
 import * as yaml from 'js-yaml';
 import {Integration} from "../model/IntegrationModels";
-import {RouteStepApi} from "./RouteStepApi";
-import {ChoiceStep, ComponentStep, ExpressionStep, FromStep, RouteStep, ToStep} from "../model/RouteModels";
-
-const x:string = "apiVersion: camel.apache.org/v1\n" +
-    "kind: Integration\n" +
-    "metadata:\n" +
-    "  name: demo-timer\n" +
-    "spec:\n" +
-    "  flows:\n" +
-    "    - from:\n" +
-    "        uri: kamelet:timer-source\n" +
-    "        parameters:\n" +
-    "          payload: \"Hello World\"\n" +
-    "        steps:\n" +
-    "          - log: \"${body}\""
+import {
+    ChoiceStep,
+    ComponentStep,
+    ExpressionStep, FilterStep,
+    FromStep,
+    OtherwiseStep,
+    RouteStep,
+    ToStep, WhenStep
+} from "../model/RouteModels";
+import {Property} from "../model/KameletModels";
+import {KameletApi} from "./KameletApi";
 
 
 export class IntegrationGenerator {
 
-    static yamlToIntegration = (code: String): string => {
-        const obj:any = yaml.load(x);
+    static yamlToIntegration = (code: string): Integration => {
+        const obj:any = yaml.load(code);
         const i:Integration = IntegrationGenerator.objToIntegration(obj)
-        console.log("----");
-        console.log(obj);
-        console.log(i);
-        return 'text';
+        return i;
     }
 
     static objToIntegration = (obj: any): Integration => {
         const i = new Integration(obj);
-        i.spec.flows = IntegrationGenerator.convertObjectsToSteps(i.spec.flows);
+            i.spec.flows = IntegrationGenerator.convertObjectsToSteps(i.spec.flows);
         return i;
     }
 
     static convertObjectsToSteps = (steps: any[]): RouteStep[] => {
         const result: RouteStep[] = [];
-
-        return result;
-    }
-    static convertStepsToObjects = (steps: RouteStep[]): any[] => {
-        const result: any[] = [];
-        steps.forEach(s => {
-            switch (s.type) {
-                case "from":
-                    const fromSteps: any[] = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const from: any = IntegrationGenerator.componentStepToObj(s as ComponentStep, s.type, fromSteps);
-                    result.push(from);
-                    break;
-                case "to":
-                    const toSteps: any[] = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const to: any = IntegrationGenerator.componentStepToObj(s as ComponentStep, s.type, toSteps);
-                    result.push(to);
-                    break;
-                case "choice":
-                    const choiceSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const choice: any = IntegrationGenerator.choiceStepToObj(s as ChoiceStep, s.type, choiceSteps);
-                    result.push(choice);
-                    break;
-                case "filter":
-                    const filterSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const filter: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, filterSteps);
-                    result.push(filter);
-                    break;
-                case "when":
-                    const whenSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const when: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, whenSteps);
-                    result.push(when);
-                    break;
-                case "otherwise":
-                    const otherwiseSteps = IntegrationGenerator.convertStepsToObjects(s.steps);
-                    const otherwise: any = IntegrationGenerator.expressionStepToObj(s as ExpressionStep, s.type, otherwiseSteps);
-                    result.push(otherwise);
-                    break;
+        steps?.forEach(s => {
+            if (s.hasOwnProperty('from')){
+                const fromSteps: RouteStep[] = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const from: FromStep = IntegrationGenerator.objToComponentStep(s['from'], 'from', fromSteps);
+                result.push(from);
+            } else if (s.hasOwnProperty('to')){
+                const toSteps: RouteStep[] = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const to: ToStep = IntegrationGenerator.objToComponentStep(s['to'], 'to', toSteps);
+                result.push(to);
+            } else if (s.hasOwnProperty('choice')){
+                const choiceSteps = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const choice: any = IntegrationGenerator.objToChoiceStep(s as ChoiceStep, s.type, choiceSteps);
+                result.push(choice);
+            } else if (s.hasOwnProperty('filter')){
+                const filterSteps = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const filter: any = IntegrationGenerator.objToExpressionStep(s as ExpressionStep, s.type, filterSteps);
+                result.push(filter);
+            } else if (s.hasOwnProperty('when')){
+                const whenSteps = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const when: any = IntegrationGenerator.objToExpressionStep(s as ExpressionStep, s.type, whenSteps);
+                result.push(when);
+            } else if (s.hasOwnProperty('otherwise')){
+                const otherwiseSteps = IntegrationGenerator.convertObjectsToSteps(s.steps);
+                const otherwise: any = IntegrationGenerator.objToExpressionStep(s as ExpressionStep, s.type, otherwiseSteps);
+                result.push(otherwise);
             }
-        })
+        });
         return result;
     }
 
-    static componentStepToObj = (step: ComponentStep, type: string, steps: any[]): {} => {
-        const parameters: any = {};
-        step.properties.forEach(p => {
-            if (p.value && (p.value as string).length > 0) {
-                parameters[p.id] = p.value;
+    static objToComponentStep = (obj: any, type: string, steps: RouteStep[]): ComponentStep => {
+        const uri:string = obj.hasOwnProperty('uri') ? obj['uri'] : undefined;
+        const component = uri ? uri.split(":")[0] : '';
+        const path = uri ? uri.split(":")[1] : '';
+        const properties: Property[] = [];
+        if (component === 'kamelet'){
+            if (obj.hasOwnProperty('parameters')){
+                const props = KameletApi.getKameletProperties(path);
+                const values:Map<string, any> = new Map(Object.entries(obj['parameters']));
+                props.forEach(p => {
+                    p.value = values.has(p.id) ? values.get(p.id) : p.value;
+                    properties.push(p)
+                });
+            } else {
+                properties.push(...KameletApi.getKameletProperties(component));
             }
-        })
+        }
         return type === 'to'
-            ? {
-                [type]: {
-                    uri: step.component + ":" + step.path,
-                    parameters: parameters
-                }
-            }
-            : {
-                [type]: {
-                    uri: step.component + ":" + step.path,
-                    parameters: parameters,
-                    steps: steps
-                }
-            };
+            ? new ToStep({component:component, path:path, properties:properties})
+            : new FromStep({component:component, path:path, properties:properties});
     }
 
-    static expressionStepToObj = (step: ExpressionStep, type: string, steps: any[]): {} => {
-        return type === 'otherwise'
-            ? {[type]: {steps: steps}}
-            : {
-                [type]: {
-                    simple: step.simple,
-                    steps: steps
+    static objToExpressionStep = (obj: any, type: string, steps: RouteStep[]): ExpressionStep | undefined => {
+        if (type === 'otherwise') {
+            return new OtherwiseStep({steps: steps});
+        } else {
+            if (obj.hasOwnProperty('simple')){
+                if (type === 'filter'){
+                    return new FilterStep({simple:obj['simple'], steps:steps})
+                } else if (type === 'when'){
+                    return new WhenStep({simple:obj['simple'], steps:steps})
                 }
-            };
-    }
-    static choiceStepToObj = (step: ChoiceStep, type: string, steps: any[]): {} => {
-        return {
-            [type]: {
-                steps: steps
             }
-        };
+        }
+    }
+
+    static objToChoiceStep = (obj: any, type: string, steps: RouteStep[]): ChoiceStep => {
+        return new ChoiceStep({steps: steps});
     }
 }

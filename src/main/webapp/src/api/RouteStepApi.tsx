@@ -157,21 +157,7 @@ export class RouteStepApi {
     }
 
     static fromKamelet = (kamelet: Kamelet): ComponentStep => {
-        const properties: Property[] = [];
-        const map: Map<string, any> = kamelet.spec.definition.properties ? new Map(Object.entries(kamelet.spec.definition.properties)) : new Map();
-        map.forEach((value, key, map) => {
-            const prop = new Property();
-            prop.id = key;
-            prop.title = value.title;
-            prop.default = value.default;
-            prop.description = value.description;
-            prop.format = value.format;
-            prop.example = value.example;
-            prop.type = value.type;
-            if (value.default) prop.value = value.default
-            prop["x-descriptors"] = value["x-descriptors"];
-            properties.push(prop);
-        })
+        const properties: Property[] = KameletApi.getKameletProperties(kamelet.metadata.name);
         return kamelet.type() === 'source'
             ? new FromStep({component: "kamelet", path: kamelet.metadata.name, properties: properties})
             : new ToStep({component: "kamelet", path: kamelet.metadata.name, properties: properties})
