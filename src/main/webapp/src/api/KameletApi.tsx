@@ -77,8 +77,13 @@ export const KameletApi = {
         const promises = kameletNames.map((name: string) => KameletApi.requestKamelet(name));
         Promise.all(promises).then(function (list) {
             const result: Kamelet[] = list as Kamelet[];
-            Kamelets.push(...result);
-            Kamelets.push(...Kamelet.default());
+            Kamelets.push(...result.sort((a, b) => {
+                    if (a.spec.definition.title < b.spec.definition.title) {
+                        return -1;
+                    }
+                    return a.spec.definition.title > b.spec.definition.title ? 1 : 0;
+                })
+            );
             EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
         });
     }

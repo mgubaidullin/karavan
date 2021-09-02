@@ -40,10 +40,6 @@ const RouteComponentPanel = () => {
     const map = Kamelets
       .filter((kamelet: Kamelet) => {
         return !filter.filter ? kamelet.type() === filter.group : kamelet.type() === filter.group && kamelet.spec.definition.title.toLowerCase().includes(filter.filter.toLowerCase());
-      })
-      .sort((a, b) => {
-        if (a.spec.definition.title < b.spec.definition.title) { return -1; }
-        return a.spec.definition.title > b.spec.definition.title ? 1 : 0;
       });
     setFiltered(map);
   };
