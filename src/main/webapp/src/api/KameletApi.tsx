@@ -2,7 +2,6 @@ import {Kamelet, Property} from "../model/KameletModels";
 import {EventBus, KaravanEvent} from "./EventBus";
 import * as yaml from 'js-yaml';
 import axios from "axios";
-import {KaravanApi} from "./KaravanApi";
 
 export const Kamelets: Kamelet[] = [];
 
@@ -54,14 +53,8 @@ export const KameletApi = {
         return Kamelet.default().find((k: Kamelet) => k.metadata.name === 'uri-sink');
     },
 
-    requestKameletList: async (repo: string): Promise<string[]> => {
-        const res = await axios(repo);
-        const list: [] = await res.data;
-        return list.map((x: any) => x.download_url);
-    },
-
-    requestKamelet: async (url: string): Promise<Kamelet> => {
-        const res = await axios(url);
+    requestKamelet: async (name: string): Promise<Kamelet> => {
+        const res = await axios("/kamelet/" + name);
         const text: string = await res.data;
         const fromYaml = yaml.load(text);
         return KameletApi.jsonToKamelet(JSON.stringify(fromYaml));
@@ -69,23 +62,24 @@ export const KameletApi = {
 
     prepareKamelets: () => {
         Kamelets.splice(0, Kamelets.length);
-        KaravanApi.getConfiguration((config: any) => {
-            const repos: string[] = config?.['karavan.catalogs'] as [];
-            KameletApi.loadKamelets(repos);
-        })
+        axios.get('/kamelet',
+            {headers: {'Accept': 'application/json'}})
+            .then(res => {
+                if (res.status === 200) {
+                    KameletApi.loadKamelets(res.data);
+                }
+            }).catch(err => {
+            console.log(err);
+        });
     },
 
-    loadKamelets: (repos: string[]) => {
-        repos.forEach((repo: string) => {
-            KameletApi.requestKameletList(repo).then((list: string[]) => {
-                const promises = list.map((url: string) => KameletApi.requestKamelet(url));
-                Promise.all(promises).then(function (list) {
-                    const result: Kamelet[] = list as Kamelet[];
-                    Kamelets.push(...result);
-                    Kamelets.push(...Kamelet.default());
-                    EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
-                });
-            })
+    loadKamelets: (kameletNames: string[]) => {
+        const promises = kameletNames.map((name: string) => KameletApi.requestKamelet(name));
+        Promise.all(promises).then(function (list) {
+            const result: Kamelet[] = list as Kamelet[];
+            Kamelets.push(...result);
+            Kamelets.push(...Kamelet.default());
+            EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
         });
     }
 }
