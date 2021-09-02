@@ -90,9 +90,9 @@ export class RouteDesignerPage extends React.Component<Props, State> {
     save = () => {
         KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
             if (res.status === 200){
-                console.log(res)
+                console.log(res) //TODO show notification
             } else {
-                console.log(res)
+                console.log(res) //TODO show notification
             }
         })
     }
