@@ -92,7 +92,11 @@ export class RouteStepProperties extends React.Component<Props, State> {
                 <Title headingLevel="h1" size="md">Integration</Title>
                 <FormGroup label="Title" fieldId="title">
                     <TextInput className="text-field" type="text" id="title" name="title"
-                               value={this.state.integration.metadata.annotations["camel.apache.org/integration.title"]}
+                               value={
+                                   // this.state.integration.metadata.annotations["camel.apache.org/integration.title"]
+                                   // ? this.state.integration?.metadata.annotations["camel.apache.org/integration.title"]
+                                   RouteStepApi.titleFromName(this.state.integration.metadata.name)
+                               }
                                onChange={e => this.onIntegrationChange('title', e)}/>
                 </FormGroup>
                 <FormGroup label="Name" fieldId="name" >

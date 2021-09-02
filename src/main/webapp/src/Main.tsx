@@ -13,6 +13,7 @@ import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
 import {IntegrationGenerator} from "./api/IntegrationGenerator";
+import {Integration, Spec} from "./model/IntegrationModels";
 
 interface Props {
 }
@@ -23,7 +24,8 @@ interface State {
     version: string,
     isNavOpen: boolean,
     pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets'
-    integrations: []
+    integrations: [],
+    integration: Integration
 }
 
 export class Main extends React.Component<Props, State> {
@@ -34,8 +36,11 @@ export class Main extends React.Component<Props, State> {
         version: '',
         isNavOpen: true,
         pageId: "integrations",
-        integrations: []
+        integrations: [],
+        integration: Integration.createNew()
     };
+
+    designer = React.createRef();
 
     componentDidMount() {
         KaravanApi.getConfiguration((config: any) =>
@@ -61,7 +66,7 @@ export class Main extends React.Component<Props, State> {
     onNavSelect = (result: any) => {
         this.setState({
             isNavOpen: result.itemId !== 'designer',
-            pageId: result.itemId
+            pageId: result.itemId,
         });
     };
 
@@ -100,19 +105,23 @@ export class Main extends React.Component<Props, State> {
     sidebar = () => (<PageSidebar nav={this.pageNav()} isNavOpen={this.state.isNavOpen}/>);
 
     onIntegrationSelect = (name: string) => {
-        console.log(name)
-        this.setState({
-            isNavOpen: false,
-            pageId: 'designer'
+        console.log("select " + name)
+        KaravanApi.getIntegration(name, res => {
+            if (res.status === 200){
+                const code: string = res.data;
+                const i = IntegrationGenerator.yamlToIntegration(code);
+                this.setState({isNavOpen: false, pageId: 'designer', integration: i});
+            } else {
+                console.log(res);
+            }
         });
     };
 
     onIntegrationCreate = () => {
         console.log("onIntegrationCreate")
-        this.setState({
-            isNavOpen: false,
-            pageId: 'designer'
-        });
+        this.setState({isNavOpen: false, pageId: 'designer'});
+        const i = Integration.createNew();
+        this.setState({isNavOpen: false, pageId: 'designer', integration: i});
     };
 
     render() {
@@ -121,7 +130,7 @@ export class Main extends React.Component<Props, State> {
                 {this.state.pageId === 'integrations' && <IntegrationPage onSelect={this.onIntegrationSelect} onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {this.state.pageId === 'designer' && <RouteDesignerPage/>}
+                {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
             </Page>
         );
     }

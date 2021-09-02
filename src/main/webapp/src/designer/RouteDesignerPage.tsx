@@ -18,6 +18,7 @@ import {MainToolbar} from "../MainToolbar";
 import {KaravanApi} from "../api/KaravanApi";
 
 interface Props {
+    integration: Integration
 }
 
 interface State {
@@ -31,7 +32,7 @@ interface State {
 export class RouteDesignerPage extends React.Component<Props, State> {
 
     public state: State = {
-        integration: new Integration({spec: new Spec({flows: [new EmptyStep()]})}),
+        integration: this.props.integration,
         key: uuidv4(),
         view: "design",
         saveWindowOpen: false
@@ -125,6 +126,14 @@ export class RouteDesignerPage extends React.Component<Props, State> {
         </ToolbarContent>
     </Toolbar>);
 
+    componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
+        console.log("----------")
+        console.log(prevState.integration)
+        console.log(prevProps.integration)
+        console.log(this.state.integration)
+        console.log("----------")
+    }
+
     render() {
         return (
             <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
@@ -144,6 +153,7 @@ export class RouteDesignerPage extends React.Component<Props, State> {
                                       display={"block"}/>
                     </div>
                     }
+                    {console.log(this.state.integration)}
                     {this.state.view === 'code' && <CodeBlock className="route-code">
                         <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
                     </CodeBlock>
