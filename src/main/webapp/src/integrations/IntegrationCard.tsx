@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    CardHeader, Card, CardTitle, CardBody, Button, CardActions, CardFooter,
+    CardHeader, Card, CardTitle, CardBody, Button, CardActions,
 } from '@patternfly/react-core';
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
@@ -23,6 +23,11 @@ export class IntegrationCard extends React.Component<Props, State> {
         name: this.props.name
     };
 
+    private click(evt: React.MouseEvent) {
+        evt.stopPropagation();
+        this.props.onClick.call(this, this.state.name)
+    }
+
     private delete(evt: React.MouseEvent) {
         evt.stopPropagation();
         this.props.onDelete.call(this, this.state.name);
@@ -30,7 +35,7 @@ export class IntegrationCard extends React.Component<Props, State> {
 
     render() {
         return (
-            <Card isHoverable isCompact key={this.state.name} className="integration-card" onClick={event => this.props.onClick.call(this, this.state.name)}>
+            <Card isHoverable isCompact key={this.state.name} className="integration-card" onClick={event => this.click(event)}>
                 <CardHeader>
                     <img src={new RouteStep().icon} alt='icon' className="icon"/>
                     <CardActions>

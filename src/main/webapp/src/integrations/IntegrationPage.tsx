@@ -12,10 +12,10 @@ import {
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
-import {KaravanApi} from "../api/KaravanApi";
 import {MainToolbar} from "../MainToolbar";
 
 interface Props {
+    integrations: []
     onSelect: any
     onCreate: any
     onDelete: any
@@ -32,15 +32,8 @@ export class IntegrationPage extends React.Component<Props, State> {
     public state: State = {
         repository: '',
         path: '',
-        integrations: [],
+        integrations: this.props.integrations,
     };
-
-    componentDidMount() {
-        KaravanApi.getIntegrations((integrations: []) =>
-            this.setState({
-                integrations: integrations
-            }));
-    }
 
     tools = () => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>

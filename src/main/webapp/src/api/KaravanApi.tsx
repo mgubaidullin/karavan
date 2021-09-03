@@ -44,5 +44,15 @@ export const KaravanApi = {
             }).catch(err => {
             after(err);
         });
-    }
+    },
+
+    deleteIntegration: async (name: string, after: (res: AxiosResponse<any>) => void) => {
+        axios.delete('/integration/' + name,
+            {})
+            .then(res => {
+                after(res);
+            }).catch(err => {
+            after(err);
+        });
+    },
 }
