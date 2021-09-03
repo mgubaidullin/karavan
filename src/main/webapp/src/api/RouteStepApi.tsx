@@ -14,10 +14,6 @@ import {Kamelet, Property} from "../model/KameletModels";
 export class RouteStepApi {
 
     static addEmptyStepsIfRequired = (steps: RouteStep[], parent?: RouteStep): RouteStep[] => {
-        console.log("-------")
-        console.log(steps)
-        console.log(parent)
-        console.log("-------")
         const result: RouteStep[] = [];
         steps.forEach(s => {
             s.steps = RouteStepApi.addEmptyStepsIfRequired(s.steps, s);

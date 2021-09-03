@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    CardHeader, Card, CardTitle, CardBody, Button, CardActions,
+    CardHeader, Card, CardTitle, CardBody, Button, CardActions, CardFooter,
 } from '@patternfly/react-core';
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
@@ -10,6 +10,7 @@ import {RouteStep} from "../model/RouteModels";
 interface Props {
     name: string,
     onClick: any
+    onDelete: any
 }
 
 interface State {
@@ -22,7 +23,9 @@ export class IntegrationCard extends React.Component<Props, State> {
         name: this.props.name
     };
 
-    componentDidMount() {
+    private delete(evt: React.MouseEvent) {
+        evt.stopPropagation();
+        this.props.onDelete.call(this, this.state.name);
     }
 
     render() {
@@ -31,7 +34,7 @@ export class IntegrationCard extends React.Component<Props, State> {
                 <CardHeader>
                     <img src={new RouteStep().icon} alt='icon' className="icon"/>
                     <CardActions>
-                        <Button variant="link" className="delete-button"><DeleteIcon/></Button>
+                        <Button variant="link" className="delete-button" onClick={e => this.delete(e)}><DeleteIcon/></Button>
                     </CardActions>
                 </CardHeader>
                 <CardTitle>{RouteStepApi.titleFromName(this.state.name)}</CardTitle>

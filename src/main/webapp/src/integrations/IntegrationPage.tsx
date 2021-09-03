@@ -16,14 +16,15 @@ import {KaravanApi} from "../api/KaravanApi";
 import {MainToolbar} from "../MainToolbar";
 
 interface Props {
-    onSelect:any
-    onCreate:any
+    onSelect: any
+    onCreate: any
+    onDelete: any
 }
 
 interface State {
     repository: string,
     path: string,
-    integrations: []
+    integrations: [],
 }
 
 export class IntegrationPage extends React.Component<Props, State> {
@@ -31,7 +32,7 @@ export class IntegrationPage extends React.Component<Props, State> {
     public state: State = {
         repository: '',
         path: '',
-        integrations: []
+        integrations: [],
     };
 
     componentDidMount() {
@@ -54,17 +55,18 @@ export class IntegrationPage extends React.Component<Props, State> {
     </Toolbar>);
 
     title = () => (<TextContent>
-                    <Text component="h1">Integrations</Text>
-                </TextContent>);
+        <Text component="h1">Integrations</Text>
+    </TextContent>);
 
     render() {
         return (
-            <PageSection  padding={{ default: 'noPadding' }}>
+            <PageSection padding={{default: 'noPadding'}}>
                 <MainToolbar title={this.title()} tools={this.tools()}/>
                 <PageSection isFilled className="integration-page">
                     <Gallery hasGutter>
                         {this.state.integrations.map(value => (
-                            <IntegrationCard key={value} name={value} onClick={this.props.onSelect}/>
+                            <IntegrationCard key={value} name={value} onDelete={this.props.onDelete}
+                                             onClick={this.props.onSelect}/>
                         ))}
                     </Gallery>
                 </PageSection>

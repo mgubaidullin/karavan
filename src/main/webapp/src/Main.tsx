@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Brand,
     Page,
-    PageHeader, PageSidebar, NavItem, NavList, Nav
+    PageHeader, PageSidebar, NavItem, NavList, Nav, ModalVariant, Button, Modal
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationPage} from "./integrations/IntegrationPage";
@@ -25,7 +25,9 @@ interface State {
     isNavOpen: boolean,
     pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets'
     integrations: [],
-    integration: Integration
+    integration: Integration,
+    isModalOpen: boolean,
+    nameToDelete: string
 }
 
 export class Main extends React.Component<Props, State> {
@@ -37,7 +39,9 @@ export class Main extends React.Component<Props, State> {
         isNavOpen: true,
         pageId: "integrations",
         integrations: [],
-        integration: Integration.createNew()
+        integration: Integration.createNew(),
+        isModalOpen: false,
+        nameToDelete: ''
     };
 
     designer = React.createRef();
@@ -104,6 +108,14 @@ export class Main extends React.Component<Props, State> {
 
     sidebar = () => (<PageSidebar nav={this.pageNav()} isNavOpen={this.state.isNavOpen}/>);
 
+    onIntegrationDelete = (name: string) => {
+        this.setState({isModalOpen: true, nameToDelete: name})
+    };
+
+    delete = () => {
+        this.setState({isModalOpen: false})
+    }
+
     onIntegrationSelect = (name: string) => {
         KaravanApi.getIntegration(name, res => {
             if (res.status === 200){
@@ -125,10 +137,26 @@ export class Main extends React.Component<Props, State> {
     render() {
         return (
             <Page key={this.state.version} className="karavan" header={this.header()} sidebar={this.sidebar()}>
-                {this.state.pageId === 'integrations' && <IntegrationPage onSelect={this.onIntegrationSelect} onCreate={this.onIntegrationCreate}/>}
+                {this.state.pageId === 'integrations' && <IntegrationPage onDelete={this.onIntegrationDelete} onSelect={this.onIntegrationSelect} onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
                 {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
+                <Modal
+                    title="Confirmation"
+                    variant={ModalVariant.small}
+                    isOpen={this.state.isModalOpen}
+                    onClose={() => this.setState({isModalOpen: false})}
+                    actions={[
+                        <Button key="confirm" variant="primary" onClick={e => this.delete()}>Delete</Button>,
+                        <Button key="cancel" variant="link"
+                                onClick={e => this.setState({isModalOpen: false})}>Cancel</Button>
+                    ]}
+                    onEscapePress={e => this.setState({isModalOpen: false})}>
+                    <div>
+                        Are you sure you want to delete integration?
+                    </div>
+
+                </Modal>
             </Page>
         );
     }
