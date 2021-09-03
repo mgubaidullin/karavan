@@ -50,4 +50,10 @@ public class IntegrationResource {
         vertx.fileSystem().writeFileBlocking(Paths.get(folder, path, name).toString(), Buffer.buffer(yaml));
         return yaml;
     }
+
+    @DELETE
+    @Path("/{name}")
+    public void delete(@PathParam("name") String name) {
+        vertx.fileSystem().deleteBlocking(Paths.get(folder, path, name).toString());
+    }
 }
