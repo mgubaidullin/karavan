@@ -1,4 +1,4 @@
-package org.apache.camel.karavan;
+package org.apache.camel.karavan.integrations;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @Path("/integration")
 public class IntegrationResource {
 
-    @ConfigProperty(name = "karavan.folder")
-    String folder;
+    @ConfigProperty(name = "karavan.folder.root")
+    String root;
 
-    @ConfigProperty(name = "karavan.path")
-    String path;
+    @ConfigProperty(name = "karavan.folder.integrations")
+    String integrations;
 
     @Inject
     Vertx vertx;
@@ -26,7 +26,7 @@ public class IntegrationResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getList() {
-        return vertx.fileSystem().readDirBlocking(Paths.get(folder, path).toString())
+        return vertx.fileSystem().readDirBlocking(Paths.get(root, integrations).toString())
                 .stream()
                 .filter(s -> s.endsWith(".yaml"))
                 .map(s -> {
@@ -39,7 +39,7 @@ public class IntegrationResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{name}")
     public String getYaml(@PathParam("name") String name) {
-        return vertx.fileSystem().readFileBlocking(Paths.get(folder, path, name).toString()).toString();
+        return vertx.fileSystem().readFileBlocking(Paths.get(root, integrations, name).toString()).toString();
     }
 
     @POST
@@ -47,13 +47,13 @@ public class IntegrationResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{name}")
     public String postYaml(@PathParam("name") String name, String yaml) {
-        vertx.fileSystem().writeFileBlocking(Paths.get(folder, path, name).toString(), Buffer.buffer(yaml));
+        vertx.fileSystem().writeFileBlocking(Paths.get(root, integrations, name).toString(), Buffer.buffer(yaml));
         return yaml;
     }
 
     @DELETE
     @Path("/{name}")
     public void delete(@PathParam("name") String name) {
-        vertx.fileSystem().deleteBlocking(Paths.get(folder, path, name).toString());
+        vertx.fileSystem().deleteBlocking(Paths.get(root, integrations, name).toString());
     }
 }
