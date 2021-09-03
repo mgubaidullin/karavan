@@ -8,7 +8,7 @@ import {Kamelet} from "../model/KameletModels";
 
 interface Props {
     kamelet: Kamelet,
-    onClick: any
+    onClickCard: any
 }
 
 interface State {
@@ -21,16 +21,15 @@ export class KameletCard extends React.Component<Props, State> {
         kamelet: this.props.kamelet
     };
 
-    componentDidMount() {
-
+    click = (event: React.MouseEvent) => {
+        event.stopPropagation()
+        this.props.onClickCard.call(this, this.state.kamelet);
     }
-
-
 
     render() {
         return (
             <Card isHoverable isCompact key={this.state.kamelet.metadata.name} className="kamelet-card"
-                onClick={event => this.props.onClick.call(this, this.state.kamelet)}
+                onClick={event => this.click(event)}
             >
                 <CardHeader>
                     <img draggable="false" src={this.state.kamelet.icon()} className="kamelet-icon" alt=""></img>

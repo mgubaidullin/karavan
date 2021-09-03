@@ -47,14 +47,16 @@ export class KameletsPage extends React.Component<Props, State> {
     search(filter: string){
         this.setState({
             filter: filter,
+            isModalOpen: false,
             kamelets: KameletApi.getKamelets().filter(kamelet => kamelet.spec.definition.title.toLowerCase().includes(filter.toLowerCase()))
         })
     }
 
     render() {
         return (
-            <PageSection key="kamelets" padding={{ default: 'noPadding' }}>
-                <KameletModal key={this.state.kamelet?.metadata.name + ""} isOpen={this.state.isModalOpen} kamelet={this.state.kamelet}/>
+            <PageSection padding={{ default: 'noPadding' }}>
+                <KameletModal key={this.state.kamelet?.metadata.name + this.state.isModalOpen.toString()}
+                              isOpen={this.state.isModalOpen} kamelet={this.state.kamelet}/>
                 <PageSection className="tools-section" variant={PageSectionVariants.light}>
                     <Flex className="tools" justifyContent={{default: 'justifyContentSpaceBetween'}}>
                         <FlexItem>
@@ -80,7 +82,7 @@ export class KameletsPage extends React.Component<Props, State> {
                 <PageSection isFilled className="kamelets-page">
                     <Gallery hasGutter>
                         {this.state.kamelets.map(k => (
-                            <KameletCard key={k.metadata.name} kamelet={k} onClick={this.select}/>
+                            <KameletCard key={k.metadata.name} kamelet={k} onClickCard={this.select}/>
                         ))}
                     </Gallery>
                 </PageSection>

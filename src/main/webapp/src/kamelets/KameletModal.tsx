@@ -8,7 +8,6 @@ import {
     CardActions,
     Badge, Flex, CardTitle,
 } from '@patternfly/react-core';
-import {Subscription} from 'rxjs';
 import '../karavan.css';
 import {Kamelet, Property} from "../model/KameletModels";
 import {TableComposable, Tbody, Td, Th, Thead, Tr} from "@patternfly/react-table";
@@ -24,8 +23,6 @@ interface State {
 }
 
 export class KameletModal extends Component<Props, State> {
-
-    subscription: Subscription | undefined;
 
     public state: State = {
         isOpen: this.props.isOpen,
@@ -76,29 +73,33 @@ export class KameletModal extends Component<Props, State> {
                         </CardActions>
                     </CardHeader>
                     <Text className="description">{this.state.kamelet?.spec.definition.description}</Text>
-                    <CardTitle >Properties</CardTitle>
-                    <TableComposable aria-label="Simple table" variant='compact'>
-                        <Thead>
-                            <Tr>
-                                <Th key='title'>Title</Th>
-                                <Th key='type'>Type</Th>
-                                <Th key='desc'>Description</Th>
-                                <Th key='format'>Format</Th>
-                                <Th key='example'>Example</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {this.getKameletProperties(this.state.kamelet?.spec.definition.properties).map((p: Property, idx: number) => (
-                                <Tr key={idx}>
-                                    <Td key={`${idx}_title`}>{p.title}</Td>
-                                    <Td key={`${idx}_type`}>{p.type}</Td>
-                                    <Td key={`${idx}_desc`}>{p.description}</Td>
-                                    <Td key={`${idx}_format`}>{p.format}</Td>
-                                    <Td key={`${idx}_example`}>{p.example}</Td>
+                    {this.state.kamelet?.spec.definition.properties && this.state.kamelet?.spec.definition.properties.length !== 0 &&
+                    <div>
+                        <CardTitle>Properties</CardTitle>
+                        <TableComposable aria-label="Simple table" variant='compact'>
+                            <Thead>
+                                <Tr>
+                                    <Th key='title'>Title</Th>
+                                    <Th key='type'>Type</Th>
+                                    <Th key='desc'>Description</Th>
+                                    <Th key='format'>Format</Th>
+                                    <Th key='example'>Example</Th>
                                 </Tr>
-                            ))}
-                        </Tbody>
-                    </TableComposable>
+                            </Thead>
+                            <Tbody>
+                                {this.getKameletProperties(this.state.kamelet?.spec.definition.properties).map((p: Property, idx: number) => (
+                                    <Tr key={idx}>
+                                        <Td key={`${idx}_title`}>{p.title}</Td>
+                                        <Td key={`${idx}_type`}>{p.type}</Td>
+                                        <Td key={`${idx}_desc`}>{p.description}</Td>
+                                        <Td key={`${idx}_format`}>{p.format}</Td>
+                                        <Td key={`${idx}_example`}>{p.example}</Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
+                        </TableComposable>
+                    </div>
+                    }
                 </Flex>
             </Modal>
         );
