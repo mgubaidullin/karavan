@@ -7,6 +7,7 @@ import org.apache.camel.catalog.DefaultCamelCatalog;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.BufferedReader;
@@ -21,9 +22,9 @@ public class DslResources {
     @Inject
     Vertx vertx;
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String get() {
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String get() {
 
 
 //        JsonObject json = new JsonObject(getDsl());
@@ -33,15 +34,15 @@ public class DslResources {
 //                        && !s.getKey().replace("org.apache.camel.model.", "").contains("."))
 //                                .forEach(s -> System.out.println(s.getKey()));
 //
-        List<String> models = getModels();
-        models.stream().map(s -> new JsonObject(getModel(s)))
-                .filter(json -> json.getJsonObject("model").getString("label").contains("eip"))
-                .forEach(json -> {
-                    System.out.println(json.getJsonObject("model"));
-                    System.out.println("");
-                });
-        return new JsonObject().toString();
-    }
+//        List<String> models = getModels();
+//        models.stream().map(s -> new JsonObject(getModel(s)))
+//                .filter(json -> json.getJsonObject("model").getString("label").contains("eip"))
+//                .forEach(json -> {
+//                    System.out.println(json.getJsonObject("model"));
+//                    System.out.println("");
+//                });
+//        return new JsonObject().toString();
+//    }
 
     public List<String> getModels() {
         InputStream inputStream = DefaultCamelCatalog.class.getResourceAsStream("/org/apache/camel/catalog/models.properties");
@@ -49,7 +50,10 @@ public class DslResources {
                 .lines().collect(Collectors.toList());
     }
 
-    public String getModel(String name) {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/model/{name}")
+    public String getModel(@PathParam("name") String name) {
         InputStream inputStream = DslResources.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
         return new BufferedReader(new InputStreamReader(inputStream))
                 .lines().collect(Collectors.joining(System.getProperty("line.separator")));
