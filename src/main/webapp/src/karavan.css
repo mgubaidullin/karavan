@@ -502,3 +502,111 @@
   -o-user-select: none;
   user-select: none;
 }
+
+/*DSL*/
+.dsl-page {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  height: 80%;
+  overflow-y: scroll;
+
+}
+.flow-builder {
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: #e97826;
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 1px;
+  background: #fff;
+  min-width: 160px;
+  margin-top: 16px;
+  padding-top: 4px;
+}
+
+.flow-builder .header {
+  display: block;
+  justify-content:center;
+  position: relative;
+  width: 100%;
+}
+
+.processor-builder {
+  min-width: 160px;
+  min-height: 65px;
+  border-color: #e97826;
+  border-style: solid;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 3px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.processor-builder .header {
+  display: block;
+  justify-content:center;
+  position: relative;
+}
+.flow-builder .header .delete-button,
+.processor-builder .header .delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 13px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #b1b1b7;
+  visibility: hidden;
+}
+.flow-builder:hover .header .delete-button,
+.processor-builder:hover .header .delete-button {
+  visibility: visible;;
+}
+
+.flow-builder .header .icon,
+.processor-builder .header .icon {
+  height: 16px;
+  width: auto;
+  border: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.dsl-page .add-flow-button {
+  margin-top: 26px;
+  font-size: 15px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #e97826;
+}
+
+.dsl-page .add-button,
+.processor-builder .add-button,
+.flow-builder .add-button {
+  top: 0;
+  right: 5px;
+  font-size: 15px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #e97826;
+}

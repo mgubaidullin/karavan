@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "@patternfly/patternfly/patternfly.css";
 import './index.css';
 import {Main} from "./Main";
+import {DslPage} from "./dsl/DslPage";
 
 const routes = [
     { path: '/', component: Main},

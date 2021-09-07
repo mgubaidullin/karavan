@@ -15,6 +15,8 @@ import {KameletsPage} from "./kamelets/KameletsPage";
 import {IntegrationGenerator} from "./api/IntegrationGenerator";
 import {Integration} from "./model/IntegrationModels";
 import {v4 as uuidv4} from "uuid";
+import {DslApi} from "./api/DslApi";
+import {DslPage} from "./dsl/DslPage";
 
 class ToastMessage {
     id: string = ''
@@ -50,7 +52,7 @@ export class Main extends React.Component<Props, State> {
     public state: State = {
         version: '',
         isNavOpen: true,
-        pageId: "integrations",
+        pageId: "designer",
         integrations: [],
         integration: Integration.createNew(),
         isModalOpen: false,
@@ -178,7 +180,8 @@ export class Main extends React.Component<Props, State> {
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
+                {/*{this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}*/}
+                {this.state.pageId === 'designer' && <DslPage/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}
