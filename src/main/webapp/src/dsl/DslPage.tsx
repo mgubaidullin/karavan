@@ -4,7 +4,7 @@ import {
     PageSection, Text, TextContent, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem
 } from '@patternfly/react-core';
 import '../karavan.css';
-import {DslModelObject, ModelProcessorDefinition} from "../model/DslModel";
+import {Convert, DslModelObject, ModelProcessorDefinition, typeMap} from "../model/DslModel";
 import {FlowBuilder} from "./FlowBuilder";
 import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
@@ -29,7 +29,6 @@ export class DslPage extends React.Component<Props, State> {
     };
 
     componentDidMount() {
-        DslApi.test();
     }
 
     save = () => {

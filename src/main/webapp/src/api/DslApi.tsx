@@ -1,6 +1,6 @@
 import {
     Convert,
-    ModelProcessorDefinition
+    ModelProcessorDefinition, typeMap
 } from "../model/DslModel";
 import * as yaml from 'js-yaml';
 import {DslModelObject} from "../model/DslModel";
@@ -47,6 +47,14 @@ export class DslApi {
             if (step.hasOwnProperty('steps')) {
                 result.push(...step.steps);
             }
+        })
+        return result;
+    }
+
+    static getAvailableSteps = ():string[] => {
+        const result:string[] = []
+        typeMap.ModelProcessorDefinition.props.forEach((p:any) =>{
+            result.push(p.js.toString())
         })
         return result;
     }
@@ -146,32 +154,32 @@ export class DslApi {
         return model1;
     }
 
-    static test =()=>{
-        const y = " - from: \n" +
-            "    uri: \"direct:start\"\n" +
-            "    steps: \n" +
-            "      - filter:\n" +
-            "          expression:\n" +
-            "            simple: \"${in.header.continue} == true\"\n" +
-            "          steps: \n" +
-            "            - to:\n" +
-            "                uri: \"log:filtered\"\n" +
-            "      - to:\n" +
-            "          uri: \"log:original\""
-
-        const o: [] = yaml.load(y) as [];
-        o.forEach(value => {
-            console.log(value)
-            const t: string = JSON.stringify(value);
-            console.log(Convert.toDslModelObject(t));
-        })
+    // static test =()=>{
+    //     const y = " - from: \n" +
+    //         "    uri: \"direct:start\"\n" +
+    //         "    steps: \n" +
+    //         "      - filter:\n" +
+    //         "          expression:\n" +
+    //         "            simple: \"${in.header.continue} == true\"\n" +
+    //         "          steps: \n" +
+    //         "            - to:\n" +
+    //         "                uri: \"log:filtered\"\n" +
+    //         "      - to:\n" +
+    //         "          uri: \"log:original\""
+    //
+    //     const o: [] = yaml.load(y) as [];
+    //     o.forEach(value => {
+    //         console.log(value)
+    //         const t: string = JSON.stringify(value);
+    //         console.log(Convert.toDslModelObject(t));
+    //     })
 
         // const json: { } = JSON.parse(t);
 
         // console.log(Convert.toDslModelObject("{\"from\":{\"uri\":\"kamelet:timer-source\",\"steps\":[{\"filter\":{\"simple\":\"${body} != null\"}},{\"choice\":{\"when\":[],\"otherwise\":{\"steps\":[]}}},{\"saga\":{\"steps\":[],\"completion\":{\"uri\":\"direct0\"},\"compensation\":{\"uri\":\"direct1\"}}}]}}"));
 
 // console.log((DslApi.create()))
-    }
+//     }
 }
 
 

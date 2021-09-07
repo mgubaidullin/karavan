@@ -6,7 +6,6 @@ import {
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationPage} from "./integrations/IntegrationPage";
-import {RouteDesignerPage} from "./designer/RouteDesignerPage";
 import {KameletApi} from "./api/KameletApi";
 import logo from './logo.svg';
 import './karavan.css';
@@ -15,7 +14,6 @@ import {KameletsPage} from "./kamelets/KameletsPage";
 import {IntegrationGenerator} from "./api/IntegrationGenerator";
 import {Integration} from "./model/IntegrationModels";
 import {v4 as uuidv4} from "uuid";
-import {DslApi} from "./api/DslApi";
 import {DslPage} from "./dsl/DslPage";
 
 class ToastMessage {

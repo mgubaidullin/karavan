@@ -4428,7 +4428,7 @@ function r(name: string) {
     return { ref: name };
 }
 
-const typeMap: any = {
+export const typeMap: any = {
     "DslModelObject": o([
         { json: "beans", js: "beans", typ: u(undefined, a(r("DslYamlDeserializersNamedBeanDefinition"))) },
         { json: "error-handler", js: "errorHandler", typ: u(undefined, r("BuilderErrorHandlerBuilderRef")) },
