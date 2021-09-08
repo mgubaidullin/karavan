@@ -3,13 +3,15 @@ import {
   Title,
   TextInput,
   AccordionContent,
-  AccordionToggle, AccordionItem, Accordion
+  AccordionToggle, AccordionItem, Accordion, Card, CardHeader, Text, CardBody
 } from '@patternfly/react-core';
 import { Kamelet } from "../model/KameletModels";
 import { Kamelets } from "../api/KameletApi";
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
-import {RouteStepApi} from "../api/RouteStepApi";
+import {DslMetaApi} from "../api/DslMetaApi";
+import {DslApi} from "../api/DslApi";
+import {DslMetaModel} from "../model/DslMetaModel";
 
 class Filter {
   filter: string = '';
@@ -54,6 +56,11 @@ const RouteComponentPanel = () => {
     }
   };
 
+  const getFilteredDsl = (label:string):DslMetaModel[] => {
+    return DslMetaApi.getDslMetaModels(label)
+        .filter(model => model.title.toLowerCase().includes(filter.filter.toLowerCase()))
+  }
+
   return (
     <div className="components" key="components">
       <Title headingLevel="h1" size="md">Components</Title>
@@ -71,7 +78,7 @@ const RouteComponentPanel = () => {
                   <div className="inner">
                     {
                       filtered && filtered.length > 0 && filtered.map((kamelet) =>
-                          <div key={kamelet.metadata.name} className="node react-flow__node-kamelet"
+                          <div key={kamelet.metadata.name} className="node"
                                onDragStart={(event: DragEvent) => { event.dataTransfer.setData('kamelet', JSON.stringify(kamelet)); onDragStart(event, "") }} draggable>
                             <img draggable="false" src={kamelet.icon()} className="kamelet-icon" alt=""></img>
                             <p className="kamelet-title">{kamelet.spec.definition.title}</p>
@@ -82,27 +89,27 @@ const RouteComponentPanel = () => {
                 </AccordionContent>
               </AccordionItem>
           )}
-          <AccordionItem>
-            <AccordionToggle
-                onClick={() => onToggle('routing')}
-                isExpanded={filter.group === 'routing'}
-                id={"routing"} >
-              Routing
-            </AccordionToggle>
-            <AccordionContent id="source" isHidden={filter.group !== 'routing'} style={{height:"100%", maxHeight:"100%"}} >
-              <div className="inner">
-                {
-                  RouteStepApi.getRoutingSteps().map((step) =>
-                      <div key={step.type} className="node react-flow__node-kamelet"
-                           onDragStart={(event: DragEvent) => { event.dataTransfer.setData('route-step', JSON.stringify(step)); onDragStart(event, "") }} draggable>
-                        <img draggable="false" src={step.icon} className="kamelet-icon" alt=""></img>
-                        <p className="kamelet-title">{RouteStepApi.getStepCaption(step)}</p>
-                      </div>
-                  )
-                }
-              </div>
-            </AccordionContent>
-          </AccordionItem>
+          { ['routing', 'transformation', 'error', 'configuration'].map((label, index) =>
+              <AccordionItem>
+                <AccordionToggle
+                    onClick={() => onToggle(label)}
+                    isExpanded={filter.group === label}
+                    id={label} >
+                  {label}
+                </AccordionToggle>
+                <AccordionContent id={label} isHidden={filter.group !== label} style={{height:"100%", maxHeight:"100%"}} >
+                  <div className="inner">
+                    {getFilteredDsl(label).map((model, index) => (
+                        <div key={model.name} className="node"
+                             onDragStart={(event: DragEvent) => { event.dataTransfer.setData('route-step', JSON.stringify(model)); onDragStart(event, "") }} draggable>
+                          <img draggable="false" src={DslApi.getIcon(model.name)} className="kamelet-icon" alt=""></img>
+                          <p className="kamelet-title">{model.title}</p>
+                        </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+          )}
         </Accordion>
     </div>
   );
