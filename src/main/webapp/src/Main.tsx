@@ -15,6 +15,8 @@ import {IntegrationGenerator} from "./api/IntegrationGenerator";
 import {Integration} from "./model/IntegrationModels";
 import {v4 as uuidv4} from "uuid";
 import {DslPage} from "./dsl/DslPage";
+import {DslMetaApi} from "./api/DslMetaApi";
+import {RouteDesignerPage} from "./designer/RouteDesignerPage";
 
 class ToastMessage {
     id: string = ''
@@ -67,6 +69,7 @@ export class Main extends React.Component<Props, State> {
                 version: config?.['karavan.version'],
             }));
         KameletApi.prepareKamelets();
+        DslMetaApi.prepareDslMetaModels();
         this.onGetIntegrations();
     }
 
@@ -178,8 +181,8 @@ export class Main extends React.Component<Props, State> {
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {/*{this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}*/}
-                {this.state.pageId === 'designer' && <DslPage/>}
+                {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
+                {/*{this.state.pageId === 'designer' && <DslPage/>}*/}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}

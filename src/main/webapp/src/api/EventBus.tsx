@@ -5,6 +5,7 @@ const events = new Subject<string>();
 
 export class KaravanEvent{
     static KAMELETS_PREPARED: string = 'KAMELETS_PREPARED';
+    static MODELS_PREPARED: string = 'MODELS_PREPARED';
 }
 
 export const EventBus = {

@@ -597,7 +597,6 @@
   color: #e97826;
 }
 
-.dsl-page .add-button,
 .processor-builder .add-button,
 .flow-builder .add-button {
   top: 0;
@@ -609,4 +608,18 @@
   margin: 0;
   background: transparent;
   color: #e97826;
+  visibility: hidden;
+}
+
+.processor-builder:hover .add-button,
+.flow-builder:hover .add-button {
+  visibility: visible;
+}
+
+.dsl-modal {
+  height: 70%;
+}
+
+.dsl-modal .dsl-card{
+  /*max-height: 120px;*/
 }

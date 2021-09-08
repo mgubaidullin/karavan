@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,10 +54,15 @@ public class DslResources {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/model/{name}")
-    public String getModel(@PathParam("name") String name) {
-        InputStream inputStream = DslResources.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
-        return new BufferedReader(new InputStreamReader(inputStream))
-                .lines().collect(Collectors.joining(System.getProperty("line.separator")));
+    public Response getModel(@PathParam("name") String name) {
+        try {
+            InputStream inputStream = DslResources.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
+            String data = new BufferedReader(new InputStreamReader(inputStream))
+                    .lines().collect(Collectors.joining(System.getProperty("line.separator")));
+            return Response.ok(data).build();
+        } catch (Exception e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     public String getDsl() {

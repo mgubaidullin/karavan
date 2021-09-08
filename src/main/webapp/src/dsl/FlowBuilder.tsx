@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    Popover,
+    Button, Card, CardBody, CardHeader, Gallery, Modal,
+    Popover, Tab, Tabs, TabTitleText,
     Text,
 } from '@patternfly/react-core';
 import '../karavan.css';
@@ -13,6 +14,7 @@ import {ProcessorBuilder} from "./ProcessorBuilder";
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import {DslApi} from "../api/DslApi";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
+import {DslMetaApi} from "../api/DslMetaApi";
 
 interface Props {
     flow: DslModelObject,
@@ -25,6 +27,7 @@ interface State {
     flow: DslModelObject
     id: string
     showStep: boolean
+    tabIndex: string | number
 }
 
 export class FlowBuilder extends React.Component<Props, State> {
@@ -32,7 +35,8 @@ export class FlowBuilder extends React.Component<Props, State> {
     public state: State = {
         flow: this.props.flow,
         id: DslApi.genFlowId(this.props.index),
-        showStep: false
+        showStep: false,
+        tabIndex: 0
     };
 
     componentDidMount() {
@@ -63,8 +67,11 @@ export class FlowBuilder extends React.Component<Props, State> {
         }
     }
 
+    selectTab = (evt: React.MouseEvent<HTMLElement, MouseEvent>, eventKey: string | number) => {
+    this.setState({tabIndex: eventKey})
+    }
     render() {
-        return (
+            return (
             <div className="flow-builder">
                 <div className="header">
                     <img draggable="false"
@@ -86,29 +93,62 @@ export class FlowBuilder extends React.Component<Props, State> {
                             key={this.state.id + index}
                             processor={processor}/>
                     ))}
-                    <Popover
-                        aria-label="Add step popover"
-                        position={"auto"}
-                        hideOnOutsideClick={false}
-                        isVisible={this.state.showStep}
-                        shouldClose={tip => this.setState({showStep:false})}
-                        shouldOpen={tip => this.setState({showStep:true})}
-                        appendTo={() => document.body}
-                        headerContent={<div>Select step</div>}
-                        bodyContent={
-                            <div>
-                                {DslApi.getAvailableSteps().map((step, index) => (
-                                    <Text>{step}</Text>
-                                ))}
-                            </div>
-                        }
-                        footerContent="Popover footer"
-                    >
                         <button type="button" aria-label="Add" onClick={e => this.showStepList()}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>
-                    </Popover>
+                    <Modal
+                        title="Select next step"
+                        width={'80%'}
+                        className='dsl-modal'
+                        isOpen={this.state.showStep}
+                        onClose={() =>  this.setState({showStep:false})}
+                        actions={{}}>
+                        <Tabs style={{overflow:'hidden'}} activeKey={this.state.tabIndex} onSelect={this.selectTab}>
+                            { ['routing', 'transformation', 'error', 'configuration'].map((label, index) =>
+                                <Tab eventKey={index} title={<TabTitleText>{label}</TabTitleText>}>
+                                    <Gallery hasGutter>
+                                    {/*<div style={{height:'100%'}}>*/}
+                                        {DslMetaApi.getDslMetaModels(label).map((model, index) => (
+                                            <Card isHoverable isCompact className="dsl-card">
+                                                <CardHeader>
+                                                    <Text>{model.title}</Text>
+                                                </CardHeader>
+                                                <CardBody>
+                                                    <Text>{model.description}</Text>
+                                                </CardBody>
+                                            </Card>
+
+                                        ))}
+                                    {/*</div>*/}
+                                    </Gallery>
+                                </Tab>
+                            )}
+                        </Tabs>
+                    </Modal>
+
+
+
+                    {/*<Popover*/}
+                    {/*    aria-label="Add step popover"*/}
+                    {/*    position={"auto"}*/}
+                    {/*    hideOnOutsideClick={true}*/}
+                    {/*    isVisible={this.state.showStep}*/}
+                    {/*    shouldClose={tip => this.setState({showStep:false})}*/}
+                    {/*    shouldOpen={tip => this.setState({showStep:true})}*/}
+                    {/*    appendTo={() => document.body}*/}
+                    {/*    headerContent={<div>Select step</div>}*/}
+                    {/*    maxWidth="600px"*/}
+                    {/*    bodyContent={*/}
+                    {/*        */}
+                    {/*    }*/}
+                    {/*    footerContent="Popover footer"*/}
+                    {/*>*/}
+                    {/*    <button type="button" aria-label="Add" onClick={e => this.showStepList()}*/}
+                    {/*            className="add-button">*/}
+                    {/*        <AddIcon noVerticalAlign/>*/}
+                    {/*    </button>*/}
+                    {/*</Popover>*/}
                 </div>
             </div>
         );
