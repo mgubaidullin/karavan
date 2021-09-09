@@ -527,7 +527,7 @@
   background: #fff;
   min-width: 160px;
   margin-top: 16px;
-  padding-top: 4px;
+  padding: 4px 10px;
 }
 
 .flow-builder .header {
@@ -537,27 +537,28 @@
   width: 100%;
 }
 
-.processor-builder {
+.element-builder {
   min-width: 160px;
   min-height: 65px;
   border-color: #e97826;
   border-style: solid;
   border-radius: 3px;
   border-width: 1px;
-  padding: 3px;
-  margin: 10px;
+  padding: 4px 6px 0px 6px;
+  margin: 10px auto 5px auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: fit-content;
 }
 
-.processor-builder .header {
+.element-builder .header {
   display: block;
   justify-content:center;
   position: relative;
 }
 .flow-builder .header .delete-button,
-.processor-builder .header .delete-button {
+.element-builder .header .delete-button {
   position: absolute;
   top: 0;
   right: 0;
@@ -571,12 +572,12 @@
   visibility: hidden;
 }
 .flow-builder:hover .header .delete-button,
-.processor-builder:hover .header .delete-button {
+.element-builder:hover .header .delete-button {
   visibility: visible;;
 }
 
 .flow-builder .header .icon,
-.processor-builder .header .icon {
+.element-builder .header .icon {
   height: 16px;
   width: auto;
   border: none;
@@ -597,7 +598,7 @@
   color: #e97826;
 }
 
-.processor-builder .add-button,
+.element-builder .add-button,
 .flow-builder .add-button {
   top: 0;
   right: 5px;
@@ -611,7 +612,16 @@
   visibility: hidden;
 }
 
-.processor-builder:hover .add-button,
+.element-builder .whens .element-builder{
+  margin: 0px 3px 0px 3px;
+}
+.element-builder .whens {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 5px 5px 5px;
+}
+
+.element-builder:hover .add-button,
 .flow-builder:hover .add-button {
   visibility: visible;
 }

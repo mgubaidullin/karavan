@@ -57,7 +57,6 @@ export const DslMetaApi = {
     getChildrenList: (name: string, label: string): DslMetaModel[] => {
         if (name === 'from') {
             const list = DslMetaApi.getProcessDefinitionElements(true);
-            // console.log(list);
             return DslMetaModels.filter(value => list.includes(value.name)).filter(value => value.label.includes(label));
         } else if (name === 'choice'){
             return [DslMetaApi.findDslMetaModelByName('when'), DslMetaApi.findDslMetaModelByName('otherwise')]
@@ -78,7 +77,6 @@ export const DslMetaApi = {
     getProcessDefinitionElements: (constraints: boolean): string[] => {
         const list = Object.entries(CamelYamlDsl.items.definitions["org.apache.camel.model.ProcessorDefinition"].properties)
             .map(value => DslMetaApi.camelizeName(value[0], '-', true));
-        console.log(list)
         return constraints ? list.filter(value => StepElements.includes(value)) : list
     },
 

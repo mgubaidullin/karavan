@@ -86,7 +86,7 @@ export class FlowBuilder extends React.Component<Props, State> {
                         <DeleteIcon noVerticalAlign/>
                     </button>
                 </div>
-                <div>
+                <div className="steps">
                     {this.state.flow.from?.steps.map((processor, index) => (
                         <DslElement
                             deleteStep={this.props.deleteStep}

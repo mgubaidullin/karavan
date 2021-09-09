@@ -5,7 +5,7 @@ import {
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
-import { ModelProcessorDefinition} from "../model/DslModel";
+import {ModelProcessorDefinition} from "../model/DslModel";
 import {DslApi} from "../api/DslApi";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {DslSelector} from "./DslSelector";
@@ -14,7 +14,7 @@ import {DslMetaModel} from "../model/DslMetaModel";
 interface Props<T> {
     element: T
     index: number
-    parentId:string
+    parentId: string
     updateStep: any
     deleteStep: any
 }
@@ -40,7 +40,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
     }
 
     delete = (evt: React.MouseEvent) => {
-        if (evt){
+        if (evt) {
             this.props.deleteStep.call(this, this.state.id)
         }
     }
@@ -49,13 +49,56 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         this.setState({showSelector: true})
     }
 
+    addStep = (newStep: any) => {
+        const step: any = {...this.state.element}[this.state.name];
+        const steps: any[] = [...step.steps]
+
+        steps.push(newStep)
+        step.steps = steps;
+
+        const clone: any = Object.assign(this.state.element);
+        clone[this.state.name] = step;
+        this.props.updateStep.call(this, clone, this.state.id)
+        this.setState({showSelector: false})
+    }
+
+    addWhen = (newWhen: any) => {
+        const choice: any = {...this.state.element}.choice;
+        const whens: any[] = [...choice.when]
+
+        whens.push(newWhen)
+        choice.when = whens;
+
+        const clone: any = Object.assign(this.state.element);
+        clone.choice = choice;
+        this.props.updateStep.call(this, clone, this.state.id)
+        this.setState({showSelector: false})
+    }
+
+    addOtherwise = (newOtherwise: any) => {
+        if (!this.state.element.hasOwnProperty('otherwise') || this.state.element.otherwise === undefined) {
+            const clone: any = Object.assign(this.state.element);
+            clone.otherwise = newOtherwise;
+            this.props.updateStep.call(this, clone, this.state.id)
+        }
+        this.setState({showSelector: false})
+    }
+
     onDslSelect = (dsl: DslMetaModel) => {
-        // this.addStep(DslApi.createChildElement(dsl))
+        if (this.state.name === 'choice') {
+            if (dsl.name === 'when') {
+                this.addWhen(DslApi.createChildElement(dsl))
+            } else if (dsl.name === 'otherwise') {
+                this.addOtherwise(DslApi.createChildElement(dsl))
+            }
+        } else if (DslMetaApi.isDslModelHasSteps(this.state.name)) {
+            this.addStep(DslApi.createChildElement(dsl))
+        }
     }
 
     render() {
         return (
-            <div className="processor-builder">
+            <div className="element-builder">
                 <div className="header">
                     <img draggable="false"
                          src={DslMetaApi.getIcon(this.state.name)}
@@ -67,22 +110,38 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                         <DeleteIcon noVerticalAlign/>
                     </button>
                 </div>
-                <div>
-                    {DslMetaApi.isDslModelHasSteps(this.state.name) && DslApi.getSteps(this.state.element).map((element, index) => (
+                {DslMetaApi.isDslModelHasSteps(this.state.name) &&
+                <div className="steps">
+                    {DslApi.getSteps(this.state.element).map((element, index) => (
                         <DslElement updateStep={this.props.updateStep}
-                                          deleteStep={this.props.deleteStep}
-                                          parentId={this.state.id}
-                                          index={index}
-                                          key={this.state.id + index}
-                                          element={element}/>
+                                    deleteStep={this.props.deleteStep}
+                                    parentId={this.state.id}
+                                    index={index}
+                                    key={this.state.id + index}
+                                    element={element}/>
                     ))}
                     {DslMetaApi.isDslModelHasSteps(this.state.name) &&
-                    <button key={this.state.id+"-del"} type="button" aria-label="Add" onClick={this.showSelectorList} className="add-button">
+                    <button key={this.state.id + "-del"} type="button" aria-label="Add" onClick={this.showSelectorList}
+                            className="add-button">
                         <AddIcon noVerticalAlign/>
                     </button>
                     }
                 </div>
-                <DslSelector elementName={this.state.name} id={this.state.id} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
+                }
+                {this.state.name === 'choice' &&
+                <div className="whens">
+                    {DslApi.getWhens(this.state.element).map((element, index) => (
+                        <DslElement updateStep={this.props.updateStep}
+                                    deleteStep={this.props.deleteStep}
+                                    parentId={this.state.id}
+                                    index={index}
+                                    key={this.state.id + index}
+                                    element={element}/>
+                    ))}
+                </div>
+                }
+                <DslSelector elementName={this.state.name} id={this.state.id} show={this.state.showSelector}
+                             onDslSelect={this.onDslSelect}/>
             </div>
         );
     }
