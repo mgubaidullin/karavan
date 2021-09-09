@@ -616,10 +616,25 @@
   visibility: visible;
 }
 
+.dsl-gallery {
+  margin-top: 16px;
+}
+
 .dsl-modal {
-  height: 70%;
+  height: 80%;
 }
 
 .dsl-modal .dsl-card{
-  /*max-height: 120px;*/
+  cursor: pointer;
+}
+.dsl-modal .dsl-card .icon {
+  height: 16px;
+  width: auto;
+  border: none;
+  margin-right: 6px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

@@ -7,45 +7,61 @@ import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
 import { ModelProcessorDefinition} from "../model/DslModel";
 import {DslApi} from "../api/DslApi";
+import {DslMetaApi} from "../api/DslMetaApi";
+import {DslSelector} from "./DslSelector";
+import {DslMetaModel} from "../model/DslMetaModel";
 
-interface Props {
-    processor: ModelProcessorDefinition
+interface Props<T> {
+    processor: T
     index: number
     parentId:string
     updateStep: any
     deleteStep: any
 }
 
-interface State {
-    processor: ModelProcessorDefinition
+interface State<T> {
+    processor: T
     name: string
     id: string
+    showSelector: boolean
 }
 
-export class ProcessorBuilder extends React.Component<Props, State> {
+export class ProcessorBuilder extends React.Component<Props<any>, State<any>> {
 
-    public state: State = {
+    public state: State<any> = {
         processor: this.props.processor,
         name: DslApi.getName(this.props.processor),
-        id: DslApi.genStepId(this.props.parentId, this.props.index, this.props.processor)
+        id: DslApi.genStepId(this.props.parentId, this.props.index, this.props.processor),
+        showSelector: false
     };
 
     componentDidMount() {
 
     }
 
-    addStep = () => {
-        const step:any = {...this.state.processor}[this.state.name];
-        const steps:any[] = [...step.steps]
+    addStep = (newStep: any) => {
+        if (this.state.name === 'choice'){
+            const clone:any = Object.assign(this.state.processor);
+            console.log(clone)
+            if (newStep['when'] !== undefined){
+                clone['when'].push(...newStep);
+            } else if (newStep['otherwise'] !== undefined){
+                clone['otherwise'] = newStep;
+            }
+            this.props.updateStep.call(this, clone, this.state.id)
+            this.setState({showSelector: false})
+        } else {
+            const step:any = {...this.state.processor}[this.state.name];
+            const steps:any[] = [...step.steps]
 
-        const choice: ModelProcessorDefinition = {choice:{when:[], otherwise:{steps:[]}}}
+            steps.push(newStep)
+            step.steps = steps;
 
-        steps.push(choice)
-        step.steps = steps;
-
-        const clone:any = Object.assign(this.state.processor);
-        clone[this.state.name] = step;
-        this.props.updateStep.call(this, clone, this.state.id)
+            const clone:any = Object.assign(this.state.processor);
+            clone[this.state.name] = step;
+            this.props.updateStep.call(this, clone, this.state.id)
+            this.setState({showSelector: false})
+        }
     }
 
     delete = (evt: React.MouseEvent) => {
@@ -54,12 +70,20 @@ export class ProcessorBuilder extends React.Component<Props, State> {
         }
     }
 
+    showSelectorList = () => {
+        this.setState({showSelector: true})
+    }
+
+    onDslSelect = (dsl: DslMetaModel) => {
+        this.addStep(DslApi.createChildElement(dsl))
+    }
+
     render() {
         return (
             <div className="processor-builder">
                 <div className="header">
                     <img draggable="false"
-                         src={DslApi.getIcon(this.state.name)}
+                         src={DslMetaApi.getIcon(this.state.name)}
                          style={this.state.name === 'choice' ? {height: "18px"} : {}}  // find better icon
                          className="icon" alt="icon"></img>
                     <Text>{this.state.name}</Text>
@@ -77,12 +101,27 @@ export class ProcessorBuilder extends React.Component<Props, State> {
                                           key={this.state.id + index}
                                           processor={processor}/>
                     ))}
-                    {DslApi.hasSteps(this.state.processor) &&
-                    <button key={this.state.id+"-del"} type="button" aria-label="Add" onClick={e => this.addStep()} className="add-button">
+                    <button key={this.state.id+"-del"} type="button" aria-label="Add" onClick={this.showSelectorList} className="add-button">
                         <AddIcon noVerticalAlign/>
                     </button>
+                    {this.state.name === 'choice' && this.state.processor.choice.otherwise &&
+                        <ProcessorBuilder updateStep={this.props.updateStep}
+                                          deleteStep={this.props.deleteStep}
+                                          parentId={this.state.id}
+                                          index={0}
+                                          key={this.state.id}
+                                          processor={this.state.processor.choice.otherwise}/>
                     }
+                    {DslApi.getWhens(this.state.processor).map((processor, index) => (
+                        <ProcessorBuilder updateStep={this.props.updateStep}
+                                          deleteStep={this.props.deleteStep}
+                                          parentId={this.state.id}
+                                          index={index}
+                                          key={this.state.id + index}
+                                          processor={processor}/>
+                    ))}
                 </div>
+                <DslSelector elementName={this.state.name} id={this.state.id} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
             </div>
         );
     }

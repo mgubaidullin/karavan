@@ -15,6 +15,9 @@ import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import {DslApi} from "../api/DslApi";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import {DslMetaApi} from "../api/DslMetaApi";
+import {DslSelector} from "./DslSelector";
+import {DslMetaModel} from "../model/DslMetaModel";
+import {DslElement} from "./DslElement";
 
 interface Props {
     flow: DslModelObject,
@@ -26,7 +29,7 @@ interface Props {
 interface State {
     flow: DslModelObject
     id: string
-    showStep: boolean
+    showSelector: boolean
     tabIndex: string | number
 }
 
@@ -35,47 +38,47 @@ export class FlowBuilder extends React.Component<Props, State> {
     public state: State = {
         flow: this.props.flow,
         id: DslApi.genFlowId(this.props.index),
-        showStep: false,
+        showSelector: false,
         tabIndex: 0
     };
 
     componentDidMount() {
     }
 
-    addStep = () => {
+    addStep = (newStep: ModelProcessorDefinition) => {
+        console.log(newStep)
         const step: any = {...this.state.flow}.from
         const steps: any[] = [...step.steps]
 
-        const choice: ModelProcessorDefinition = {choice: {when: [], otherwise: {steps: []}}}
-
-        steps.push(choice)
+        steps.push(newStep)
         step.steps = steps;
 
         const clone: DslModelObject = {...this.state.flow} as DslModelObject;
         clone.from = {...step} as DslYamlDeserializersRouteFromDefinitionDeserializer;
         this.props.updateStep.call(this, clone, this.state.id)
+        this.setState({showSelector: false})
     }
 
-    showStepList = () => {
-        this.setState({showStep: true})
+    showSelectorList = () => {
+        this.setState({showSelector: true})
     }
 
     delete = (evt: React.MouseEvent) => {
         if (evt) {
-            console.log("click delete " + this.state.id)
             this.props.deleteStep.call(this, this.state.id)
         }
     }
 
-    selectTab = (evt: React.MouseEvent<HTMLElement, MouseEvent>, eventKey: string | number) => {
-    this.setState({tabIndex: eventKey})
+    onDslSelect = (dsl: DslMetaModel) => {
+        this.addStep(DslApi.createChildElement(dsl))
     }
+
     render() {
             return (
             <div className="flow-builder">
                 <div className="header">
                     <img draggable="false"
-                         src={DslApi.getIcon("from", this.state.flow.from?.uri)}
+                         src={DslMetaApi.getIcon("from", this.state.flow.from?.uri)}
                          className="icon" alt="icon"></img>
                     <Text>{"from: " + this.state.flow.from?.uri}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
@@ -85,70 +88,19 @@ export class FlowBuilder extends React.Component<Props, State> {
                 </div>
                 <div>
                     {this.state.flow.from?.steps.map((processor, index) => (
-                        <ProcessorBuilder
+                        <DslElement
                             deleteStep={this.props.deleteStep}
                             updateStep={this.props.updateStep}
                             parentId={this.state.id}
                             index={index}
                             key={this.state.id + index}
-                            processor={processor}/>
+                            element={processor}/>
                     ))}
-                        <button type="button" aria-label="Add" onClick={e => this.showStepList()}
+                        <button type="button" aria-label="Add" onClick={e => this.showSelectorList()}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>
-                    <Modal
-                        title="Select next step"
-                        width={'80%'}
-                        className='dsl-modal'
-                        isOpen={this.state.showStep}
-                        onClose={() =>  this.setState({showStep:false})}
-                        actions={{}}>
-                        <Tabs style={{overflow:'hidden'}} activeKey={this.state.tabIndex} onSelect={this.selectTab}>
-                            { ['routing', 'transformation', 'error', 'configuration'].map((label, index) =>
-                                <Tab eventKey={index} title={<TabTitleText>{label}</TabTitleText>}>
-                                    <Gallery hasGutter>
-                                    {/*<div style={{height:'100%'}}>*/}
-                                        {DslMetaApi.getDslMetaModels(label).map((model, index) => (
-                                            <Card isHoverable isCompact className="dsl-card">
-                                                <CardHeader>
-                                                    <Text>{model.title}</Text>
-                                                </CardHeader>
-                                                <CardBody>
-                                                    <Text>{model.description}</Text>
-                                                </CardBody>
-                                            </Card>
-
-                                        ))}
-                                    {/*</div>*/}
-                                    </Gallery>
-                                </Tab>
-                            )}
-                        </Tabs>
-                    </Modal>
-
-
-
-                    {/*<Popover*/}
-                    {/*    aria-label="Add step popover"*/}
-                    {/*    position={"auto"}*/}
-                    {/*    hideOnOutsideClick={true}*/}
-                    {/*    isVisible={this.state.showStep}*/}
-                    {/*    shouldClose={tip => this.setState({showStep:false})}*/}
-                    {/*    shouldOpen={tip => this.setState({showStep:true})}*/}
-                    {/*    appendTo={() => document.body}*/}
-                    {/*    headerContent={<div>Select step</div>}*/}
-                    {/*    maxWidth="600px"*/}
-                    {/*    bodyContent={*/}
-                    {/*        */}
-                    {/*    }*/}
-                    {/*    footerContent="Popover footer"*/}
-                    {/*>*/}
-                    {/*    <button type="button" aria-label="Add" onClick={e => this.showStepList()}*/}
-                    {/*            className="add-button">*/}
-                    {/*        <AddIcon noVerticalAlign/>*/}
-                    {/*    </button>*/}
-                    {/*</Popover>*/}
+                    <DslSelector elementName={"from"} id={this.state.id} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
                 </div>
             </div>
         );

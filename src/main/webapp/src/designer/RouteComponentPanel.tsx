@@ -57,7 +57,7 @@ const RouteComponentPanel = () => {
   };
 
   const getFilteredDsl = (label:string):DslMetaModel[] => {
-    return DslMetaApi.getDslMetaModels(label)
+    return DslMetaApi.getChildrenList("default", label)
         .filter(model => model.title.toLowerCase().includes(filter.filter.toLowerCase()))
   }
 
@@ -102,7 +102,7 @@ const RouteComponentPanel = () => {
                     {getFilteredDsl(label).map((model, index) => (
                         <div key={model.name} className="node"
                              onDragStart={(event: DragEvent) => { event.dataTransfer.setData('route-step', JSON.stringify(model)); onDragStart(event, "") }} draggable>
-                          <img draggable="false" src={DslApi.getIcon(model.name)} className="kamelet-icon" alt=""></img>
+                          <img draggable="false" src={DslMetaApi.getIcon(model.name)} className="kamelet-icon" alt=""></img>
                           <p className="kamelet-title">{model.title}</p>
                         </div>
                     ))}

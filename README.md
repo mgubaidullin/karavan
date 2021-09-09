@@ -27,3 +27,8 @@ If you want to build an _über-jar_, execute the following command:
 ./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
+Generate DslModel
+```bash
+quicktype -s schema src/main/webapp/schema/camel-yaml-dsl.json -o src/main/webapp/src/model/DslModel.tsx --nice-property-names --acronym-style=camel --converters=all-objects
+```
+

@@ -8,7 +8,6 @@ import {Convert, DslModelObject, ModelProcessorDefinition, typeMap} from "../mod
 import {FlowBuilder} from "./FlowBuilder";
 import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
-import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import {v4 as uuidv4} from "uuid";
 
 interface Props {

@@ -7,8 +7,6 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
-export type DslModel = any[] | boolean | number | number | null | DslModelObject | string;
-
 export interface DslModelObject {
     beans?:         DslYamlDeserializersNamedBeanDefinition[];
     errorHandler?:  BuilderErrorHandlerBuilderRef;
@@ -27,13 +25,11 @@ export interface DslYamlDeserializersNamedBeanDefinition {
 }
 
 export interface BuilderErrorHandlerBuilderRef {
-    deadLetterChannel?: BuilderDeadLetterChannelBuilder;
+    deadLetterChannel?: BuilderDeadLetterChannelBuilderObject | string;
     log?:               BuilderDefaultErrorHandlerBuilder;
     none?:              { [key: string]: any };
     ref?:               string;
 }
-
-export type BuilderDeadLetterChannelBuilder = BuilderDeadLetterChannelBuilderObject | string;
 
 export interface BuilderDeadLetterChannelBuilderObject {
     asyncDelayedRedelivery?:       boolean;
@@ -59,27 +55,27 @@ export interface ModelWhenSkipSendToEndpointDefinition {
     expression?:                                            ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                                   boolean;
     steps?:                                                 ModelProcessorDefinition[];
-    constant?:                                              ModelLanguageConstantExpression;
-    csimple?:                                               ModelLanguageCSimpleExpression;
-    datasonnet?:                                            ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                                      ModelLanguageExchangePropertyExpression;
-    modelWhenSkipSendToEndpointDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                                ModelLanguageGroovyExpression;
-    header?:                                                ModelLanguageHeaderExpression;
-    hl7Terser?:                                             ModelLanguageHl7TerserExpression;
-    joor?:                                                  ModelLanguageJoorExpression;
-    jsonpath?:                                              ModelLanguageJsonPathExpression;
+    constant?:                                              ModelLanguageConstantExpressionObject | string;
+    csimple?:                                               ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                            ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                                      ModelLanguageExchangePropertyExpressionObject | string;
+    modelWhenSkipSendToEndpointDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                                ModelLanguageGroovyExpressionObject | string;
+    header?:                                                ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                             ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                                  ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                              ModelLanguageJsonPathExpressionObject | string;
     language?:                                              ModelLanguageLanguageExpression;
-    method?:                                                ModelLanguageMethodCallExpression;
-    mvel?:                                                  ModelLanguageMvelExpression;
-    ognl?:                                                  ModelLanguageOgnlExpression;
-    ref?:                                                   ModelLanguageRefExpression;
-    simple?:                                                ModelLanguageSimpleExpression;
-    spel?:                                                  ModelLanguageSpElExpression;
-    tokenize?:                                              ModelLanguageTokenizerExpression;
-    xpath?:                                                 ModelLanguageXPathExpression;
-    xquery?:                                                ModelLanguageXQueryExpression;
-    xtokenize?:                                             ModelLanguageXmlTokenizerExpression;
+    method?:                                                ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                                  ModelLanguageMvelExpressionObject | string;
+    ognl?:                                                  ModelLanguageOgnlExpressionObject | string;
+    ref?:                                                   ModelLanguageRefExpressionObject | string;
+    simple?:                                                ModelLanguageSimpleExpressionObject | string;
+    spel?:                                                  ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                              ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                                 ModelLanguageXPathExpressionObject | string;
+    xquery?:                                                ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                             ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelTransactedDefinition {
@@ -110,32 +106,32 @@ export interface ModelSplitDefinition {
     strategyRef?:                          string;
     streaming?:                            boolean;
     timeout?:                              string;
-    constant?:                             ModelLanguageConstantExpression;
-    csimple?:                              ModelLanguageCSimpleExpression;
-    datasonnet?:                           ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                     ModelLanguageExchangePropertyExpression;
-    modelSplitDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                               ModelLanguageGroovyExpression;
-    header?:                               ModelLanguageHeaderExpression;
-    hl7Terser?:                            ModelLanguageHl7TerserExpression;
-    joor?:                                 ModelLanguageJoorExpression;
-    jsonpath?:                             ModelLanguageJsonPathExpression;
+    constant?:                             ModelLanguageConstantExpressionObject | string;
+    csimple?:                              ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                           ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                     ModelLanguageExchangePropertyExpressionObject | string;
+    modelSplitDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                               ModelLanguageGroovyExpressionObject | string;
+    header?:                               ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                            ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                 ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                             ModelLanguageJsonPathExpressionObject | string;
     language?:                             ModelLanguageLanguageExpression;
-    method?:                               ModelLanguageMethodCallExpression;
-    mvel?:                                 ModelLanguageMvelExpression;
-    ognl?:                                 ModelLanguageOgnlExpression;
-    ref?:                                  ModelLanguageRefExpression;
-    simple?:                               ModelLanguageSimpleExpression;
-    spel?:                                 ModelLanguageSpElExpression;
-    tokenize?:                             ModelLanguageTokenizerExpression;
-    xpath?:                                ModelLanguageXPathExpression;
-    xquery?:                               ModelLanguageXQueryExpression;
-    xtokenize?:                            ModelLanguageXmlTokenizerExpression;
+    method?:                               ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                 ModelLanguageMvelExpressionObject | string;
+    ognl?:                                 ModelLanguageOgnlExpressionObject | string;
+    ref?:                                  ModelLanguageRefExpressionObject | string;
+    simple?:                               ModelLanguageSimpleExpressionObject | string;
+    spel?:                                 ModelLanguageSpElExpressionObject | string;
+    tokenize?:                             ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                ModelLanguageXPathExpressionObject | string;
+    xquery?:                               ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                            ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelSagaDefinition {
-    compensation?:          ModelSagaActionUriDefinition;
-    completion?:            ModelSagaActionUriDefinition;
+    compensation?:          ModelSagaActionUriDefinitionObject | string;
+    completion?:            ModelSagaActionUriDefinitionObject | string;
     completionMode?:        string;
     inheritErrorHandler?:   boolean;
     option?:                ModelSagaOptionDefinition[];
@@ -152,27 +148,27 @@ export interface ModelResequenceDefinition {
     inheritErrorHandler?:                       boolean;
     steps?:                                     ModelProcessorDefinition[];
     streamConfig?:                              ModelConfigStreamResequencerConfig;
-    constant?:                                  ModelLanguageConstantExpression;
-    csimple?:                                   ModelLanguageCSimpleExpression;
-    datasonnet?:                                ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                          ModelLanguageExchangePropertyExpression;
-    modelResequenceDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                    ModelLanguageGroovyExpression;
-    header?:                                    ModelLanguageHeaderExpression;
-    hl7Terser?:                                 ModelLanguageHl7TerserExpression;
-    joor?:                                      ModelLanguageJoorExpression;
-    jsonpath?:                                  ModelLanguageJsonPathExpression;
+    constant?:                                  ModelLanguageConstantExpressionObject | string;
+    csimple?:                                   ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                          ModelLanguageExchangePropertyExpressionObject | string;
+    modelResequenceDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                    ModelLanguageGroovyExpressionObject | string;
+    header?:                                    ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                 ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                      ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                  ModelLanguageJsonPathExpressionObject | string;
     language?:                                  ModelLanguageLanguageExpression;
-    method?:                                    ModelLanguageMethodCallExpression;
-    mvel?:                                      ModelLanguageMvelExpression;
-    ognl?:                                      ModelLanguageOgnlExpression;
-    ref?:                                       ModelLanguageRefExpression;
-    simple?:                                    ModelLanguageSimpleExpression;
-    spel?:                                      ModelLanguageSpElExpression;
-    tokenize?:                                  ModelLanguageTokenizerExpression;
-    xpath?:                                     ModelLanguageXPathExpression;
-    xquery?:                                    ModelLanguageXQueryExpression;
-    xtokenize?:                                 ModelLanguageXmlTokenizerExpression;
+    method?:                                    ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                      ModelLanguageMvelExpressionObject | string;
+    ognl?:                                      ModelLanguageOgnlExpressionObject | string;
+    ref?:                                       ModelLanguageRefExpressionObject | string;
+    simple?:                                    ModelLanguageSimpleExpressionObject | string;
+    spel?:                                      ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                  ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                     ModelLanguageXPathExpressionObject | string;
+    xquery?:                                    ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                 ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelPolicyDefinition {
@@ -222,31 +218,31 @@ export interface ModelLoopDefinition {
     expression?:                          ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                 boolean;
     steps?:                               ModelProcessorDefinition[];
-    constant?:                            ModelLanguageConstantExpression;
-    csimple?:                             ModelLanguageCSimpleExpression;
-    datasonnet?:                          ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                    ModelLanguageExchangePropertyExpression;
-    modelLoopDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                              ModelLanguageGroovyExpression;
-    header?:                              ModelLanguageHeaderExpression;
-    hl7Terser?:                           ModelLanguageHl7TerserExpression;
-    joor?:                                ModelLanguageJoorExpression;
-    jsonpath?:                            ModelLanguageJsonPathExpression;
+    constant?:                            ModelLanguageConstantExpressionObject | string;
+    csimple?:                             ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                          ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                    ModelLanguageExchangePropertyExpressionObject | string;
+    modelLoopDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                              ModelLanguageGroovyExpressionObject | string;
+    header?:                              ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                           ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                            ModelLanguageJsonPathExpressionObject | string;
     language?:                            ModelLanguageLanguageExpression;
-    method?:                              ModelLanguageMethodCallExpression;
-    mvel?:                                ModelLanguageMvelExpression;
-    ognl?:                                ModelLanguageOgnlExpression;
-    ref?:                                 ModelLanguageRefExpression;
-    simple?:                              ModelLanguageSimpleExpression;
-    spel?:                                ModelLanguageSpElExpression;
-    tokenize?:                            ModelLanguageTokenizerExpression;
-    xpath?:                               ModelLanguageXPathExpression;
-    xquery?:                              ModelLanguageXQueryExpression;
-    xtokenize?:                           ModelLanguageXmlTokenizerExpression;
+    method?:                              ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                ModelLanguageMvelExpressionObject | string;
+    ognl?:                                ModelLanguageOgnlExpressionObject | string;
+    ref?:                                 ModelLanguageRefExpressionObject | string;
+    simple?:                              ModelLanguageSimpleExpressionObject | string;
+    spel?:                                ModelLanguageSpElExpressionObject | string;
+    tokenize?:                            ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                               ModelLanguageXPathExpressionObject | string;
+    xquery?:                              ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                           ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelLoadBalanceDefinition {
-    customLoadBalancer?:  ModelLoadbalancerCustomLoadBalancerDefinition;
+    customLoadBalancer?:  ModelLoadbalancerCustomLoadBalancerDefinitionObject | string;
     failover?:            ModelLoadbalancerFailoverLoadBalancerDefinition;
     inheritErrorHandler?: boolean;
     random?:              ModelLoadbalancerRandomLoadBalancerDefinition;
@@ -264,8 +260,6 @@ export interface ModelKameletDefinitionObject {
     steps?:               ModelProcessorDefinition[];
 }
 
-export type ModelKameletDefinition = ModelKameletDefinitionObject | string;
-
 export interface ModelInterceptSendToEndpointDefinitionObject {
     uri:                         string;
     afterUri?:                   string;
@@ -274,15 +268,11 @@ export interface ModelInterceptSendToEndpointDefinitionObject {
     steps?:                      ModelProcessorDefinition[];
 }
 
-export type ModelInterceptSendToEndpointDefinition = ModelInterceptSendToEndpointDefinitionObject | string;
-
 export interface ModelInterceptFromDefinitionObject {
     inheritErrorHandler?: boolean;
     steps?:               ModelProcessorDefinition[];
     uri?:                 string;
 }
-
-export type ModelInterceptFromDefinition = ModelInterceptFromDefinitionObject | string;
 
 export interface ModelInterceptDefinition {
     inheritErrorHandler?: boolean;
@@ -298,54 +288,54 @@ export interface ModelIdempotentConsumerDefinition {
     removeOnFailure?:                                   boolean;
     skipDuplicate?:                                     boolean;
     steps?:                                             ModelProcessorDefinition[];
-    constant?:                                          ModelLanguageConstantExpression;
-    csimple?:                                           ModelLanguageCSimpleExpression;
-    datasonnet?:                                        ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                                  ModelLanguageExchangePropertyExpression;
-    modelIdempotentConsumerDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                            ModelLanguageGroovyExpression;
-    header?:                                            ModelLanguageHeaderExpression;
-    hl7Terser?:                                         ModelLanguageHl7TerserExpression;
-    joor?:                                              ModelLanguageJoorExpression;
-    jsonpath?:                                          ModelLanguageJsonPathExpression;
+    constant?:                                          ModelLanguageConstantExpressionObject | string;
+    csimple?:                                           ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                        ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                                  ModelLanguageExchangePropertyExpressionObject | string;
+    modelIdempotentConsumerDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                            ModelLanguageGroovyExpressionObject | string;
+    header?:                                            ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                         ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                              ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                          ModelLanguageJsonPathExpressionObject | string;
     language?:                                          ModelLanguageLanguageExpression;
-    method?:                                            ModelLanguageMethodCallExpression;
-    mvel?:                                              ModelLanguageMvelExpression;
-    ognl?:                                              ModelLanguageOgnlExpression;
-    ref?:                                               ModelLanguageRefExpression;
-    simple?:                                            ModelLanguageSimpleExpression;
-    spel?:                                              ModelLanguageSpElExpression;
-    tokenize?:                                          ModelLanguageTokenizerExpression;
-    xpath?:                                             ModelLanguageXPathExpression;
-    xquery?:                                            ModelLanguageXQueryExpression;
-    xtokenize?:                                         ModelLanguageXmlTokenizerExpression;
+    method?:                                            ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                              ModelLanguageMvelExpressionObject | string;
+    ognl?:                                              ModelLanguageOgnlExpressionObject | string;
+    ref?:                                               ModelLanguageRefExpressionObject | string;
+    simple?:                                            ModelLanguageSimpleExpressionObject | string;
+    spel?:                                              ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                          ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                             ModelLanguageXPathExpressionObject | string;
+    xquery?:                                            ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                         ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelFilterDefinition {
     expression?:                            ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                   boolean;
     steps?:                                 ModelProcessorDefinition[];
-    constant?:                              ModelLanguageConstantExpression;
-    csimple?:                               ModelLanguageCSimpleExpression;
-    datasonnet?:                            ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                      ModelLanguageExchangePropertyExpression;
-    modelFilterDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                ModelLanguageGroovyExpression;
-    header?:                                ModelLanguageHeaderExpression;
-    hl7Terser?:                             ModelLanguageHl7TerserExpression;
-    joor?:                                  ModelLanguageJoorExpression;
-    jsonpath?:                              ModelLanguageJsonPathExpression;
+    constant?:                              ModelLanguageConstantExpressionObject | string;
+    csimple?:                               ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                            ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                      ModelLanguageExchangePropertyExpressionObject | string;
+    modelFilterDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                ModelLanguageGroovyExpressionObject | string;
+    header?:                                ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                             ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                  ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                              ModelLanguageJsonPathExpressionObject | string;
     language?:                              ModelLanguageLanguageExpression;
-    method?:                                ModelLanguageMethodCallExpression;
-    mvel?:                                  ModelLanguageMvelExpression;
-    ognl?:                                  ModelLanguageOgnlExpression;
-    ref?:                                   ModelLanguageRefExpression;
-    simple?:                                ModelLanguageSimpleExpression;
-    spel?:                                  ModelLanguageSpElExpression;
-    tokenize?:                              ModelLanguageTokenizerExpression;
-    xpath?:                                 ModelLanguageXPathExpression;
-    xquery?:                                ModelLanguageXQueryExpression;
-    xtokenize?:                             ModelLanguageXmlTokenizerExpression;
+    method?:                                ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                  ModelLanguageMvelExpressionObject | string;
+    ognl?:                                  ModelLanguageOgnlExpressionObject | string;
+    ref?:                                   ModelLanguageRefExpressionObject | string;
+    simple?:                                ModelLanguageSimpleExpressionObject | string;
+    spel?:                                  ModelLanguageSpElExpressionObject | string;
+    tokenize?:                              ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                 ModelLanguageXPathExpressionObject | string;
+    xquery?:                                ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                             ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelTryDefinition {
@@ -387,27 +377,27 @@ export interface ModelWhenDefinition {
     expression?:                          ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                 boolean;
     steps?:                               ModelProcessorDefinition[];
-    constant?:                            ModelLanguageConstantExpression;
-    csimple?:                             ModelLanguageCSimpleExpression;
-    datasonnet?:                          ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                    ModelLanguageExchangePropertyExpression;
-    modelWhenDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                              ModelLanguageGroovyExpression;
-    header?:                              ModelLanguageHeaderExpression;
-    hl7Terser?:                           ModelLanguageHl7TerserExpression;
-    joor?:                                ModelLanguageJoorExpression;
-    jsonpath?:                            ModelLanguageJsonPathExpression;
+    constant?:                            ModelLanguageConstantExpressionObject | string;
+    csimple?:                             ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                          ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                    ModelLanguageExchangePropertyExpressionObject | string;
+    modelWhenDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                              ModelLanguageGroovyExpressionObject | string;
+    header?:                              ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                           ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                            ModelLanguageJsonPathExpressionObject | string;
     language?:                            ModelLanguageLanguageExpression;
-    method?:                              ModelLanguageMethodCallExpression;
-    mvel?:                                ModelLanguageMvelExpression;
-    ognl?:                                ModelLanguageOgnlExpression;
-    ref?:                                 ModelLanguageRefExpression;
-    simple?:                              ModelLanguageSimpleExpression;
-    spel?:                                ModelLanguageSpElExpression;
-    tokenize?:                            ModelLanguageTokenizerExpression;
-    xpath?:                               ModelLanguageXPathExpression;
-    xquery?:                              ModelLanguageXQueryExpression;
-    xtokenize?:                           ModelLanguageXmlTokenizerExpression;
+    method?:                              ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                ModelLanguageMvelExpressionObject | string;
+    ognl?:                                ModelLanguageOgnlExpressionObject | string;
+    ref?:                                 ModelLanguageRefExpressionObject | string;
+    simple?:                              ModelLanguageSimpleExpressionObject | string;
+    spel?:                                ModelLanguageSpElExpressionObject | string;
+    tokenize?:                            ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                               ModelLanguageXPathExpressionObject | string;
+    xquery?:                              ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                           ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelOtherwiseDefinition {
@@ -456,11 +446,11 @@ export interface ModelAggregateDefinition {
 
 export interface ModelProcessorDefinition {
     aggregate?:               ModelAggregateDefinition;
-    bean?:                    ModelBeanDefinition;
+    bean?:                    ModelBeanDefinitionObject | string;
     choice?:                  ModelChoiceDefinition;
     circuitBreaker?:          ModelCircuitBreakerDefinition;
     claimCheck?:              ModelClaimCheckDefinition;
-    convertBodyTo?:           ModelConvertBodyDefinition;
+    convertBodyTo?:           ModelConvertBodyDefinitionObject | string;
     delay?:                   ModelDelayDefinition;
     doCatch?:                 ModelCatchDefinition;
     doFinally?:               ModelFinallyDefinition;
@@ -469,14 +459,14 @@ export interface ModelProcessorDefinition {
     enrich?:                  ModelEnrichDefinition;
     filter?:                  ModelFilterDefinition;
     idempotentConsumer?:      ModelIdempotentConsumerDefinition;
-    inOnly?:                  ModelInOnlyDefinition;
-    inOut?:                   ModelInOutDefinition;
+    inOnly?:                  ModelInOnlyDefinitionObject | string;
+    inOut?:                   ModelInOutDefinitionObject | string;
     intercept?:               ModelInterceptDefinition;
-    interceptFrom?:           ModelInterceptFromDefinition;
-    interceptSendToEndpoint?: ModelInterceptSendToEndpointDefinition;
-    kamelet?:                 ModelKameletDefinition;
+    interceptFrom?:           ModelInterceptFromDefinitionObject | string;
+    interceptSendToEndpoint?: ModelInterceptSendToEndpointDefinitionObject | string;
+    kamelet?:                 ModelKameletDefinitionObject | string;
     loadBalance?:             ModelLoadBalanceDefinition;
-    log?:                     ModelLogDefinition;
+    log?:                     ModelLogDefinitionObject | string;
     loop?:                    ModelLoopDefinition;
     marshal?:                 ModelMarshalDefinition;
     multicast?:               ModelMulticastDefinition;
@@ -488,19 +478,19 @@ export interface ModelProcessorDefinition {
     pollEnrich?:              ModelPollEnrichDefinition;
     process?:                 ModelProcessDefinition;
     recipientList?:           ModelRecipientListDefinition;
-    removeHeader?:            ModelRemoveHeaderDefinition;
-    removeHeaders?:           ModelRemoveHeadersDefinition;
-    removeProperties?:        ModelRemovePropertiesDefinition;
-    removeProperty?:          ModelRemovePropertyDefinition;
+    removeHeader?:            ModelRemoveHeaderDefinitionObject | string;
+    removeHeaders?:           ModelRemoveHeadersDefinitionObject | string;
+    removeProperties?:        ModelRemovePropertiesDefinitionObject | string;
+    removeProperty?:          ModelRemovePropertyDefinitionObject | string;
     resequence?:              ModelResequenceDefinition;
-    rollback?:                ModelRollbackDefinition;
+    rollback?:                ModelRollbackDefinitionObject | string;
     routingSlip?:             ModelRoutingSlipDefinition;
     saga?:                    ModelSagaDefinition;
     sample?:                  ModelSamplingDefinition;
     script?:                  ModelScriptDefinition;
-    serviceCall?:             ModelCloudServiceCallDefinition;
+    serviceCall?:             ModelCloudServiceCallDefinitionObject | string;
     setBody?:                 ModelSetBodyDefinition;
-    setExchangePattern?:      ModelSetExchangePatternDefinition;
+    setExchangePattern?:      ModelSetExchangePatternDefinitionObject | string;
     setHeader?:               ModelSetHeaderDefinition;
     setProperty?:             ModelSetPropertyDefinition;
     sort?:                    ModelSortDefinition;
@@ -510,9 +500,9 @@ export interface ModelProcessorDefinition {
     threads?:                 ModelThreadsDefinition;
     throttle?:                ModelThrottleDefinition;
     throwException?:          ModelThrowExceptionDefinition;
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
-    tod?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
+    tod?:                     ModelToDynamicDefinitionObject | string;
     transacted?:              ModelTransactedDefinition;
     transform?:               ModelTransformDefinition;
     unmarshal?:               ModelUnmarshalDefinition;
@@ -522,15 +512,11 @@ export interface ModelProcessorDefinition {
     wireTap?:                 ModelWireTapDefinition;
 }
 
-export type ModelLanguageConstantExpression = ModelLanguageConstantExpressionObject | string;
-
 export interface ModelLanguageConstantExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
-
-export type ModelLanguageCSimpleExpression = ModelLanguageCSimpleExpressionObject | string;
 
 export interface ModelLanguageCSimpleExpressionObject {
     expression:  string;
@@ -538,8 +524,6 @@ export interface ModelLanguageCSimpleExpressionObject {
     resultType?: string;
     trim?:       boolean;
 }
-
-export type ModelLanguageDatasonnetExpression = ModelLanguageDatasonnetExpressionObject | string;
 
 export interface ModelLanguageDatasonnetExpressionObject {
     expression:       string;
@@ -550,8 +534,6 @@ export interface ModelLanguageDatasonnetExpressionObject {
     trim?:            boolean;
 }
 
-export type ModelLanguageExchangePropertyExpression = ModelLanguageExchangePropertyExpressionObject | string;
-
 export interface ModelLanguageExchangePropertyExpressionObject {
     expression: string;
     id?:        string;
@@ -559,30 +541,28 @@ export interface ModelLanguageExchangePropertyExpressionObject {
 }
 
 export interface ModelLanguageExpressionDefinition {
-    constant?:                                          ModelLanguageConstantExpression;
-    csimple?:                                           ModelLanguageCSimpleExpression;
-    datasonnet?:                                        ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                                  ModelLanguageExchangePropertyExpression;
-    modelLanguageExpressionDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                            ModelLanguageGroovyExpression;
-    header?:                                            ModelLanguageHeaderExpression;
-    hl7Terser?:                                         ModelLanguageHl7TerserExpression;
-    joor?:                                              ModelLanguageJoorExpression;
-    jsonpath?:                                          ModelLanguageJsonPathExpression;
+    constant?:                                          ModelLanguageConstantExpressionObject | string;
+    csimple?:                                           ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                        ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                                  ModelLanguageExchangePropertyExpressionObject | string;
+    modelLanguageExpressionDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                            ModelLanguageGroovyExpressionObject | string;
+    header?:                                            ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                         ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                              ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                          ModelLanguageJsonPathExpressionObject | string;
     language?:                                          ModelLanguageLanguageExpression;
-    method?:                                            ModelLanguageMethodCallExpression;
-    mvel?:                                              ModelLanguageMvelExpression;
-    ognl?:                                              ModelLanguageOgnlExpression;
-    ref?:                                               ModelLanguageRefExpression;
-    simple?:                                            ModelLanguageSimpleExpression;
-    spel?:                                              ModelLanguageSpElExpression;
-    tokenize?:                                          ModelLanguageTokenizerExpression;
-    xpath?:                                             ModelLanguageXPathExpression;
-    xquery?:                                            ModelLanguageXQueryExpression;
-    xtokenize?:                                         ModelLanguageXmlTokenizerExpression;
+    method?:                                            ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                              ModelLanguageMvelExpressionObject | string;
+    ognl?:                                              ModelLanguageOgnlExpressionObject | string;
+    ref?:                                               ModelLanguageRefExpressionObject | string;
+    simple?:                                            ModelLanguageSimpleExpressionObject | string;
+    spel?:                                              ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                          ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                             ModelLanguageXPathExpressionObject | string;
+    xquery?:                                            ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                         ModelLanguageXmlTokenizerExpressionObject | string;
 }
-
-export type ModelLanguageGroovyExpression = ModelLanguageGroovyExpressionObject | string;
 
 export interface ModelLanguageGroovyExpressionObject {
     expression: string;
@@ -590,23 +570,17 @@ export interface ModelLanguageGroovyExpressionObject {
     trim?:      boolean;
 }
 
-export type ModelLanguageHeaderExpression = ModelLanguageHeaderExpressionObject | string;
-
 export interface ModelLanguageHeaderExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
 
-export type ModelLanguageHl7TerserExpression = ModelLanguageHl7TerserExpressionObject | string;
-
 export interface ModelLanguageHl7TerserExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
-
-export type ModelLanguageJoorExpression = ModelLanguageJoorExpressionObject | string;
 
 export interface ModelLanguageJoorExpressionObject {
     expression:    string;
@@ -616,8 +590,6 @@ export interface ModelLanguageJoorExpressionObject {
     singleQuotes?: boolean;
     trim?:         boolean;
 }
-
-export type ModelLanguageJsonPathExpression = ModelLanguageJsonPathExpressionObject | string;
 
 export interface ModelLanguageJsonPathExpressionObject {
     expression:          string;
@@ -639,8 +611,6 @@ export interface ModelLanguageLanguageExpression {
     trim?:      boolean;
 }
 
-export type ModelLanguageMethodCallExpression = ModelLanguageMethodCallExpressionObject | string;
-
 export interface ModelLanguageMethodCallExpressionObject {
     expression: string;
     beanType?:  string;
@@ -651,15 +621,11 @@ export interface ModelLanguageMethodCallExpressionObject {
     trim?:      boolean;
 }
 
-export type ModelLanguageMvelExpression = ModelLanguageMvelExpressionObject | string;
-
 export interface ModelLanguageMvelExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
-
-export type ModelLanguageOgnlExpression = ModelLanguageOgnlExpressionObject | string;
 
 export interface ModelLanguageOgnlExpressionObject {
     expression: string;
@@ -667,15 +633,11 @@ export interface ModelLanguageOgnlExpressionObject {
     trim?:      boolean;
 }
 
-export type ModelLanguageRefExpression = ModelLanguageRefExpressionObject | string;
-
 export interface ModelLanguageRefExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
-
-export type ModelLanguageSimpleExpression = ModelLanguageSimpleExpressionObject | string;
 
 export interface ModelLanguageSimpleExpressionObject {
     expression:  string;
@@ -684,15 +646,11 @@ export interface ModelLanguageSimpleExpressionObject {
     trim?:       boolean;
 }
 
-export type ModelLanguageSpElExpression = ModelLanguageSpElExpressionObject | string;
-
 export interface ModelLanguageSpElExpressionObject {
     expression: string;
     id?:        string;
     trim?:      boolean;
 }
-
-export type ModelLanguageTokenizerExpression = ModelLanguageTokenizerExpressionObject | string;
 
 export interface ModelLanguageTokenizerExpressionObject {
     expression:               string;
@@ -710,8 +668,6 @@ export interface ModelLanguageTokenizerExpressionObject {
     xml?:                     boolean;
 }
 
-export type ModelLanguageXPathExpression = ModelLanguageXPathExpressionObject | string;
-
 export interface ModelLanguageXPathExpressionObject {
     expression:     string;
     documentType?:  string;
@@ -727,8 +683,6 @@ export interface ModelLanguageXPathExpressionObject {
     trim?:          boolean;
 }
 
-export type ModelLanguageXQueryExpression = ModelLanguageXQueryExpressionObject | string;
-
 export interface ModelLanguageXQueryExpressionObject {
     expression:        string;
     configurationRef?: string;
@@ -737,8 +691,6 @@ export interface ModelLanguageXQueryExpressionObject {
     trim?:             boolean;
     type?:             string;
 }
-
-export type ModelLanguageXmlTokenizerExpression = ModelLanguageXmlTokenizerExpressionObject | string;
 
 export interface ModelLanguageXmlTokenizerExpressionObject {
     expression:  string;
@@ -749,8 +701,6 @@ export interface ModelLanguageXmlTokenizerExpressionObject {
     trim?:       boolean;
 }
 
-export type ModelSagaActionUriDefinition = ModelSagaActionUriDefinitionObject | string;
-
 export interface ModelSagaActionUriDefinitionObject {
     uri:                  string;
     inheritErrorHandler?: boolean;
@@ -760,27 +710,27 @@ export interface ModelSagaActionUriDefinitionObject {
 export interface ModelSagaOptionDefinition {
     expression?:                                ModelLanguageExpressionDefinition;
     optionName:                                 string;
-    constant?:                                  ModelLanguageConstantExpression;
-    csimple?:                                   ModelLanguageCSimpleExpression;
-    datasonnet?:                                ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                          ModelLanguageExchangePropertyExpression;
-    modelSagaOptionDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                    ModelLanguageGroovyExpression;
-    header?:                                    ModelLanguageHeaderExpression;
-    hl7Terser?:                                 ModelLanguageHl7TerserExpression;
-    joor?:                                      ModelLanguageJoorExpression;
-    jsonpath?:                                  ModelLanguageJsonPathExpression;
+    constant?:                                  ModelLanguageConstantExpressionObject | string;
+    csimple?:                                   ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                          ModelLanguageExchangePropertyExpressionObject | string;
+    modelSagaOptionDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                    ModelLanguageGroovyExpressionObject | string;
+    header?:                                    ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                 ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                      ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                  ModelLanguageJsonPathExpressionObject | string;
     language?:                                  ModelLanguageLanguageExpression;
-    method?:                                    ModelLanguageMethodCallExpression;
-    mvel?:                                      ModelLanguageMvelExpression;
-    ognl?:                                      ModelLanguageOgnlExpression;
-    ref?:                                       ModelLanguageRefExpression;
-    simple?:                                    ModelLanguageSimpleExpression;
-    spel?:                                      ModelLanguageSpElExpression;
-    tokenize?:                                  ModelLanguageTokenizerExpression;
-    xpath?:                                     ModelLanguageXPathExpression;
-    xquery?:                                    ModelLanguageXQueryExpression;
-    xtokenize?:                                 ModelLanguageXmlTokenizerExpression;
+    method?:                                    ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                      ModelLanguageMvelExpressionObject | string;
+    ognl?:                                      ModelLanguageOgnlExpressionObject | string;
+    ref?:                                       ModelLanguageRefExpressionObject | string;
+    simple?:                                    ModelLanguageSimpleExpressionObject | string;
+    spel?:                                      ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                  ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                     ModelLanguageXPathExpressionObject | string;
+    xquery?:                                    ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                 ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelConfigBatchResequencerConfig {
@@ -799,8 +749,6 @@ export interface ModelConfigStreamResequencerConfig {
     rejectOld?:               boolean;
     timeout?:                 string;
 }
-
-export type ModelLoadbalancerCustomLoadBalancerDefinition = ModelLoadbalancerCustomLoadBalancerDefinitionObject | string;
 
 export interface ModelLoadbalancerCustomLoadBalancerDefinitionObject {
     ref: string;
@@ -829,27 +777,27 @@ export interface ModelLoadbalancerStickyLoadBalancerDefinition {
 }
 
 export interface ModelExpressionSubElementDefinition {
-    constant?:                                            ModelLanguageConstantExpression;
-    csimple?:                                             ModelLanguageCSimpleExpression;
-    datasonnet?:                                          ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                                    ModelLanguageExchangePropertyExpression;
-    modelExpressionSubElementDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                              ModelLanguageGroovyExpression;
-    header?:                                              ModelLanguageHeaderExpression;
-    hl7Terser?:                                           ModelLanguageHl7TerserExpression;
-    joor?:                                                ModelLanguageJoorExpression;
-    jsonpath?:                                            ModelLanguageJsonPathExpression;
+    constant?:                                            ModelLanguageConstantExpressionObject | string;
+    csimple?:                                             ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                          ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                                    ModelLanguageExchangePropertyExpressionObject | string;
+    modelExpressionSubElementDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                              ModelLanguageGroovyExpressionObject | string;
+    header?:                                              ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                           ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                                ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                            ModelLanguageJsonPathExpressionObject | string;
     language?:                                            ModelLanguageLanguageExpression;
-    method?:                                              ModelLanguageMethodCallExpression;
-    mvel?:                                                ModelLanguageMvelExpression;
-    ognl?:                                                ModelLanguageOgnlExpression;
-    ref?:                                                 ModelLanguageRefExpression;
-    simple?:                                              ModelLanguageSimpleExpression;
-    spel?:                                                ModelLanguageSpElExpression;
-    tokenize?:                                            ModelLanguageTokenizerExpression;
-    xpath?:                                               ModelLanguageXPathExpression;
-    xquery?:                                              ModelLanguageXQueryExpression;
-    xtokenize?:                                           ModelLanguageXmlTokenizerExpression;
+    method?:                                              ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                                ModelLanguageMvelExpressionObject | string;
+    ognl?:                                                ModelLanguageOgnlExpressionObject | string;
+    ref?:                                                 ModelLanguageRefExpressionObject | string;
+    simple?:                                              ModelLanguageSimpleExpressionObject | string;
+    spel?:                                                ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                            ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                               ModelLanguageXPathExpressionObject | string;
+    xquery?:                                              ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                           ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelLoadbalancerTopicLoadBalancerDefinition {
@@ -939,8 +887,6 @@ export interface ModelOptimisticLockRetryPolicyDefinition {
     retryDelay?:         string;
 }
 
-export type ModelBeanDefinition = ModelBeanDefinitionObject | string;
-
 export interface ModelBeanDefinitionObject {
     beanType?:            string;
     cache?:               boolean;
@@ -959,8 +905,6 @@ export interface ModelClaimCheckDefinition {
     strategyRef?:         string;
 }
 
-export type ModelConvertBodyDefinition = ModelConvertBodyDefinitionObject | string;
-
 export interface ModelConvertBodyDefinitionObject {
     type:                 string;
     charset?:             string;
@@ -974,27 +918,27 @@ export interface ModelDelayDefinition {
     executorServiceRef?:                   string;
     expression?:                           ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                  boolean;
-    constant?:                             ModelLanguageConstantExpression;
-    csimple?:                              ModelLanguageCSimpleExpression;
-    datasonnet?:                           ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                     ModelLanguageExchangePropertyExpression;
-    modelDelayDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                               ModelLanguageGroovyExpression;
-    header?:                               ModelLanguageHeaderExpression;
-    hl7Terser?:                            ModelLanguageHl7TerserExpression;
-    joor?:                                 ModelLanguageJoorExpression;
-    jsonpath?:                             ModelLanguageJsonPathExpression;
+    constant?:                             ModelLanguageConstantExpressionObject | string;
+    csimple?:                              ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                           ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                     ModelLanguageExchangePropertyExpressionObject | string;
+    modelDelayDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                               ModelLanguageGroovyExpressionObject | string;
+    header?:                               ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                            ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                 ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                             ModelLanguageJsonPathExpressionObject | string;
     language?:                             ModelLanguageLanguageExpression;
-    method?:                               ModelLanguageMethodCallExpression;
-    mvel?:                                 ModelLanguageMvelExpression;
-    ognl?:                                 ModelLanguageOgnlExpression;
-    ref?:                                  ModelLanguageRefExpression;
-    simple?:                               ModelLanguageSimpleExpression;
-    spel?:                                 ModelLanguageSpElExpression;
-    tokenize?:                             ModelLanguageTokenizerExpression;
-    xpath?:                                ModelLanguageXPathExpression;
-    xquery?:                               ModelLanguageXQueryExpression;
-    xtokenize?:                            ModelLanguageXmlTokenizerExpression;
+    method?:                               ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                 ModelLanguageMvelExpressionObject | string;
+    ognl?:                                 ModelLanguageOgnlExpressionObject | string;
+    ref?:                                  ModelLanguageRefExpressionObject | string;
+    simple?:                               ModelLanguageSimpleExpressionObject | string;
+    spel?:                                 ModelLanguageSpElExpressionObject | string;
+    tokenize?:                             ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                ModelLanguageXPathExpressionObject | string;
+    xquery?:                               ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                            ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelDynamicRouterDefinition {
@@ -1003,27 +947,27 @@ export interface ModelDynamicRouterDefinition {
     ignoreInvalidEndpoints?:                       boolean;
     inheritErrorHandler?:                          boolean;
     uriDelimiter?:                                 string;
-    constant?:                                     ModelLanguageConstantExpression;
-    csimple?:                                      ModelLanguageCSimpleExpression;
-    datasonnet?:                                   ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                             ModelLanguageExchangePropertyExpression;
-    modelDynamicRouterDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                       ModelLanguageGroovyExpression;
-    header?:                                       ModelLanguageHeaderExpression;
-    hl7Terser?:                                    ModelLanguageHl7TerserExpression;
-    joor?:                                         ModelLanguageJoorExpression;
-    jsonpath?:                                     ModelLanguageJsonPathExpression;
+    constant?:                                     ModelLanguageConstantExpressionObject | string;
+    csimple?:                                      ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                   ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                             ModelLanguageExchangePropertyExpressionObject | string;
+    modelDynamicRouterDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                       ModelLanguageGroovyExpressionObject | string;
+    header?:                                       ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                    ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                         ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                     ModelLanguageJsonPathExpressionObject | string;
     language?:                                     ModelLanguageLanguageExpression;
-    method?:                                       ModelLanguageMethodCallExpression;
-    mvel?:                                         ModelLanguageMvelExpression;
-    ognl?:                                         ModelLanguageOgnlExpression;
-    ref?:                                          ModelLanguageRefExpression;
-    simple?:                                       ModelLanguageSimpleExpression;
-    spel?:                                         ModelLanguageSpElExpression;
-    tokenize?:                                     ModelLanguageTokenizerExpression;
-    xpath?:                                        ModelLanguageXPathExpression;
-    xquery?:                                       ModelLanguageXQueryExpression;
-    xtokenize?:                                    ModelLanguageXmlTokenizerExpression;
+    method?:                                       ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                         ModelLanguageMvelExpressionObject | string;
+    ognl?:                                         ModelLanguageOgnlExpressionObject | string;
+    ref?:                                          ModelLanguageRefExpressionObject | string;
+    simple?:                                       ModelLanguageSimpleExpressionObject | string;
+    spel?:                                         ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                     ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                        ModelLanguageXPathExpressionObject | string;
+    xquery?:                                       ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                    ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelEnrichDefinition {
@@ -1037,30 +981,28 @@ export interface ModelEnrichDefinition {
     strategyMethodAllowNull?:               string;
     strategyMethodName?:                    string;
     strategyRef?:                           string;
-    constant?:                              ModelLanguageConstantExpression;
-    csimple?:                               ModelLanguageCSimpleExpression;
-    datasonnet?:                            ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                      ModelLanguageExchangePropertyExpression;
-    modelEnrichDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                ModelLanguageGroovyExpression;
-    header?:                                ModelLanguageHeaderExpression;
-    hl7Terser?:                             ModelLanguageHl7TerserExpression;
-    joor?:                                  ModelLanguageJoorExpression;
-    jsonpath?:                              ModelLanguageJsonPathExpression;
+    constant?:                              ModelLanguageConstantExpressionObject | string;
+    csimple?:                               ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                            ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                      ModelLanguageExchangePropertyExpressionObject | string;
+    modelEnrichDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                ModelLanguageGroovyExpressionObject | string;
+    header?:                                ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                             ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                  ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                              ModelLanguageJsonPathExpressionObject | string;
     language?:                              ModelLanguageLanguageExpression;
-    method?:                                ModelLanguageMethodCallExpression;
-    mvel?:                                  ModelLanguageMvelExpression;
-    ognl?:                                  ModelLanguageOgnlExpression;
-    ref?:                                   ModelLanguageRefExpression;
-    simple?:                                ModelLanguageSimpleExpression;
-    spel?:                                  ModelLanguageSpElExpression;
-    tokenize?:                              ModelLanguageTokenizerExpression;
-    xpath?:                                 ModelLanguageXPathExpression;
-    xquery?:                                ModelLanguageXQueryExpression;
-    xtokenize?:                             ModelLanguageXmlTokenizerExpression;
+    method?:                                ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                  ModelLanguageMvelExpressionObject | string;
+    ognl?:                                  ModelLanguageOgnlExpressionObject | string;
+    ref?:                                   ModelLanguageRefExpressionObject | string;
+    simple?:                                ModelLanguageSimpleExpressionObject | string;
+    spel?:                                  ModelLanguageSpElExpressionObject | string;
+    tokenize?:                              ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                 ModelLanguageXPathExpressionObject | string;
+    xquery?:                                ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                             ModelLanguageXmlTokenizerExpressionObject | string;
 }
-
-export type ModelInOnlyDefinition = ModelInOnlyDefinitionObject | string;
 
 export interface ModelInOnlyDefinitionObject {
     uri:                  string;
@@ -1068,15 +1010,11 @@ export interface ModelInOnlyDefinitionObject {
     parameters?:          { [key: string]: any };
 }
 
-export type ModelInOutDefinition = ModelInOutDefinitionObject | string;
-
 export interface ModelInOutDefinitionObject {
     uri:                  string;
     inheritErrorHandler?: boolean;
     parameters?:          { [key: string]: any };
 }
-
-export type ModelLogDefinition = ModelLogDefinitionObject | string;
 
 export interface ModelLogDefinitionObject {
     message:              string;
@@ -1088,17 +1026,17 @@ export interface ModelLogDefinitionObject {
 }
 
 export interface ModelMarshalDefinition {
-    any23?:               ModelDataformatAny23DataFormat;
-    asn1?:                ModelDataformatAsn1DataFormat;
-    avro?:                ModelDataformatAvroDataFormat;
+    any23?:               ModelDataformatAny23DataFormatObject | string;
+    asn1?:                ModelDataformatAsn1DataFormatObject | string;
+    avro?:                ModelDataformatAvroDataFormatObject | string;
     barcode?:             ModelDataformatBarcodeDataFormat;
     base64?:              ModelDataformatBase64DataFormat;
     beanio?:              ModelDataformatBeanioDataFormat;
     bindy?:               ModelDataformatBindyDataFormat;
     cbor?:                ModelDataformatCborDataFormat;
     crypto?:              ModelDataformatCryptoDataFormat;
-    csv?:                 ModelDataformatCsvDataFormat;
-    custom?:              ModelDataformatCustomDataFormat;
+    csv?:                 ModelDataformatCsvDataFormatObject | string;
+    custom?:              ModelDataformatCustomDataFormatObject | string;
     fhirJson?:            ModelDataformatFhirJsonDataFormat;
     fhirXml?:             ModelDataformatFhirXmlDataFormat;
     flatpack?:            ModelDataformatFlatpackDataFormat;
@@ -1114,25 +1052,23 @@ export interface ModelMarshalDefinition {
     lzf?:                 ModelDataformatLzfDataFormat;
     mimeMultipart?:       ModelDataformatMimeMultipartDataFormat;
     pgp?:                 ModelDataformatPgpDataFormat;
-    protobuf?:            ModelDataformatProtobufDataFormat;
+    protobuf?:            ModelDataformatProtobufDataFormatObject | string;
     rss?:                 ModelDataformatRssDataFormat;
     secureXml?:           ModelDataformatXmlSecurityDataFormat;
-    soapjaxb?:            ModelDataformatSoapJaxbDataFormat;
+    soapjaxb?:            ModelDataformatSoapJaxbDataFormatObject | string;
     syslog?:              ModelDataformatSyslogDataFormat;
     tarfile?:             ModelDataformatTarFileDataFormat;
-    thrift?:              ModelDataformatThriftDataFormat;
+    thrift?:              ModelDataformatThriftDataFormatObject | string;
     tidyMarkup?:          ModelDataformatTidyMarkupDataFormat;
     univocityCsv?:        ModelDataformatUniVocityCsvDataFormat;
     univocityFixed?:      ModelDataformatUniVocityFixedWidthDataFormat;
     univocityTsv?:        ModelDataformatUniVocityTsvDataFormat;
     xmlrpc?:              ModelDataformatXmlRpcDataFormat;
-    xstream?:             ModelDataformatXStreamDataFormat;
+    xstream?:             ModelDataformatXStreamDataFormatObject | string;
     yaml?:                ModelDataformatYamlDataFormat;
     zip?:                 ModelDataformatZipDeflaterDataFormat;
     zipfile?:             ModelDataformatZipFileDataFormat;
 }
-
-export type ModelDataformatAny23DataFormat = ModelDataformatAny23DataFormatObject | string;
 
 export interface ModelDataformatAny23DataFormatObject {
     baseUri?:       string;
@@ -1147,15 +1083,11 @@ export interface ModelPropertyDefinition {
     value: string;
 }
 
-export type ModelDataformatAsn1DataFormat = ModelDataformatAsn1DataFormatObject | string;
-
 export interface ModelDataformatAsn1DataFormatObject {
     id?:            string;
     unmarshalType?: string;
     usingIterator?: boolean;
 }
-
-export type ModelDataformatAvroDataFormat = ModelDataformatAvroDataFormatObject | string;
 
 export interface ModelDataformatAvroDataFormatObject {
     allowJmsType?:               boolean;
@@ -1250,8 +1182,6 @@ export interface ModelDataformatCryptoDataFormat {
     shouldAppendHmac?:      boolean;
 }
 
-export type ModelDataformatCsvDataFormat = ModelDataformatCsvDataFormatObject | string;
-
 export interface ModelDataformatCsvDataFormatObject {
     allowMissingColumnNames?: boolean;
     captureHeaderRecord?:     boolean;
@@ -1284,8 +1214,6 @@ export interface ModelDataformatCsvDataFormatObject {
     useMaps?:                 boolean;
     useOrderedMaps?:          boolean;
 }
-
-export type ModelDataformatCustomDataFormat = ModelDataformatCustomDataFormatObject | string;
 
 export interface ModelDataformatCustomDataFormatObject {
     ref: string;
@@ -1474,8 +1402,6 @@ export interface ModelDataformatPgpDataFormat {
     signatureVerificationOption?: string;
 }
 
-export type ModelDataformatProtobufDataFormat = ModelDataformatProtobufDataFormatObject | string;
-
 export interface ModelDataformatProtobufDataFormatObject {
     allowJmsType?:               boolean;
     allowUnmarshallType?:        boolean;
@@ -1527,8 +1453,6 @@ export interface ModelDataformatXmlSecurityDataFormat {
     xmlCipherAlgorithm?:           string;
 }
 
-export type ModelDataformatSoapJaxbDataFormat = ModelDataformatSoapJaxbDataFormatObject | string;
-
 export interface ModelDataformatSoapJaxbDataFormatObject {
     contextPath:             string;
     elementNameStrategyRef?: string;
@@ -1550,8 +1474,6 @@ export interface ModelDataformatTarFileDataFormat {
     preservePathElements?: boolean;
     usingIterator?:        boolean;
 }
-
-export type ModelDataformatThriftDataFormat = ModelDataformatThriftDataFormatObject | string;
 
 export interface ModelDataformatThriftDataFormatObject {
     contentTypeFormat?: string;
@@ -1638,8 +1560,6 @@ export interface ModelDataformatXmlRpcDataFormat {
     request?: boolean;
 }
 
-export type ModelDataformatXStreamDataFormat = ModelDataformatXStreamDataFormatObject | string;
-
 export interface ModelDataformatXStreamDataFormatObject {
     aliases?:             ModelPropertyDefinition[];
     contentTypeHeader?:   boolean;
@@ -1702,27 +1622,27 @@ export interface ModelPollEnrichDefinition {
     strategyMethodName?:                        string;
     strategyRef?:                               string;
     timeout?:                                   string;
-    constant?:                                  ModelLanguageConstantExpression;
-    csimple?:                                   ModelLanguageCSimpleExpression;
-    datasonnet?:                                ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                          ModelLanguageExchangePropertyExpression;
-    modelPollEnrichDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                    ModelLanguageGroovyExpression;
-    header?:                                    ModelLanguageHeaderExpression;
-    hl7Terser?:                                 ModelLanguageHl7TerserExpression;
-    joor?:                                      ModelLanguageJoorExpression;
-    jsonpath?:                                  ModelLanguageJsonPathExpression;
+    constant?:                                  ModelLanguageConstantExpressionObject | string;
+    csimple?:                                   ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                          ModelLanguageExchangePropertyExpressionObject | string;
+    modelPollEnrichDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                    ModelLanguageGroovyExpressionObject | string;
+    header?:                                    ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                 ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                      ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                  ModelLanguageJsonPathExpressionObject | string;
     language?:                                  ModelLanguageLanguageExpression;
-    method?:                                    ModelLanguageMethodCallExpression;
-    mvel?:                                      ModelLanguageMvelExpression;
-    ognl?:                                      ModelLanguageOgnlExpression;
-    ref?:                                       ModelLanguageRefExpression;
-    simple?:                                    ModelLanguageSimpleExpression;
-    spel?:                                      ModelLanguageSpElExpression;
-    tokenize?:                                  ModelLanguageTokenizerExpression;
-    xpath?:                                     ModelLanguageXPathExpression;
-    xquery?:                                    ModelLanguageXQueryExpression;
-    xtokenize?:                                 ModelLanguageXmlTokenizerExpression;
+    method?:                                    ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                      ModelLanguageMvelExpressionObject | string;
+    ognl?:                                      ModelLanguageOgnlExpressionObject | string;
+    ref?:                                       ModelLanguageRefExpressionObject | string;
+    simple?:                                    ModelLanguageSimpleExpressionObject | string;
+    spel?:                                      ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                  ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                     ModelLanguageXPathExpressionObject | string;
+    xquery?:                                    ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                 ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelProcessDefinition {
@@ -1748,30 +1668,28 @@ export interface ModelRecipientListDefinition {
     strategyRef?:                                  string;
     streaming?:                                    boolean;
     timeout?:                                      string;
-    constant?:                                     ModelLanguageConstantExpression;
-    csimple?:                                      ModelLanguageCSimpleExpression;
-    datasonnet?:                                   ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                             ModelLanguageExchangePropertyExpression;
-    modelRecipientListDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                       ModelLanguageGroovyExpression;
-    header?:                                       ModelLanguageHeaderExpression;
-    hl7Terser?:                                    ModelLanguageHl7TerserExpression;
-    joor?:                                         ModelLanguageJoorExpression;
-    jsonpath?:                                     ModelLanguageJsonPathExpression;
+    constant?:                                     ModelLanguageConstantExpressionObject | string;
+    csimple?:                                      ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                   ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                             ModelLanguageExchangePropertyExpressionObject | string;
+    modelRecipientListDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                       ModelLanguageGroovyExpressionObject | string;
+    header?:                                       ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                    ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                         ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                     ModelLanguageJsonPathExpressionObject | string;
     language?:                                     ModelLanguageLanguageExpression;
-    method?:                                       ModelLanguageMethodCallExpression;
-    mvel?:                                         ModelLanguageMvelExpression;
-    ognl?:                                         ModelLanguageOgnlExpression;
-    ref?:                                          ModelLanguageRefExpression;
-    simple?:                                       ModelLanguageSimpleExpression;
-    spel?:                                         ModelLanguageSpElExpression;
-    tokenize?:                                     ModelLanguageTokenizerExpression;
-    xpath?:                                        ModelLanguageXPathExpression;
-    xquery?:                                       ModelLanguageXQueryExpression;
-    xtokenize?:                                    ModelLanguageXmlTokenizerExpression;
+    method?:                                       ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                         ModelLanguageMvelExpressionObject | string;
+    ognl?:                                         ModelLanguageOgnlExpressionObject | string;
+    ref?:                                          ModelLanguageRefExpressionObject | string;
+    simple?:                                       ModelLanguageSimpleExpressionObject | string;
+    spel?:                                         ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                     ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                        ModelLanguageXPathExpressionObject | string;
+    xquery?:                                       ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                    ModelLanguageXmlTokenizerExpressionObject | string;
 }
-
-export type ModelRemoveHeaderDefinition = ModelRemoveHeaderDefinitionObject | string;
 
 export interface ModelRemoveHeaderDefinitionObject {
     headerName?:          string;
@@ -1779,15 +1697,11 @@ export interface ModelRemoveHeaderDefinitionObject {
     name?:                string;
 }
 
-export type ModelRemoveHeadersDefinition = ModelRemoveHeadersDefinitionObject | string;
-
 export interface ModelRemoveHeadersDefinitionObject {
     pattern:              string;
     excludePattern?:      string;
     inheritErrorHandler?: boolean;
 }
-
-export type ModelRemovePropertiesDefinition = ModelRemovePropertiesDefinitionObject | string;
 
 export interface ModelRemovePropertiesDefinitionObject {
     pattern:              string;
@@ -1795,14 +1709,10 @@ export interface ModelRemovePropertiesDefinitionObject {
     inheritErrorHandler?: boolean;
 }
 
-export type ModelRemovePropertyDefinition = ModelRemovePropertyDefinitionObject | string;
-
 export interface ModelRemovePropertyDefinitionObject {
     propertyName:         string;
     inheritErrorHandler?: boolean;
 }
-
-export type ModelRollbackDefinition = ModelRollbackDefinitionObject | string;
 
 export interface ModelRollbackDefinitionObject {
     inheritErrorHandler?:  boolean;
@@ -1817,27 +1727,27 @@ export interface ModelRoutingSlipDefinition {
     ignoreInvalidEndpoints?:                     boolean;
     inheritErrorHandler?:                        boolean;
     uriDelimiter?:                               string;
-    constant?:                                   ModelLanguageConstantExpression;
-    csimple?:                                    ModelLanguageCSimpleExpression;
-    datasonnet?:                                 ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                           ModelLanguageExchangePropertyExpression;
-    modelRoutingSlipDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                     ModelLanguageGroovyExpression;
-    header?:                                     ModelLanguageHeaderExpression;
-    hl7Terser?:                                  ModelLanguageHl7TerserExpression;
-    joor?:                                       ModelLanguageJoorExpression;
-    jsonpath?:                                   ModelLanguageJsonPathExpression;
+    constant?:                                   ModelLanguageConstantExpressionObject | string;
+    csimple?:                                    ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                 ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                           ModelLanguageExchangePropertyExpressionObject | string;
+    modelRoutingSlipDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                     ModelLanguageGroovyExpressionObject | string;
+    header?:                                     ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                  ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                       ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                   ModelLanguageJsonPathExpressionObject | string;
     language?:                                   ModelLanguageLanguageExpression;
-    method?:                                     ModelLanguageMethodCallExpression;
-    mvel?:                                       ModelLanguageMvelExpression;
-    ognl?:                                       ModelLanguageOgnlExpression;
-    ref?:                                        ModelLanguageRefExpression;
-    simple?:                                     ModelLanguageSimpleExpression;
-    spel?:                                       ModelLanguageSpElExpression;
-    tokenize?:                                   ModelLanguageTokenizerExpression;
-    xpath?:                                      ModelLanguageXPathExpression;
-    xquery?:                                     ModelLanguageXQueryExpression;
-    xtokenize?:                                  ModelLanguageXmlTokenizerExpression;
+    method?:                                     ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                       ModelLanguageMvelExpressionObject | string;
+    ognl?:                                       ModelLanguageOgnlExpressionObject | string;
+    ref?:                                        ModelLanguageRefExpressionObject | string;
+    simple?:                                     ModelLanguageSimpleExpressionObject | string;
+    spel?:                                       ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                   ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                      ModelLanguageXPathExpressionObject | string;
+    xquery?:                                     ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                  ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelSamplingDefinition {
@@ -1850,30 +1760,28 @@ export interface ModelSamplingDefinition {
 export interface ModelScriptDefinition {
     expression?:                            ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                   boolean;
-    constant?:                              ModelLanguageConstantExpression;
-    csimple?:                               ModelLanguageCSimpleExpression;
-    datasonnet?:                            ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                      ModelLanguageExchangePropertyExpression;
-    modelScriptDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                ModelLanguageGroovyExpression;
-    header?:                                ModelLanguageHeaderExpression;
-    hl7Terser?:                             ModelLanguageHl7TerserExpression;
-    joor?:                                  ModelLanguageJoorExpression;
-    jsonpath?:                              ModelLanguageJsonPathExpression;
+    constant?:                              ModelLanguageConstantExpressionObject | string;
+    csimple?:                               ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                            ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                      ModelLanguageExchangePropertyExpressionObject | string;
+    modelScriptDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                ModelLanguageGroovyExpressionObject | string;
+    header?:                                ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                             ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                  ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                              ModelLanguageJsonPathExpressionObject | string;
     language?:                              ModelLanguageLanguageExpression;
-    method?:                                ModelLanguageMethodCallExpression;
-    mvel?:                                  ModelLanguageMvelExpression;
-    ognl?:                                  ModelLanguageOgnlExpression;
-    ref?:                                   ModelLanguageRefExpression;
-    simple?:                                ModelLanguageSimpleExpression;
-    spel?:                                  ModelLanguageSpElExpression;
-    tokenize?:                              ModelLanguageTokenizerExpression;
-    xpath?:                                 ModelLanguageXPathExpression;
-    xquery?:                                ModelLanguageXQueryExpression;
-    xtokenize?:                             ModelLanguageXmlTokenizerExpression;
+    method?:                                ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                  ModelLanguageMvelExpressionObject | string;
+    ognl?:                                  ModelLanguageOgnlExpressionObject | string;
+    ref?:                                   ModelLanguageRefExpressionObject | string;
+    simple?:                                ModelLanguageSimpleExpressionObject | string;
+    spel?:                                  ModelLanguageSpElExpressionObject | string;
+    tokenize?:                              ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                 ModelLanguageXPathExpressionObject | string;
+    xquery?:                                ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                             ModelLanguageXmlTokenizerExpressionObject | string;
 }
-
-export type ModelCloudServiceCallDefinition = ModelCloudServiceCallDefinitionObject | string;
 
 export interface ModelCloudServiceCallDefinitionObject {
     name:                        string;
@@ -2060,30 +1968,28 @@ export interface ModelCloudZooKeeperServiceCallServiceDiscoveryConfiguration {
 export interface ModelSetBodyDefinition {
     expression?:                             ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                    boolean;
-    constant?:                               ModelLanguageConstantExpression;
-    csimple?:                                ModelLanguageCSimpleExpression;
-    datasonnet?:                             ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                       ModelLanguageExchangePropertyExpression;
-    modelSetBodyDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                 ModelLanguageGroovyExpression;
-    header?:                                 ModelLanguageHeaderExpression;
-    hl7Terser?:                              ModelLanguageHl7TerserExpression;
-    joor?:                                   ModelLanguageJoorExpression;
-    jsonpath?:                               ModelLanguageJsonPathExpression;
+    constant?:                               ModelLanguageConstantExpressionObject | string;
+    csimple?:                                ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                             ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                       ModelLanguageExchangePropertyExpressionObject | string;
+    modelSetBodyDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                 ModelLanguageGroovyExpressionObject | string;
+    header?:                                 ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                              ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                   ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                               ModelLanguageJsonPathExpressionObject | string;
     language?:                               ModelLanguageLanguageExpression;
-    method?:                                 ModelLanguageMethodCallExpression;
-    mvel?:                                   ModelLanguageMvelExpression;
-    ognl?:                                   ModelLanguageOgnlExpression;
-    ref?:                                    ModelLanguageRefExpression;
-    simple?:                                 ModelLanguageSimpleExpression;
-    spel?:                                   ModelLanguageSpElExpression;
-    tokenize?:                               ModelLanguageTokenizerExpression;
-    xpath?:                                  ModelLanguageXPathExpression;
-    xquery?:                                 ModelLanguageXQueryExpression;
-    xtokenize?:                              ModelLanguageXmlTokenizerExpression;
+    method?:                                 ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                   ModelLanguageMvelExpressionObject | string;
+    ognl?:                                   ModelLanguageOgnlExpressionObject | string;
+    ref?:                                    ModelLanguageRefExpressionObject | string;
+    simple?:                                 ModelLanguageSimpleExpressionObject | string;
+    spel?:                                   ModelLanguageSpElExpressionObject | string;
+    tokenize?:                               ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                  ModelLanguageXPathExpressionObject | string;
+    xquery?:                                 ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                              ModelLanguageXmlTokenizerExpressionObject | string;
 }
-
-export type ModelSetExchangePatternDefinition = ModelSetExchangePatternDefinitionObject | string;
 
 export interface ModelSetExchangePatternDefinitionObject {
     pattern:              string;
@@ -2094,81 +2000,81 @@ export interface ModelSetHeaderDefinition {
     expression?:                               ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                      boolean;
     name:                                      string;
-    constant?:                                 ModelLanguageConstantExpression;
-    csimple?:                                  ModelLanguageCSimpleExpression;
-    datasonnet?:                               ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                         ModelLanguageExchangePropertyExpression;
-    modelSetHeaderDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                   ModelLanguageGroovyExpression;
-    header?:                                   ModelLanguageHeaderExpression;
-    hl7Terser?:                                ModelLanguageHl7TerserExpression;
-    joor?:                                     ModelLanguageJoorExpression;
-    jsonpath?:                                 ModelLanguageJsonPathExpression;
+    constant?:                                 ModelLanguageConstantExpressionObject | string;
+    csimple?:                                  ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                               ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                         ModelLanguageExchangePropertyExpressionObject | string;
+    modelSetHeaderDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                   ModelLanguageGroovyExpressionObject | string;
+    header?:                                   ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                     ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                 ModelLanguageJsonPathExpressionObject | string;
     language?:                                 ModelLanguageLanguageExpression;
-    method?:                                   ModelLanguageMethodCallExpression;
-    mvel?:                                     ModelLanguageMvelExpression;
-    ognl?:                                     ModelLanguageOgnlExpression;
-    ref?:                                      ModelLanguageRefExpression;
-    simple?:                                   ModelLanguageSimpleExpression;
-    spel?:                                     ModelLanguageSpElExpression;
-    tokenize?:                                 ModelLanguageTokenizerExpression;
-    xpath?:                                    ModelLanguageXPathExpression;
-    xquery?:                                   ModelLanguageXQueryExpression;
-    xtokenize?:                                ModelLanguageXmlTokenizerExpression;
+    method?:                                   ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                     ModelLanguageMvelExpressionObject | string;
+    ognl?:                                     ModelLanguageOgnlExpressionObject | string;
+    ref?:                                      ModelLanguageRefExpressionObject | string;
+    simple?:                                   ModelLanguageSimpleExpressionObject | string;
+    spel?:                                     ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                 ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                    ModelLanguageXPathExpressionObject | string;
+    xquery?:                                   ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelSetPropertyDefinition {
     expression?:                                 ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                        boolean;
     name:                                        string;
-    constant?:                                   ModelLanguageConstantExpression;
-    csimple?:                                    ModelLanguageCSimpleExpression;
-    datasonnet?:                                 ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                           ModelLanguageExchangePropertyExpression;
-    modelSetPropertyDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                     ModelLanguageGroovyExpression;
-    header?:                                     ModelLanguageHeaderExpression;
-    hl7Terser?:                                  ModelLanguageHl7TerserExpression;
-    joor?:                                       ModelLanguageJoorExpression;
-    jsonpath?:                                   ModelLanguageJsonPathExpression;
+    constant?:                                   ModelLanguageConstantExpressionObject | string;
+    csimple?:                                    ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                                 ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                           ModelLanguageExchangePropertyExpressionObject | string;
+    modelSetPropertyDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                     ModelLanguageGroovyExpressionObject | string;
+    header?:                                     ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                  ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                       ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                   ModelLanguageJsonPathExpressionObject | string;
     language?:                                   ModelLanguageLanguageExpression;
-    method?:                                     ModelLanguageMethodCallExpression;
-    mvel?:                                       ModelLanguageMvelExpression;
-    ognl?:                                       ModelLanguageOgnlExpression;
-    ref?:                                        ModelLanguageRefExpression;
-    simple?:                                     ModelLanguageSimpleExpression;
-    spel?:                                       ModelLanguageSpElExpression;
-    tokenize?:                                   ModelLanguageTokenizerExpression;
-    xpath?:                                      ModelLanguageXPathExpression;
-    xquery?:                                     ModelLanguageXQueryExpression;
-    xtokenize?:                                  ModelLanguageXmlTokenizerExpression;
+    method?:                                     ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                       ModelLanguageMvelExpressionObject | string;
+    ognl?:                                       ModelLanguageOgnlExpressionObject | string;
+    ref?:                                        ModelLanguageRefExpressionObject | string;
+    simple?:                                     ModelLanguageSimpleExpressionObject | string;
+    spel?:                                       ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                   ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                      ModelLanguageXPathExpressionObject | string;
+    xquery?:                                     ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                  ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelSortDefinition {
     comparatorRef?:                       string;
     expression?:                          ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                 boolean;
-    constant?:                            ModelLanguageConstantExpression;
-    csimple?:                             ModelLanguageCSimpleExpression;
-    datasonnet?:                          ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                    ModelLanguageExchangePropertyExpression;
-    modelSortDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                              ModelLanguageGroovyExpression;
-    header?:                              ModelLanguageHeaderExpression;
-    hl7Terser?:                           ModelLanguageHl7TerserExpression;
-    joor?:                                ModelLanguageJoorExpression;
-    jsonpath?:                            ModelLanguageJsonPathExpression;
+    constant?:                            ModelLanguageConstantExpressionObject | string;
+    csimple?:                             ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                          ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                    ModelLanguageExchangePropertyExpressionObject | string;
+    modelSortDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                              ModelLanguageGroovyExpressionObject | string;
+    header?:                              ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                           ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                            ModelLanguageJsonPathExpressionObject | string;
     language?:                            ModelLanguageLanguageExpression;
-    method?:                              ModelLanguageMethodCallExpression;
-    mvel?:                                ModelLanguageMvelExpression;
-    ognl?:                                ModelLanguageOgnlExpression;
-    ref?:                                 ModelLanguageRefExpression;
-    simple?:                              ModelLanguageSimpleExpression;
-    spel?:                                ModelLanguageSpElExpression;
-    tokenize?:                            ModelLanguageTokenizerExpression;
-    xpath?:                               ModelLanguageXPathExpression;
-    xquery?:                              ModelLanguageXQueryExpression;
-    xtokenize?:                           ModelLanguageXmlTokenizerExpression;
+    method?:                              ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                ModelLanguageMvelExpressionObject | string;
+    ognl?:                                ModelLanguageOgnlExpressionObject | string;
+    ref?:                                 ModelLanguageRefExpressionObject | string;
+    simple?:                              ModelLanguageSimpleExpressionObject | string;
+    spel?:                                ModelLanguageSpElExpressionObject | string;
+    tokenize?:                            ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                               ModelLanguageXPathExpressionObject | string;
+    xquery?:                              ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                           ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelStopDefinition {
@@ -2198,27 +2104,27 @@ export interface ModelThrottleDefinition {
     inheritErrorHandler?:                     boolean;
     rejectExecution?:                         boolean;
     timePeriodMillis?:                        string;
-    constant?:                                ModelLanguageConstantExpression;
-    csimple?:                                 ModelLanguageCSimpleExpression;
-    datasonnet?:                              ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                        ModelLanguageExchangePropertyExpression;
-    modelThrottleDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                  ModelLanguageGroovyExpression;
-    header?:                                  ModelLanguageHeaderExpression;
-    hl7Terser?:                               ModelLanguageHl7TerserExpression;
-    joor?:                                    ModelLanguageJoorExpression;
-    jsonpath?:                                ModelLanguageJsonPathExpression;
+    constant?:                                ModelLanguageConstantExpressionObject | string;
+    csimple?:                                 ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                              ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                        ModelLanguageExchangePropertyExpressionObject | string;
+    modelThrottleDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                  ModelLanguageGroovyExpressionObject | string;
+    header?:                                  ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                               ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                    ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                ModelLanguageJsonPathExpressionObject | string;
     language?:                                ModelLanguageLanguageExpression;
-    method?:                                  ModelLanguageMethodCallExpression;
-    mvel?:                                    ModelLanguageMvelExpression;
-    ognl?:                                    ModelLanguageOgnlExpression;
-    ref?:                                     ModelLanguageRefExpression;
-    simple?:                                  ModelLanguageSimpleExpression;
-    spel?:                                    ModelLanguageSpElExpression;
-    tokenize?:                                ModelLanguageTokenizerExpression;
-    xpath?:                                   ModelLanguageXPathExpression;
-    xquery?:                                  ModelLanguageXQueryExpression;
-    xtokenize?:                               ModelLanguageXmlTokenizerExpression;
+    method?:                                  ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                    ModelLanguageMvelExpressionObject | string;
+    ognl?:                                    ModelLanguageOgnlExpressionObject | string;
+    ref?:                                     ModelLanguageRefExpressionObject | string;
+    simple?:                                  ModelLanguageSimpleExpressionObject | string;
+    spel?:                                    ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                   ModelLanguageXPathExpressionObject | string;
+    xquery?:                                  ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                               ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelThrowExceptionDefinition {
@@ -2228,16 +2134,12 @@ export interface ModelThrowExceptionDefinition {
     ref?:                 string;
 }
 
-export type ModelToDefinition = ModelToDefinitionObject | string;
-
 export interface ModelToDefinitionObject {
     uri:                  string;
     inheritErrorHandler?: boolean;
     parameters?:          { [key: string]: any };
     pattern?:             string;
 }
-
-export type ModelToDynamicDefinition = ModelToDynamicDefinitionObject | string;
 
 export interface ModelToDynamicDefinitionObject {
     uri:                       string;
@@ -2253,41 +2155,41 @@ export interface ModelToDynamicDefinitionObject {
 export interface ModelTransformDefinition {
     expression?:                               ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                      boolean;
-    constant?:                                 ModelLanguageConstantExpression;
-    csimple?:                                  ModelLanguageCSimpleExpression;
-    datasonnet?:                               ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                         ModelLanguageExchangePropertyExpression;
-    modelTransformDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                   ModelLanguageGroovyExpression;
-    header?:                                   ModelLanguageHeaderExpression;
-    hl7Terser?:                                ModelLanguageHl7TerserExpression;
-    joor?:                                     ModelLanguageJoorExpression;
-    jsonpath?:                                 ModelLanguageJsonPathExpression;
+    constant?:                                 ModelLanguageConstantExpressionObject | string;
+    csimple?:                                  ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                               ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                         ModelLanguageExchangePropertyExpressionObject | string;
+    modelTransformDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                   ModelLanguageGroovyExpressionObject | string;
+    header?:                                   ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                                ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                     ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                 ModelLanguageJsonPathExpressionObject | string;
     language?:                                 ModelLanguageLanguageExpression;
-    method?:                                   ModelLanguageMethodCallExpression;
-    mvel?:                                     ModelLanguageMvelExpression;
-    ognl?:                                     ModelLanguageOgnlExpression;
-    ref?:                                      ModelLanguageRefExpression;
-    simple?:                                   ModelLanguageSimpleExpression;
-    spel?:                                     ModelLanguageSpElExpression;
-    tokenize?:                                 ModelLanguageTokenizerExpression;
-    xpath?:                                    ModelLanguageXPathExpression;
-    xquery?:                                   ModelLanguageXQueryExpression;
-    xtokenize?:                                ModelLanguageXmlTokenizerExpression;
+    method?:                                   ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                     ModelLanguageMvelExpressionObject | string;
+    ognl?:                                     ModelLanguageOgnlExpressionObject | string;
+    ref?:                                      ModelLanguageRefExpressionObject | string;
+    simple?:                                   ModelLanguageSimpleExpressionObject | string;
+    spel?:                                     ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                 ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                    ModelLanguageXPathExpressionObject | string;
+    xquery?:                                   ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                                ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelUnmarshalDefinition {
-    any23?:               ModelDataformatAny23DataFormat;
-    asn1?:                ModelDataformatAsn1DataFormat;
-    avro?:                ModelDataformatAvroDataFormat;
+    any23?:               ModelDataformatAny23DataFormatObject | string;
+    asn1?:                ModelDataformatAsn1DataFormatObject | string;
+    avro?:                ModelDataformatAvroDataFormatObject | string;
     barcode?:             ModelDataformatBarcodeDataFormat;
     base64?:              ModelDataformatBase64DataFormat;
     beanio?:              ModelDataformatBeanioDataFormat;
     bindy?:               ModelDataformatBindyDataFormat;
     cbor?:                ModelDataformatCborDataFormat;
     crypto?:              ModelDataformatCryptoDataFormat;
-    csv?:                 ModelDataformatCsvDataFormat;
-    custom?:              ModelDataformatCustomDataFormat;
+    csv?:                 ModelDataformatCsvDataFormatObject | string;
+    custom?:              ModelDataformatCustomDataFormatObject | string;
     fhirJson?:            ModelDataformatFhirJsonDataFormat;
     fhirXml?:             ModelDataformatFhirXmlDataFormat;
     flatpack?:            ModelDataformatFlatpackDataFormat;
@@ -2303,19 +2205,19 @@ export interface ModelUnmarshalDefinition {
     lzf?:                 ModelDataformatLzfDataFormat;
     mimeMultipart?:       ModelDataformatMimeMultipartDataFormat;
     pgp?:                 ModelDataformatPgpDataFormat;
-    protobuf?:            ModelDataformatProtobufDataFormat;
+    protobuf?:            ModelDataformatProtobufDataFormatObject | string;
     rss?:                 ModelDataformatRssDataFormat;
     secureXml?:           ModelDataformatXmlSecurityDataFormat;
-    soapjaxb?:            ModelDataformatSoapJaxbDataFormat;
+    soapjaxb?:            ModelDataformatSoapJaxbDataFormatObject | string;
     syslog?:              ModelDataformatSyslogDataFormat;
     tarfile?:             ModelDataformatTarFileDataFormat;
-    thrift?:              ModelDataformatThriftDataFormat;
+    thrift?:              ModelDataformatThriftDataFormatObject | string;
     tidyMarkup?:          ModelDataformatTidyMarkupDataFormat;
     univocityCsv?:        ModelDataformatUniVocityCsvDataFormat;
     univocityFixed?:      ModelDataformatUniVocityFixedWidthDataFormat;
     univocityTsv?:        ModelDataformatUniVocityTsvDataFormat;
     xmlrpc?:              ModelDataformatXmlRpcDataFormat;
-    xstream?:             ModelDataformatXStreamDataFormat;
+    xstream?:             ModelDataformatXStreamDataFormatObject | string;
     yaml?:                ModelDataformatYamlDataFormat;
     zip?:                 ModelDataformatZipDeflaterDataFormat;
     zipfile?:             ModelDataformatZipFileDataFormat;
@@ -2324,27 +2226,27 @@ export interface ModelUnmarshalDefinition {
 export interface ModelValidateDefinition {
     expression?:                              ModelLanguageExpressionDefinition;
     inheritErrorHandler?:                     boolean;
-    constant?:                                ModelLanguageConstantExpression;
-    csimple?:                                 ModelLanguageCSimpleExpression;
-    datasonnet?:                              ModelLanguageDatasonnetExpression;
-    exchangeProperty?:                        ModelLanguageExchangePropertyExpression;
-    modelValidateDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpression;
-    groovy?:                                  ModelLanguageGroovyExpression;
-    header?:                                  ModelLanguageHeaderExpression;
-    hl7Terser?:                               ModelLanguageHl7TerserExpression;
-    joor?:                                    ModelLanguageJoorExpression;
-    jsonpath?:                                ModelLanguageJsonPathExpression;
+    constant?:                                ModelLanguageConstantExpressionObject | string;
+    csimple?:                                 ModelLanguageCSimpleExpressionObject | string;
+    datasonnet?:                              ModelLanguageDatasonnetExpressionObject | string;
+    exchangeProperty?:                        ModelLanguageExchangePropertyExpressionObject | string;
+    modelValidateDefinitionExchangeProperty?: ModelLanguageExchangePropertyExpressionObject | string;
+    groovy?:                                  ModelLanguageGroovyExpressionObject | string;
+    header?:                                  ModelLanguageHeaderExpressionObject | string;
+    hl7Terser?:                               ModelLanguageHl7TerserExpressionObject | string;
+    joor?:                                    ModelLanguageJoorExpressionObject | string;
+    jsonpath?:                                ModelLanguageJsonPathExpressionObject | string;
     language?:                                ModelLanguageLanguageExpression;
-    method?:                                  ModelLanguageMethodCallExpression;
-    mvel?:                                    ModelLanguageMvelExpression;
-    ognl?:                                    ModelLanguageOgnlExpression;
-    ref?:                                     ModelLanguageRefExpression;
-    simple?:                                  ModelLanguageSimpleExpression;
-    spel?:                                    ModelLanguageSpElExpression;
-    tokenize?:                                ModelLanguageTokenizerExpression;
-    xpath?:                                   ModelLanguageXPathExpression;
-    xquery?:                                  ModelLanguageXQueryExpression;
-    xtokenize?:                               ModelLanguageXmlTokenizerExpression;
+    method?:                                  ModelLanguageMethodCallExpressionObject | string;
+    mvel?:                                    ModelLanguageMvelExpressionObject | string;
+    ognl?:                                    ModelLanguageOgnlExpressionObject | string;
+    ref?:                                     ModelLanguageRefExpressionObject | string;
+    simple?:                                  ModelLanguageSimpleExpressionObject | string;
+    spel?:                                    ModelLanguageSpElExpressionObject | string;
+    tokenize?:                                ModelLanguageTokenizerExpressionObject | string;
+    xpath?:                                   ModelLanguageXPathExpressionObject | string;
+    xquery?:                                  ModelLanguageXQueryExpressionObject | string;
+    xtokenize?:                               ModelLanguageXmlTokenizerExpressionObject | string;
 }
 
 export interface ModelWireTapDefinition {
@@ -2446,8 +2348,8 @@ export interface ModelRestDeleteVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2507,14 +2409,12 @@ export interface ModelRestRestOperationResponseHeaderDefinition {
 }
 
 export interface ModelRouteDefinition {
-    from:                  ModelFromDefinition;
+    from:                  ModelFromDefinitionObject | string;
     group?:                string;
     id?:                   string;
     routeConfigurationId?: string;
     steps:                 ModelProcessorDefinition[];
 }
-
-export type ModelFromDefinition = ModelFromDefinitionObject | string;
 
 export interface ModelFromDefinitionObject {
     uri:         string;
@@ -2543,8 +2443,8 @@ export interface ModelRestGetVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2566,8 +2466,8 @@ export interface ModelRestHeadVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2589,8 +2489,8 @@ export interface ModelRestPatchVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2612,8 +2512,8 @@ export interface ModelRestPostVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2635,8 +2535,8 @@ export interface ModelRestPutVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
@@ -2712,15 +2612,15 @@ export interface ModelRestVerbDefinition {
     security?:                ModelRestSecurityDefinition[];
     skipBindingOnErrorCode?:  string;
     steps?:                   ModelProcessorDefinition[];
-    to?:                      ModelToDefinition;
-    toD?:                     ModelToDynamicDefinition;
+    to?:                      ModelToDefinitionObject | string;
+    toD?:                     ModelToDynamicDefinitionObject | string;
     type?:                    string;
     uri?:                     string;
 }
 
 export interface ModelRouteTemplateDefinition {
     beans?:      DslYamlDeserializersNamedBeanDefinition[];
-    from:        ModelFromDefinition;
+    from:        ModelFromDefinitionObject | string;
     id:          string;
     parameters?: ModelRouteTemplateParameterDefinition[];
 }

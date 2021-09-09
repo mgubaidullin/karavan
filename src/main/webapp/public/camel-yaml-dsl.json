@@ -4,208 +4,208 @@
   "items" : {
     "maxProperties" : 1,
     "definitions" : {
-      "model.ProcessorDefinition" : {
+      "org.apache.camel.model.ProcessorDefinition" : {
         "type" : "object",
         "maxProperties" : 1,
         "properties" : {
           "aggregate" : {
-            "$ref" : "#/items/definitions/model.AggregateDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.AggregateDefinition"
           },
           "bean" : {
-            "$ref" : "#/items/definitions/model.BeanDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.BeanDefinition"
           },
           "do-catch" : {
-            "$ref" : "#/items/definitions/model.CatchDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.CatchDefinition"
           },
           "choice" : {
-            "$ref" : "#/items/definitions/model.ChoiceDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ChoiceDefinition"
           },
           "circuit-breaker" : {
-            "$ref" : "#/items/definitions/model.CircuitBreakerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.CircuitBreakerDefinition"
           },
           "claim-check" : {
-            "$ref" : "#/items/definitions/model.ClaimCheckDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ClaimCheckDefinition"
           },
           "convert-body-to" : {
-            "$ref" : "#/items/definitions/model.ConvertBodyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ConvertBodyDefinition"
           },
           "delay" : {
-            "$ref" : "#/items/definitions/model.DelayDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.DelayDefinition"
           },
           "dynamic-router" : {
-            "$ref" : "#/items/definitions/model.DynamicRouterDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.DynamicRouterDefinition"
           },
           "enrich" : {
-            "$ref" : "#/items/definitions/model.EnrichDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.EnrichDefinition"
           },
           "filter" : {
-            "$ref" : "#/items/definitions/model.FilterDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FilterDefinition"
           },
           "do-finally" : {
-            "$ref" : "#/items/definitions/model.FinallyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FinallyDefinition"
           },
           "idempotent-consumer" : {
-            "$ref" : "#/items/definitions/model.IdempotentConsumerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.IdempotentConsumerDefinition"
           },
           "in-only" : {
-            "$ref" : "#/items/definitions/model.InOnlyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.InOnlyDefinition"
           },
           "in-out" : {
-            "$ref" : "#/items/definitions/model.InOutDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.InOutDefinition"
           },
           "intercept" : {
-            "$ref" : "#/items/definitions/model.InterceptDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.InterceptDefinition"
           },
           "intercept-from" : {
-            "$ref" : "#/items/definitions/model.InterceptFromDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.InterceptFromDefinition"
           },
           "intercept-send-to-endpoint" : {
-            "$ref" : "#/items/definitions/model.InterceptSendToEndpointDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.InterceptSendToEndpointDefinition"
           },
           "kamelet" : {
-            "$ref" : "#/items/definitions/model.KameletDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.KameletDefinition"
           },
           "load-balance" : {
-            "$ref" : "#/items/definitions/model.LoadBalanceDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.LoadBalanceDefinition"
           },
           "log" : {
-            "$ref" : "#/items/definitions/model.LogDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.LogDefinition"
           },
           "loop" : {
-            "$ref" : "#/items/definitions/model.LoopDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.LoopDefinition"
           },
           "marshal" : {
-            "$ref" : "#/items/definitions/model.MarshalDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.MarshalDefinition"
           },
           "multicast" : {
-            "$ref" : "#/items/definitions/model.MulticastDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.MulticastDefinition"
           },
           "on-completion" : {
-            "$ref" : "#/items/definitions/model.OnCompletionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OnCompletionDefinition"
           },
           "on-fallback" : {
-            "$ref" : "#/items/definitions/model.OnFallbackDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OnFallbackDefinition"
           },
           "otherwise" : {
-            "$ref" : "#/items/definitions/model.OtherwiseDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OtherwiseDefinition"
           },
           "pipeline" : {
-            "$ref" : "#/items/definitions/model.PipelineDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.PipelineDefinition"
           },
           "policy" : {
-            "$ref" : "#/items/definitions/model.PolicyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.PolicyDefinition"
           },
           "poll-enrich" : {
-            "$ref" : "#/items/definitions/model.PollEnrichDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.PollEnrichDefinition"
           },
           "process" : {
-            "$ref" : "#/items/definitions/model.ProcessDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ProcessDefinition"
           },
           "recipient-list" : {
-            "$ref" : "#/items/definitions/model.RecipientListDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RecipientListDefinition"
           },
           "remove-header" : {
-            "$ref" : "#/items/definitions/model.RemoveHeaderDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeaderDefinition"
           },
           "remove-headers" : {
-            "$ref" : "#/items/definitions/model.RemoveHeadersDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeadersDefinition"
           },
           "remove-properties" : {
-            "$ref" : "#/items/definitions/model.RemovePropertiesDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertiesDefinition"
           },
           "remove-property" : {
-            "$ref" : "#/items/definitions/model.RemovePropertyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertyDefinition"
           },
           "resequence" : {
-            "$ref" : "#/items/definitions/model.ResequenceDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ResequenceDefinition"
           },
           "rollback" : {
-            "$ref" : "#/items/definitions/model.RollbackDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RollbackDefinition"
           },
           "routing-slip" : {
-            "$ref" : "#/items/definitions/model.RoutingSlipDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RoutingSlipDefinition"
           },
           "saga" : {
-            "$ref" : "#/items/definitions/model.SagaDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SagaDefinition"
           },
           "sample" : {
-            "$ref" : "#/items/definitions/model.SamplingDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SamplingDefinition"
           },
           "script" : {
-            "$ref" : "#/items/definitions/model.ScriptDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ScriptDefinition"
           },
           "set-body" : {
-            "$ref" : "#/items/definitions/model.SetBodyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SetBodyDefinition"
           },
           "set-exchange-pattern" : {
-            "$ref" : "#/items/definitions/model.SetExchangePatternDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SetExchangePatternDefinition"
           },
           "set-header" : {
-            "$ref" : "#/items/definitions/model.SetHeaderDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SetHeaderDefinition"
           },
           "set-property" : {
-            "$ref" : "#/items/definitions/model.SetPropertyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SetPropertyDefinition"
           },
           "sort" : {
-            "$ref" : "#/items/definitions/model.SortDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SortDefinition"
           },
           "split" : {
-            "$ref" : "#/items/definitions/model.SplitDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SplitDefinition"
           },
           "step" : {
-            "$ref" : "#/items/definitions/model.StepDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.StepDefinition"
           },
           "stop" : {
-            "$ref" : "#/items/definitions/model.StopDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.StopDefinition"
           },
           "threads" : {
-            "$ref" : "#/items/definitions/model.ThreadsDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ThreadsDefinition"
           },
           "throttle" : {
-            "$ref" : "#/items/definitions/model.ThrottleDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ThrottleDefinition"
           },
           "throw-exception" : {
-            "$ref" : "#/items/definitions/model.ThrowExceptionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ThrowExceptionDefinition"
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "tod" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "transacted" : {
-            "$ref" : "#/items/definitions/model.TransactedDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.TransactedDefinition"
           },
           "transform" : {
-            "$ref" : "#/items/definitions/model.TransformDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.TransformDefinition"
           },
           "do-try" : {
-            "$ref" : "#/items/definitions/model.TryDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.TryDefinition"
           },
           "unmarshal" : {
-            "$ref" : "#/items/definitions/model.UnmarshalDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.UnmarshalDefinition"
           },
           "validate" : {
-            "$ref" : "#/items/definitions/model.ValidateDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ValidateDefinition"
           },
           "when" : {
-            "$ref" : "#/items/definitions/model.WhenDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WhenDefinition"
           },
           "when-skip-send-to-endpoint" : {
-            "$ref" : "#/items/definitions/model.WhenSkipSendToEndpointDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WhenSkipSendToEndpointDefinition"
           },
           "wire-tap" : {
-            "$ref" : "#/items/definitions/model.WireTapDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WireTapDefinition"
           },
           "service-call" : {
-            "$ref" : "#/items/definitions/model.cloud.ServiceCallDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ServiceCallDefinition"
           }
         }
       },
-      "builder.DeadLetterChannelBuilder" : {
+      "org.apache.camel.builder.DeadLetterChannelBuilder" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -226,7 +226,7 @@
           }
         } ]
       },
-      "builder.DefaultErrorHandlerBuilder" : {
+      "org.apache.camel.builder.DefaultErrorHandlerBuilder" : {
         "type" : "object",
         "properties" : {
           "async-delayed-redelivery" : {
@@ -243,33 +243,33 @@
           }
         }
       },
-      "builder.ErrorHandlerBuilderRef" : {
+      "org.apache.camel.builder.ErrorHandlerBuilderRef" : {
         "type" : "object",
         "properties" : {
           "dead-letter-channel" : {
-            "$ref" : "#/items/definitions/builder.DeadLetterChannelBuilder"
+            "$ref" : "#/items/definitions/org.apache.camel.builder.DeadLetterChannelBuilder"
           },
           "log" : {
-            "$ref" : "#/items/definitions/builder.DefaultErrorHandlerBuilder"
+            "$ref" : "#/items/definitions/org.apache.camel.builder.DefaultErrorHandlerBuilder"
           },
           "none" : {
-            "$ref" : "#/items/definitions/builder.NoErrorHandlerBuilder"
+            "$ref" : "#/items/definitions/org.apache.camel.builder.NoErrorHandlerBuilder"
           },
           "ref" : {
             "type" : "string"
           }
         }
       },
-      "builder.NoErrorHandlerBuilder" : {
+      "org.apache.camel.builder.NoErrorHandlerBuilder" : {
         "type" : "object"
       },
-      "dsl.yaml.deserializers.BeansDeserializer" : {
+      "org.apache.camel.dsl.yaml.deserializers.BeansDeserializer" : {
         "type" : "array",
         "items" : {
-          "$ref" : "#/items/definitions/dsl.yaml.deserializers.NamedBeanDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.dsl.yaml.deserializers.NamedBeanDefinition"
         }
       },
-      "dsl.yaml.deserializers.NamedBeanDefinition" : {
+      "org.apache.camel.dsl.yaml.deserializers.NamedBeanDefinition" : {
         "type" : "object",
         "properties" : {
           "name" : {
@@ -284,7 +284,7 @@
         },
         "required" : [ "name", "type" ]
       },
-      "dsl.yaml.deserializers.OutputAwareFromDefinition" : {
+      "org.apache.camel.dsl.yaml.deserializers.OutputAwareFromDefinition" : {
         "type" : "object",
         "properties" : {
           "parameters" : {
@@ -293,7 +293,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "uri" : {
@@ -302,10 +302,10 @@
         },
         "required" : [ "steps", "uri" ]
       },
-      "dsl.yaml.deserializers.RouteFromDefinitionDeserializer" : {
+      "org.apache.camel.dsl.yaml.deserializers.RouteFromDefinitionDeserializer" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/dsl.yaml.deserializers.OutputAwareFromDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.dsl.yaml.deserializers.OutputAwareFromDefinition"
         } ],
         "properties" : {
           "parameters" : {
@@ -314,7 +314,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "uri" : {
@@ -323,7 +323,7 @@
         },
         "required" : [ "steps", "uri" ]
       },
-      "model.AggregateDefinition" : {
+      "org.apache.camel.model.AggregateDefinition" : {
         "type" : "object",
         "properties" : {
           "aggregate-controller-ref" : {
@@ -348,13 +348,13 @@
             "type" : "boolean"
           },
           "completion-predicate" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "completion-size" : {
             "type" : "number"
           },
           "completion-size-expression" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "completion-timeout" : {
             "type" : "string"
@@ -363,10 +363,10 @@
             "type" : "string"
           },
           "completion-timeout-expression" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "correlation-expression" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "discard-on-aggregation-failure" : {
             "type" : "boolean"
@@ -390,7 +390,7 @@
             "type" : "boolean"
           },
           "optimistic-lock-retry-policy" : {
-            "$ref" : "#/items/definitions/model.OptimisticLockRetryPolicyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OptimisticLockRetryPolicyDefinition"
           },
           "optimistic-locking" : {
             "type" : "boolean"
@@ -401,7 +401,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "strategy-method-allow-null" : {
@@ -418,7 +418,7 @@
           }
         }
       },
-      "model.BeanDefinition" : {
+      "org.apache.camel.model.BeanDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -445,7 +445,7 @@
           }
         } ]
       },
-      "model.CatchDefinition" : {
+      "org.apache.camel.model.CatchDefinition" : {
         "type" : "object",
         "properties" : {
           "exception" : {
@@ -458,69 +458,69 @@
             "type" : "boolean"
           },
           "on-when" : {
-            "$ref" : "#/items/definitions/model.WhenDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WhenDefinition"
           },
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.ChoiceDefinition" : {
+      "org.apache.camel.model.ChoiceDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
             "type" : "boolean"
           },
           "otherwise" : {
-            "$ref" : "#/items/definitions/model.OtherwiseDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OtherwiseDefinition"
           },
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "when" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.WhenDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.WhenDefinition"
             }
           }
         }
       },
-      "model.CircuitBreakerDefinition" : {
+      "org.apache.camel.model.CircuitBreakerDefinition" : {
         "type" : "object",
         "properties" : {
           "configuration-ref" : {
             "type" : "string"
           },
           "fault-tolerance-configuration" : {
-            "$ref" : "#/items/definitions/model.FaultToleranceConfigurationDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FaultToleranceConfigurationDefinition"
           },
           "hystrix-configuration" : {
-            "$ref" : "#/items/definitions/model.HystrixConfigurationDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.HystrixConfigurationDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           },
           "on-fallback" : {
-            "$ref" : "#/items/definitions/model.OnFallbackDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.OnFallbackDefinition"
           },
           "resilience4j-configuration" : {
-            "$ref" : "#/items/definitions/model.Resilience4jConfigurationDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.Resilience4jConfigurationDefinition"
           },
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.ClaimCheckDefinition" : {
+      "org.apache.camel.model.ClaimCheckDefinition" : {
         "type" : "object",
         "properties" : {
           "filter" : {
@@ -544,7 +544,7 @@
         },
         "required" : [ "operation" ]
       },
-      "model.ContextScanDefinition" : {
+      "org.apache.camel.model.ContextScanDefinition" : {
         "type" : "object",
         "properties" : {
           "excludes" : {
@@ -564,7 +564,7 @@
           }
         }
       },
-      "model.ConvertBodyDefinition" : {
+      "org.apache.camel.model.ConvertBodyDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -586,7 +586,7 @@
         } ],
         "required" : [ "type" ]
       },
-      "model.DataFormatDefinition" : {
+      "org.apache.camel.model.DataFormatDefinition" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -594,10 +594,10 @@
           }
         }
       },
-      "model.DelayDefinition" : {
+      "org.apache.camel.model.DelayDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "async-delayed" : {
@@ -610,14 +610,14 @@
             "type" : "string"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.DescriptionDefinition" : {
+      "org.apache.camel.model.DescriptionDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -632,17 +632,17 @@
           }
         } ]
       },
-      "model.DynamicRouterDefinition" : {
+      "org.apache.camel.model.DynamicRouterDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "cache-size" : {
             "type" : "number"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "ignore-invalid-endpoints" : {
             "type" : "boolean"
@@ -655,10 +655,10 @@
           }
         }
       },
-      "model.EnrichDefinition" : {
+      "org.apache.camel.model.EnrichDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "aggregate-on-exception" : {
@@ -671,7 +671,7 @@
             "type" : "number"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "ignore-invalid-endpoint" : {
             "type" : "boolean"
@@ -693,75 +693,75 @@
           }
         }
       },
-      "model.ExpressionSubElementDefinition" : {
+      "org.apache.camel.model.ExpressionSubElementDefinition" : {
         "type" : "object",
         "properties" : {
           "constant" : {
-            "$ref" : "#/items/definitions/model.language.ConstantExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ConstantExpression"
           },
           "csimple" : {
-            "$ref" : "#/items/definitions/model.language.CSimpleExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.CSimpleExpression"
           },
           "datasonnet" : {
-            "$ref" : "#/items/definitions/model.language.DatasonnetExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.DatasonnetExpression"
           },
           "exchange-property" : {
-            "$ref" : "#/items/definitions/model.language.ExchangePropertyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
           },
           "exchangeProperty" : {
-            "$ref" : "#/items/definitions/model.language.ExchangePropertyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
           },
           "groovy" : {
-            "$ref" : "#/items/definitions/model.language.GroovyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.GroovyExpression"
           },
           "header" : {
-            "$ref" : "#/items/definitions/model.language.HeaderExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.HeaderExpression"
           },
           "hl7terser" : {
-            "$ref" : "#/items/definitions/model.language.Hl7TerserExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.Hl7TerserExpression"
           },
           "joor" : {
-            "$ref" : "#/items/definitions/model.language.JoorExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JoorExpression"
           },
           "jsonpath" : {
-            "$ref" : "#/items/definitions/model.language.JsonPathExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JsonPathExpression"
           },
           "language" : {
-            "$ref" : "#/items/definitions/model.language.LanguageExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.LanguageExpression"
           },
           "method" : {
-            "$ref" : "#/items/definitions/model.language.MethodCallExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MethodCallExpression"
           },
           "mvel" : {
-            "$ref" : "#/items/definitions/model.language.MvelExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MvelExpression"
           },
           "ognl" : {
-            "$ref" : "#/items/definitions/model.language.OgnlExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.OgnlExpression"
           },
           "ref" : {
-            "$ref" : "#/items/definitions/model.language.RefExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.RefExpression"
           },
           "simple" : {
-            "$ref" : "#/items/definitions/model.language.SimpleExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SimpleExpression"
           },
           "spel" : {
-            "$ref" : "#/items/definitions/model.language.SpELExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SpELExpression"
           },
           "tokenize" : {
-            "$ref" : "#/items/definitions/model.language.TokenizerExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.TokenizerExpression"
           },
           "xpath" : {
-            "$ref" : "#/items/definitions/model.language.XPathExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XPathExpression"
           },
           "xquery" : {
-            "$ref" : "#/items/definitions/model.language.XQueryExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XQueryExpression"
           },
           "xtokenize" : {
-            "$ref" : "#/items/definitions/model.language.XMLTokenizerExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XMLTokenizerExpression"
           }
         }
       },
-      "model.FaultToleranceConfigurationDefinition" : {
+      "org.apache.camel.model.FaultToleranceConfigurationDefinition" : {
         "type" : "object",
         "properties" : {
           "bulkhead-enabled" : {
@@ -808,14 +808,14 @@
           }
         }
       },
-      "model.FilterDefinition" : {
+      "org.apache.camel.model.FilterDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -823,12 +823,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.FinallyDefinition" : {
+      "org.apache.camel.model.FinallyDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -837,12 +837,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.FromDefinition" : {
+      "org.apache.camel.model.FromDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -858,7 +858,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.GlobalOptionDefinition" : {
+      "org.apache.camel.model.GlobalOptionDefinition" : {
         "type" : "object",
         "properties" : {
           "key" : {
@@ -870,18 +870,18 @@
         },
         "required" : [ "key", "value" ]
       },
-      "model.GlobalOptionsDefinition" : {
+      "org.apache.camel.model.GlobalOptionsDefinition" : {
         "type" : "object",
         "properties" : {
           "global-option" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.GlobalOptionDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.GlobalOptionDefinition"
             }
           }
         }
       },
-      "model.HystrixConfigurationDefinition" : {
+      "org.apache.camel.model.HystrixConfigurationDefinition" : {
         "type" : "object",
         "properties" : {
           "allow-maximum-size-to-diverge-from-core-size" : {
@@ -982,10 +982,10 @@
           }
         }
       },
-      "model.IdempotentConsumerDefinition" : {
+      "org.apache.camel.model.IdempotentConsumerDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "completion-eager" : {
@@ -995,7 +995,7 @@
             "type" : "boolean"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -1012,13 +1012,13 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         },
         "required" : [ "message-id-repository-ref" ]
       },
-      "model.InOnlyDefinition" : {
+      "org.apache.camel.model.InOnlyDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1037,7 +1037,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.InOutDefinition" : {
+      "org.apache.camel.model.InOutDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1056,7 +1056,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.InputTypeDefinition" : {
+      "org.apache.camel.model.InputTypeDefinition" : {
         "type" : "object",
         "properties" : {
           "urn" : {
@@ -1068,7 +1068,7 @@
         },
         "required" : [ "urn" ]
       },
-      "model.InterceptDefinition" : {
+      "org.apache.camel.model.InterceptDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1077,12 +1077,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.InterceptFromDefinition" : {
+      "org.apache.camel.model.InterceptFromDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1094,7 +1094,7 @@
             "steps" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.ProcessorDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
               }
             },
             "uri" : {
@@ -1103,7 +1103,7 @@
           }
         } ]
       },
-      "model.InterceptSendToEndpointDefinition" : {
+      "org.apache.camel.model.InterceptSendToEndpointDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1121,7 +1121,7 @@
             "steps" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.ProcessorDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
               }
             },
             "uri" : {
@@ -1131,7 +1131,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.KameletDefinition" : {
+      "org.apache.camel.model.KameletDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1149,49 +1149,49 @@
             "steps" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.ProcessorDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
               }
             }
           }
         } ],
         "required" : [ "name" ]
       },
-      "model.LoadBalanceDefinition" : {
+      "org.apache.camel.model.LoadBalanceDefinition" : {
         "type" : "object",
         "properties" : {
           "custom-load-balancer" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.CustomLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition"
           },
           "failover" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.FailoverLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           },
           "random" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.RandomLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition"
           },
           "round-robin" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.RoundRobinLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition"
           },
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "sticky" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.StickyLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition"
           },
           "topic" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.TopicLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition"
           },
           "weighted" : {
-            "$ref" : "#/items/definitions/model.loadbalancer.WeightedLoadBalancerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition"
           }
         }
       },
-      "model.LoadBalancerDefinition" : {
+      "org.apache.camel.model.LoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -1199,7 +1199,7 @@
           }
         }
       },
-      "model.LogDefinition" : {
+      "org.apache.camel.model.LogDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1227,10 +1227,10 @@
         } ],
         "required" : [ "message" ]
       },
-      "model.LoopDefinition" : {
+      "org.apache.camel.model.LoopDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "break-on-shutdown" : {
@@ -1243,7 +1243,7 @@
             "type" : "boolean"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -1251,143 +1251,143 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.MarshalDefinition" : {
+      "org.apache.camel.model.MarshalDefinition" : {
         "type" : "object",
         "properties" : {
           "any23" : {
-            "$ref" : "#/items/definitions/model.dataformat.Any23DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Any23DataFormat"
           },
           "asn1" : {
-            "$ref" : "#/items/definitions/model.dataformat.ASN1DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ASN1DataFormat"
           },
           "avro" : {
-            "$ref" : "#/items/definitions/model.dataformat.AvroDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.AvroDataFormat"
           },
           "barcode" : {
-            "$ref" : "#/items/definitions/model.dataformat.BarcodeDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BarcodeDataFormat"
           },
           "base64" : {
-            "$ref" : "#/items/definitions/model.dataformat.Base64DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Base64DataFormat"
           },
           "beanio" : {
-            "$ref" : "#/items/definitions/model.dataformat.BeanioDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BeanioDataFormat"
           },
           "bindy" : {
-            "$ref" : "#/items/definitions/model.dataformat.BindyDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BindyDataFormat"
           },
           "cbor" : {
-            "$ref" : "#/items/definitions/model.dataformat.CBORDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CBORDataFormat"
           },
           "crypto" : {
-            "$ref" : "#/items/definitions/model.dataformat.CryptoDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CryptoDataFormat"
           },
           "csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.CsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CsvDataFormat"
           },
           "custom" : {
-            "$ref" : "#/items/definitions/model.dataformat.CustomDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CustomDataFormat"
           },
           "fhir-json" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirJsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirJsonDataFormat"
           },
           "fhir-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirXmlDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirXmlDataFormat"
           },
           "flatpack" : {
-            "$ref" : "#/items/definitions/model.dataformat.FlatpackDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FlatpackDataFormat"
           },
           "grok" : {
-            "$ref" : "#/items/definitions/model.dataformat.GrokDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GrokDataFormat"
           },
           "gzip" : {
-            "$ref" : "#/items/definitions/model.dataformat.GzipDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GzipDataFormat"
           },
           "hl7" : {
-            "$ref" : "#/items/definitions/model.dataformat.HL7DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.HL7DataFormat"
           },
           "ical" : {
-            "$ref" : "#/items/definitions/model.dataformat.IcalDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.IcalDataFormat"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           },
           "jacksonxml" : {
-            "$ref" : "#/items/definitions/model.dataformat.JacksonXMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JacksonXMLDataFormat"
           },
           "jaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.JaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JaxbDataFormat"
           },
           "json" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonDataFormat"
           },
           "json-api" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonApiDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonApiDataFormat"
           },
           "lzf" : {
-            "$ref" : "#/items/definitions/model.dataformat.LZFDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.LZFDataFormat"
           },
           "mime-multipart" : {
-            "$ref" : "#/items/definitions/model.dataformat.MimeMultipartDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.MimeMultipartDataFormat"
           },
           "pgp" : {
-            "$ref" : "#/items/definitions/model.dataformat.PGPDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.PGPDataFormat"
           },
           "protobuf" : {
-            "$ref" : "#/items/definitions/model.dataformat.ProtobufDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ProtobufDataFormat"
           },
           "rss" : {
-            "$ref" : "#/items/definitions/model.dataformat.RssDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.RssDataFormat"
           },
           "secure-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.XMLSecurityDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XMLSecurityDataFormat"
           },
           "soapjaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.SoapJaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SoapJaxbDataFormat"
           },
           "syslog" : {
-            "$ref" : "#/items/definitions/model.dataformat.SyslogDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SyslogDataFormat"
           },
           "tarfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.TarFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TarFileDataFormat"
           },
           "thrift" : {
-            "$ref" : "#/items/definitions/model.dataformat.ThriftDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ThriftDataFormat"
           },
           "tidy-markup" : {
-            "$ref" : "#/items/definitions/model.dataformat.TidyMarkupDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TidyMarkupDataFormat"
           },
           "univocity-csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityCsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityCsvDataFormat"
           },
           "univocity-fixed" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityFixedWidthDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat"
           },
           "univocity-tsv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityTsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityTsvDataFormat"
           },
           "xmlrpc" : {
-            "$ref" : "#/items/definitions/model.dataformat.XmlRpcDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XmlRpcDataFormat"
           },
           "xstream" : {
-            "$ref" : "#/items/definitions/model.dataformat.XStreamDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XStreamDataFormat"
           },
           "yaml" : {
-            "$ref" : "#/items/definitions/model.dataformat.YAMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLDataFormat"
           },
           "zip" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipDeflaterDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipDeflaterDataFormat"
           },
           "zipfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipFileDataFormat"
           }
         }
       },
-      "model.MulticastDefinition" : {
+      "org.apache.camel.model.MulticastDefinition" : {
         "type" : "object",
         "properties" : {
           "executor-service-ref" : {
@@ -1411,7 +1411,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "stop-on-aggregate-exception" : {
@@ -1437,7 +1437,7 @@
           }
         }
       },
-      "model.OnCompletionDefinition" : {
+      "org.apache.camel.model.OnCompletionDefinition" : {
         "type" : "object",
         "properties" : {
           "executor-service-ref" : {
@@ -1456,7 +1456,7 @@
             "type" : "boolean"
           },
           "on-when" : {
-            "$ref" : "#/items/definitions/model.WhenDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WhenDefinition"
           },
           "parallel-processing" : {
             "type" : "boolean"
@@ -1464,7 +1464,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "use-original-message" : {
@@ -1472,11 +1472,11 @@
           }
         }
       },
-      "model.OnExceptionDefinition" : {
+      "org.apache.camel.model.OnExceptionDefinition" : {
         "type" : "object",
         "properties" : {
           "continued" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "exception" : {
             "type" : "array",
@@ -1485,7 +1485,7 @@
             }
           },
           "handled" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -1497,21 +1497,21 @@
             "type" : "string"
           },
           "on-when" : {
-            "$ref" : "#/items/definitions/model.WhenDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.WhenDefinition"
           },
           "redelivery-policy" : {
-            "$ref" : "#/items/definitions/model.RedeliveryPolicyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RedeliveryPolicyDefinition"
           },
           "redelivery-policy-ref" : {
             "type" : "string"
           },
           "retry-while" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "use-original-body" : {
@@ -1522,7 +1522,7 @@
           }
         }
       },
-      "model.OnFallbackDefinition" : {
+      "org.apache.camel.model.OnFallbackDefinition" : {
         "type" : "object",
         "properties" : {
           "fallback-via-network" : {
@@ -1534,12 +1534,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.OptimisticLockRetryPolicyDefinition" : {
+      "org.apache.camel.model.OptimisticLockRetryPolicyDefinition" : {
         "type" : "object",
         "properties" : {
           "exponential-back-off" : {
@@ -1559,7 +1559,7 @@
           }
         }
       },
-      "model.OtherwiseDefinition" : {
+      "org.apache.camel.model.OtherwiseDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1568,12 +1568,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.OutputDefinition" : {
+      "org.apache.camel.model.OutputDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1582,12 +1582,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.OutputTypeDefinition" : {
+      "org.apache.camel.model.OutputTypeDefinition" : {
         "type" : "object",
         "properties" : {
           "urn" : {
@@ -1599,7 +1599,7 @@
         },
         "required" : [ "urn" ]
       },
-      "model.PackageScanDefinition" : {
+      "org.apache.camel.model.PackageScanDefinition" : {
         "type" : "object",
         "properties" : {
           "excludes" : {
@@ -1622,7 +1622,7 @@
           }
         }
       },
-      "model.PipelineDefinition" : {
+      "org.apache.camel.model.PipelineDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1631,12 +1631,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.PolicyDefinition" : {
+      "org.apache.camel.model.PolicyDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1648,16 +1648,16 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         },
         "required" : [ "ref" ]
       },
-      "model.PollEnrichDefinition" : {
+      "org.apache.camel.model.PollEnrichDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "aggregate-on-exception" : {
@@ -1667,7 +1667,7 @@
             "type" : "number"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "ignore-invalid-endpoint" : {
             "type" : "number"
@@ -1689,7 +1689,7 @@
           }
         }
       },
-      "model.ProcessDefinition" : {
+      "org.apache.camel.model.ProcessDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -1701,7 +1701,7 @@
         },
         "required" : [ "ref" ]
       },
-      "model.PropertyDefinition" : {
+      "org.apache.camel.model.PropertyDefinition" : {
         "type" : "object",
         "properties" : {
           "key" : {
@@ -1713,10 +1713,10 @@
         },
         "required" : [ "key", "value" ]
       },
-      "model.RecipientListDefinition" : {
+      "org.apache.camel.model.RecipientListDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "cache-size" : {
@@ -1729,7 +1729,7 @@
             "type" : "string"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "ignore-invalid-endpoints" : {
             "type" : "boolean"
@@ -1772,7 +1772,7 @@
           }
         }
       },
-      "model.RedeliveryPolicyDefinition" : {
+      "org.apache.camel.model.RedeliveryPolicyDefinition" : {
         "type" : "object",
         "properties" : {
           "allow-redelivery-while-stopping" : {
@@ -1849,7 +1849,7 @@
           }
         }
       },
-      "model.RemoveHeaderDefinition" : {
+      "org.apache.camel.model.RemoveHeaderDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1867,7 +1867,7 @@
           }
         } ]
       },
-      "model.RemoveHeadersDefinition" : {
+      "org.apache.camel.model.RemoveHeadersDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1886,7 +1886,7 @@
         } ],
         "required" : [ "pattern" ]
       },
-      "model.RemovePropertiesDefinition" : {
+      "org.apache.camel.model.RemovePropertiesDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1905,7 +1905,7 @@
         } ],
         "required" : [ "pattern" ]
       },
-      "model.RemovePropertyDefinition" : {
+      "org.apache.camel.model.RemovePropertyDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -1921,17 +1921,17 @@
         } ],
         "required" : [ "property-name" ]
       },
-      "model.ResequenceDefinition" : {
+      "org.apache.camel.model.ResequenceDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "batch-config" : {
-            "$ref" : "#/items/definitions/model.config.BatchResequencerConfig"
+            "$ref" : "#/items/definitions/org.apache.camel.model.config.BatchResequencerConfig"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -1939,16 +1939,16 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "stream-config" : {
-            "$ref" : "#/items/definitions/model.config.StreamResequencerConfig"
+            "$ref" : "#/items/definitions/org.apache.camel.model.config.StreamResequencerConfig"
           }
         },
         "required" : [ "expression" ]
       },
-      "model.Resilience4jConfigurationDefinition" : {
+      "org.apache.camel.model.Resilience4jConfigurationDefinition" : {
         "type" : "object",
         "properties" : {
           "automatic-transition-from-open-to-half-open-enabled" : {
@@ -1992,7 +1992,7 @@
           }
         }
       },
-      "model.RestContextRefDefinition" : {
+      "org.apache.camel.model.RestContextRefDefinition" : {
         "type" : "object",
         "properties" : {
           "ref" : {
@@ -2001,7 +2001,7 @@
         },
         "required" : [ "ref" ]
       },
-      "model.RollbackDefinition" : {
+      "org.apache.camel.model.RollbackDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2022,7 +2022,7 @@
           }
         } ]
       },
-      "model.RouteBuilderDefinition" : {
+      "org.apache.camel.model.RouteBuilderDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2038,7 +2038,7 @@
         } ],
         "required" : [ "ref" ]
       },
-      "model.RouteConfigurationDefinition" : {
+      "org.apache.camel.model.RouteConfigurationDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2050,37 +2050,37 @@
             "intercept" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.InterceptDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.InterceptDefinition"
               }
             },
             "intercept-from" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.InterceptFromDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.InterceptFromDefinition"
               }
             },
             "intercept-send-to-endpoint" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.InterceptSendToEndpointDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.InterceptSendToEndpointDefinition"
               }
             },
             "on-completion" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.OnCompletionDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.OnCompletionDefinition"
               }
             },
             "on-exception" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.OnExceptionDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.OnExceptionDefinition"
               }
             }
           }
         } ]
       },
-      "model.RouteContextRefDefinition" : {
+      "org.apache.camel.model.RouteContextRefDefinition" : {
         "type" : "object",
         "properties" : {
           "ref" : {
@@ -2089,11 +2089,11 @@
         },
         "required" : [ "ref" ]
       },
-      "model.RouteDefinition" : {
+      "org.apache.camel.model.RouteDefinition" : {
         "type" : "object",
         "properties" : {
           "from" : {
-            "$ref" : "#/items/definitions/model.FromDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FromDefinition"
           },
           "group" : {
             "type" : "string"
@@ -2107,13 +2107,13 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         },
         "required" : [ "from", "steps" ]
       },
-      "model.RouteTemplateBeanDefinition" : {
+      "org.apache.camel.model.RouteTemplateBeanDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2131,11 +2131,11 @@
             "property" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "script" : {
-              "$ref" : "#/items/definitions/model.RouteTemplateScriptDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.RouteTemplateScriptDefinition"
             },
             "type" : {
               "type" : "string"
@@ -2144,17 +2144,17 @@
         } ],
         "required" : [ "name", "type" ]
       },
-      "model.RouteTemplateDefinition" : {
+      "org.apache.camel.model.RouteTemplateDefinition" : {
         "type" : "object",
         "properties" : {
           "beans" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/dsl.yaml.deserializers.NamedBeanDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.dsl.yaml.deserializers.NamedBeanDefinition"
             }
           },
           "from" : {
-            "$ref" : "#/items/definitions/model.FromDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FromDefinition"
           },
           "id" : {
             "type" : "string"
@@ -2162,13 +2162,13 @@
           "parameters" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.RouteTemplateParameterDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.RouteTemplateParameterDefinition"
             }
           }
         },
         "required" : [ "from", "id" ]
       },
-      "model.RouteTemplateParameterDefinition" : {
+      "org.apache.camel.model.RouteTemplateParameterDefinition" : {
         "type" : "object",
         "properties" : {
           "default-value" : {
@@ -2186,7 +2186,7 @@
         },
         "required" : [ "name" ]
       },
-      "model.RouteTemplateScriptDefinition" : {
+      "org.apache.camel.model.RouteTemplateScriptDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2198,7 +2198,7 @@
           }
         } ]
       },
-      "model.RoutingSlipDefinition" : {
+      "org.apache.camel.model.RoutingSlipDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2208,7 +2208,7 @@
               "type" : "number"
             },
             "expression" : {
-              "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
             },
             "ignore-invalid-endpoints" : {
               "type" : "boolean"
@@ -2222,10 +2222,10 @@
           }
         } ],
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ]
       },
-      "model.SagaActionUriDefinition" : {
+      "org.apache.camel.model.SagaActionUriDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2244,14 +2244,14 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.SagaDefinition" : {
+      "org.apache.camel.model.SagaDefinition" : {
         "type" : "object",
         "properties" : {
           "compensation" : {
-            "$ref" : "#/items/definitions/model.SagaActionUriDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SagaActionUriDefinition"
           },
           "completion" : {
-            "$ref" : "#/items/definitions/model.SagaActionUriDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.SagaActionUriDefinition"
           },
           "completion-mode" : {
             "type" : "string"
@@ -2262,7 +2262,7 @@
           "option" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.SagaOptionDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.SagaOptionDefinition"
             }
           },
           "propagation" : {
@@ -2274,7 +2274,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "timeout" : {
@@ -2285,14 +2285,14 @@
           }
         }
       },
-      "model.SagaOptionDefinition" : {
+      "org.apache.camel.model.SagaOptionDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "option-name" : {
             "type" : "string"
@@ -2300,7 +2300,7 @@
         },
         "required" : [ "option-name" ]
       },
-      "model.SamplingDefinition" : {
+      "org.apache.camel.model.SamplingDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -2317,35 +2317,35 @@
           }
         }
       },
-      "model.ScriptDefinition" : {
+      "org.apache.camel.model.ScriptDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.SetBodyDefinition" : {
+      "org.apache.camel.model.SetBodyDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.SetExchangePatternDefinition" : {
+      "org.apache.camel.model.SetExchangePatternDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2361,14 +2361,14 @@
         } ],
         "required" : [ "pattern" ]
       },
-      "model.SetHeaderDefinition" : {
+      "org.apache.camel.model.SetHeaderDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2379,14 +2379,14 @@
         },
         "required" : [ "name" ]
       },
-      "model.SetPropertyDefinition" : {
+      "org.apache.camel.model.SetPropertyDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2397,27 +2397,27 @@
         },
         "required" : [ "name" ]
       },
-      "model.SortDefinition" : {
+      "org.apache.camel.model.SortDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "comparator-ref" : {
             "type" : "string"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.SplitDefinition" : {
+      "org.apache.camel.model.SplitDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "delimiter" : {
@@ -2427,7 +2427,7 @@
             "type" : "string"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2447,7 +2447,7 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "stop-on-aggregate-exception" : {
@@ -2473,7 +2473,7 @@
           }
         }
       },
-      "model.StepDefinition" : {
+      "org.apache.camel.model.StepDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -2482,12 +2482,12 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.StopDefinition" : {
+      "org.apache.camel.model.StopDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -2495,7 +2495,7 @@
           }
         }
       },
-      "model.ThreadPoolProfileDefinition" : {
+      "org.apache.camel.model.ThreadPoolProfileDefinition" : {
         "type" : "object",
         "properties" : {
           "allow-core-thread-time-out" : {
@@ -2524,7 +2524,7 @@
           }
         }
       },
-      "model.ThreadsDefinition" : {
+      "org.apache.camel.model.ThreadsDefinition" : {
         "type" : "object",
         "properties" : {
           "allow-core-thread-time-out" : {
@@ -2562,10 +2562,10 @@
           }
         }
       },
-      "model.ThrottleDefinition" : {
+      "org.apache.camel.model.ThrottleDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "async-delayed" : {
@@ -2575,13 +2575,13 @@
             "type" : "boolean"
           },
           "correlation-expression" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "executor-service-ref" : {
             "type" : "string"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2594,7 +2594,7 @@
           }
         }
       },
-      "model.ThrowExceptionDefinition" : {
+      "org.apache.camel.model.ThrowExceptionDefinition" : {
         "type" : "object",
         "properties" : {
           "exception-type" : {
@@ -2611,7 +2611,7 @@
           }
         }
       },
-      "model.ToDefinition" : {
+      "org.apache.camel.model.ToDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2633,7 +2633,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.ToDynamicDefinition" : {
+      "org.apache.camel.model.ToDynamicDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -2667,7 +2667,7 @@
         } ],
         "required" : [ "uri" ]
       },
-      "model.TransactedDefinition" : {
+      "org.apache.camel.model.TransactedDefinition" : {
         "type" : "object",
         "properties" : {
           "inherit-error-handler" : {
@@ -2679,36 +2679,36 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.TransformDefinition" : {
+      "org.apache.camel.model.TransformDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.TryDefinition" : {
+      "org.apache.camel.model.TryDefinition" : {
         "type" : "object",
         "properties" : {
           "do-catch" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.CatchDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.CatchDefinition"
             }
           },
           "do-finally" : {
-            "$ref" : "#/items/definitions/model.FinallyDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.FinallyDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2716,184 +2716,164 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.UnmarshalDefinition" : {
+      "org.apache.camel.model.UnmarshalDefinition" : {
         "type" : "object",
         "properties" : {
           "any23" : {
-            "$ref" : "#/items/definitions/model.dataformat.Any23DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Any23DataFormat"
           },
           "asn1" : {
-            "$ref" : "#/items/definitions/model.dataformat.ASN1DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ASN1DataFormat"
           },
           "avro" : {
-            "$ref" : "#/items/definitions/model.dataformat.AvroDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.AvroDataFormat"
           },
           "barcode" : {
-            "$ref" : "#/items/definitions/model.dataformat.BarcodeDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BarcodeDataFormat"
           },
           "base64" : {
-            "$ref" : "#/items/definitions/model.dataformat.Base64DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Base64DataFormat"
           },
           "beanio" : {
-            "$ref" : "#/items/definitions/model.dataformat.BeanioDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BeanioDataFormat"
           },
           "bindy" : {
-            "$ref" : "#/items/definitions/model.dataformat.BindyDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BindyDataFormat"
           },
           "cbor" : {
-            "$ref" : "#/items/definitions/model.dataformat.CBORDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CBORDataFormat"
           },
           "crypto" : {
-            "$ref" : "#/items/definitions/model.dataformat.CryptoDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CryptoDataFormat"
           },
           "csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.CsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CsvDataFormat"
           },
           "custom" : {
-            "$ref" : "#/items/definitions/model.dataformat.CustomDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CustomDataFormat"
           },
           "fhir-json" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirJsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirJsonDataFormat"
           },
           "fhir-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirXmlDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirXmlDataFormat"
           },
           "flatpack" : {
-            "$ref" : "#/items/definitions/model.dataformat.FlatpackDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FlatpackDataFormat"
           },
           "grok" : {
-            "$ref" : "#/items/definitions/model.dataformat.GrokDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GrokDataFormat"
           },
           "gzip" : {
-            "$ref" : "#/items/definitions/model.dataformat.GzipDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GzipDataFormat"
           },
           "hl7" : {
-            "$ref" : "#/items/definitions/model.dataformat.HL7DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.HL7DataFormat"
           },
           "ical" : {
-            "$ref" : "#/items/definitions/model.dataformat.IcalDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.IcalDataFormat"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           },
           "jacksonxml" : {
-            "$ref" : "#/items/definitions/model.dataformat.JacksonXMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JacksonXMLDataFormat"
           },
           "jaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.JaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JaxbDataFormat"
           },
           "json" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonDataFormat"
           },
           "json-api" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonApiDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonApiDataFormat"
           },
           "lzf" : {
-            "$ref" : "#/items/definitions/model.dataformat.LZFDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.LZFDataFormat"
           },
           "mime-multipart" : {
-            "$ref" : "#/items/definitions/model.dataformat.MimeMultipartDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.MimeMultipartDataFormat"
           },
           "pgp" : {
-            "$ref" : "#/items/definitions/model.dataformat.PGPDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.PGPDataFormat"
           },
           "protobuf" : {
-            "$ref" : "#/items/definitions/model.dataformat.ProtobufDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ProtobufDataFormat"
           },
           "rss" : {
-            "$ref" : "#/items/definitions/model.dataformat.RssDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.RssDataFormat"
           },
           "secure-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.XMLSecurityDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XMLSecurityDataFormat"
           },
           "soapjaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.SoapJaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SoapJaxbDataFormat"
           },
           "syslog" : {
-            "$ref" : "#/items/definitions/model.dataformat.SyslogDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SyslogDataFormat"
           },
           "tarfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.TarFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TarFileDataFormat"
           },
           "thrift" : {
-            "$ref" : "#/items/definitions/model.dataformat.ThriftDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ThriftDataFormat"
           },
           "tidy-markup" : {
-            "$ref" : "#/items/definitions/model.dataformat.TidyMarkupDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TidyMarkupDataFormat"
           },
           "univocity-csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityCsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityCsvDataFormat"
           },
           "univocity-fixed" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityFixedWidthDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat"
           },
           "univocity-tsv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityTsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityTsvDataFormat"
           },
           "xmlrpc" : {
-            "$ref" : "#/items/definitions/model.dataformat.XmlRpcDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XmlRpcDataFormat"
           },
           "xstream" : {
-            "$ref" : "#/items/definitions/model.dataformat.XStreamDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XStreamDataFormat"
           },
           "yaml" : {
-            "$ref" : "#/items/definitions/model.dataformat.YAMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLDataFormat"
           },
           "zip" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipDeflaterDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipDeflaterDataFormat"
           },
           "zipfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipFileDataFormat"
           }
         }
       },
-      "model.ValidateDefinition" : {
+      "org.apache.camel.model.ValidateDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
           }
         }
       },
-      "model.WhenDefinition" : {
+      "org.apache.camel.model.WhenDefinition" : {
         "type" : "object",
         "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
         } ],
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
-          },
-          "inherit-error-handler" : {
-            "type" : "boolean"
-          },
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
-            }
-          }
-        }
-      },
-      "model.WhenSkipSendToEndpointDefinition" : {
-        "type" : "object",
-        "anyOf" : [ {
-          "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
-        } ],
-        "properties" : {
-          "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "inherit-error-handler" : {
             "type" : "boolean"
@@ -2901,12 +2881,32 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           }
         }
       },
-      "model.WireTapDefinition" : {
+      "org.apache.camel.model.WhenSkipSendToEndpointDefinition" : {
+        "type" : "object",
+        "anyOf" : [ {
+          "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
+        } ],
+        "properties" : {
+          "expression" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
+            }
+          }
+        }
+      },
+      "org.apache.camel.model.WireTapDefinition" : {
         "type" : "object",
         "properties" : {
           "allow-optimised-components" : {
@@ -2916,7 +2916,7 @@
             "type" : "boolean"
           },
           "body" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "cache-size" : {
             "type" : "number"
@@ -2951,7 +2951,7 @@
           "set-header" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.SetHeaderDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.SetHeaderDefinition"
             }
           },
           "uri" : {
@@ -2960,7 +2960,7 @@
         },
         "required" : [ "uri" ]
       },
-      "model.cloud.BlacklistServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.BlacklistServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -2969,7 +2969,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "servers" : {
@@ -2980,35 +2980,35 @@
           }
         }
       },
-      "model.cloud.CachingServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.CachingServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "combined-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
           },
           "consul-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
           },
           "dns-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
           },
           "etcd-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
           },
           "id" : {
             "type" : "string"
           },
           "kubernetes-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
           },
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "static-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
           },
           "timeout" : {
             "type" : "number"
@@ -3018,65 +3018,65 @@
           }
         }
       },
-      "model.cloud.CombinedServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.CombinedServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "caching-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
           },
           "consul-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
           },
           "dns-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
           },
           "etcd-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
           },
           "id" : {
             "type" : "string"
           },
           "kubernetes-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
           },
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "static-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
           }
         }
       },
-      "model.cloud.CombinedServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.CombinedServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "blacklist-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.BlacklistServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.BlacklistServiceCallServiceFilterConfiguration"
           },
           "custom-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.CustomServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CustomServiceCallServiceFilterConfiguration"
           },
           "healthy-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.HealthyServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.HealthyServiceCallServiceFilterConfiguration"
           },
           "id" : {
             "type" : "string"
           },
           "pass-through-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.PassThroughServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.PassThroughServiceCallServiceFilterConfiguration"
           },
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.ConsulServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.ConsulServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "acl-token" : {
@@ -3100,7 +3100,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "read-timeout-millis" : {
@@ -3117,7 +3117,7 @@
           }
         }
       },
-      "model.cloud.CustomServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.CustomServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3126,7 +3126,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "ref" : {
@@ -3134,7 +3134,7 @@
           }
         }
       },
-      "model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration" : {
+      "org.apache.camel.model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3143,12 +3143,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.DnsServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.DnsServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "domain" : {
@@ -3160,7 +3160,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "proto" : {
@@ -3168,7 +3168,7 @@
           }
         }
       },
-      "model.cloud.EtcdServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.EtcdServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3180,7 +3180,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "service-path" : {
@@ -3200,7 +3200,7 @@
           }
         }
       },
-      "model.cloud.HealthyServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.HealthyServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3209,12 +3209,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "api-version" : {
@@ -3274,7 +3274,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "trust-certs" : {
@@ -3285,7 +3285,7 @@
           }
         }
       },
-      "model.cloud.PassThroughServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.PassThroughServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3294,12 +3294,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration" : {
+      "org.apache.camel.model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration" : {
         "type" : "object",
         "properties" : {
           "client-name" : {
@@ -3317,7 +3317,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "username" : {
@@ -3325,65 +3325,65 @@
           }
         }
       },
-      "model.cloud.ServiceCallConfigurationDefinition" : {
+      "org.apache.camel.model.cloud.ServiceCallConfigurationDefinition" : {
         "type" : "object",
         "properties" : {
           "blacklist-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.BlacklistServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.BlacklistServiceCallServiceFilterConfiguration"
           },
           "caching-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
           },
           "combined-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
           },
           "combined-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.CombinedServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CombinedServiceCallServiceFilterConfiguration"
           },
           "component" : {
             "type" : "string"
           },
           "consul-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
           },
           "custom-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.CustomServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CustomServiceCallServiceFilterConfiguration"
           },
           "default-load-balancer" : {
-            "$ref" : "#/items/definitions/model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration"
           },
           "dns-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
           },
           "etcd-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
           },
           "expression" : {
-            "$ref" : "#/items/definitions/model.cloud.ServiceCallExpressionConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ServiceCallExpressionConfiguration"
           },
           "expression-ref" : {
             "type" : "string"
           },
           "healthy-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.HealthyServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.HealthyServiceCallServiceFilterConfiguration"
           },
           "id" : {
             "type" : "string"
           },
           "kubernetes-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
           },
           "load-balancer-ref" : {
             "type" : "string"
           },
           "pass-through-service-filter" : {
-            "$ref" : "#/items/definitions/model.cloud.PassThroughServiceCallServiceFilterConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.PassThroughServiceCallServiceFilterConfiguration"
           },
           "pattern" : {
             "type" : "string"
           },
           "ribbon-load-balancer" : {
-            "$ref" : "#/items/definitions/model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration"
           },
           "service-chooser-ref" : {
             "type" : "string"
@@ -3395,33 +3395,33 @@
             "type" : "string"
           },
           "static-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
           },
           "uri" : {
             "type" : "string"
           },
           "zookeeper-service-discovery" : {
-            "$ref" : "#/items/definitions/model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration"
+            "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration"
           }
         }
       },
-      "model.cloud.ServiceCallDefinition" : {
+      "org.apache.camel.model.cloud.ServiceCallDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
           "type" : "object",
           "properties" : {
             "blacklist-service-filter" : {
-              "$ref" : "#/items/definitions/model.cloud.BlacklistServiceCallServiceFilterConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.BlacklistServiceCallServiceFilterConfiguration"
             },
             "caching-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CachingServiceCallServiceDiscoveryConfiguration"
             },
             "combined-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CombinedServiceCallServiceDiscoveryConfiguration"
             },
             "combined-service-filter" : {
-              "$ref" : "#/items/definitions/model.cloud.CombinedServiceCallServiceFilterConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CombinedServiceCallServiceFilterConfiguration"
             },
             "component" : {
               "type" : "string"
@@ -3430,34 +3430,34 @@
               "type" : "string"
             },
             "consul-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ConsulServiceCallServiceDiscoveryConfiguration"
             },
             "custom-service-filter" : {
-              "$ref" : "#/items/definitions/model.cloud.CustomServiceCallServiceFilterConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.CustomServiceCallServiceFilterConfiguration"
             },
             "default-load-balancer" : {
-              "$ref" : "#/items/definitions/model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DefaultServiceCallServiceLoadBalancerConfiguration"
             },
             "dns-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.DnsServiceCallServiceDiscoveryConfiguration"
             },
             "etcd-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.EtcdServiceCallServiceDiscoveryConfiguration"
             },
             "expression" : {
-              "$ref" : "#/items/definitions/model.cloud.ServiceCallExpressionConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ServiceCallExpressionConfiguration"
             },
             "expression-ref" : {
               "type" : "string"
             },
             "healthy-service-filter" : {
-              "$ref" : "#/items/definitions/model.cloud.HealthyServiceCallServiceFilterConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.HealthyServiceCallServiceFilterConfiguration"
             },
             "inherit-error-handler" : {
               "type" : "boolean"
             },
             "kubernetes-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.KubernetesServiceCallServiceDiscoveryConfiguration"
             },
             "load-balancer-ref" : {
               "type" : "string"
@@ -3466,13 +3466,13 @@
               "type" : "string"
             },
             "pass-through-service-filter" : {
-              "$ref" : "#/items/definitions/model.cloud.PassThroughServiceCallServiceFilterConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.PassThroughServiceCallServiceFilterConfiguration"
             },
             "pattern" : {
               "type" : "string"
             },
             "ribbon-load-balancer" : {
-              "$ref" : "#/items/definitions/model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.RibbonServiceCallServiceLoadBalancerConfiguration"
             },
             "service-chooser-ref" : {
               "type" : "string"
@@ -3484,23 +3484,23 @@
               "type" : "string"
             },
             "static-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration"
             },
             "uri" : {
               "type" : "string"
             },
             "zookeeper-service-discovery" : {
-              "$ref" : "#/items/definitions/model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration"
+              "$ref" : "#/items/definitions/org.apache.camel.model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration"
             }
           }
         } ],
         "required" : [ "name" ]
       },
-      "model.cloud.ServiceCallExpressionConfiguration" : {
+      "org.apache.camel.model.cloud.ServiceCallExpressionConfiguration" : {
         "type" : "object",
         "properties" : {
           "expression-type" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "host-header" : {
             "type" : "string"
@@ -3514,12 +3514,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.ServiceCallServiceChooserConfiguration" : {
+      "org.apache.camel.model.cloud.ServiceCallServiceChooserConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3528,12 +3528,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.ServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.ServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3542,12 +3542,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.ServiceCallServiceFilterConfiguration" : {
+      "org.apache.camel.model.cloud.ServiceCallServiceFilterConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3556,12 +3556,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.ServiceCallServiceLoadBalancerConfiguration" : {
+      "org.apache.camel.model.cloud.ServiceCallServiceLoadBalancerConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3570,12 +3570,12 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           }
         }
       },
-      "model.cloud.StaticServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3584,7 +3584,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "servers" : {
@@ -3595,7 +3595,7 @@
           }
         }
       },
-      "model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration" : {
+      "org.apache.camel.model.cloud.ZooKeeperServiceCallServiceDiscoveryConfiguration" : {
         "type" : "object",
         "properties" : {
           "base-path" : {
@@ -3616,7 +3616,7 @@
           "properties" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.PropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
             }
           },
           "reconnect-base-sleep-time" : {
@@ -3634,7 +3634,7 @@
         },
         "required" : [ "base-path", "nodes" ]
       },
-      "model.config.BatchResequencerConfig" : {
+      "org.apache.camel.model.config.BatchResequencerConfig" : {
         "type" : "object",
         "properties" : {
           "allow-duplicates" : {
@@ -3654,7 +3654,7 @@
           }
         }
       },
-      "model.config.StreamResequencerConfig" : {
+      "org.apache.camel.model.config.StreamResequencerConfig" : {
         "type" : "object",
         "properties" : {
           "capacity" : {
@@ -3677,7 +3677,7 @@
           }
         }
       },
-      "model.dataformat.ASN1DataFormat" : {
+      "org.apache.camel.model.dataformat.ASN1DataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -3695,7 +3695,7 @@
           }
         } ]
       },
-      "model.dataformat.Any23DataFormat" : {
+      "org.apache.camel.model.dataformat.Any23DataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -3707,7 +3707,7 @@
             "configuration" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "extractors" : {
@@ -3725,7 +3725,7 @@
           }
         } ]
       },
-      "model.dataformat.AvroDataFormat" : {
+      "org.apache.camel.model.dataformat.AvroDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -3798,7 +3798,7 @@
           }
         } ]
       },
-      "model.dataformat.BarcodeDataFormat" : {
+      "org.apache.camel.model.dataformat.BarcodeDataFormat" : {
         "type" : "object",
         "properties" : {
           "barcode-format" : {
@@ -3818,7 +3818,7 @@
           }
         }
       },
-      "model.dataformat.Base64DataFormat" : {
+      "org.apache.camel.model.dataformat.Base64DataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -3835,7 +3835,7 @@
           }
         }
       },
-      "model.dataformat.BeanioDataFormat" : {
+      "org.apache.camel.model.dataformat.BeanioDataFormat" : {
         "type" : "object",
         "properties" : {
           "bean-reader-error-handler-type" : {
@@ -3868,7 +3868,7 @@
         },
         "required" : [ "mapping", "stream-name" ]
       },
-      "model.dataformat.BindyDataFormat" : {
+      "org.apache.camel.model.dataformat.BindyDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-empty-stream" : {
@@ -3892,7 +3892,7 @@
         },
         "required" : [ "type" ]
       },
-      "model.dataformat.CBORDataFormat" : {
+      "org.apache.camel.model.dataformat.CBORDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-jms-type" : {
@@ -3930,7 +3930,7 @@
           }
         }
       },
-      "model.dataformat.CryptoDataFormat" : {
+      "org.apache.camel.model.dataformat.CryptoDataFormat" : {
         "type" : "object",
         "properties" : {
           "algorithm" : {
@@ -3965,7 +3965,7 @@
           }
         }
       },
-      "model.dataformat.CsvDataFormat" : {
+      "org.apache.camel.model.dataformat.CsvDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -4067,7 +4067,7 @@
           }
         } ]
       },
-      "model.dataformat.CustomDataFormat" : {
+      "org.apache.camel.model.dataformat.CustomDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -4083,135 +4083,135 @@
         } ],
         "required" : [ "ref" ]
       },
-      "model.dataformat.DataFormatsDefinition" : {
+      "org.apache.camel.model.dataformat.DataFormatsDefinition" : {
         "type" : "object",
         "properties" : {
           "any23" : {
-            "$ref" : "#/items/definitions/model.dataformat.Any23DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Any23DataFormat"
           },
           "asn1" : {
-            "$ref" : "#/items/definitions/model.dataformat.ASN1DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ASN1DataFormat"
           },
           "avro" : {
-            "$ref" : "#/items/definitions/model.dataformat.AvroDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.AvroDataFormat"
           },
           "barcode" : {
-            "$ref" : "#/items/definitions/model.dataformat.BarcodeDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BarcodeDataFormat"
           },
           "base64" : {
-            "$ref" : "#/items/definitions/model.dataformat.Base64DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Base64DataFormat"
           },
           "beanio" : {
-            "$ref" : "#/items/definitions/model.dataformat.BeanioDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BeanioDataFormat"
           },
           "bindy" : {
-            "$ref" : "#/items/definitions/model.dataformat.BindyDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BindyDataFormat"
           },
           "cbor" : {
-            "$ref" : "#/items/definitions/model.dataformat.CBORDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CBORDataFormat"
           },
           "crypto" : {
-            "$ref" : "#/items/definitions/model.dataformat.CryptoDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CryptoDataFormat"
           },
           "csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.CsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CsvDataFormat"
           },
           "custom" : {
-            "$ref" : "#/items/definitions/model.dataformat.CustomDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CustomDataFormat"
           },
           "fhir-json" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirJsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirJsonDataFormat"
           },
           "fhir-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirXmlDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirXmlDataFormat"
           },
           "flatpack" : {
-            "$ref" : "#/items/definitions/model.dataformat.FlatpackDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FlatpackDataFormat"
           },
           "grok" : {
-            "$ref" : "#/items/definitions/model.dataformat.GrokDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GrokDataFormat"
           },
           "gzip" : {
-            "$ref" : "#/items/definitions/model.dataformat.GzipDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GzipDataFormat"
           },
           "hl7" : {
-            "$ref" : "#/items/definitions/model.dataformat.HL7DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.HL7DataFormat"
           },
           "ical" : {
-            "$ref" : "#/items/definitions/model.dataformat.IcalDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.IcalDataFormat"
           },
           "jacksonxml" : {
-            "$ref" : "#/items/definitions/model.dataformat.JacksonXMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JacksonXMLDataFormat"
           },
           "jaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.JaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JaxbDataFormat"
           },
           "json" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonDataFormat"
           },
           "json-api" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonApiDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonApiDataFormat"
           },
           "lzf" : {
-            "$ref" : "#/items/definitions/model.dataformat.LZFDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.LZFDataFormat"
           },
           "mime-multipart" : {
-            "$ref" : "#/items/definitions/model.dataformat.MimeMultipartDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.MimeMultipartDataFormat"
           },
           "pgp" : {
-            "$ref" : "#/items/definitions/model.dataformat.PGPDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.PGPDataFormat"
           },
           "protobuf" : {
-            "$ref" : "#/items/definitions/model.dataformat.ProtobufDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ProtobufDataFormat"
           },
           "rss" : {
-            "$ref" : "#/items/definitions/model.dataformat.RssDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.RssDataFormat"
           },
           "secure-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.XMLSecurityDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XMLSecurityDataFormat"
           },
           "soapjaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.SoapJaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SoapJaxbDataFormat"
           },
           "syslog" : {
-            "$ref" : "#/items/definitions/model.dataformat.SyslogDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SyslogDataFormat"
           },
           "tarfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.TarFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TarFileDataFormat"
           },
           "thrift" : {
-            "$ref" : "#/items/definitions/model.dataformat.ThriftDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ThriftDataFormat"
           },
           "tidy-markup" : {
-            "$ref" : "#/items/definitions/model.dataformat.TidyMarkupDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TidyMarkupDataFormat"
           },
           "univocity-csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityCsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityCsvDataFormat"
           },
           "univocity-fixed" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityFixedWidthDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat"
           },
           "univocity-tsv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityTsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityTsvDataFormat"
           },
           "xmlrpc" : {
-            "$ref" : "#/items/definitions/model.dataformat.XmlRpcDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XmlRpcDataFormat"
           },
           "xstream" : {
-            "$ref" : "#/items/definitions/model.dataformat.XStreamDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XStreamDataFormat"
           },
           "yaml" : {
-            "$ref" : "#/items/definitions/model.dataformat.YAMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLDataFormat"
           },
           "zip" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipDeflaterDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipDeflaterDataFormat"
           },
           "zipfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipFileDataFormat"
           }
         }
       },
-      "model.dataformat.FhirJsonDataFormat" : {
+      "org.apache.camel.model.dataformat.FhirJsonDataFormat" : {
         "type" : "object",
         "properties" : {
           "content-type-header" : {
@@ -4267,7 +4267,7 @@
           }
         }
       },
-      "model.dataformat.FhirXmlDataFormat" : {
+      "org.apache.camel.model.dataformat.FhirXmlDataFormat" : {
         "type" : "object",
         "properties" : {
           "content-type-header" : {
@@ -4323,7 +4323,7 @@
           }
         }
       },
-      "model.dataformat.FlatpackDataFormat" : {
+      "org.apache.camel.model.dataformat.FlatpackDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-short-lines" : {
@@ -4355,7 +4355,7 @@
           }
         }
       },
-      "model.dataformat.GrokDataFormat" : {
+      "org.apache.camel.model.dataformat.GrokDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-multiple-matches-per-line" : {
@@ -4376,7 +4376,7 @@
         },
         "required" : [ "pattern" ]
       },
-      "model.dataformat.GzipDataFormat" : {
+      "org.apache.camel.model.dataformat.GzipDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4384,7 +4384,7 @@
           }
         }
       },
-      "model.dataformat.HL7DataFormat" : {
+      "org.apache.camel.model.dataformat.HL7DataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4395,7 +4395,7 @@
           }
         }
       },
-      "model.dataformat.IcalDataFormat" : {
+      "org.apache.camel.model.dataformat.IcalDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4406,7 +4406,7 @@
           }
         }
       },
-      "model.dataformat.JacksonXMLDataFormat" : {
+      "org.apache.camel.model.dataformat.JacksonXMLDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-jms-type" : {
@@ -4459,7 +4459,7 @@
           }
         }
       },
-      "model.dataformat.JaxbDataFormat" : {
+      "org.apache.camel.model.dataformat.JaxbDataFormat" : {
         "type" : "object",
         "properties" : {
           "content-type-header" : {
@@ -4525,7 +4525,7 @@
         },
         "required" : [ "context-path" ]
       },
-      "model.dataformat.JsonApiDataFormat" : {
+      "org.apache.camel.model.dataformat.JsonApiDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4536,7 +4536,7 @@
           }
         }
       },
-      "model.dataformat.JsonDataFormat" : {
+      "org.apache.camel.model.dataformat.JsonDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-jms-type" : {
@@ -4611,7 +4611,7 @@
           }
         }
       },
-      "model.dataformat.LZFDataFormat" : {
+      "org.apache.camel.model.dataformat.LZFDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4622,7 +4622,7 @@
           }
         }
       },
-      "model.dataformat.MimeMultipartDataFormat" : {
+      "org.apache.camel.model.dataformat.MimeMultipartDataFormat" : {
         "type" : "object",
         "properties" : {
           "binary-content" : {
@@ -4645,7 +4645,7 @@
           }
         }
       },
-      "model.dataformat.PGPDataFormat" : {
+      "org.apache.camel.model.dataformat.PGPDataFormat" : {
         "type" : "object",
         "properties" : {
           "algorithm" : {
@@ -4695,7 +4695,7 @@
           }
         }
       },
-      "model.dataformat.ProtobufDataFormat" : {
+      "org.apache.camel.model.dataformat.ProtobufDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -4771,7 +4771,7 @@
           }
         } ]
       },
-      "model.dataformat.RssDataFormat" : {
+      "org.apache.camel.model.dataformat.RssDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4779,7 +4779,7 @@
           }
         }
       },
-      "model.dataformat.SoapJaxbDataFormat" : {
+      "org.apache.camel.model.dataformat.SoapJaxbDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -4810,7 +4810,7 @@
         } ],
         "required" : [ "context-path" ]
       },
-      "model.dataformat.SyslogDataFormat" : {
+      "org.apache.camel.model.dataformat.SyslogDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -4818,7 +4818,7 @@
           }
         }
       },
-      "model.dataformat.TarFileDataFormat" : {
+      "org.apache.camel.model.dataformat.TarFileDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-empty-directory" : {
@@ -4838,7 +4838,7 @@
           }
         }
       },
-      "model.dataformat.ThriftDataFormat" : {
+      "org.apache.camel.model.dataformat.ThriftDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -4859,7 +4859,7 @@
           }
         } ]
       },
-      "model.dataformat.TidyMarkupDataFormat" : {
+      "org.apache.camel.model.dataformat.TidyMarkupDataFormat" : {
         "type" : "object",
         "properties" : {
           "data-object-type" : {
@@ -4873,7 +4873,7 @@
           }
         }
       },
-      "model.dataformat.UniVocityCsvDataFormat" : {
+      "org.apache.camel.model.dataformat.UniVocityCsvDataFormat" : {
         "type" : "object",
         "properties" : {
           "as-map" : {
@@ -4933,12 +4933,12 @@
           "univocity-header" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.dataformat.UniVocityHeader"
+              "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityHeader"
             }
           }
         }
       },
-      "model.dataformat.UniVocityFixedWidthDataFormat" : {
+      "org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat" : {
         "type" : "object",
         "properties" : {
           "as-map" : {
@@ -4995,12 +4995,12 @@
           "univocity-header" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.dataformat.UniVocityHeader"
+              "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityHeader"
             }
           }
         }
       },
-      "model.dataformat.UniVocityHeader" : {
+      "org.apache.camel.model.dataformat.UniVocityHeader" : {
         "type" : "object",
         "properties" : {
           "length" : {
@@ -5011,7 +5011,7 @@
           }
         }
       },
-      "model.dataformat.UniVocityTsvDataFormat" : {
+      "org.apache.camel.model.dataformat.UniVocityTsvDataFormat" : {
         "type" : "object",
         "properties" : {
           "as-map" : {
@@ -5062,12 +5062,12 @@
           "univocity-header" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.dataformat.UniVocityHeader"
+              "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityHeader"
             }
           }
         }
       },
-      "model.dataformat.XMLSecurityDataFormat" : {
+      "org.apache.camel.model.dataformat.XMLSecurityDataFormat" : {
         "type" : "object",
         "properties" : {
           "add-key-value-for-encrypted-key" : {
@@ -5111,7 +5111,7 @@
           }
         }
       },
-      "model.dataformat.XStreamDataFormat" : {
+      "org.apache.camel.model.dataformat.XStreamDataFormat" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5120,7 +5120,7 @@
             "aliases" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "content-type-header" : {
@@ -5129,7 +5129,7 @@
             "converters" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "driver" : {
@@ -5147,7 +5147,7 @@
             "implicit-collections" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "mode" : {
@@ -5156,7 +5156,7 @@
             "omit-fields" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/items/definitions/model.PropertyDefinition"
+                "$ref" : "#/items/definitions/org.apache.camel.model.PropertyDefinition"
               }
             },
             "permissions" : {
@@ -5165,7 +5165,7 @@
           }
         } ]
       },
-      "model.dataformat.XmlRpcDataFormat" : {
+      "org.apache.camel.model.dataformat.XmlRpcDataFormat" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -5176,7 +5176,7 @@
           }
         }
       },
-      "model.dataformat.YAMLDataFormat" : {
+      "org.apache.camel.model.dataformat.YAMLDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-any-type" : {
@@ -5213,7 +5213,7 @@
           "type-filter" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.dataformat.YAMLTypeFilterDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLTypeFilterDefinition"
             }
           },
           "unmarshal-type" : {
@@ -5224,7 +5224,7 @@
           }
         }
       },
-      "model.dataformat.YAMLTypeFilterDefinition" : {
+      "org.apache.camel.model.dataformat.YAMLTypeFilterDefinition" : {
         "type" : "object",
         "properties" : {
           "type" : {
@@ -5235,7 +5235,7 @@
           }
         }
       },
-      "model.dataformat.ZipDeflaterDataFormat" : {
+      "org.apache.camel.model.dataformat.ZipDeflaterDataFormat" : {
         "type" : "object",
         "properties" : {
           "compression-level" : {
@@ -5246,7 +5246,7 @@
           }
         }
       },
-      "model.dataformat.ZipFileDataFormat" : {
+      "org.apache.camel.model.dataformat.ZipFileDataFormat" : {
         "type" : "object",
         "properties" : {
           "allow-empty-directory" : {
@@ -5266,7 +5266,7 @@
           }
         }
       },
-      "model.language.CSimpleExpression" : {
+      "org.apache.camel.model.language.CSimpleExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5288,7 +5288,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.ConstantExpression" : {
+      "org.apache.camel.model.language.ConstantExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5307,7 +5307,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.DatasonnetExpression" : {
+      "org.apache.camel.model.language.DatasonnetExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5335,7 +5335,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.ExchangePropertyExpression" : {
+      "org.apache.camel.model.language.ExchangePropertyExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5354,75 +5354,75 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.ExpressionDefinition" : {
+      "org.apache.camel.model.language.ExpressionDefinition" : {
         "type" : "object",
         "properties" : {
           "constant" : {
-            "$ref" : "#/items/definitions/model.language.ConstantExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ConstantExpression"
           },
           "csimple" : {
-            "$ref" : "#/items/definitions/model.language.CSimpleExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.CSimpleExpression"
           },
           "datasonnet" : {
-            "$ref" : "#/items/definitions/model.language.DatasonnetExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.DatasonnetExpression"
           },
           "exchange-property" : {
-            "$ref" : "#/items/definitions/model.language.ExchangePropertyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
           },
           "exchangeProperty" : {
-            "$ref" : "#/items/definitions/model.language.ExchangePropertyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
           },
           "groovy" : {
-            "$ref" : "#/items/definitions/model.language.GroovyExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.GroovyExpression"
           },
           "header" : {
-            "$ref" : "#/items/definitions/model.language.HeaderExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.HeaderExpression"
           },
           "hl7terser" : {
-            "$ref" : "#/items/definitions/model.language.Hl7TerserExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.Hl7TerserExpression"
           },
           "joor" : {
-            "$ref" : "#/items/definitions/model.language.JoorExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JoorExpression"
           },
           "jsonpath" : {
-            "$ref" : "#/items/definitions/model.language.JsonPathExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JsonPathExpression"
           },
           "language" : {
-            "$ref" : "#/items/definitions/model.language.LanguageExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.LanguageExpression"
           },
           "method" : {
-            "$ref" : "#/items/definitions/model.language.MethodCallExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MethodCallExpression"
           },
           "mvel" : {
-            "$ref" : "#/items/definitions/model.language.MvelExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MvelExpression"
           },
           "ognl" : {
-            "$ref" : "#/items/definitions/model.language.OgnlExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.OgnlExpression"
           },
           "ref" : {
-            "$ref" : "#/items/definitions/model.language.RefExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.RefExpression"
           },
           "simple" : {
-            "$ref" : "#/items/definitions/model.language.SimpleExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SimpleExpression"
           },
           "spel" : {
-            "$ref" : "#/items/definitions/model.language.SpELExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SpELExpression"
           },
           "tokenize" : {
-            "$ref" : "#/items/definitions/model.language.TokenizerExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.TokenizerExpression"
           },
           "xpath" : {
-            "$ref" : "#/items/definitions/model.language.XPathExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XPathExpression"
           },
           "xquery" : {
-            "$ref" : "#/items/definitions/model.language.XQueryExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XQueryExpression"
           },
           "xtokenize" : {
-            "$ref" : "#/items/definitions/model.language.XMLTokenizerExpression"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XMLTokenizerExpression"
           }
         }
       },
-      "model.language.GroovyExpression" : {
+      "org.apache.camel.model.language.GroovyExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5441,7 +5441,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.HeaderExpression" : {
+      "org.apache.camel.model.language.HeaderExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5460,7 +5460,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.Hl7TerserExpression" : {
+      "org.apache.camel.model.language.Hl7TerserExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5479,7 +5479,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.JoorExpression" : {
+      "org.apache.camel.model.language.JoorExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5507,7 +5507,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.JsonPathExpression" : {
+      "org.apache.camel.model.language.JsonPathExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5547,7 +5547,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.LanguageExpression" : {
+      "org.apache.camel.model.language.LanguageExpression" : {
         "type" : "object",
         "properties" : {
           "expression" : {
@@ -5565,7 +5565,7 @@
         },
         "required" : [ "expression", "language" ]
       },
-      "model.language.MethodCallExpression" : {
+      "org.apache.camel.model.language.MethodCallExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5596,7 +5596,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.MvelExpression" : {
+      "org.apache.camel.model.language.MvelExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5615,7 +5615,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.OgnlExpression" : {
+      "org.apache.camel.model.language.OgnlExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5634,7 +5634,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.RefExpression" : {
+      "org.apache.camel.model.language.RefExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5653,7 +5653,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.SimpleExpression" : {
+      "org.apache.camel.model.language.SimpleExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5675,7 +5675,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.SpELExpression" : {
+      "org.apache.camel.model.language.SpELExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5694,7 +5694,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.TokenizerExpression" : {
+      "org.apache.camel.model.language.TokenizerExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5743,7 +5743,7 @@
         } ],
         "required" : [ "expression", "token" ]
       },
-      "model.language.XMLTokenizerExpression" : {
+      "org.apache.camel.model.language.XMLTokenizerExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5771,7 +5771,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.XPathExpression" : {
+      "org.apache.camel.model.language.XPathExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5817,7 +5817,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.language.XQueryExpression" : {
+      "org.apache.camel.model.language.XQueryExpression" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5845,7 +5845,7 @@
         } ],
         "required" : [ "expression" ]
       },
-      "model.loadbalancer.CustomLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition" : {
         "oneOf" : [ {
           "type" : "string"
         }, {
@@ -5861,7 +5861,7 @@
         } ],
         "required" : [ "ref" ]
       },
-      "model.loadbalancer.FailoverLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "exception" : {
@@ -5884,7 +5884,7 @@
           }
         }
       },
-      "model.loadbalancer.RandomLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -5892,7 +5892,7 @@
           }
         }
       },
-      "model.loadbalancer.RoundRobinLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -5900,18 +5900,18 @@
           }
         }
       },
-      "model.loadbalancer.StickyLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "correlation-expression" : {
-            "$ref" : "#/items/definitions/model.ExpressionSubElementDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ExpressionSubElementDefinition"
           },
           "id" : {
             "type" : "string"
           }
         }
       },
-      "model.loadbalancer.TopicLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "id" : {
@@ -5919,7 +5919,7 @@
           }
         }
       },
-      "model.loadbalancer.WeightedLoadBalancerDefinition" : {
+      "org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition" : {
         "type" : "object",
         "properties" : {
           "distribution-ratio" : {
@@ -5937,7 +5937,7 @@
         },
         "required" : [ "distribution-ratio" ]
       },
-      "model.rest.DeleteVerbDefinition" : {
+      "org.apache.camel.model.rest.DeleteVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -5967,7 +5967,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -5976,11 +5976,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -5988,7 +5988,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -5997,14 +5997,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6014,7 +6014,7 @@
           }
         }
       },
-      "model.rest.GetVerbDefinition" : {
+      "org.apache.camel.model.rest.GetVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6044,7 +6044,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6053,11 +6053,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6065,7 +6065,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6074,14 +6074,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6091,7 +6091,7 @@
           }
         }
       },
-      "model.rest.HeadVerbDefinition" : {
+      "org.apache.camel.model.rest.HeadVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6121,7 +6121,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6130,11 +6130,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6142,7 +6142,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6151,14 +6151,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6168,7 +6168,7 @@
           }
         }
       },
-      "model.rest.PatchVerbDefinition" : {
+      "org.apache.camel.model.rest.PatchVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6198,7 +6198,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6207,11 +6207,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6219,7 +6219,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6228,14 +6228,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6245,7 +6245,7 @@
           }
         }
       },
-      "model.rest.PostVerbDefinition" : {
+      "org.apache.camel.model.rest.PostVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6275,7 +6275,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6284,11 +6284,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6296,7 +6296,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6305,14 +6305,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6322,7 +6322,7 @@
           }
         }
       },
-      "model.rest.PutVerbDefinition" : {
+      "org.apache.camel.model.rest.PutVerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6352,7 +6352,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6361,11 +6361,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6373,7 +6373,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6382,14 +6382,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6399,7 +6399,7 @@
           }
         }
       },
-      "model.rest.RestBindingDefinition" : {
+      "org.apache.camel.model.rest.RestBindingDefinition" : {
         "type" : "object",
         "properties" : {
           "binding-mode" : {
@@ -6431,7 +6431,7 @@
           }
         }
       },
-      "model.rest.RestConfigurationDefinition" : {
+      "org.apache.camel.model.rest.RestConfigurationDefinition" : {
         "type" : "object",
         "properties" : {
           "api-component" : {
@@ -6455,7 +6455,7 @@
           "api-property" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "api-vendor-extension" : {
@@ -6474,13 +6474,13 @@
           "component-property" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "consumer-property" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "context-path" : {
@@ -6489,13 +6489,13 @@
           "cors-headers" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "data-format-property" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "enable-cors" : {
@@ -6504,7 +6504,7 @@
           "endpoint-property" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "host" : {
@@ -6540,7 +6540,7 @@
           }
         }
       },
-      "model.rest.RestDefinition" : {
+      "org.apache.camel.model.rest.RestDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6558,7 +6558,7 @@
           "delete" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.DeleteVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.DeleteVerbDefinition"
             }
           },
           "enable-cors" : {
@@ -6567,19 +6567,19 @@
           "get" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.GetVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.GetVerbDefinition"
             }
           },
           "head" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.HeadVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.HeadVerbDefinition"
             }
           },
           "patch" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.PatchVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.PatchVerbDefinition"
             }
           },
           "path" : {
@@ -6588,7 +6588,7 @@
           "post" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.PostVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.PostVerbDefinition"
             }
           },
           "produces" : {
@@ -6597,14 +6597,14 @@
           "put" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.PutVerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.PutVerbDefinition"
             }
           },
           "security-definitions" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecuritiesDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecuritiesDefinition"
           },
           "security-requirements" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecuritiesRequirement"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecuritiesRequirement"
           },
           "skip-binding-on-error-code" : {
             "type" : "string"
@@ -6615,12 +6615,12 @@
           "verb" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.VerbDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.VerbDefinition"
             }
           }
         }
       },
-      "model.rest.RestOperationParamDefinition" : {
+      "org.apache.camel.model.rest.RestOperationParamDefinition" : {
         "type" : "object",
         "properties" : {
           "array-type" : {
@@ -6645,7 +6645,7 @@
           "examples" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "name" : {
@@ -6667,7 +6667,7 @@
         },
         "required" : [ "name", "type" ]
       },
-      "model.rest.RestOperationResponseHeaderDefinition" : {
+      "org.apache.camel.model.rest.RestOperationResponseHeaderDefinition" : {
         "type" : "object",
         "properties" : {
           "array-type" : {
@@ -6701,7 +6701,7 @@
         },
         "required" : [ "name" ]
       },
-      "model.rest.RestOperationResponseMsgDefinition" : {
+      "org.apache.camel.model.rest.RestOperationResponseMsgDefinition" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -6710,13 +6710,13 @@
           "examples" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "header" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseHeaderDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseHeaderDefinition"
             }
           },
           "message" : {
@@ -6728,7 +6728,7 @@
         },
         "required" : [ "message" ]
       },
-      "model.rest.RestPropertyDefinition" : {
+      "org.apache.camel.model.rest.RestPropertyDefinition" : {
         "type" : "object",
         "properties" : {
           "key" : {
@@ -6740,38 +6740,38 @@
         },
         "required" : [ "key", "value" ]
       },
-      "model.rest.RestSecuritiesDefinition" : {
+      "org.apache.camel.model.rest.RestSecuritiesDefinition" : {
         "type" : "object",
         "properties" : {
           "api-key" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityApiKey"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityApiKey"
           },
           "basic-auth" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityBasicAuth"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityBasicAuth"
           },
           "bearer" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityBearerToken"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityBearerToken"
           },
           "mutual-tls" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityMutualTLS"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityMutualTLS"
           },
           "oauth2" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityOAuth2"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityOAuth2"
           },
           "open-id-connect" : {
-            "$ref" : "#/items/definitions/model.rest.RestSecurityOpenIdConnect"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestSecurityOpenIdConnect"
           }
         }
       },
-      "model.rest.RestSecuritiesRequirement" : {
+      "org.apache.camel.model.rest.RestSecuritiesRequirement" : {
         "type" : "object",
         "properties" : {
           "security-requirement" : {
-            "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
           }
         }
       },
-      "model.rest.RestSecurityApiKey" : {
+      "org.apache.camel.model.rest.RestSecurityApiKey" : {
         "type" : "object",
         "properties" : {
           "description" : {
@@ -6795,7 +6795,7 @@
         },
         "required" : [ "key", "name" ]
       },
-      "model.rest.RestSecurityBasicAuth" : {
+      "org.apache.camel.model.rest.RestSecurityBasicAuth" : {
         "type" : "object",
         "properties" : {
           "description" : {
@@ -6807,7 +6807,7 @@
         },
         "required" : [ "key" ]
       },
-      "model.rest.RestSecurityBearerToken" : {
+      "org.apache.camel.model.rest.RestSecurityBearerToken" : {
         "type" : "object",
         "properties" : {
           "description" : {
@@ -6822,7 +6822,7 @@
         },
         "required" : [ "key" ]
       },
-      "model.rest.RestSecurityMutualTLS" : {
+      "org.apache.camel.model.rest.RestSecurityMutualTLS" : {
         "type" : "object",
         "properties" : {
           "description" : {
@@ -6834,7 +6834,7 @@
         },
         "required" : [ "key" ]
       },
-      "model.rest.RestSecurityOAuth2" : {
+      "org.apache.camel.model.rest.RestSecurityOAuth2" : {
         "type" : "object",
         "properties" : {
           "authorization-url" : {
@@ -6855,7 +6855,7 @@
           "scopes" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestPropertyDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestPropertyDefinition"
             }
           },
           "token-url" : {
@@ -6864,7 +6864,7 @@
         },
         "required" : [ "key" ]
       },
-      "model.rest.RestSecurityOpenIdConnect" : {
+      "org.apache.camel.model.rest.RestSecurityOpenIdConnect" : {
         "type" : "object",
         "properties" : {
           "description" : {
@@ -6879,18 +6879,18 @@
         },
         "required" : [ "key", "url" ]
       },
-      "model.rest.RestsDefinition" : {
+      "org.apache.camel.model.rest.RestsDefinition" : {
         "type" : "object",
         "properties" : {
           "rest" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestDefinition"
             }
           }
         }
       },
-      "model.rest.SecurityDefinition" : {
+      "org.apache.camel.model.rest.SecurityDefinition" : {
         "type" : "object",
         "properties" : {
           "key" : {
@@ -6902,7 +6902,7 @@
         },
         "required" : [ "key" ]
       },
-      "model.rest.VerbDefinition" : {
+      "org.apache.camel.model.rest.VerbDefinition" : {
         "type" : "object",
         "properties" : {
           "api-docs" : {
@@ -6932,7 +6932,7 @@
           "param" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationParamDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationParamDefinition"
             }
           },
           "produces" : {
@@ -6941,11 +6941,11 @@
           "response-message" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.RestOperationResponseMsgDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestOperationResponseMsgDefinition"
             }
           },
           "route" : {
-            "$ref" : "#/items/definitions/model.RouteDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
           },
           "route-id" : {
             "type" : "string"
@@ -6953,7 +6953,7 @@
           "security" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.rest.SecurityDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.rest.SecurityDefinition"
             }
           },
           "skip-binding-on-error-code" : {
@@ -6962,14 +6962,14 @@
           "steps" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/items/definitions/model.ProcessorDefinition"
+              "$ref" : "#/items/definitions/org.apache.camel.model.ProcessorDefinition"
             }
           },
           "to" : {
-            "$ref" : "#/items/definitions/model.ToDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDefinition"
           },
           "to-d" : {
-            "$ref" : "#/items/definitions/model.ToDynamicDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
           },
           "type" : {
             "type" : "string"
@@ -6979,7 +6979,7 @@
           }
         }
       },
-      "model.transformer.CustomTransformerDefinition" : {
+      "org.apache.camel.model.transformer.CustomTransformerDefinition" : {
         "type" : "object",
         "properties" : {
           "class-name" : {
@@ -6999,147 +6999,147 @@
           }
         }
       },
-      "model.transformer.DataFormatTransformerDefinition" : {
+      "org.apache.camel.model.transformer.DataFormatTransformerDefinition" : {
         "type" : "object",
         "properties" : {
           "any23" : {
-            "$ref" : "#/items/definitions/model.dataformat.Any23DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Any23DataFormat"
           },
           "asn1" : {
-            "$ref" : "#/items/definitions/model.dataformat.ASN1DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ASN1DataFormat"
           },
           "avro" : {
-            "$ref" : "#/items/definitions/model.dataformat.AvroDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.AvroDataFormat"
           },
           "barcode" : {
-            "$ref" : "#/items/definitions/model.dataformat.BarcodeDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BarcodeDataFormat"
           },
           "base64" : {
-            "$ref" : "#/items/definitions/model.dataformat.Base64DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Base64DataFormat"
           },
           "beanio" : {
-            "$ref" : "#/items/definitions/model.dataformat.BeanioDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BeanioDataFormat"
           },
           "bindy" : {
-            "$ref" : "#/items/definitions/model.dataformat.BindyDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BindyDataFormat"
           },
           "cbor" : {
-            "$ref" : "#/items/definitions/model.dataformat.CBORDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CBORDataFormat"
           },
           "crypto" : {
-            "$ref" : "#/items/definitions/model.dataformat.CryptoDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CryptoDataFormat"
           },
           "csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.CsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CsvDataFormat"
           },
           "custom" : {
-            "$ref" : "#/items/definitions/model.dataformat.CustomDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CustomDataFormat"
           },
           "fhir-json" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirJsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirJsonDataFormat"
           },
           "fhir-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.FhirXmlDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirXmlDataFormat"
           },
           "flatpack" : {
-            "$ref" : "#/items/definitions/model.dataformat.FlatpackDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FlatpackDataFormat"
           },
           "from-type" : {
             "type" : "string"
           },
           "grok" : {
-            "$ref" : "#/items/definitions/model.dataformat.GrokDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GrokDataFormat"
           },
           "gzip" : {
-            "$ref" : "#/items/definitions/model.dataformat.GzipDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GzipDataFormat"
           },
           "hl7" : {
-            "$ref" : "#/items/definitions/model.dataformat.HL7DataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.HL7DataFormat"
           },
           "ical" : {
-            "$ref" : "#/items/definitions/model.dataformat.IcalDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.IcalDataFormat"
           },
           "jacksonxml" : {
-            "$ref" : "#/items/definitions/model.dataformat.JacksonXMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JacksonXMLDataFormat"
           },
           "jaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.JaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JaxbDataFormat"
           },
           "json" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonDataFormat"
           },
           "json-api" : {
-            "$ref" : "#/items/definitions/model.dataformat.JsonApiDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonApiDataFormat"
           },
           "lzf" : {
-            "$ref" : "#/items/definitions/model.dataformat.LZFDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.LZFDataFormat"
           },
           "mime-multipart" : {
-            "$ref" : "#/items/definitions/model.dataformat.MimeMultipartDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.MimeMultipartDataFormat"
           },
           "pgp" : {
-            "$ref" : "#/items/definitions/model.dataformat.PGPDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.PGPDataFormat"
           },
           "protobuf" : {
-            "$ref" : "#/items/definitions/model.dataformat.ProtobufDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ProtobufDataFormat"
           },
           "ref" : {
             "type" : "string"
           },
           "rss" : {
-            "$ref" : "#/items/definitions/model.dataformat.RssDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.RssDataFormat"
           },
           "scheme" : {
             "type" : "string"
           },
           "secure-xml" : {
-            "$ref" : "#/items/definitions/model.dataformat.XMLSecurityDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XMLSecurityDataFormat"
           },
           "soapjaxb" : {
-            "$ref" : "#/items/definitions/model.dataformat.SoapJaxbDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SoapJaxbDataFormat"
           },
           "syslog" : {
-            "$ref" : "#/items/definitions/model.dataformat.SyslogDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SyslogDataFormat"
           },
           "tarfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.TarFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TarFileDataFormat"
           },
           "thrift" : {
-            "$ref" : "#/items/definitions/model.dataformat.ThriftDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ThriftDataFormat"
           },
           "tidy-markup" : {
-            "$ref" : "#/items/definitions/model.dataformat.TidyMarkupDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TidyMarkupDataFormat"
           },
           "to-type" : {
             "type" : "string"
           },
           "univocity-csv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityCsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityCsvDataFormat"
           },
           "univocity-fixed" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityFixedWidthDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat"
           },
           "univocity-tsv" : {
-            "$ref" : "#/items/definitions/model.dataformat.UniVocityTsvDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityTsvDataFormat"
           },
           "xmlrpc" : {
-            "$ref" : "#/items/definitions/model.dataformat.XmlRpcDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XmlRpcDataFormat"
           },
           "xstream" : {
-            "$ref" : "#/items/definitions/model.dataformat.XStreamDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XStreamDataFormat"
           },
           "yaml" : {
-            "$ref" : "#/items/definitions/model.dataformat.YAMLDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLDataFormat"
           },
           "zip" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipDeflaterDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipDeflaterDataFormat"
           },
           "zipfile" : {
-            "$ref" : "#/items/definitions/model.dataformat.ZipFileDataFormat"
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipFileDataFormat"
           }
         }
       },
-      "model.transformer.EndpointTransformerDefinition" : {
+      "org.apache.camel.model.transformer.EndpointTransformerDefinition" : {
         "type" : "object",
         "properties" : {
           "from-type" : {
@@ -7159,21 +7159,21 @@
           }
         }
       },
-      "model.transformer.TransformersDefinition" : {
+      "org.apache.camel.model.transformer.TransformersDefinition" : {
         "type" : "object",
         "properties" : {
           "custom-transformer" : {
-            "$ref" : "#/items/definitions/model.transformer.CustomTransformerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.transformer.CustomTransformerDefinition"
           },
           "data-format-transformer" : {
-            "$ref" : "#/items/definitions/model.transformer.DataFormatTransformerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.transformer.DataFormatTransformerDefinition"
           },
           "endpoint-transformer" : {
-            "$ref" : "#/items/definitions/model.transformer.EndpointTransformerDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.transformer.EndpointTransformerDefinition"
           }
         }
       },
-      "model.validator.CustomValidatorDefinition" : {
+      "org.apache.camel.model.validator.CustomValidatorDefinition" : {
         "type" : "object",
         "properties" : {
           "class-name" : {
@@ -7187,7 +7187,7 @@
           }
         }
       },
-      "model.validator.EndpointValidatorDefinition" : {
+      "org.apache.camel.model.validator.EndpointValidatorDefinition" : {
         "type" : "object",
         "properties" : {
           "ref" : {
@@ -7201,56 +7201,56 @@
           }
         }
       },
-      "model.validator.PredicateValidatorDefinition" : {
+      "org.apache.camel.model.validator.PredicateValidatorDefinition" : {
         "type" : "object",
         "properties" : {
           "expression" : {
-            "$ref" : "#/items/definitions/model.language.ExpressionDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExpressionDefinition"
           },
           "type" : {
             "type" : "string"
           }
         }
       },
-      "model.validator.ValidatorsDefinition" : {
+      "org.apache.camel.model.validator.ValidatorsDefinition" : {
         "type" : "object",
         "properties" : {
           "custom-validator" : {
-            "$ref" : "#/items/definitions/model.validator.CustomValidatorDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.validator.CustomValidatorDefinition"
           },
           "endpoint-validator" : {
-            "$ref" : "#/items/definitions/model.validator.EndpointValidatorDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.validator.EndpointValidatorDefinition"
           },
           "predicate-validator" : {
-            "$ref" : "#/items/definitions/model.validator.PredicateValidatorDefinition"
+            "$ref" : "#/items/definitions/org.apache.camel.model.validator.PredicateValidatorDefinition"
           }
         }
       }
     },
     "properties" : {
       "error-handler" : {
-        "$ref" : "#/items/definitions/builder.ErrorHandlerBuilderRef"
+        "$ref" : "#/items/definitions/org.apache.camel.builder.ErrorHandlerBuilderRef"
       },
       "beans" : {
-        "$ref" : "#/items/definitions/dsl.yaml.deserializers.BeansDeserializer"
+        "$ref" : "#/items/definitions/org.apache.camel.dsl.yaml.deserializers.BeansDeserializer"
       },
       "from" : {
-        "$ref" : "#/items/definitions/dsl.yaml.deserializers.RouteFromDefinitionDeserializer"
+        "$ref" : "#/items/definitions/org.apache.camel.dsl.yaml.deserializers.RouteFromDefinitionDeserializer"
       },
       "on-exception" : {
-        "$ref" : "#/items/definitions/model.OnExceptionDefinition"
+        "$ref" : "#/items/definitions/org.apache.camel.model.OnExceptionDefinition"
       },
       "route" : {
-        "$ref" : "#/items/definitions/model.RouteDefinition"
+        "$ref" : "#/items/definitions/org.apache.camel.model.RouteDefinition"
       },
       "route-template" : {
-        "$ref" : "#/items/definitions/model.RouteTemplateDefinition"
+        "$ref" : "#/items/definitions/org.apache.camel.model.RouteTemplateDefinition"
       },
       "template" : {
-        "$ref" : "#/items/definitions/model.RouteTemplateDefinition"
+        "$ref" : "#/items/definitions/org.apache.camel.model.RouteTemplateDefinition"
       },
       "rest" : {
-        "$ref" : "#/items/definitions/model.rest.RestDefinition"
+        "$ref" : "#/items/definitions/org.apache.camel.model.rest.RestDefinition"
       }
     }
   }

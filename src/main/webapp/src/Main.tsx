@@ -38,7 +38,7 @@ interface Props {
 interface State {
     version: string,
     isNavOpen: boolean,
-    pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets'
+    pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets' | 'dsl'
     integrations: [],
     integration: Integration,
     isModalOpen: boolean,
@@ -52,7 +52,7 @@ export class Main extends React.Component<Props, State> {
     public state: State = {
         version: '',
         isNavOpen: true,
-        pageId: "designer",
+        pageId: "integrations",
         integrations: [],
         integration: Integration.createNew(),
         isModalOpen: false,
@@ -118,6 +118,10 @@ export class Main extends React.Component<Props, State> {
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
             </NavItem>
+            <NavItem id="dsl" to="#" itemId={"dsl"}
+                     isActive={this.state.pageId === 'dsl'}>
+                DSL
+            </NavItem>
         </NavList>
     </Nav>);
 
@@ -182,7 +186,7 @@ export class Main extends React.Component<Props, State> {
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
                 {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
-                {/*{this.state.pageId === 'designer' && <DslPage/>}*/}
+                {this.state.pageId === 'dsl' && <DslPage/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}
