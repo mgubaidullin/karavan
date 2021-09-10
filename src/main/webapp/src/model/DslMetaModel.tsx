@@ -1,5 +1,6 @@
 export class DslMetaModel {
     name:string = ''
+    uri?:string
     title:string = ''
     description:string = ''
     label:string = ''

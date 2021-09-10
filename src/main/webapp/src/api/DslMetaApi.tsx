@@ -37,6 +37,8 @@ const StepElements: string[] = [
     "validate",
     "wireTap"
 ];
+const DslLabels = ['routing', 'transformation', 'error', 'configuration'];
+const KameletLabels = ['source', 'action', 'sink'];
 let CamelYamlDsl: any = {};
 
 export const DslMetaApi = {
@@ -66,6 +68,43 @@ export const DslMetaApi = {
         } else {
             return []
         }
+    },
+
+    getChildrenLabels: (name: string): string[] => {
+        const array = DslMetaApi.getAllChildrenList(name).map(dsl => dsl.label.split(",")).flat(2);
+        const uniqueSet = new Set(array);
+        return Array.from(uniqueSet).filter(e => DslLabels.includes(e))
+    },
+
+    getAllChildrenList: (name: string): DslMetaModel[] => {
+        if (name === 'from') {
+            const list = DslMetaApi.getProcessDefinitionElements(true);
+            return DslMetaModels.filter(value => list.includes(value.name));
+        } else if (name === 'choice'){
+            return [DslMetaApi.findDslMetaModelByName('when'), DslMetaApi.findDslMetaModelByName('otherwise')]
+        } else if (DslMetaApi.isDslModelHasSteps(name)){
+            const list = DslMetaApi.getProcessDefinitionElements(true);
+            return DslMetaModels.filter(value => list.includes(value.name));
+        } else {
+            return []
+        }
+    },
+
+    getKameletLabels: (name: string): string[] => {
+        if (name === 'flow'){
+            return ['source']
+        } else if (name == 'choice'){
+            return []
+        } else {
+            return ['action', 'sink']
+        }
+    },
+
+    getKameletList: (elementName:string, kameletType: string, dslName: string): DslMetaModel[] => {
+        console.log(elementName)
+        return KameletApi.getKamelets()
+            .filter(k => k.metadata.labels["camel.apache.org/kamelet.type"] === kameletType)
+            .map(k => new DslMetaModel({name:dslName, uri:'kamelet:'+k.metadata.name, title: k.title(), description:k.title()}));
     },
 
     getDslMetaModelLabels: (): string[] => {

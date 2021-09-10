@@ -55,7 +55,7 @@ export class DslSelector extends React.Component<Props, State> {
                 onClose={() => this.setState({show: false})}
                 actions={{}}>
                 <Tabs style={{overflow: 'hidden'}} activeKey={this.state.tabIndex} onSelect={this.selectTab}>
-                    {['routing', 'transformation', 'error', 'configuration'].map((label, index) =>
+                    {DslMetaApi.getChildrenLabels(this.props.elementName).map((label, index) =>
                         <Tab eventKey={index} key={"tab"+index} title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
                             <Gallery key={"gallery"+index} hasGutter className="dsl-gallery">
                                 {DslMetaApi.getChildrenList(this.props.elementName, label).map((model, index) => (
@@ -63,6 +63,28 @@ export class DslSelector extends React.Component<Props, State> {
                                         <CardHeader>
                                             <img draggable="false"
                                                  src={DslMetaApi.getIcon(model.name)}
+                                                 style={model.name === 'choice' ? {height: "18px"} : {}}  // find better icon
+                                                 className="icon" alt="icon"></img>
+                                            <Text>{model.title}</Text>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <Text>{model.description}</Text>
+                                        </CardBody>
+                                    </Card>
+                                ))}
+                            </Gallery>
+                        </Tab>
+                    )}
+                    {DslMetaApi.getKameletLabels(this.props.elementName).map((label, index) =>
+                        <Tab eventKey={label} key={"tab-k-" + index}
+                             title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
+                            <Gallery key={"gallery" + index} hasGutter className="dsl-gallery">
+                                {DslMetaApi.getKameletList(this.props.elementName, label, 'from').map((model, index) => (
+                                    <Card key={model.name + model.uri} isHoverable isCompact className="dsl-card"
+                                          onClick={event => this.selectDsl(model)}>
+                                        <CardHeader>
+                                            <img draggable="false"
+                                                 src={DslMetaApi.getIcon(model.name, model.uri)}
                                                  style={model.name === 'choice' ? {height: "18px"} : {}}  // find better icon
                                                  className="icon" alt="icon"></img>
                                             <Text>{model.title}</Text>
