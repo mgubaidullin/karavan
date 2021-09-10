@@ -95,13 +95,14 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     render() {
         return (
-            <div key={this.state.element[this.state.name].uid} className={this.state.name + " element-builder"}>
+            <div className={this.state.name + " element-builder"}>
                 <div className="header">
                     <img draggable="false"
                          src={DslMetaApi.getIcon(this.state.name)}
                          style={this.state.name === 'choice' ? {height: "18px"} : {}}  // find better icon
                          className="icon" alt="icon"></img>
                     <Text>{this.state.name}</Text>
+                    <Text>{this.state.element[this.state.name].uid}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
                             className="delete-button">
                         <DeleteIcon noVerticalAlign/>
@@ -112,7 +113,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                     {DslApi.getElements(this.state.element).map((element, index) => (
                         <DslElement updateStep={this.props.updateStep}
                                     deleteStep={this.props.deleteStep}
-                                    key={this.state.name + index}
+                                    key={DslApi.getUid(element)}
                                     element={element}/>
                     ))}
                     {DslMetaApi.isDslModelHasSteps(this.state.name) &&
@@ -128,13 +129,13 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                     {DslApi.getWhens(this.state.element).map((element, index) => (
                         <DslElement updateStep={this.props.updateStep}
                                     deleteStep={this.props.deleteStep}
-                                    key={this.state.name + index}
+                                    key={DslApi.getUid(element)}
                                     element={element}/>
                     ))}
                     {this.state.name === 'choice' && this.state.element.hasOwnProperty('otherwise') &&
                     <DslElement updateStep={this.props.updateStep}
                                 deleteStep={this.props.deleteStep}
-                                key={this.state.element.uid}
+                                key={DslApi.getUid(this.state.element.otherwise)}
                                 element={this.state.element.otherwise}/>
                     }
                 </div>

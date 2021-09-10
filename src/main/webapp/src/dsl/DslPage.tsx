@@ -104,7 +104,7 @@ export class DslPage extends React.Component<Props, State> {
                     {this.state.view === 'design' &&
                     <div className="dsl-page" onClick={event => this.unselectSteps()}>
                             {this.state.flows.map((flow, index) => (
-                                <FlowBuilder deleteStep={this.deleteStep} updateStep={this.updateStep}  index={index} key={flow.from.uid} flow={flow}/>
+                                <FlowBuilder key={DslApi.getUid(flow)} deleteStep={this.deleteStep} updateStep={this.updateStep}  index={index} flow={flow}/>
                             ))}
                     </div>
                     }

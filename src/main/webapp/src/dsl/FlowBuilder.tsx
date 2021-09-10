@@ -91,7 +91,7 @@ export class FlowBuilder extends React.Component<Props, State> {
                         <DslElement
                             deleteStep={this.props.deleteStep}
                             updateStep={this.props.updateStep}
-                            key={this.props.index + "_" + index}
+                            key={DslApi.getUid(element)}
                             element={element}/>
                     ))}
                         <button type="button" aria-label="Add" onClick={e => this.showSelectorList()}
