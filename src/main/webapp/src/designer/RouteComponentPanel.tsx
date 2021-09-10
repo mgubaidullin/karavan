@@ -3,14 +3,13 @@ import {
   Title,
   TextInput,
   AccordionContent,
-  AccordionToggle, AccordionItem, Accordion, Card, CardHeader, Text, CardBody
+  AccordionToggle, AccordionItem, Accordion
 } from '@patternfly/react-core';
 import { Kamelet } from "../model/KameletModels";
 import { Kamelets } from "../api/KameletApi";
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
 import {DslMetaApi} from "../api/DslMetaApi";
-import {DslApi} from "../api/DslApi";
 import {DslMetaModel} from "../model/DslMetaModel";
 
 class Filter {

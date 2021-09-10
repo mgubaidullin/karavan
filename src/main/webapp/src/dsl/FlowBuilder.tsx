@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-    Button, Card, CardBody, CardHeader, Gallery, Modal,
-    Popover, Tab, Tabs, TabTitleText,
     Text,
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {
     DslModelObject,
     DslYamlDeserializersRouteFromDefinitionDeserializer,
-    ModelProcessorDefinition
 } from "../model/DslModel";
-import {ProcessorBuilder} from "./ProcessorBuilder";
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import {DslApi} from "../api/DslApi";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
@@ -18,7 +14,6 @@ import {DslMetaApi} from "../api/DslMetaApi";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
 import {DslElement} from "./DslElement";
-import {v4 as uuidv4} from "uuid";
 
 interface Props {
     flow: DslModelObject,

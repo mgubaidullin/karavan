@@ -4,11 +4,9 @@ import {
     PageSection, Text, TextContent, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem
 } from '@patternfly/react-core';
 import '../karavan.css';
-import {Convert, DslModelObject, ModelProcessorDefinition, typeMap} from "../model/DslModel";
 import {FlowBuilder} from "./FlowBuilder";
 import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
-import {v4 as uuidv4} from "uuid";
 
 interface Props {
 }
@@ -38,6 +36,10 @@ export class DslPage extends React.Component<Props, State> {
         // })
     }
 
+    addFlow = () => {
+
+    }
+
     unselectSteps = () => {
         // const r = RouteStepApi.selectStep(this.state.integration.spec.flows, new EmptyStep());
         // this.updateState(r, undefined);
@@ -56,13 +58,17 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({view: view});
     }
 
-    tools = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
-        <ToolbarContent>
-            <ToolbarItem>
-                <Button onClick={e => this.save()}>Save</Button>
-            </ToolbarItem>
-        </ToolbarContent>
-    </Toolbar>);
+    tools = (view: "design" | "code") => (
+        <Toolbar id="toolbar-group-types">
+            <ToolbarContent>
+                <ToolbarItem>
+                    <Button variant="secondary" onClick={e => this.addFlow()}>Add flow</Button>
+                </ToolbarItem>
+                <ToolbarItem>
+                    <Button onClick={e => this.save()}>Save</Button>
+                </ToolbarItem>
+            </ToolbarContent>
+        </Toolbar>);
 
     title = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
         <ToolbarContent>
@@ -83,8 +89,6 @@ export class DslPage extends React.Component<Props, State> {
     </Toolbar>);
 
     updateStep = (p: any, uid: string) => {
-        console.log(p)
-        // console.log(flows)
         this.setState({flows: []})
         const flows = DslApi.updateFlows(this.state.flows, uid, p);
         this.setState({flows: flows})
@@ -93,7 +97,6 @@ export class DslPage extends React.Component<Props, State> {
     deleteStep = (id: string) => {
         this.setState({flows: []})
         const flows = DslApi.deleteElement(this.state.flows, id);
-        console.log(flows)
         this.setState({flows: flows})
     }
 

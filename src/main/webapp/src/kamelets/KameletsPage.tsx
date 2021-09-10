@@ -9,7 +9,6 @@ import {
 } from '@patternfly/react-core';
 import '../karavan.css';
 import {KameletCard} from "./KameletCard";
-import {MainToolbar} from "../MainToolbar";
 import {Kamelet} from "../model/KameletModels";
 import {KameletApi} from "../api/KameletApi";
 import {KameletModal} from "./KameletModal";

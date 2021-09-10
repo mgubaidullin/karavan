@@ -49,7 +49,7 @@ export class DslApi {
     static processorHasSteps = (processor: ModelProcessorDefinition): boolean => {
         let result: boolean = false;
         Object.entries(processor).forEach((proc: any) => {
-            const name: any = Object.entries(proc)[0][1];
+            // const name: any = Object.entries(proc)[0][1];
             const step: any = Object.entries(proc)[1][1];
             result = step.hasOwnProperty('steps')
         })
@@ -66,7 +66,7 @@ export class DslApi {
     static getElements = (element: any): ModelProcessorDefinition[] => {
         const result: ModelProcessorDefinition[] = []
         Object.entries(element).forEach((proc: any) => {
-            const name: any = Object.entries(proc)[0][1];
+            // const name: any = Object.entries(proc)[0][1];
             const step: any = Object.entries(proc)[1][1];
             if (step.hasOwnProperty('steps')) {
                 result.push(...step.steps);

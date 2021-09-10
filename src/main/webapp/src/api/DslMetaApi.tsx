@@ -1,6 +1,6 @@
 import {EventBus, KaravanEvent} from "./EventBus";
 import axios from "axios";
-import {DslConstraint, DslConstraints, DslMetaModel} from "../model/DslMetaModel";
+import { DslMetaModel} from "../model/DslMetaModel";
 import {DslApi} from "./DslApi";
 import {KameletApi} from "./KameletApi";
 

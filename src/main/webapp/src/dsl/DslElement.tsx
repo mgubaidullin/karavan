@@ -5,12 +5,10 @@ import {
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
-import {ModelProcessorDefinition} from "../model/DslModel";
 import {DslApi} from "../api/DslApi";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
-import {v4 as uuidv4} from "uuid";
 
 interface Props<T> {
     element: T
