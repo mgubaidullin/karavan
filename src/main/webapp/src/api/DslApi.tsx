@@ -154,13 +154,17 @@ export class DslApi {
             const el: any = Object.entries(element)[0][1];
             const elName = Object.entries(element)[0][0];
             if (el.uid !== idToDelete) {
-                if (elName === 'choice') {
+                if (elName === 'choice') {  //choice specific deletion logic
                     element.choice.when = DslApi.deleteOneWhenElement(element.choice.when, idToDelete);
-                    if (element.choice.otherwise){
-                        element.choice.otherwise.otherwise.steps = DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete);
+                    if (element.choice.otherwise){ // otherwise specific deletion logic
+                        if (element.choice.otherwise.otherwise.uid === idToDelete){
+                            element.choice.otherwise = undefined
+                        } else {
+                            element.choice.otherwise.otherwise.steps = DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete);
+                        }
                     }
                     result.push(element);
-                } else if (DslApi.processorHasSteps(element)) {
+                } else if (DslApi.processorHasSteps(element)) { //step deletion
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
                     const newElement = DslApi.setElementSteps(element, steps);
                     result.push(newElement);

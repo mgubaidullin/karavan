@@ -51,8 +51,8 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         const step: any = {...this.state.element}[this.state.name];
         step.steps = [...step.steps]
         step.steps.push(newStep);
-
         const clone: any = Object.assign(this.state.element);
+
         clone[this.state.name] = step;
         this.props.updateStep.call(this, clone, DslApi.getUid(this.state.element))
         this.setState({showSelector: false})
@@ -69,13 +69,26 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
     }
 
     addOtherwise = (newOtherwise: any) => {
-        if (!this.state.element.hasOwnProperty('otherwise') || this.state.element.otherwise === undefined) {
+        if (!this.state.element.choice.hasOwnProperty('otherwise') || this.state.element.choice.otherwise === undefined) {
             const choice: any = {...this.state.element}.choice
             choice.otherwise = newOtherwise;
             const clone: any = Object.assign(this.state.element);
             clone.choice = choice;
             this.props.updateStep.call(this, clone, DslApi.getUid(this.state.element))
         }
+        this.setState({showSelector: false})
+    }
+
+    addStepToOtherwise = (newStep: any) => {
+        const step: any = Object.assign(this.state.element);
+        console.log(step)
+        step.otherwise.steps = [...step.otherwise.steps]
+        step.otherwise.steps.push(newStep);
+        // const clone: any = Object.assign(this.state.element);
+
+        // clone[this.state.name] = step;
+        // console.log(clone)
+        this.props.updateStep.call(this, step, DslApi.getUid(this.state.element))
         this.setState({showSelector: false})
     }
 
@@ -86,6 +99,8 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
             } else if (dsl.name === 'otherwise') {
                 this.addOtherwise(DslApi.createChildElement(dsl))
             }
+        } else if (this.state.name === 'otherwise'){
+            this.addStepToOtherwise(DslApi.createChildElement(dsl));
         } else if (DslMetaApi.isDslModelHasSteps(this.state.name)) {
             this.addStep(DslApi.createChildElement(dsl))
         }
