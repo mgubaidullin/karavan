@@ -7,6 +7,8 @@ import '../karavan.css';
 import {FlowBuilder} from "./FlowBuilder";
 import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
+import {DslSelector} from "./DslSelector";
+import {DslMetaModel} from "../model/DslMetaModel";
 
 interface Props {
 }
@@ -14,6 +16,7 @@ interface Props {
 interface State {
     flows: any []
     view: "design" | "code",
+    showSelector: boolean
 }
 
 export class DslPage extends React.Component<Props, State> {
@@ -21,6 +24,7 @@ export class DslPage extends React.Component<Props, State> {
     public state: State = {
         flows: DslApi.create(),
         view: "design",
+        showSelector: false
     };
 
     componentDidMount() {
@@ -34,10 +38,6 @@ export class DslPage extends React.Component<Props, State> {
         //         console.log(res) //TODO show notification
         //     }
         // })
-    }
-
-    addFlow = () => {
-
     }
 
     unselectSteps = () => {
@@ -62,7 +62,7 @@ export class DslPage extends React.Component<Props, State> {
         <Toolbar id="toolbar-group-types">
             <ToolbarContent>
                 <ToolbarItem>
-                    <Button variant="secondary" onClick={e => this.addFlow()}>Add flow</Button>
+                    <Button variant="secondary" onClick={e => this.showSelectorList()}>Add flow</Button>
                 </ToolbarItem>
                 <ToolbarItem>
                     <Button onClick={e => this.save()}>Save</Button>
@@ -100,6 +100,14 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({flows: flows})
     }
 
+    showSelectorList = () => {
+        this.setState({showSelector: true})
+    }
+
+    onDslSelect = (dsl: DslMetaModel) => {
+        // this.addStep(DslApi.createChildElement(dsl))
+    }
+
     render() {
         return (
             <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
@@ -124,6 +132,7 @@ export class DslPage extends React.Component<Props, State> {
                 {/*    onStepUpdate={this.updateStep}*/}
                 {/*    onChangeView={this.changeView}*/}
                 {/*/>*/}
+                <DslSelector elementName={"flow"} id={""} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
             </PageSection>
         );
     }

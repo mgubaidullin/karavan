@@ -24,7 +24,9 @@ export class DslSelector extends React.Component<Props, State> {
 
     public state: State = {
         show: this.props.show,
-        tabIndex: 0,
+        tabIndex: DslMetaApi.getChildrenLabels(this.props.elementName).length > 0
+        ? DslMetaApi.getChildrenLabels(this.props.elementName)[0]
+        : DslMetaApi.getKameletLabels(this.props.elementName)[0],
     };
 
     componentDidMount() {
@@ -48,15 +50,16 @@ export class DslSelector extends React.Component<Props, State> {
     render() {
         return (
             <Modal
-                title="Select next step"
+                title={this.props.elementName === 'flow' ? "Select source" : "Select step"}
                 width={'90%'}
                 className='dsl-modal'
                 isOpen={this.state.show}
                 onClose={() => this.setState({show: false})}
                 actions={{}}>
                 <Tabs style={{overflow: 'hidden'}} activeKey={this.state.tabIndex} onSelect={this.selectTab}>
-                    {DslMetaApi.getChildrenLabels(this.props.elementName).map((label, index) =>
-                        <Tab eventKey={index} key={"tab"+index} title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
+                    {this.props.elementName !== 'flow' &&
+                        DslMetaApi.getChildrenLabels(this.props.elementName).map((label, index) =>
+                        <Tab eventKey={label} key={"tab"+index} title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
                             <Gallery key={"gallery"+index} hasGutter className="dsl-gallery">
                                 {DslMetaApi.getChildrenList(this.props.elementName, label).map((model, index) => (
                                     <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(model)}>
@@ -79,7 +82,7 @@ export class DslSelector extends React.Component<Props, State> {
                         <Tab eventKey={label} key={"tab-k-" + index}
                              title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
                             <Gallery key={"gallery" + index} hasGutter className="dsl-gallery">
-                                {DslMetaApi.getKameletList(this.props.elementName, label, 'from').map((model, index) => (
+                                {DslMetaApi.getKameletList(this.props.elementName, label, this.props.elementName === 'flow' ? 'from' : 'to').map((model, index) => (
                                     <Card key={model.name + model.uri} isHoverable isCompact className="dsl-card"
                                           onClick={event => this.selectDsl(model)}>
                                         <CardHeader>

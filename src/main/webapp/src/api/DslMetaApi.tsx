@@ -93,7 +93,7 @@ export const DslMetaApi = {
     getKameletLabels: (name: string): string[] => {
         if (name === 'flow'){
             return ['source']
-        } else if (name == 'choice'){
+        } else if (name === 'choice'){
             return []
         } else {
             return ['action', 'sink']
@@ -101,7 +101,6 @@ export const DslMetaApi = {
     },
 
     getKameletList: (elementName:string, kameletType: string, dslName: string): DslMetaModel[] => {
-        console.log(elementName)
         return KameletApi.getKamelets()
             .filter(k => k.metadata.labels["camel.apache.org/kamelet.type"] === kameletType)
             .map(k => new DslMetaModel({name:dslName, uri:'kamelet:'+k.metadata.name, title: k.title(), description:k.title()}));
