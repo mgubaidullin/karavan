@@ -135,6 +135,7 @@ export class DslApi {
 
     static deleteElement = (flows: DslModelObject[], idToDelete: string): DslModelObject[] => {
         console.log("DslApi.delete " + idToDelete)
+        console.log(flows)
         const result: DslModelObject[] = []
         flows.forEach((flow, index) => {
             if (flow.from?.steps && flow.from?.steps.length > 0) {
@@ -143,11 +144,12 @@ export class DslApi {
             }
             result.push(flow);
         })
-        // console.log(result)
+        console.log(result)
         return result
     }
 
     static deleteOneElement = (elements: any[], idToDelete: string): any [] => {
+        // console.log(elements)
         const result: any [] = []
         elements.forEach((element, index) => {
             const el: any = Object.entries(element)[0][1];
@@ -155,6 +157,14 @@ export class DslApi {
             if (el.uid !== idToDelete) {
                 if (elName === 'choice') {
                     element.choice.when = DslApi.deleteOneWhenElement(element.choice.when, idToDelete);
+                    if (element.choice.otherwise){
+                        console.log("other-----------------------0")
+                        console.log(element.choice.otherwise)
+                        console.log(element.choice.otherwise.otherwise.steps)
+                        console.log(DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete))
+                        element.choice.otherwise.otherwise.steps = DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete);
+                        console.log("other-----------------------1")
+                    }
                     result.push(element);
                 } else if (DslApi.processorHasSteps(element)) {
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);

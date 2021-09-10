@@ -85,7 +85,7 @@ export class DslPage extends React.Component<Props, State> {
     updateStep = (p: any, uid: string) => {
         this.setState({flows: []})
         const flows = DslApi.updateFlows(this.state.flows, uid, p);
-        console.log(flows)
+        // console.log(flows)
         this.setState({flows: flows})
     }
 
