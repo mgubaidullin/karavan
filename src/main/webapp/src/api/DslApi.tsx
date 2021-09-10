@@ -9,6 +9,15 @@ import {DslMetaApi} from "./DslMetaApi";
 
 export class DslApi {
 
+    static createFlowElement = (dsl: DslMetaModel): any => {
+        const from: any = {
+            uid: uuidv4(),
+            uri: dsl.uri,
+            steps: []
+        }
+        return {from: from};
+    }
+
     static createChildElement = (dsl: DslMetaModel): any => {
         if (dsl.name === 'choice') {
             const element: {} = {choice: {uid: uuidv4(), dsl: 'choice', when: []}}

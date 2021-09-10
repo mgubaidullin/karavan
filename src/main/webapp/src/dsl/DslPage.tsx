@@ -22,7 +22,7 @@ interface State {
 export class DslPage extends React.Component<Props, State> {
 
     public state: State = {
-        flows: DslApi.create(),
+        flows: [],//DslApi.create(),
         view: "design",
         showSelector: false
     };
@@ -105,7 +105,10 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
-        // this.addStep(DslApi.createChildElement(dsl))
+        const flow = DslApi.createFlowElement(dsl);
+        const flows: any[] = [...this.state.flows]
+        flows.push(flow)
+        this.setState({flows: flows, showSelector: false})
     }
 
     render() {
