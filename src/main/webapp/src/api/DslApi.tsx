@@ -149,7 +149,6 @@ export class DslApi {
     }
 
     static deleteOneElement = (elements: any[], idToDelete: string): any [] => {
-        // console.log(elements)
         const result: any [] = []
         elements.forEach((element, index) => {
             const el: any = Object.entries(element)[0][1];
@@ -158,12 +157,7 @@ export class DslApi {
                 if (elName === 'choice') {
                     element.choice.when = DslApi.deleteOneWhenElement(element.choice.when, idToDelete);
                     if (element.choice.otherwise){
-                        console.log("other-----------------------0")
-                        console.log(element.choice.otherwise)
-                        console.log(element.choice.otherwise.otherwise.steps)
-                        console.log(DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete))
                         element.choice.otherwise.otherwise.steps = DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete);
-                        console.log("other-----------------------1")
                     }
                     result.push(element);
                 } else if (DslApi.processorHasSteps(element)) {
@@ -174,8 +168,6 @@ export class DslApi {
                     result.push(element);
                 }
             } else {
-                console.log("deleted element:")
-                console.log(element)
             }
         })
         return result
