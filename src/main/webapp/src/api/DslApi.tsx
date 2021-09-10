@@ -112,8 +112,12 @@ export class DslApi {
         const result: any [] = []
         elements.forEach((element, index) => {
             const el: any = Object.entries(element)[0][1];
+            const elName = Object.entries(element)[0][0];
             if (el.uid !== idToDelete) {
-                if (DslApi.processorHasSteps(element)) {
+                if (elName === 'choice') {
+                    element.choice.when = DslApi.deleteOneWhenElement(element.choice.when, idToDelete);
+                    result.push(element);
+                } else if (DslApi.processorHasSteps(element)) {
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
                     const newElement = DslApi.setProcessorSteps(element, steps);
                     result.push(newElement);
@@ -127,6 +131,24 @@ export class DslApi {
         })
         return result
     }
+
+    static deleteOneWhenElement = (elements: any[], idToDelete: string): any [] => {
+        const result: any [] = []
+        elements.forEach((element, index) => {
+            if (element.when.uid !== idToDelete) {
+                if (DslApi.processorHasSteps(element)) {
+                    const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
+                    const newElement = DslApi.setProcessorSteps(element, steps);
+                    result.push(newElement);
+                } else {
+                    result.push(element);
+                }
+            }
+        })
+        return result
+    }
+
+
 
     static setProcessorSteps = (processor: ModelProcessorDefinition, steps: ModelProcessorDefinition[]): ModelProcessorDefinition => {
         const name: string = DslApi.getName(processor);

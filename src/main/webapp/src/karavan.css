@@ -612,17 +612,18 @@
   visibility: hidden;
 }
 
-.element-builder .whens .element-builder{
+.element-builder .whens .when,
+.element-builder .whens .otherwise {
   margin-left: 6px;
 }
-.element-builder .whens .element-builder:first-child{
+.element-builder .whens .when:first-child{
   margin-left: 0px;
 }
 
 .element-builder .whens {
   display: flex;
   flex-direction: row;
-  padding: 0px 5px 5px 5px;
+  padding: 0px 3px 3px 3px;
 }
 
 .element-builder:hover .add-button,
