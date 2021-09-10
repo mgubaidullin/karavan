@@ -508,9 +508,9 @@
   display: flex;
   flex-direction: column;
   font-size: 13px;
-  height: 80%;
+  height: 100%;
   overflow-y: scroll;
-
+  padding-bottom: 100px;
 }
 .flow-builder {
   align-items: center;
@@ -613,8 +613,12 @@
 }
 
 .element-builder .whens .element-builder{
-  margin: 0px 3px 0px 3px;
+  margin-left: 6px;
 }
+.element-builder .whens .element-builder:first-child{
+  margin-left: 0px;
+}
+
 .element-builder .whens {
   display: flex;
   flex-direction: row;
