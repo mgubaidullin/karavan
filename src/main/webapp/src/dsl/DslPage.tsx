@@ -16,7 +16,6 @@ interface Props {
 interface State {
     flows: any []
     view: "design" | "code",
-    key: string
 }
 
 export class DslPage extends React.Component<Props, State> {
@@ -24,7 +23,6 @@ export class DslPage extends React.Component<Props, State> {
     public state: State = {
         flows: DslApi.create(),
         view: "design",
-        key: ''
     };
 
     componentDidMount() {
@@ -51,7 +49,7 @@ export class DslPage extends React.Component<Props, State> {
 
     getCode = (): string => {
         // return ResourceGenerator.integrationToYaml(this.state.integration);
-    return ""
+        return ""
     }
 
     setView = (view: "design" | "code") => {
@@ -84,16 +82,18 @@ export class DslPage extends React.Component<Props, State> {
         </ToolbarContent>
     </Toolbar>);
 
-    updateStep = (p: ModelProcessorDefinition, id:string) =>{
-        const flows = DslApi.updateStep(this.state.flows, id, p);
-
-        this.setState({flows:flows})
+    updateStep = (p: any, uid: string) => {
+        this.setState({flows: []})
+        const flows = DslApi.updateFlows(this.state.flows, uid, p);
+        console.log(flows)
+        this.setState({flows: flows})
     }
 
-    deleteStep = (id:string) =>{
+    deleteStep = (id: string) => {
+        this.setState({flows: []})
         const flows = DslApi.deleteElement(this.state.flows, id);
         console.log(flows)
-        this.setState({flows:flows, key: uuidv4()})
+        this.setState({flows: flows})
     }
 
     render() {
@@ -101,24 +101,25 @@ export class DslPage extends React.Component<Props, State> {
             <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
                 <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
-                    {this.state.view === 'design' &&
-                    <div className="dsl-page" onClick={event => this.unselectSteps()}>
-                            {this.state.flows.map((flow, index) => (
-                                <FlowBuilder key={DslApi.getUid(flow)} deleteStep={this.deleteStep} updateStep={this.updateStep}  index={index} flow={flow}/>
-                            ))}
-                    </div>
-                    }
-                    {this.state.view === 'code' && <CodeBlock className="route-code">
-                        <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
-                    </CodeBlock>
-                    }
-                    {/*<RouteStepProperties*/}
-                    {/*    integration={this.state.integration}*/}
-                    {/*    step={this.state.currentStep}*/}
-                    {/*    onIntegrationUpdate={this.updateIntegration}*/}
-                    {/*    onStepUpdate={this.updateStep}*/}
-                    {/*    onChangeView={this.changeView}*/}
-                    {/*/>*/}
+                {this.state.view === 'design' &&
+                <div className="dsl-page" onClick={event => this.unselectSteps()}>
+                    {this.state.flows.map((flow, index) => (
+                        <FlowBuilder key={DslApi.getUid(flow)} deleteStep={this.deleteStep} updateStep={this.updateStep}
+                                     index={index} flow={flow}/>
+                    ))}
+                </div>
+                }
+                {this.state.view === 'code' && <CodeBlock className="route-code">
+                    <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
+                </CodeBlock>
+                }
+                {/*<RouteStepProperties*/}
+                {/*    integration={this.state.integration}*/}
+                {/*    step={this.state.currentStep}*/}
+                {/*    onIntegrationUpdate={this.updateIntegration}*/}
+                {/*    onStepUpdate={this.updateStep}*/}
+                {/*    onChangeView={this.changeView}*/}
+                {/*/>*/}
             </PageSection>
         );
     }

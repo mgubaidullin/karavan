@@ -86,9 +86,18 @@ export const DslMetaApi = {
     },
 
     isDslModelHasSteps: (name: string): boolean => {
-        const className:string = DslMetaApi.getDslClassByName(name) || '';
-        return CamelYamlDsl.items.definitions[className].properties !== undefined
-            && CamelYamlDsl.items.definitions[className].properties.hasOwnProperty('steps');
+        try {
+            const className: string | undefined = DslMetaApi.getDslClassByName(name);
+            if (className !== undefined) {
+                return CamelYamlDsl.items.definitions[className].properties !== undefined
+                    && CamelYamlDsl.items.definitions[className].properties.hasOwnProperty('steps');
+            } else {
+                return false;
+            }
+        } catch (e){
+            console.log(e)
+            return false;
+        }
     },
 
     findDslMetaModelByName: (name: string): DslMetaModel => {

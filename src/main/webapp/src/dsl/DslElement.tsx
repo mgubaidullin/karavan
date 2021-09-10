@@ -16,6 +16,7 @@ interface Props<T> {
     element: T
     updateStep: any
     deleteStep: any
+    name?: string
 }
 
 interface State<T> {
@@ -28,7 +29,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     public state: State<any> = {
         element: this.props.element,
-        name: DslApi.getName(this.props.element),
+        name: this.props.name !== undefined ? this.props.name : DslApi.getName(this.props.element),
         showSelector: false
     };
 
@@ -38,7 +39,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     delete = (evt: React.MouseEvent) => {
         if (evt) {
-            this.props.deleteStep.call(this, this.state.element[this.state.name].uid)
+            this.props.deleteStep.call(this, DslApi.getUid(this.state.element))
         }
     }
 
@@ -48,35 +49,32 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     addStep = (newStep: any) => {
         const step: any = {...this.state.element}[this.state.name];
-        const steps: any[] = [...step.steps]
-
-        steps.push(newStep)
-        step.steps = steps;
+        step.steps = [...step.steps]
+        step.steps.push(newStep);
 
         const clone: any = Object.assign(this.state.element);
         clone[this.state.name] = step;
-        this.props.updateStep.call(this, clone, this.state.element.uid)
+        this.props.updateStep.call(this, clone, DslApi.getUid(this.state.element))
         this.setState({showSelector: false})
     }
 
     addWhen = (newWhen: any) => {
         const choice: any = {...this.state.element}.choice;
-        const whens: any[] = [...choice.when]
-
-        whens.push(newWhen)
-        choice.when = whens;
+        choice.when = [...choice.when, newWhen];
 
         const clone: any = Object.assign(this.state.element);
         clone.choice = choice;
-        this.props.updateStep.call(this, clone, this.state.element.uid)
+        this.props.updateStep.call(this, clone, DslApi.getUid(this.state.element))
         this.setState({showSelector: false})
     }
 
     addOtherwise = (newOtherwise: any) => {
         if (!this.state.element.hasOwnProperty('otherwise') || this.state.element.otherwise === undefined) {
+            const choice: any = {...this.state.element}.choice
+            choice.otherwise = newOtherwise;
             const clone: any = Object.assign(this.state.element);
-            clone.otherwise = newOtherwise;
-            this.props.updateStep.call(this, clone, this.state.element.uid)
+            clone.choice = choice;
+            this.props.updateStep.call(this, clone, DslApi.getUid(this.state.element))
         }
         this.setState({showSelector: false})
     }
@@ -102,7 +100,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                          style={this.state.name === 'choice' ? {height: "18px"} : {}}  // find better icon
                          className="icon" alt="icon"></img>
                     <Text>{this.state.name}</Text>
-                    <Text>{this.state.element[this.state.name].uid}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
                             className="delete-button">
                         <DeleteIcon noVerticalAlign/>
@@ -132,15 +129,16 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                                     key={DslApi.getUid(element)}
                                     element={element}/>
                     ))}
-                    {this.state.name === 'choice' && this.state.element.hasOwnProperty('otherwise') &&
+                    {this.state.name === 'choice' && this.state.element.choice.otherwise !== undefined &&
                     <DslElement updateStep={this.props.updateStep}
                                 deleteStep={this.props.deleteStep}
-                                key={DslApi.getUid(this.state.element.otherwise)}
-                                element={this.state.element.otherwise}/>
+                                name={"otherwise"}
+                                // key={DslApi.getUid(this.state.element.choice.otherwise)}
+                                element={this.state.element.choice.otherwise}/>
                     }
                 </div>
                 }
-                <DslSelector elementName={this.state.name} id={this.state.element.uid} show={this.state.showSelector}
+                <DslSelector elementName={this.state.name} id={DslApi.getUid(this.state.element)} show={this.state.showSelector}
                              onDslSelect={this.onDslSelect}/>
             </div>
         );

@@ -11,17 +11,18 @@ export class DslApi {
 
     static createChildElement = (dsl: DslMetaModel): any => {
         if (dsl.name === 'choice') {
-            const processor: {} = {choice: {uid: uuidv4(), when: []}}
-            return processor
+            const element: {} = {choice: {uid: uuidv4(), dsl: 'choice', when: []}}
+            return element
         } else {
             const proto: any = {}
             proto[dsl.name] = {}
             proto[dsl.name].uid = uuidv4()
+            proto[dsl.name].dsl = dsl.name
             if (DslMetaApi.isDslModelHasSteps(dsl.name)) {
                 proto[dsl.name].steps = []
             }
-            const processor: ModelProcessorDefinition = {...proto}
-            return processor;
+            const element = {...proto}
+            return element;
         }
     }
 
@@ -30,11 +31,12 @@ export class DslApi {
     }
 
     static getUid = (element: any): string => {
-        return element[DslApi.getName(element)].uid
+        const name = DslApi.getName(element);
+        return element[name].uid
     }
-    static getName = (processor: ModelProcessorDefinition): string => {
+    static getName = (element: any): string => {
         let result: string = '';
-        Object.entries(processor).forEach((proc: any) => {
+        Object.entries(element).forEach((proc: any) => {
             const name: any = Object.entries(proc)[0][1];
             const step: any = Object.entries(proc)[1][1];
             if (step) {
@@ -61,9 +63,9 @@ export class DslApi {
         return result;
     }
 
-    static getElements = (processor: ModelProcessorDefinition): ModelProcessorDefinition[] => {
+    static getElements = (element: any): ModelProcessorDefinition[] => {
         const result: ModelProcessorDefinition[] = []
-        Object.entries(processor).forEach((proc: any) => {
+        Object.entries(element).forEach((proc: any) => {
             const name: any = Object.entries(proc)[0][1];
             const step: any = Object.entries(proc)[1][1];
             if (step.hasOwnProperty('steps')) {
@@ -89,12 +91,46 @@ export class DslApi {
         return result;
     }
 
-    static updateStep = (flows: DslModelObject[], id: string, p: ModelProcessorDefinition): DslModelObject[] => {
+    static updateFlows = (flows: DslModelObject[], uid: string, element: any): DslModelObject[] => {
         const result: DslModelObject[] = []
         flows.forEach(flow => {
-            result.push(flow);
+            const newFlow = DslApi.updateOneFlow(flow, uid, element);
+            result.push(newFlow);
         })
         return result
+    }
+
+    static updateOneFlow = (flow: DslModelObject, uid: string, element: any): DslModelObject => {
+        const result: ModelProcessorDefinition[] = []
+        flow.from?.steps.forEach(step => {
+            const newStep = DslApi.updateElement(step, uid, element)
+            result.push(newStep);
+        })
+        if (flow.from) flow.from.steps = result
+        return flow
+    }
+
+    static updateElement = (oldElement: any, uid: string, newElement: any): any => {
+        if (DslApi.getUid(oldElement) === uid) {
+            return newElement;
+        } else {
+            if (DslApi.getName(oldElement) === 'choice') {
+                if (oldElement.choice.otherwise !== undefined) {
+                    if (oldElement.choice.otherwise.uid === uid) {
+                        oldElement.choice.otherwise = newElement
+                    } else {
+                        const newSteps = DslApi.getElements(oldElement.choice.otherwise).map((step: any) => DslApi.updateElement(step, uid, newElement));
+                        oldElement.choice.otherwise.steps = newSteps;
+                    }
+                }
+                // const newWhen = DslApi.getWhens(oldElement).map((step: any) => DslApi.updateElement(step, uid, newElement));
+                // oldElement.choice.when = newWhen
+            } else if (DslMetaApi.isDslModelHasSteps(DslApi.getName(oldElement))) {
+                const newSteps = DslApi.getElements(oldElement).map((step: any) => DslApi.updateElement(step, uid, newElement));
+                oldElement = DslApi.setElementSteps(oldElement, newSteps);
+            }
+        }
+        return oldElement;
     }
 
     static deleteElement = (flows: DslModelObject[], idToDelete: string): DslModelObject[] => {
@@ -122,7 +158,7 @@ export class DslApi {
                     result.push(element);
                 } else if (DslApi.processorHasSteps(element)) {
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
-                    const newElement = DslApi.setProcessorSteps(element, steps);
+                    const newElement = DslApi.setElementSteps(element, steps);
                     result.push(newElement);
                 } else {
                     result.push(element);
@@ -141,7 +177,7 @@ export class DslApi {
             if (element.when.uid !== idToDelete) {
                 if (DslApi.processorHasSteps(element)) {
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
-                    const newElement = DslApi.setProcessorSteps(element, steps);
+                    const newElement = DslApi.setElementSteps(element, steps);
                     result.push(newElement);
                 } else {
                     result.push(element);
@@ -152,54 +188,33 @@ export class DslApi {
     }
 
 
-    static setProcessorSteps = (processor: ModelProcessorDefinition, steps: ModelProcessorDefinition[]): ModelProcessorDefinition => {
-        const name: string = DslApi.getName(processor);
-        const clone: any = {...processor};
+    static setElementSteps = (element: any, steps: any[]): any => {
+        const name: string = DslApi.getName(element);
+        const clone: any = {...element};
         clone[name].steps = steps;
-        return clone as ModelProcessorDefinition;
+        return clone;
     }
 
 
     static create = (): any [] => {
-        const to1: any = {
-            to: {
-                uid: uuidv4(),
-                uri: "log:demo1",
-            }
-        }
-        const to2: any = {
-            to: {
-                uid: uuidv4(),
-                uri: "log:demo2",
-            }
-        }
+        const to1: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("to"))}
+        const to2: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("to"))}
+        const filter: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("filter"))}
+        const when1: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("when"))}
+        when1.when.steps.push(filter)
+        const when2: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("when"))}
+        when2.when.steps.push(to1, to2)
+        const choice: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("choice"))}
+        choice.choice.when.push(when1, when2);
 
-
-        const filter: any = {
-            filter: {
-                uid: uuidv4(),
-                simple: "${body} != null",
-                steps: []
-            }
-        }
-        const choice: any = {
-            choice: {
-                uid: uuidv4(),
-                when: [
-                    {when: {uid: uuidv4(), steps: []}},
-                    {when: {uid: uuidv4(), steps: [to1, to2]}}
-                ],
-                // otherwise: {uid: uuidv4(), steps: []}
-            }
-        }
-        const saga: any = {
-            saga: {
-                uid: uuidv4(),
-                steps: [],
-                completion: {uri: "direct0"},
-                compensation: {uri: "direct1"}
-            }
-        }
+        // const saga: any = {
+        //     saga: {
+        //         uid: uuidv4(),
+        //         steps: [],
+        //         completion: {uri: "direct0"},
+        //         compensation: {uri: "direct1"}
+        //     }
+        // }
 
         const from: any = {
             uid: uuidv4(),
@@ -210,32 +225,6 @@ export class DslApi {
 
         const model2: {} = {from: {uid: uuidv4(), uri: "direct1", steps: []}};
         return [model2, model1];
-    }
-
-    static create1 = (): DslModelObject => {
-
-        const filter: ModelProcessorDefinition = {filter: {simple: "${body} != null"}}
-        const choice: ModelProcessorDefinition = {
-            choice: {
-                when: [{simple: "condition", steps: []}],
-                otherwise: {steps: []}
-            }
-        }
-        const saga: ModelProcessorDefinition = {
-            saga: {
-                steps: [],
-                completion: {uri: "direct0"},
-                compensation: {uri: "direct1"}
-            }
-        }
-
-        const from: DslYamlDeserializersRouteFromDefinitionDeserializer = {
-            uri: "kamelet:timer-source",
-            steps: [filter, choice, saga]
-        }
-        const model1: DslModelObject = {from: from};
-
-        return model1;
     }
 
     // static test =()=>{
