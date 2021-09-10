@@ -120,7 +120,7 @@ export class DslApi {
                         oldElement.choice.otherwise = newElement
                     } else {
                         const newSteps = DslApi.getElements(oldElement.choice.otherwise).map((step: any) => DslApi.updateElement(step, uid, newElement));
-                        oldElement.choice.otherwise.steps = newSteps;
+                        oldElement.choice.otherwise.otherwise.steps = newSteps;
                     }
                 }
                 // const newWhen = DslApi.getWhens(oldElement).map((step: any) => DslApi.updateElement(step, uid, newElement));

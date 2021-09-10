@@ -84,10 +84,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         console.log(step)
         step.otherwise.steps = [...step.otherwise.steps]
         step.otherwise.steps.push(newStep);
-        // const clone: any = Object.assign(this.state.element);
-
-        // clone[this.state.name] = step;
-        // console.log(clone)
         this.props.updateStep.call(this, step, DslApi.getUid(this.state.element))
         this.setState({showSelector: false})
     }
