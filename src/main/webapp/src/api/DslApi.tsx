@@ -104,15 +104,15 @@ export class DslApi {
             }
             result.push(flow);
         })
-        console.log(result)
+        // console.log(result)
         return result
     }
 
     static deleteOneElement = (elements: any[], idToDelete: string): any [] => {
         const result: any [] = []
         elements.forEach((element, index) => {
-            console.log("trying " + element)
-            if (element.uid !== idToDelete) {
+            const el: any = Object.entries(element)[0][1];
+            if (el.uid !== idToDelete) {
                 if (DslApi.processorHasSteps(element)) {
                     const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
                     const newElement = DslApi.setProcessorSteps(element, steps);
@@ -120,6 +120,9 @@ export class DslApi {
                 } else {
                     result.push(element);
                 }
+            } else {
+                console.log("deleted element:")
+                console.log(element)
             }
         })
         return result
@@ -133,7 +136,7 @@ export class DslApi {
     }
 
 
-    static create = (): DslModelObject[] => {
+    static create = (): any [] => {
 
         const filter: ModelProcessorDefinition = {
             filter: {
@@ -150,13 +153,14 @@ export class DslApi {
             }
         }
 
-        const from: DslYamlDeserializersRouteFromDefinitionDeserializer = {
+        const from: any = {
+            uid: uuidv4(),
             uri: "kamelet:timer-source",
             steps: [filter, choice, saga]
         }
         const model1: DslModelObject = {from: from};
 
-        const model2: DslModelObject = {from: {uri: "direct1", steps: []}};
+        const model2: {} = {from: {uid: uuidv4(), uri: "direct1", steps: []}};
         return [model2];
     }
 

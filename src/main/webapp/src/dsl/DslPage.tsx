@@ -14,7 +14,7 @@ interface Props {
 }
 
 interface State {
-    flows: DslModelObject[]
+    flows: any []
     view: "design" | "code",
     key: string
 }
@@ -86,24 +86,25 @@ export class DslPage extends React.Component<Props, State> {
 
     updateStep = (p: ModelProcessorDefinition, id:string) =>{
         const flows = DslApi.updateStep(this.state.flows, id, p);
-        console.log(flows)
+
         this.setState({flows:flows})
     }
 
     deleteStep = (id:string) =>{
         const flows = DslApi.deleteElement(this.state.flows, id);
+        console.log(flows)
         this.setState({flows:flows, key: uuidv4()})
     }
 
     render() {
         return (
             <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
-                <MainToolbar key={this.state.view} title={this.title(this.state.view)}
+                <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
                     {this.state.view === 'design' &&
-                    <div key={this.state.key} className="dsl-page" onClick={event => this.unselectSteps()}>
+                    <div className="dsl-page" onClick={event => this.unselectSteps()}>
                             {this.state.flows.map((flow, index) => (
-                                <FlowBuilder deleteStep={this.deleteStep} updateStep={this.updateStep}  index={index} key={index} flow={flow}/>
+                                <FlowBuilder deleteStep={this.deleteStep} updateStep={this.updateStep}  index={index} key={flow.from.uid} flow={flow}/>
                             ))}
                     </div>
                     }

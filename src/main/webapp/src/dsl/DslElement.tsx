@@ -95,7 +95,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     render() {
         return (
-            <div className="element-builder">
+            <div key={this.state.element[this.state.name].uid} className="element-builder">
                 <div className="header">
                     <img draggable="false"
                          src={DslMetaApi.getIcon(this.state.name)}
