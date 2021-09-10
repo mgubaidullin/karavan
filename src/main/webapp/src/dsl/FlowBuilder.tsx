@@ -18,6 +18,7 @@ import {DslMetaApi} from "../api/DslMetaApi";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
 import {DslElement} from "./DslElement";
+import {v4 as uuidv4} from "uuid";
 
 interface Props {
     flow: DslModelObject,
@@ -45,8 +46,7 @@ export class FlowBuilder extends React.Component<Props, State> {
     componentDidMount() {
     }
 
-    addStep = (newStep: ModelProcessorDefinition) => {
-        console.log(newStep)
+    addStep = (newStep: any) => {
         const step: any = {...this.state.flow}.from
         const steps: any[] = [...step.steps]
 
@@ -87,14 +87,12 @@ export class FlowBuilder extends React.Component<Props, State> {
                     </button>
                 </div>
                 <div className="steps">
-                    {this.state.flow.from?.steps.map((processor, index) => (
+                    {DslApi.getFromElements(this.state.flow.from).map((element, index) => (
                         <DslElement
                             deleteStep={this.props.deleteStep}
                             updateStep={this.props.updateStep}
-                            parentId={this.state.id}
-                            index={index}
-                            key={this.state.id + index}
-                            element={processor}/>
+                            key={this.props.index + "_" + index}
+                            element={element}/>
                     ))}
                         <button type="button" aria-label="Add" onClick={e => this.showSelectorList()}
                                 className="add-button">

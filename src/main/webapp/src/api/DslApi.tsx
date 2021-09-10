@@ -4,26 +4,25 @@ import {
 import {DslModelObject} from "../model/DslModel";
 import {DslYamlDeserializersRouteFromDefinitionDeserializer} from "../model/DslModel";
 import {DslMetaModel} from "../model/DslMetaModel";
+import {v4 as uuidv4} from "uuid";
+import {DslMetaApi} from "./DslMetaApi";
 
 export class DslApi {
 
     static createChildElement = (dsl: DslMetaModel): any => {
         if (dsl.name === 'choice') {
-            const processor: ModelProcessorDefinition = {choice: {when: [], otherwise: {steps: []}}}
+            const processor: {} = {choice: {uid: uuidv4(), when:[]}}
             return processor
         } else {
-            const interfaceName = typeMap.ModelProcessorDefinition.props.find((p: any) => p.js === dsl.name).typ.unionMembers[1].ref;
-            const listNames: string[] = typeMap[interfaceName].props.filter((p: any) => p.typ.unionMembers[1].arrayItems).map((p: any) => p.json);
             const proto: any = {}
             proto[dsl.name] = {}
-            listNames.forEach(value => proto[dsl.name][value] = []);
+            proto[dsl.name].uid = uuidv4()
+            if (DslMetaApi.isDslModelHasSteps(dsl.name)){
+                proto[dsl.name].steps = []
+            }
             const processor: ModelProcessorDefinition = {...proto}
             return processor;
         }
-    }
-
-    static genStepId = (parentId: string, index: number, processor: ModelProcessorDefinition): string => {
-        return parentId + ".step" + index + '.' + DslApi.getName(processor);
     }
 
     static genFlowId = (index: number): string => {
@@ -52,7 +51,14 @@ export class DslApi {
         return result;
     }
 
-    static getSteps = (processor: ModelProcessorDefinition): ModelProcessorDefinition[] => {
+    static getFromElements = (from: DslYamlDeserializersRouteFromDefinitionDeserializer | undefined): any[] => {
+        const result: any[] = []
+        if (from)
+        result.push(...from.steps)
+        return result;
+    }
+
+    static getElements = (processor: ModelProcessorDefinition): ModelProcessorDefinition[] => {
         const result: ModelProcessorDefinition[] = []
         Object.entries(processor).forEach((proc: any) => {
             const name: any = Object.entries(proc)[0][1];
@@ -67,7 +73,6 @@ export class DslApi {
     static getWhens = (processor: ModelProcessorDefinition): ModelWhenDefinition[] => {
         const result: ModelWhenDefinition[] = []
         if (processor.choice) {
-            console.log(processor.choice)
             result.push(...processor.choice.when || [])
         }
         return result;
@@ -89,12 +94,12 @@ export class DslApi {
         return result
     }
 
-    static deleteStep = (flows: DslModelObject[], idToDelete: string): DslModelObject[] => {
+    static deleteElement = (flows: DslModelObject[], idToDelete: string): DslModelObject[] => {
         console.log("DslApi.delete " + idToDelete)
         const result: DslModelObject[] = []
         flows.forEach((flow, index) => {
             if (flow.from?.steps && flow.from?.steps.length > 0) {
-                const steps = DslApi.deleteOneStep(flow.from?.steps || [], idToDelete, DslApi.genFlowId(index))
+                const steps = DslApi.deleteOneElement(flow.from?.steps || [], idToDelete)
                 flow.from.steps = steps
             }
             result.push(flow);
@@ -103,18 +108,17 @@ export class DslApi {
         return result
     }
 
-    static deleteOneStep = (steps: ModelProcessorDefinition[], idToDelete: string, parentId: string): ModelProcessorDefinition[] => {
-        const result: ModelProcessorDefinition[] = []
-        steps.forEach((step, index) => {
-            const sid = DslApi.genStepId(parentId, index, step)
-            console.log("trying " + sid)
-            if (sid !== idToDelete) {
-                if (DslApi.processorHasSteps(step)) {
-                    const steps = DslApi.deleteOneStep(DslApi.getSteps(step), idToDelete, sid);
-                    const newStep = DslApi.setProcessorSteps(step, steps);
-                    result.push(newStep);
+    static deleteOneElement = (elements: any[], idToDelete: string): any [] => {
+        const result: any [] = []
+        elements.forEach((element, index) => {
+            console.log("trying " + element)
+            if (element.uid !== idToDelete) {
+                if (DslApi.processorHasSteps(element)) {
+                    const steps = DslApi.deleteOneElement(DslApi.getElements(element), idToDelete);
+                    const newElement = DslApi.setProcessorSteps(element, steps);
+                    result.push(newElement);
                 } else {
-                    result.push(step);
+                    result.push(element);
                 }
             }
         })
@@ -153,7 +157,7 @@ export class DslApi {
         const model1: DslModelObject = {from: from};
 
         const model2: DslModelObject = {from: {uri: "direct1", steps: []}};
-        return [model1, model2];
+        return [model2];
     }
 
     static create1 = (): DslModelObject => {

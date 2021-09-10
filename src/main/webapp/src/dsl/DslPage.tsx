@@ -86,11 +86,12 @@ export class DslPage extends React.Component<Props, State> {
 
     updateStep = (p: ModelProcessorDefinition, id:string) =>{
         const flows = DslApi.updateStep(this.state.flows, id, p);
+        console.log(flows)
         this.setState({flows:flows})
     }
 
     deleteStep = (id:string) =>{
-        const flows = DslApi.deleteStep(this.state.flows, id);
+        const flows = DslApi.deleteElement(this.state.flows, id);
         this.setState({flows:flows, key: uuidv4()})
     }
 

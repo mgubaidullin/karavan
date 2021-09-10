@@ -10,11 +10,10 @@ import {DslApi} from "../api/DslApi";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
+import {v4 as uuidv4} from "uuid";
 
 interface Props<T> {
     element: T
-    index: number
-    parentId: string
     updateStep: any
     deleteStep: any
 }
@@ -22,7 +21,6 @@ interface Props<T> {
 interface State<T> {
     element: T
     name: string
-    id: string
     showSelector: boolean
 }
 
@@ -31,7 +29,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
     public state: State<any> = {
         element: this.props.element,
         name: DslApi.getName(this.props.element),
-        id: DslApi.genStepId(this.props.parentId, this.props.index, this.props.element),
         showSelector: false
     };
 
@@ -41,7 +38,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     delete = (evt: React.MouseEvent) => {
         if (evt) {
-            this.props.deleteStep.call(this, this.state.id)
+            this.props.deleteStep.call(this, this.state.element[this.state.name].uid)
         }
     }
 
@@ -58,7 +55,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
         const clone: any = Object.assign(this.state.element);
         clone[this.state.name] = step;
-        this.props.updateStep.call(this, clone, this.state.id)
+        this.props.updateStep.call(this, clone, this.state.element.uid)
         this.setState({showSelector: false})
     }
 
@@ -71,7 +68,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
         const clone: any = Object.assign(this.state.element);
         clone.choice = choice;
-        this.props.updateStep.call(this, clone, this.state.id)
+        this.props.updateStep.call(this, clone, this.state.element.uid)
         this.setState({showSelector: false})
     }
 
@@ -79,7 +76,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         if (!this.state.element.hasOwnProperty('otherwise') || this.state.element.otherwise === undefined) {
             const clone: any = Object.assign(this.state.element);
             clone.otherwise = newOtherwise;
-            this.props.updateStep.call(this, clone, this.state.id)
+            this.props.updateStep.call(this, clone, this.state.element.uid)
         }
         this.setState({showSelector: false})
     }
@@ -112,16 +109,14 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                 </div>
                 {DslMetaApi.isDslModelHasSteps(this.state.name) &&
                 <div className="steps">
-                    {DslApi.getSteps(this.state.element).map((element, index) => (
+                    {DslApi.getElements(this.state.element).map((element, index) => (
                         <DslElement updateStep={this.props.updateStep}
                                     deleteStep={this.props.deleteStep}
-                                    parentId={this.state.id}
-                                    index={index}
-                                    key={this.state.id + index}
+                                    key={this.state.name + index}
                                     element={element}/>
                     ))}
                     {DslMetaApi.isDslModelHasSteps(this.state.name) &&
-                    <button key={this.state.id + "-del"} type="button" aria-label="Add" onClick={this.showSelectorList}
+                    <button type="button" aria-label="Add" onClick={this.showSelectorList}
                             className="add-button">
                         <AddIcon noVerticalAlign/>
                     </button>
@@ -133,14 +128,18 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                     {DslApi.getWhens(this.state.element).map((element, index) => (
                         <DslElement updateStep={this.props.updateStep}
                                     deleteStep={this.props.deleteStep}
-                                    parentId={this.state.id}
-                                    index={index}
-                                    key={this.state.id + index}
+                                    key={this.state.name + index}
                                     element={element}/>
                     ))}
+                    {this.state.name === 'choice' && this.state.element.hasOwnProperty('otherwise') &&
+                    <DslElement updateStep={this.props.updateStep}
+                                deleteStep={this.props.deleteStep}
+                                key={this.state.element.uid}
+                                element={this.state.element.otherwise}/>
+                    }
                 </div>
                 }
-                <DslSelector elementName={this.state.name} id={this.state.id} show={this.state.showSelector}
+                <DslSelector elementName={this.state.name} id={this.state.element.uid} show={this.state.showSelector}
                              onDslSelect={this.onDslSelect}/>
             </div>
         );

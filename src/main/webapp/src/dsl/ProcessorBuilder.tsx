@@ -31,7 +31,7 @@ export class ProcessorBuilder extends React.Component<Props<any>, State<any>> {
     public state: State<any> = {
         processor: this.props.processor,
         name: DslApi.getName(this.props.processor),
-        id: DslApi.genStepId(this.props.parentId, this.props.index, this.props.processor),
+        id: "",
         showSelector: false
     };
 
@@ -93,7 +93,7 @@ export class ProcessorBuilder extends React.Component<Props<any>, State<any>> {
                     </button>
                 </div>
                 <div>
-                    {DslApi.getSteps(this.state.processor).map((processor, index) => (
+                    {DslApi.getElements(this.state.processor).map((processor, index) => (
                         <ProcessorBuilder updateStep={this.props.updateStep}
                                           deleteStep={this.props.deleteStep}
                                           parentId={this.state.id}
