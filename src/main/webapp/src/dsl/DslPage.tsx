@@ -58,12 +58,37 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({view: view});
     }
 
+    updateStep = (p: any, uid: string) => {
+        this.setState({flows: []})
+        const flows = DslApi.updateFlows(this.state.flows, uid, p);
+        this.setState({flows: flows})
+    }
+
+    deleteStep = (id: string) => {
+        this.setState({flows: []})
+        const flows = DslApi.deleteElement(this.state.flows, id);
+        this.setState({flows: flows})
+    }
+
+    showSelectorList = () => {
+        this.setState({showSelector: true})
+    }
+
+    onDslSelect = (dsl: DslMetaModel) => {
+        const flow = DslApi.createFlowElement(dsl);
+        const flows: any[] = [...this.state.flows]
+        flows.push(flow)
+        this.setState({flows: flows, showSelector: false})
+    }
+
     tools = (view: "design" | "code") => (
         <Toolbar id="toolbar-group-types">
             <ToolbarContent>
+                {view === 'design' &&
                 <ToolbarItem>
                     <Button variant="secondary" onClick={e => this.showSelectorList()}>Add flow</Button>
                 </ToolbarItem>
+                }
                 <ToolbarItem>
                     <Button onClick={e => this.save()}>Save</Button>
                 </ToolbarItem>
@@ -88,29 +113,6 @@ export class DslPage extends React.Component<Props, State> {
         </ToolbarContent>
     </Toolbar>);
 
-    updateStep = (p: any, uid: string) => {
-        this.setState({flows: []})
-        const flows = DslApi.updateFlows(this.state.flows, uid, p);
-        this.setState({flows: flows})
-    }
-
-    deleteStep = (id: string) => {
-        this.setState({flows: []})
-        const flows = DslApi.deleteElement(this.state.flows, id);
-        this.setState({flows: flows})
-    }
-
-    showSelectorList = () => {
-        this.setState({showSelector: true})
-    }
-
-    onDslSelect = (dsl: DslMetaModel) => {
-        const flow = DslApi.createFlowElement(dsl);
-        const flows: any[] = [...this.state.flows]
-        flows.push(flow)
-        this.setState({flows: flows, showSelector: false})
-    }
-
     render() {
         return (
             <PageSection className="route-designer-section" isFilled padding={{default: 'noPadding'}}>
@@ -125,11 +127,11 @@ export class DslPage extends React.Component<Props, State> {
                 </div>
                 }
                 {this.state.view === 'code' &&
-                    <div className="yaml-code">
-                        <CodeBlock className="route-code">
-                            <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
-                        </CodeBlock>
-                    </div>
+                <div className="yaml-code">
+                    <CodeBlock className="route-code">
+                        <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
+                    </CodeBlock>
+                </div>
                 }
                 {/*<RouteStepProperties*/}
                 {/*    integration={this.state.integration}*/}
@@ -138,7 +140,8 @@ export class DslPage extends React.Component<Props, State> {
                 {/*    onStepUpdate={this.updateStep}*/}
                 {/*    onChangeView={this.changeView}*/}
                 {/*/>*/}
-                <DslSelector elementName={"flow"} id={""} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
+                <DslSelector elementName={"flow"} id={""} show={this.state.showSelector}
+                             onDslSelect={this.onDslSelect}/>
             </PageSection>
         );
     }

@@ -21,12 +21,9 @@ export class ResourceGenerator {
     }
 
     static convertElementToObjects = (elements: any[]): any[] => {
-        console.log(elements)
         const result: any[] = [];
         elements.forEach(e => {
             const name = DslApi.getName(e);
-            console.log(e)
-            console.log(e[name])
             if (e[name] !== undefined) {
                 delete e[name].uid
                 delete e[name].dsl
