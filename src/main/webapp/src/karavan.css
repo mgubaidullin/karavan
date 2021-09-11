@@ -653,3 +653,9 @@
   -o-user-select: none;
   user-select: none;
 }
+
+.yaml-code {
+  overflow: scroll;
+  height: 100%;
+  padding-bottom: 100px;
+}

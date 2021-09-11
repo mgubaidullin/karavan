@@ -9,6 +9,7 @@ import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
+import {ResourceGenerator} from "../api/ResourceGenerator";
 
 interface Props {
 }
@@ -50,8 +51,7 @@ export class DslPage extends React.Component<Props, State> {
     };
 
     getCode = (): string => {
-        // return ResourceGenerator.integrationToYaml(this.state.integration);
-        return ""
+        return ResourceGenerator.flowsToYaml(this.state.flows);
     }
 
     setView = (view: "design" | "code") => {
@@ -124,9 +124,12 @@ export class DslPage extends React.Component<Props, State> {
                     ))}
                 </div>
                 }
-                {this.state.view === 'code' && <CodeBlock className="route-code">
-                    <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
-                </CodeBlock>
+                {this.state.view === 'code' &&
+                    <div className="yaml-code">
+                        <CodeBlock className="route-code">
+                            <CodeBlockCode id="code-content">{this.getCode()}</CodeBlockCode>
+                        </CodeBlock>
+                    </div>
                 }
                 {/*<RouteStepProperties*/}
                 {/*    integration={this.state.integration}*/}

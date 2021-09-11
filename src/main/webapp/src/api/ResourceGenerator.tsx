@@ -1,9 +1,43 @@
 import * as yaml from 'js-yaml';
-import {Integration} from "../model/IntegrationModels";
+import {Integration, Metadata} from "../model/IntegrationModels";
 import {RouteStepApi} from "./RouteStepApi";
 import {ChoiceStep, ComponentStep, ExpressionStep, RouteStep} from "../model/RouteModels";
+import {DslApi} from "./DslApi";
 
 export class ResourceGenerator {
+
+    static flowsToYaml = (flows: any[]): string => {
+        const integration:Integration = new Integration();
+        integration.metadata.name="name";
+        integration.spec.flows = flows;
+        const i = ResourceGenerator.integrationToObject(integration);
+        const text = yaml.dump(i);
+        return text;
+    }
+    static integrationToObject = (integration: Integration): {} => {
+        const i = JSON.parse(JSON.stringify(integration, null, 3)); // fix undefined in string attributes
+        i.spec.flows = ResourceGenerator.convertElementToObjects(i.spec.flows);
+        return i;
+    }
+
+    static convertElementToObjects = (elements: any[]): any[] => {
+        console.log(elements)
+        const result: any[] = [];
+        elements.forEach(e => {
+            const name = DslApi.getName(e);
+            console.log(e)
+            console.log(e[name])
+            if (e[name] !== undefined) {
+                delete e[name].uid
+                delete e[name].dsl
+                if (e[name].hasOwnProperty('steps')){
+                    e[name].steps = ResourceGenerator.convertElementToObjects(e[name].steps);
+                }
+            }
+            result.push(e)
+        })
+        return result;
+    }
 
     static integrationToYaml = (integration: Integration): string => {
         const i = ResourceGenerator.integrationToObj(integration);

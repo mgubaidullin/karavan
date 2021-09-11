@@ -18,7 +18,7 @@ export class Metadata {
 }
 
 export class Spec {
-    flows: RouteStep[] = [];
+    flows: any[] = [];
 
     public constructor(init?: Partial<Spec>) {
         Object.assign(this, init);
