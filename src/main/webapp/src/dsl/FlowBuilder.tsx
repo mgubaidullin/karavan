@@ -75,7 +75,7 @@ export class FlowBuilder extends React.Component<Props, State> {
                     <img draggable="false"
                          src={DslMetaApi.getIcon("from", this.state.flow.from?.uri)}
                          className="icon" alt="icon"></img>
-                    <Text>{"from: " + this.state.flow.from?.uri}</Text>
+                    <Text>{DslMetaApi.getTitle('from', this.state.flow.from?.uri)}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
                             className="delete-button">
                         <DeleteIcon noVerticalAlign/>

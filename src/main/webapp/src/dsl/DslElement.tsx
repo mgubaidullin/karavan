@@ -79,7 +79,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     addStepToOtherwise = (newStep: any) => {
         const step: any = Object.assign(this.state.element);
-        console.log(step)
         step.otherwise.steps = [...step.otherwise.steps]
         step.otherwise.steps.push(newStep);
         this.props.updateStep.call(this, step, DslApi.getUid(this.state.element))
@@ -105,10 +104,10 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
             <div className={this.state.name + " element-builder"}>
                 <div className="header">
                     <img draggable="false"
-                         src={DslMetaApi.getIcon(this.state.name)}
+                         src={DslMetaApi.getIcon(this.state.name, this.state.element?.to?.uri)}
                          style={this.state.name === 'choice' ? {height: "18px"} : {}}  // find better icon
                          className="icon" alt="icon"></img>
-                    <Text>{this.state.name}</Text>
+                    <Text>{DslMetaApi.getTitle(this.state.name, this.state.element?.to?.uri)}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
                             className="delete-button">
                         <DeleteIcon noVerticalAlign/>

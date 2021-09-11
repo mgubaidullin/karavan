@@ -45,6 +45,10 @@ export const KameletApi = {
         return Kamelets.find((k: Kamelet) => k.metadata.name === name);
     },
 
+    findKameletByUri: (uri: string): Kamelet | any => {
+        return KameletApi.findKameletByName(uri.split(":")[1]);
+    },
+
     uriSource: (): Kamelet | any => {
         return Kamelet.default().find((k: Kamelet) => k.metadata.name === 'uri-source');
     },

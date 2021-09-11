@@ -19,6 +19,7 @@ export class DslApi {
     }
 
     static createChildElement = (dsl: DslMetaModel): any => {
+        console.log(dsl)
         if (dsl.name === 'choice') {
             const element: {} = {choice: {uid: uuidv4(), dsl: 'choice', when: []}}
             return element
@@ -27,6 +28,7 @@ export class DslApi {
             proto[dsl.name] = {}
             proto[dsl.name].uid = uuidv4()
             proto[dsl.name].dsl = dsl.name
+            if (dsl.uri !== undefined) proto[dsl.name].uri = dsl.uri;
             if (DslMetaApi.isDslModelHasSteps(dsl.name)) {
                 proto[dsl.name].steps = []
             }
