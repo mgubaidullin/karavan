@@ -30,8 +30,24 @@ export class ResourceGenerator {
             if (e[name] !== undefined) {
                 delete e[name].uid
                 delete e[name].dsl
-                if (e[name].hasOwnProperty('steps')){
-                    e[name].steps = ResourceGenerator.convertElementToObjects(e[name].steps);
+                if (name === 'choice'){
+                    if (e[name].when !== undefined && e[name].when.length >0){
+                        e[name].when = ResourceGenerator.convertElementToObjects(e[name].when);
+                    } else {
+                        delete e[name].when
+                    }
+                    if (e[name].otherwise !== undefined){
+                        delete e[name].otherwise.otherwise.uid
+                        delete e[name].otherwise.otherwise.dsl
+                        e[name].otherwise = e[name].otherwise.otherwise
+                        e[name].otherwise.steps = ResourceGenerator.convertElementToObjects(e[name].otherwise.steps)
+                    }
+                } else if (e[name].hasOwnProperty('steps')){
+                    if (e[name].steps !== undefined && e[name].steps.length >0){
+                        e[name].steps = ResourceGenerator.convertElementToObjects(e[name].steps);
+                    } else {
+                        delete e[name].steps
+                    }
                 }
             }
             result.push(e)
