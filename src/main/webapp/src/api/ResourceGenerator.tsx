@@ -6,9 +6,9 @@ import {DslApi} from "./DslApi";
 
 export class ResourceGenerator {
 
-    static flowsToYaml = (flows: any[]): string => {
+    static flowsToYaml = (name:string, flows: any[]): string => {
         const integration:Integration = new Integration();
-        integration.metadata.name="name";
+        integration.metadata.name = name;
         integration.spec.flows = flows;
         const i = ResourceGenerator.integrationToObject(integration);
         const text = yaml.dump(i);

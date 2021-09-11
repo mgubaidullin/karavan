@@ -504,12 +504,126 @@
 }
 
 /*DSL*/
-.dsl-page {
+.karavan .dsl-page {
+  height: 100%;
+  overflow: hidden;
+}
+
+.karavan .dsl-page .dsl-page-columns{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/*Properties*/
+.karavan .dsl-page .properties{
+  border: 1px solid #eee;
+  padding: 10px 10px 10px 10px;
+  font-size: 13px;
+  background: #fcfcfc;
+  width: 350px;
+  height: 94%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.karavan .dsl-page .properties .headers{
+  grid-row-gap: 10px;
+  row-gap: 10px;
+  display: contents;
+}
+
+.karavan .dsl-page .properties .footer {
+  height: 100%;
+  display: contents;
+}
+
+.karavan .dsl-page .properties .pf-c-form {
+  row-gap: 10px;
+}
+.karavan .dsl-page .properties .pf-c-form__group-label {
+  padding-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+.karavan .dsl-page .properties .pf-c-form__label {
+  font-size: 13px;
+}
+
+.karavan .dsl-page .properties .text-field {
+  font-size: 13px;
+  height: auto;
+}
+.karavan .dsl-page .properties .expression-title {
+  font-size: 17px;
+  font-weught: bold;
+}
+
+.karavan .dsl-page .properties .text-area {
+  font-size: 13px;
+}
+
+.karavan .dsl-page .properties  .pf-c-select__menu-search {
+  padding: 0px 6px 6px 6px;
+}
+
+.karavan .dsl-page .properties .pf-c-select__toggle-typeahead {
+  font-size: 13px;
+  height: auto;
+}
+
+.karavan .dsl-page .properties .pf-c-select__menu-item {
+  width: 280px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 12px;
+}
+
+.karavan .dsl-page .properties .number {
+  display: flex;
+  justify-content: space-between;
+}
+
+.karavan .dsl-page .properties .number .number-property {
+  width: 100%;
+}
+
+.karavan .dsl-page .properties .number .clear-button {
+  color: #b1b1b7;
+  --pf-c-button--BorderRadius: var(--pf-c-button--m-control--BorderRadius);
+  --pf-c-button--disabled--BackgroundColor: var(--pf-c-button--m-control--disabled--BackgroundColor);
+  --pf-c-button--after--BorderWidth: var(--pf-c-button--m-control--after--BorderWidth);
+  --pf-c-button--after--BorderColor: var(--pf-c-button--m-control--after--BorderTopColor) var(--pf-c-button--m-control--after--BorderRightColor) var(--pf-c-button--m-control--after--BorderBottomColor) var(--pf-c-button--m-control--after--BorderLeftColor);
+  color: var(--pf-c-button--m-control--Color);
+  background-color: var(--pf-c-button--m-control--BackgroundColor);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.karavan .dsl-page .properties .help-button {
+  font-size: 12px;
+}
+
+.karavan .dsl-page .properties .component-selector {
+  border-width: var(--pf-global--BorderWidth--sm);
+  border-top-color: var(--pf-global--BorderColor--300);
+  border-right-color: var(--pf-global--BorderColor--300);
+  border-bottom-color: var(--pf-global--BorderColor--200);
+  border-left-color: var(--pf-global--BorderColor--300);
+  border-style: solid;
+}
+
+.flows {
   display: flex;
   flex-direction: column;
   font-size: 13px;
   height: 100%;
-  overflow-y: scroll;
+  width: 100%;
+  overflow-y: auto;
   padding-bottom: 100px;
 }
 .flow-builder {
@@ -655,7 +769,8 @@
 }
 
 .yaml-code {
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
+  width: 100%;
   padding-bottom: 100px;
 }

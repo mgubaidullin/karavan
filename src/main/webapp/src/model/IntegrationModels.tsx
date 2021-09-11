@@ -1,16 +1,16 @@
 import {EmptyStep, RouteStep} from "./RouteModels";
 
-export class Annotations {
-    'camel.apache.org/integration.title': string | any = '';
+// export class Annotations {
+    // 'camel.apache.org/integration.title': string | any = '';
 
-    public constructor(init?: Partial<Annotations>) {
-        Object.assign(this, init);
-    }
-}
+    // public constructor(init?: Partial<Annotations>) {
+    //     Object.assign(this, init);
+    // }
+// }
 
 export class Metadata {
     name: string = '';
-    annotations: Annotations = new Annotations();
+    // annotations: Annotations = new Annotations();
 
     public constructor(init?: Partial<Metadata>) {
         Object.assign(this, init);

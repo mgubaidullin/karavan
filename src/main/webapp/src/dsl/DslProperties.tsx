@@ -12,16 +12,18 @@ import {
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
-import {ComponentStep, ExpressionStep, OtherwiseStep, RouteStep, WhenStep} from "../model/RouteModels";
-import {RouteStepApi} from "../api/RouteStepApi";
-import {Integration} from "../model/IntegrationModels";
 import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
+import {DslMetaApi} from "../api/DslMetaApi";
+import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/RouteModels";
+import {DslApi} from "../api/DslApi";
+import {Integration} from "../model/IntegrationModels";
+import {RouteStepApi} from "../api/RouteStepApi";
 
 interface Props {
     integration: Integration,
-    step?: RouteStep,
+    element?: any,
     onIntegrationUpdate?: any,
     onStepUpdate?: any,
     onChangeView: any
@@ -29,47 +31,49 @@ interface Props {
 
 interface State {
     integration: Integration,
-    step?: RouteStep,
+    element?: any,
 }
 
-export class RouteStepProperties extends React.Component<Props, State> {
+export class DslProperties extends React.Component<Props, State> {
 
     public state: State = {
-        step: this.props.step,
+        element: this.props.element,
         integration: this.props.integration
     };
 
     setView = (view: string) => {
         this.props.onChangeView.call(this, view);
     }
+
     onIntegrationChange = (field: string, value: string) => {
         let clone = new Integration({...this.state.integration});
         if (field === 'title') {
-            clone.metadata.name = RouteStepApi.nameFomTitle(value);
+            clone.metadata.name = DslMetaApi.nameFomTitle(value);
+            this.props.onIntegrationUpdate?.call(this, clone);
         }
-        this.props.onIntegrationUpdate?.call(this, clone);
     };
 
     onChange = (field: string, value: string) => {
-        const clone = this.state.step;
+        const clone = this.state.element;
         if (field === 'simple') (clone as ExpressionStep).simple = value;
         this.props.onStepUpdate?.call(this, clone);
     }
+
     onChangeWhen = (isDefault: boolean) => {
         if (isDefault) {
-            const clone = new OtherwiseStep({...this.state.step, steps: this.state.step?.steps});
-            clone.uid = this.state.step?.uid || '';
+            const clone = new OtherwiseStep({...this.state.element, steps: this.state.element?.steps});
+            clone.uid = this.state.element?.uid || '';
             this.props.onStepUpdate?.call(this, clone);
         } else {
-            const clone = new WhenStep({...this.state.step, steps: this.state.step?.steps});
-            clone.uid = this.state.step?.uid || '';
+            const clone = new WhenStep({...this.state.element, steps: this.state.element?.steps});
+            clone.uid = this.state.element?.uid || '';
             this.props.onStepUpdate?.call(this, clone);
         }
     };
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
-        if (this.state.step && ['from', 'to'].includes(this.state.step.type)) {
-            const c: ComponentStep = (this.state.step as ComponentStep);
+        if (this.state.element && ['from', 'to'].includes(this.state.element.type)) {
+            const c: ComponentStep = (this.state.element as ComponentStep);
             const index: number = c.properties.findIndex((x: Property) => x.id === fieldId);
             const p: Property = c.properties[index];
             p.value = value;
@@ -80,9 +84,13 @@ export class RouteStepProperties extends React.Component<Props, State> {
     };
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
-        if (prevProps.step?.uid !== this.props.step?.uid || prevProps.step?.type !== this.props.step?.type) {
-            this.setState({step: this.props.step});
-        }
+        // if (prevProps.element?.uid !== this.props.element?.uid || prevProps.element?.type !== this.props.element?.type) {
+        //     this.setState({element: this.props.element});
+        // }
+        // if (prevState.name !== this.props.name) {
+        //     this.setState({name: this.props.name});
+        // }
+        // console.log("from " + this.state.name + ", to " + this.props.name)
     }
 
     getIntegrationHeader = (): JSX.Element => {
@@ -92,16 +100,13 @@ export class RouteStepProperties extends React.Component<Props, State> {
                 <FormGroup label="Title" fieldId="title">
                     <TextInput className="text-field" type="text" id="title" name="title"
                                value={
-                                   // this.state.integration.metadata.annotations["camel.apache.org/integration.title"]
-                                   // ? this.state.integration?.metadata.annotations["camel.apache.org/integration.title"]
-                                   RouteStepApi.titleFromName(this.state.integration.metadata.name)
+                                   DslMetaApi.titleFromName(this.state.integration.metadata.name)
                                }
                                onChange={e => this.onIntegrationChange('title', e)}/>
                 </FormGroup>
                 <FormGroup label="Name" fieldId="name" >
                     <TextInput className="text-field" type="text" id="name" name="name" isReadOnly
-                               value={this.state.integration.metadata.name}
-                               onChange={e => this.onIntegrationChange('name', e)}/>
+                               value={this.state.integration.metadata.name}/>
                 </FormGroup>
             </div>
         )
@@ -111,15 +116,15 @@ export class RouteStepProperties extends React.Component<Props, State> {
         return (
             <div className="headers">
                 <Title headingLevel="h1"
-                       size="md">{this.state.step ? RouteStepApi.getStepCaption(this.state.step) : ''}</Title>
+                       size="md">{this.state.element ? DslMetaApi.getTitle(this.state.element) : ''}</Title>
                 <FormGroup label="Component" fieldId="name">
                     <TextInput className="text-field" isReadOnly type="text" id="component" name="component"
-                               value={(this.state.step as ComponentStep)?.component}
+                               value={(this.state.element as ComponentStep)?.component}
                                onChange={e => this.onChange('component', e)}/>
                 </FormGroup>
                 <FormGroup label="Path" fieldId="title">
                     <TextInput className="text-field" isReadOnly type="text" id="path" name="path"
-                               value={(this.state.step as ComponentStep)?.path}
+                               value={(this.state.element as ComponentStep)?.path}
                                onChange={e => this.onChange('path', e)}/>
                 </FormGroup>
             </div>
@@ -127,17 +132,17 @@ export class RouteStepProperties extends React.Component<Props, State> {
     }
 
     getExpressionTooltip = (): string => {
-        return this.state.step?.type === 'when' ? "Check to make default" : "Uncheck to make conditional";
+        return this.state.element?.type === 'when' ? "Check to make default" : "Uncheck to make conditional";
     }
 
     getExpressionHeader = (): JSX.Element => {
         return (
             <div className="headers">
-                {this.state.step && !['when', 'otherwise'].includes(this.state.step.type) &&
+                {this.state.element && !['when', 'otherwise'].includes(this.state.element.type) &&
                 <Title headingLevel="h1"
-                       size="md">{this.state.step ? RouteStepApi.getStepCaption(this.state.step) : ''}</Title>}
+                       size="md">{this.state.element ? DslMetaApi.getTitle(this.state.element) : ''}</Title>}
 
-                {this.state.step && ['when', 'otherwise'].includes(this.state.step.type) &&
+                {this.state.element && ['when', 'otherwise'].includes(this.state.element.type) &&
                 <Tooltip position="bottom"
                          content={<div>{this.getExpressionTooltip()}</div>}>
                     <Switch
@@ -146,16 +151,16 @@ export class RouteStepProperties extends React.Component<Props, State> {
                         labelOff="When"
                         isReversed
                         className="expression-title"
-                        isChecked={this.state.step.type === 'otherwise'}
+                        isChecked={this.state.element.type === 'otherwise'}
                         onChange={checked => this.onChangeWhen(checked)}
                     />
                 </Tooltip>
                 }
 
-                {this.state.step && 'otherwise' !== this.state.step.type &&
+                {this.state.element && 'otherwise' !== this.state.element.type &&
                 <FormGroup label="Condition" fieldId="name">
                     <TextArea className="text-area" type="text" id="simple" name="simple" autoResize
-                              value={(this.state.step as ExpressionStep)?.simple}
+                              value={(this.state.element as ExpressionStep)?.simple}
                               onChange={e => this.onChange('simple', e)}/>
                 </FormGroup>
                 }
@@ -216,14 +221,14 @@ export class RouteStepProperties extends React.Component<Props, State> {
 
     render() {
         return (
-            <div key={this.state.step?.uid} className='properties'>
+            <div className='properties'>
                 <Form autoComplete="off">
-                    {this.state.step === undefined && this.getIntegrationHeader()}
-                    {this.state.step && ['from', 'to'].includes(this.state.step.type) && this.getComponentHeader()}
-                    {this.state.step && ['filter', 'when', 'otherwise'].includes(this.state.step.type) && this.getExpressionHeader()}
+                    {this.state.element === undefined && this.getIntegrationHeader()}
+                    {/*{this.state.element && ['from', 'to'].includes(this.state.element.type) && this.getComponentHeader()}*/}
+                    {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
 
                     {/* Properties configurator */}
-                    {this.state.step && (this.state.step as ComponentStep).properties?.map((property: Property) => this.getProperties(property))}
+                    {/*{this.state.element && (this.state.element as ComponentStep).properties?.map((property: Property) => this.getProperties(property))}*/}
                 </Form>
             </div>
         );

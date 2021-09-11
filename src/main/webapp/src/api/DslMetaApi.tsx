@@ -43,6 +43,20 @@ let CamelYamlDsl: any = {};
 
 export const DslMetaApi = {
 
+     nameFomTitle: (title: string): string => {
+        return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
+    },
+
+     titleFromName: (name?: string) => {
+        return name ?
+            name
+                .replace(".yaml", '')
+                .split('-')
+                .map(value => DslMetaApi.capitalizeName(value))
+                .reduce((previousValue, currentValue) => previousValue + " " + currentValue)
+            : name;
+    },
+
     capitalizeName: (name: string) => {
         try {
             return name[0].toUpperCase() + name.substring(1);
