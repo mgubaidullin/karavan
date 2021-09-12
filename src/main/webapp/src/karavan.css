@@ -627,10 +627,6 @@
   padding-bottom: 100px;
 }
 
-.selected-flow .flow-builder {
-  border-width: 2px;
-}
-
 .flow-builder {
   align-items: center;
   text-align: center;
@@ -656,9 +652,6 @@
   width: 100%;
 }
 
-.selected-element .element-builder {
-  border-width: 2px;
-}
 .element-builder {
   min-width: 160px;
   min-height: 65px;

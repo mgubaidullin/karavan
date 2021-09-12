@@ -18,6 +18,7 @@ interface Props {
 
 interface State {
     integration: Integration,
+    selectedElement?: any,
     flows: any []
     view: "design" | "code",
     showSelector: boolean
@@ -77,8 +78,7 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     selectElement = (element: any) => {
-        console.log(element)
-        this.setState({selectedUid: DslApi.getUid(element)})
+        this.setState({selectedElement:element,  selectedUid: DslApi.getUid(element)})
     }
 
     showDslSelector = () => {
@@ -159,6 +159,7 @@ export class DslPage extends React.Component<Props, State> {
                     }
                     <DslProperties
                         integration={this.state.integration}
+                        element={this.state.selectedElement}
                         onIntegrationUpdate={this.onIntegrationUpdate}
                         onStepUpdate={this.updateElement}
                         onChangeView={this.changeView}

@@ -56,6 +56,11 @@ export class DslApi {
         return result;
     }
 
+    static getUri = (element: any): string => {
+        const name = DslApi.getName(element)
+        return (element[name].uri != undefined ? element[name].uri : undefined);
+    }
+
     static processorHasSteps = (processor: ModelProcessorDefinition): boolean => {
         let result: boolean = false;
         Object.entries(processor).forEach((proc: any) => {

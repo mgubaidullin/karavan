@@ -3,12 +3,13 @@ import {
     Form,
     FormGroup,
     TextInput,
+    Text,
     Title,
     Popover,
     Switch,
     NumberInput,
     Button,
-    TextArea, Tooltip
+    TextArea, Tooltip, TextVariants
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
@@ -18,6 +19,7 @@ import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/RouteModels";
 import {Integration} from "../model/IntegrationModels";
+import {DslApi} from "../api/DslApi";
 
 interface Props {
     integration: Integration,
@@ -82,9 +84,9 @@ export class DslProperties extends React.Component<Props, State> {
     };
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
-        // if (prevProps.element?.uid !== this.props.element?.uid || prevProps.element?.type !== this.props.element?.type) {
-        //     this.setState({element: this.props.element});
-        // }
+        if (prevProps.element !== this.props.element) {
+            this.setState({element: this.props.element});
+        }
         // if (prevState.name !== this.props.name) {
         //     this.setState({name: this.props.name});
         // }
@@ -111,18 +113,22 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     getComponentHeader = (): JSX.Element => {
+        console.log(this.state.element)
+        const name = DslApi.getName(this.state.element)
+        const uri = DslApi.getUri(this.state.element)
+        const title = DslMetaApi.getTitle(name, uri)
         return (
             <div className="headers">
-                <Title headingLevel="h1"
-                       size="md">{this.state.element ? DslMetaApi.getTitle(this.state.element) : ''}</Title>
+                <Title headingLevel="h1" size="md">{title}</Title>
+                <Text component={TextVariants.p}>{DslMetaApi.findDslMetaModelByName(name).description}</Text>
                 <FormGroup label="Component" fieldId="name">
                     <TextInput className="text-field" isReadOnly type="text" id="component" name="component"
-                               value={(this.state.element as ComponentStep)?.component}
+                               // value={(this.state.element as ComponentStep)?.component}
                                onChange={e => this.onChange('component', e)}/>
                 </FormGroup>
                 <FormGroup label="Path" fieldId="title">
                     <TextInput className="text-field" isReadOnly type="text" id="path" name="path"
-                               value={(this.state.element as ComponentStep)?.path}
+                               // value={(this.state.element as ComponentStep)?.path}
                                onChange={e => this.onChange('path', e)}/>
                 </FormGroup>
             </div>
@@ -222,7 +228,7 @@ export class DslProperties extends React.Component<Props, State> {
             <div className='properties'>
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
-                    {/*{this.state.element && ['from', 'to'].includes(this.state.element.type) && this.getComponentHeader()}*/}
+                    {this.state.element !== undefined && this.getComponentHeader()}
                     {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
 
                     {/* Properties configurator */}
