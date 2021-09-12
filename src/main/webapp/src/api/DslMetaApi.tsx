@@ -71,17 +71,7 @@ export const DslMetaApi = {
     },
 
     getChildrenList: (name: string, label: string): DslMetaModel[] => {
-        if (name === 'from') {
-            const list = DslMetaApi.getProcessDefinitionElements(true);
-            return DslMetaModels.filter(value => list.includes(value.name)).filter(value => value.label.includes(label));
-        } else if (name === 'choice'){
-            return [DslMetaApi.findDslMetaModelByName('when'), DslMetaApi.findDslMetaModelByName('otherwise')]
-        } else if (DslMetaApi.isDslModelHasSteps(name)){
-            const list = DslMetaApi.getProcessDefinitionElements(true);
-            return DslMetaModels.filter(value => list.includes(value.name)).filter(value => value.label.includes(label));
-        } else {
-            return []
-        }
+        return DslMetaApi.getAllChildrenList(name).filter(value => value.label.includes(label));
     },
 
     getChildrenLabels: (name: string): string[] => {
@@ -96,6 +86,8 @@ export const DslMetaApi = {
             return DslMetaModels.filter(value => list.includes(value.name));
         } else if (name === 'choice'){
             return [DslMetaApi.findDslMetaModelByName('when'), DslMetaApi.findDslMetaModelByName('otherwise')]
+        } else if (name === 'multicast'){
+            return [DslMetaApi.findDslMetaModelByName('to'), DslMetaApi.findDslMetaModelByName('toD')]
         } else if (DslMetaApi.isDslModelHasSteps(name)){
             const list = DslMetaApi.getProcessDefinitionElements(true);
             return DslMetaModels.filter(value => list.includes(value.name));

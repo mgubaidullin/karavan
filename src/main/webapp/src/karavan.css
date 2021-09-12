@@ -726,19 +726,31 @@
   visibility: hidden;
 }
 
-.element-builder .whens .when,
-.element-builder .whens .otherwise {
+.choice .whens .when,
+.choice .whens .otherwise {
   margin-left: 6px;
 }
-.element-builder .whens .when:first-child{
+.choice .whens .when:first-child{
+  margin-left: 0px;
+}
+.choice .whens {
+  display: flex;
+  flex-direction: row;
+}
+
+.multicast .steps {
+  display: flex;
+  flex-direction: row;
+}
+
+.multicast .steps .element-builder {
+  margin-left: 6px;
+}
+
+.multicast .steps .element-builder:first-child {
   margin-left: 0px;
 }
 
-.element-builder .whens {
-  display: flex;
-  flex-direction: row;
-  padding: 0px 3px 3px 3px;
-}
 
 .element-builder:hover .add-button,
 .flow-builder:hover .add-button {

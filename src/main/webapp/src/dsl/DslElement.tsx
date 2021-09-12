@@ -41,8 +41,12 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         }
     }
 
-    showSelectorList = () => {
+    showDslSelector = () => {
         this.setState({showSelector: true})
+    }
+
+    closeDslSelector = () => {
+        this.setState({showSelector: false})
     }
 
     addStep = (newStep: any) => {
@@ -121,12 +125,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                                     key={DslApi.getUid(element)}
                                     element={element}/>
                     ))}
-                    {DslMetaApi.isDslModelHasSteps(this.state.name) &&
-                    <button type="button" aria-label="Add" onClick={this.showSelectorList}
-                            className="add-button">
-                        <AddIcon noVerticalAlign/>
-                    </button>
-                    }
                 </div>
                 }
                 {this.state.name === 'choice' &&
@@ -146,8 +144,14 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                     }
                 </div>
                 }
+                {DslMetaApi.isDslModelHasSteps(this.state.name) &&
+                <button type="button" aria-label="Add" onClick={this.showDslSelector}
+                        className="add-button">
+                    <AddIcon noVerticalAlign/>
+                </button>
+                }
                 <DslSelector elementName={this.state.name} id={DslApi.getUid(this.state.element)} show={this.state.showSelector}
-                             onDslSelect={this.onDslSelect}/>
+                             onDslSelect={this.onDslSelect}  onClose={this.closeDslSelector}/>
             </div>
         );
     }

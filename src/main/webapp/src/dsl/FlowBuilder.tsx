@@ -54,8 +54,12 @@ export class FlowBuilder extends React.Component<Props, State> {
         this.setState({showSelector: false})
     }
 
-    showSelectorList = () => {
+    showDslSelector = () => {
         this.setState({showSelector: true})
+    }
+
+    closeDslSelector = () => {
+        this.setState({showSelector: false})
     }
 
     delete = (evt: React.MouseEvent) => {
@@ -89,11 +93,11 @@ export class FlowBuilder extends React.Component<Props, State> {
                             key={DslApi.getUid(element)}
                             element={element}/>
                     ))}
-                        <button type="button" aria-label="Add" onClick={e => this.showSelectorList()}
+                        <button type="button" aria-label="Add" onClick={e => this.showDslSelector()}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>
-                    <DslSelector elementName={"from"} id={this.state.id} show={this.state.showSelector} onDslSelect={this.onDslSelect} />
+                    <DslSelector elementName={"from"} id={this.state.id} show={this.state.showSelector} onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>
                 </div>
             </div>
         );

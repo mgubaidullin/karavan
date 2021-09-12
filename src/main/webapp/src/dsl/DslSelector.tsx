@@ -11,6 +11,7 @@ import {DslMetaModel} from "../model/DslMetaModel";
 interface Props {
     show: boolean,
     onDslSelect: any
+    onClose: any
     id: string
     elementName: string
 }
@@ -54,7 +55,7 @@ export class DslSelector extends React.Component<Props, State> {
                 width={'90%'}
                 className='dsl-modal'
                 isOpen={this.state.show}
-                onClose={() => this.setState({show: false})}
+                onClose={() => this.props.onClose.call(this)}
                 actions={{}}>
                 <Tabs style={{overflow: 'hidden'}} activeKey={this.state.tabIndex} onSelect={this.selectTab}>
                     {this.props.elementName !== 'flow' &&

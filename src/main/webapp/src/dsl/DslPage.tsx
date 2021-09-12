@@ -74,8 +74,12 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({flows: flows})
     }
 
-    showSelectorList = () => {
+    showDslSelector = () => {
         this.setState({showSelector: true})
+    }
+
+    closeDslSelector = () => {
+        this.setState({showSelector: false})
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
@@ -94,7 +98,7 @@ export class DslPage extends React.Component<Props, State> {
             <ToolbarContent>
                 {view === 'design' &&
                 <ToolbarItem>
-                    <Button variant="secondary" onClick={e => this.showSelectorList()}>Add flow</Button>
+                    <Button variant="secondary" onClick={e => this.showDslSelector()}>Add flow</Button>
                 </ToolbarItem>
                 }
                 <ToolbarItem>
@@ -150,7 +154,7 @@ export class DslPage extends React.Component<Props, State> {
                     />
                 </div>
                 <DslSelector elementName={"flow"} id={""} show={this.state.showSelector}
-                             onDslSelect={this.onDslSelect}/>
+                             onDslSelect={this.onDslSelect}  onClose={this.closeDslSelector}/>
             </PageSection>
         );
     }
