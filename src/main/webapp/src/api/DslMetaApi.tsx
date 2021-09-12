@@ -1,6 +1,6 @@
 import {EventBus, KaravanEvent} from "./EventBus";
 import axios from "axios";
-import { DslMetaModel} from "../model/DslMetaModel";
+import {DslMetaModel, DslProperty} from "../model/DslMetaModel";
 import {DslApi} from "./DslApi";
 import {KameletApi} from "./KameletApi";
 
@@ -124,9 +124,32 @@ export const DslMetaApi = {
         return constraints ? list.filter(value => StepElements.includes(value)) : list
     },
 
+    getDslModelProperties: (className: string): DslProperty [] => {
+         const result:DslProperty [] = [];
+
+         return result;
+    },
+
+    getClassProperties: (className: string): any [] => {
+        try {
+            if (className !== undefined && CamelYamlDsl.items.definitions[className].properties !== undefined) {
+                return CamelYamlDsl.items.definitions[className].properties;
+            } else if (className !== undefined && CamelYamlDsl.items.definitions[className].oneOf !== undefined) {
+                const list:[] =  CamelYamlDsl.items.definitions[className].oneOf;
+                const res: any = list.find((e: any) => e.type === 'object' && e.properties != undefined)
+                return res.properties !== undefined ? res.properties : []
+            } else {
+                return []
+            }
+        } catch (e){
+            console.log(e)
+            return [];
+        }
+    },
+
     jsonToDslMetaModel: (json: string): DslMetaModel => {
         const fromJson: any = JSON.parse(json);
-        return new DslMetaModel({...fromJson?.model});
+        return new DslMetaModel({...fromJson?.model, properties:fromJson?.properties});
     },
 
     isDslModelHasSteps: (name: string): boolean => {

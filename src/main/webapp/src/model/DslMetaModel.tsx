@@ -1,18 +1,32 @@
 export class DslMetaModel {
-    name:string = ''
-    uri?:string
-    title:string = ''
-    description:string = ''
-    label:string = ''
-    javaType:string = ''
+    name: string = ''
+    uri?: string
+    title: string = ''
+    description: string = ''
+    label: string = ''
+    javaType: string = ''
+    properties: any;
 
     public constructor(init?: Partial<DslMetaModel>) {
         Object.assign(this, init);
     }
 }
 
+export class DslProperty {
+    name: string = ''
+    type: string = ''
+    title: string = ''
+    description: string = ''
+    required: boolean = false;
+    secret: boolean = false
+
+    public constructor(init?: Partial<DslProperty>) {
+        Object.assign(this, init);
+    }
+}
+
 export class DslConstraints {
-    constraints:DslConstraint[] = []
+    constraints: DslConstraint[] = []
 
     public constructor(init?: Partial<DslConstraints>) {
         Object.assign(this, init);
@@ -20,7 +34,7 @@ export class DslConstraints {
 }
 
 export class DslConstraint {
-    name:string = ''
+    name: string = ''
     steps: string[] = []
 
     public constructor(init?: Partial<DslConstraint>) {

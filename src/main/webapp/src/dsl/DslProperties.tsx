@@ -17,9 +17,7 @@ import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/RouteModels";
-import {DslApi} from "../api/DslApi";
 import {Integration} from "../model/IntegrationModels";
-import {RouteStepApi} from "../api/RouteStepApi";
 
 interface Props {
     integration: Integration,
