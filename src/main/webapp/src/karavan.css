@@ -741,14 +741,15 @@
   line-height: 1;
   border: 0;
   padding: 0;
-  margin: 3px 0 0 0;
+  margin: 3px auto 0 auto;
   background: transparent;
   color: #e97826;
-  /*visibility: hidden;*/
+  visibility: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: end;
+  width: 16px;
 }
 
 .element-builder .add-button svg {

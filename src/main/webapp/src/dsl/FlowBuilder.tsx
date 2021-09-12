@@ -72,9 +72,14 @@ export class FlowBuilder extends React.Component<Props, State> {
         this.addStep(DslApi.createChildElement(dsl))
     }
 
+    selectElement = (evt: React.MouseEvent) => {
+        evt.stopPropagation();
+        console.log(this.state.flow)
+    }
+
     render() {
             return (
-            <div className="flow-builder">
+            <div className="flow-builder" onClick={event => this.selectElement(event)}>
                 <div className="header">
                     <img draggable="false"
                          src={DslMetaApi.getIcon("from", this.state.flow.from?.uri)}

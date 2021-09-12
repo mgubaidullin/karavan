@@ -104,9 +104,14 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         }
     }
 
+    selectElement = (evt: React.MouseEvent) => {
+        evt.stopPropagation();
+        console.log(this.state.element)
+    }
+
     render() {
         return (
-            <div className={this.state.name + " element-builder"}>
+            <div className={this.state.name + " element-builder"} onClick={event => this.selectElement(event)}>
                 <div className="header">
                     <img draggable="false"
                          src={DslMetaApi.getIcon(this.state.name, this.state.element?.to?.uri)}
