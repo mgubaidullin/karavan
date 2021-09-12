@@ -167,6 +167,13 @@ export const DslMetaApi = {
         }
     },
 
+    showArrowForElement: (parentName: string, index: number, length: number): boolean => {
+         if (parentName === 'multicast'){
+             return false;
+         }
+         return index < length - 1;
+    },
+
     findDslMetaModelByName: (name: string): DslMetaModel => {
         return DslMetaModels.find((k: DslMetaModel) => k.name === name) || new DslMetaModel()
     },

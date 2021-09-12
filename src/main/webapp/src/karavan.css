@@ -659,7 +659,7 @@
   border-radius: 3px;
   border-width: 1px;
   padding: 4px 6px 0px 6px;
-  margin: 10px auto 5px auto;
+  margin: 0px auto 0px auto;
   display: flex;
   flex-direction: column;
   /*justify-content: space-between;*/
@@ -670,6 +670,7 @@
   display: block;
   justify-content:center;
   position: relative;
+  margin-bottom: 6px;
 }
 .flow-builder .header .delete-button,
 .element-builder .header .delete-button {
@@ -712,7 +713,14 @@
   color: #e97826;
 }
 
-.element-builder .add-button,
+.flow-builder .arrow-down {
+  font-size: 13px;
+  /*margin-top: -10px;*/
+  /*margin-bottom: -15px;*/
+  height: 16px;
+  color: #e97826;
+}
+
 .flow-builder .add-button {
   top: 0;
   right: 5px;
@@ -720,10 +728,31 @@
   line-height: 1;
   border: 0;
   padding: 0;
-  margin: 0;
+  margin: 3px 0 0 0;
   background: transparent;
   color: #e97826;
   visibility: hidden;
+}
+
+.element-builder .add-button {
+  top: 0;
+  right: 5px;
+  font-size: 15px;
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  margin: 3px 0 0 0;
+  background: transparent;
+  color: #e97826;
+  /*visibility: hidden;*/
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.element-builder .add-button svg {
+  margin: 0 auto 3px auto;
 }
 
 .choice .whens .when,
@@ -743,13 +772,15 @@
   flex-direction: row;
 }
 
-.multicast .steps .element-builder {
+.multicast .steps .step:first-child {
+  margin-left: 0px;
+}
+
+.multicast .steps .step {
   margin-left: 6px;
 }
 
-.multicast .steps .element-builder:first-child {
-  margin-left: 0px;
-}
+
 
 
 .element-builder:hover .add-button,
