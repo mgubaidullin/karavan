@@ -198,10 +198,20 @@ export const DslMetaApi = {
         }
     },
 
+    requestDslMetaModels: async (): Promise<string[]> => {
+        try {
+            const res = await axios("/dsl/model/");
+            return await res.data as [];
+        } catch (e) {
+            return Promise.any([]);
+        }
+    },
+
     prepareDslMetaModels: () => {
         DslMetaModels.splice(0, DslMetaModels.length);
-        const names = DslApi.getAvailableSteps();
-        DslMetaApi.loadDslMetaModels(names)
+        DslMetaApi.requestDslMetaModels().then((names: string[]) => {
+            DslMetaApi.loadDslMetaModels(names)
+        })
         DslMetaApi.loadCamelYamlDsl()
     },
 

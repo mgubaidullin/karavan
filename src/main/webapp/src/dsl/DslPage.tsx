@@ -139,7 +139,7 @@ export class DslPage extends React.Component<Props, State> {
             <PageSection className="dsl-page" isFilled padding={{default: 'noPadding'}}>
                 <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
-                <div className="dsl-page-columns" onClick={event => this.unselectElement(event)}>
+                <div className="dsl-page-columns">
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.flows.map((flow, index) => (

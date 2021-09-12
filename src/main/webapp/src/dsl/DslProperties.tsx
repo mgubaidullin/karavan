@@ -20,6 +20,7 @@ import {DslMetaApi} from "../api/DslMetaApi";
 import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/RouteModels";
 import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "../api/DslApi";
+import {DslProperty} from "../model/DslMetaModel";
 
 interface Props {
     integration: Integration,
@@ -69,7 +70,26 @@ export class DslProperties extends React.Component<Props, State> {
             clone.uid = this.state.element?.uid || '';
             this.props.onStepUpdate?.call(this, clone);
         }
-    };
+    }
+
+    getDslModelProperties = (): DslProperty[] => {
+        const name = DslApi.getName(this.state.element);
+        console.log(name)
+        const model = DslMetaApi.findDslMetaModelByName(name)
+        const properties: DslProperty[] = Object.entries(model.properties)
+            .map((p: [string, any]) => {
+                const props = p[1];
+                return new DslProperty({
+                    name: p[0],
+                    type: props.type,
+                    title: props.displayName,
+                    description: props.description,
+                    secret: props.secret
+                });
+            }).filter(p => !['object', 'array', "enum"].includes(p.type) && p.name !== 'id');
+        console.log(properties)
+        return properties
+    }
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
         if (this.state.element && ['from', 'to'].includes(this.state.element.type)) {
@@ -104,7 +124,7 @@ export class DslProperties extends React.Component<Props, State> {
                                }
                                onChange={e => this.onIntegrationChange('title', e)}/>
                 </FormGroup>
-                <FormGroup label="Name" fieldId="name" >
+                <FormGroup label="Name" fieldId="name">
                     <TextInput className="text-field" type="text" id="name" name="name" isReadOnly
                                value={this.state.integration.metadata.name}/>
                 </FormGroup>
@@ -121,16 +141,6 @@ export class DslProperties extends React.Component<Props, State> {
             <div className="headers">
                 <Title headingLevel="h1" size="md">{title}</Title>
                 <Text component={TextVariants.p}>{DslMetaApi.findDslMetaModelByName(name).description}</Text>
-                <FormGroup label="Component" fieldId="name">
-                    <TextInput className="text-field" isReadOnly type="text" id="component" name="component"
-                               // value={(this.state.element as ComponentStep)?.component}
-                               onChange={e => this.onChange('component', e)}/>
-                </FormGroup>
-                <FormGroup label="Path" fieldId="title">
-                    <TextInput className="text-field" isReadOnly type="text" id="path" name="path"
-                               // value={(this.state.element as ComponentStep)?.path}
-                               onChange={e => this.onChange('path', e)}/>
-                </FormGroup>
             </div>
         )
     }
@@ -172,7 +182,7 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
-    getProperties = (property: Property): JSX.Element => {
+    createKameletProperty = (property: Property): JSX.Element => {
         return (
             <FormGroup
                 key={property.id}
@@ -223,16 +233,67 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
+    createDslProperty = (property: DslProperty): JSX.Element => {
+        const value = DslApi.getPropertyValue(this.state.element, property.name);
+        return (
+            <FormGroup
+                key={property.name}
+                label={property.title}
+                fieldId={property.name}
+                labelIcon={
+                    <Popover
+                        headerContent={property.title}
+                        bodyContent={property.description}>
+                        <button type="button" aria-label="More info" onClick={e => {e.preventDefault(); e.stopPropagation();}}
+                                className="pf-c-form__group-label-help">
+                            <HelpIcon noVerticalAlign/>
+                        </button>
+                    </Popover>
+                }>
+                {property.type === 'string' && <TextInput
+                    className="text-field" isRequired
+                    type={property.secret ? "password" : "text"}
+                    id={property.name} name={property.name}
+                    value={value?.toString()}
+                    onChange={e => this.propertyChanged(property.name, e)}/>
+                }
+                {property.type === 'boolean' && <Switch
+                    id={property.name} name={property.name}
+                    value={this.state.element?.toString()}
+                    aria-label={property.name}
+                    isChecked={Boolean(value) === true}
+                    onChange={e => this.propertyChanged(property.name, !Boolean(value))}/>
+                }
+                {property.type === 'integer' && <div className="number">
+                    <NumberInput
+                        className="number-property"
+                        id={property.name} name={property.name}
+                        value={typeof value === 'number' ? value : undefined}
+                        inputName={property.name}
+                        onMinus={() => this.propertyChanged(property.name, typeof value === 'number' ? value - 1 : -1)}
+                        onPlus={() => this.propertyChanged(property.name, typeof value === 'number' ? value + 1 : 1)}
+                        onChange={(e: any) => this.propertyChanged(property.name, Number(e.target.value))}/>
+                    <Button
+                        className="clear-button"
+                        variant="tertiary"
+                        isSmall icon={<UndoIcon/>}
+                        onClick={e => this.propertyChanged(property.name, undefined)}/>
+                </div>
+                }
+            </FormGroup>
+        )
+    }
+
     render() {
         return (
-            <div className='properties'>
+            <div key={DslApi.getUid(this.state.element)} className='properties'>
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element !== undefined && this.getComponentHeader()}
                     {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
 
-                    {/* Properties configurator */}
-                    {/*{this.state.element && (this.state.element as ComponentStep).properties?.map((property: Property) => this.getProperties(property))}*/}
+                    {/*Properties configurator */}
+                    {this.state.element && this.getDslModelProperties().map((property: DslProperty) => this.createDslProperty(property))}
                 </Form>
             </div>
         );

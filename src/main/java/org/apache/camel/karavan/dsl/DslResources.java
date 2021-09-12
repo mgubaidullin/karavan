@@ -45,6 +45,9 @@ public class DslResources {
 //        return new JsonObject().toString();
 //    }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/model")
     public List<String> getModels() {
         InputStream inputStream = DefaultCamelCatalog.class.getResourceAsStream("/org/apache/camel/catalog/models.properties");
         return new BufferedReader(new InputStreamReader(inputStream))
