@@ -21,15 +21,17 @@ interface State {
     flows: any []
     view: "design" | "code",
     showSelector: boolean
+    selectedUid: string
 }
 
 export class DslPage extends React.Component<Props, State> {
 
     public state: State = {
         integration: new Integration(),
-        flows: [],//DslApi.create(),
+        flows: [],
         view: "design",
-        showSelector: false
+        showSelector: false,
+        selectedUid: ''
     };
 
     componentDidMount() {
@@ -62,16 +64,21 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({view: view});
     }
 
-    updateStep = (p: any, uid: string) => {
+    updateElement = (p: any, uid: string) => {
         this.setState({flows: []})
         const flows = DslApi.updateFlows(this.state.flows, uid, p);
         this.setState({flows: flows})
     }
 
-    deleteStep = (id: string) => {
+    deleteElement = (id: string) => {
         this.setState({flows: []})
         const flows = DslApi.deleteElement(this.state.flows, id);
         this.setState({flows: flows})
+    }
+
+    selectElement = (element: any) => {
+        console.log(element)
+        this.setState({selectedUid: DslApi.getUid(element)})
     }
 
     showDslSelector = () => {
@@ -134,7 +141,11 @@ export class DslPage extends React.Component<Props, State> {
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectSteps()}>
                         {this.state.flows.map((flow, index) => (
-                            <FlowBuilder key={DslApi.getUid(flow)} deleteStep={this.deleteStep} updateStep={this.updateStep}
+                            <FlowBuilder key={DslApi.getUid(flow)}
+                                         deleteElement={this.deleteElement}
+                                         updateElement={this.updateElement}
+                                         selectElement={this.selectElement}
+                                         selectedUid={this.state.selectedUid}
                                          index={index} flow={flow}/>
                         ))}
                     </div>
@@ -149,7 +160,7 @@ export class DslPage extends React.Component<Props, State> {
                     <DslProperties
                         integration={this.state.integration}
                         onIntegrationUpdate={this.onIntegrationUpdate}
-                        onStepUpdate={this.updateStep}
+                        onStepUpdate={this.updateElement}
                         onChangeView={this.changeView}
                     />
                 </div>
