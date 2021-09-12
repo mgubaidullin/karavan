@@ -47,6 +47,7 @@ export class FlowBuilder extends React.Component<Props, State> {
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
         if (prevState.selectedUid !== this.props.selectedUid) {
+            console.log(this.props.selectedUid)
             this.setState({selectedUid: this.props.selectedUid});
         }
     }
@@ -60,7 +61,7 @@ export class FlowBuilder extends React.Component<Props, State> {
 
         const clone: DslModelObject = {...this.state.flow} as DslModelObject;
         clone.from = {...step} as DslYamlDeserializersRouteFromDefinitionDeserializer;
-        this.props.updateElement.call(this, clone, this.state.id)
+        this.props.updateElement.call(this, clone, newStep)
         this.setState({showSelector: false})
     }
 
@@ -107,13 +108,12 @@ export class FlowBuilder extends React.Component<Props, State> {
                 </div>
                 <div className="steps">
                     {DslApi.getFromElements(this.state.flow.from).map((element, index) => (
-                        <div>
+                        <div key={DslApi.getUid(element)}>
                             <DslElement
                                 deleteElement={this.props.deleteElement}
                                 updateElement={this.props.updateElement}
                                 selectElement={this.props.selectElement}
                                 selectedUid={this.state.selectedUid}
-                                key={DslApi.getUid(element)}
                                 element={element}/>
                             {index < DslApi.getFromElements(this.state.flow.from).length - 1 &&
                             <img className={"arrow-down"} alt="arrow"

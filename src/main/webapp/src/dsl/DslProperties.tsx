@@ -113,7 +113,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     getComponentHeader = (): JSX.Element => {
-        console.log(this.state.element)
+        // console.log(this.state.element)
         const name = DslApi.getName(this.state.element)
         const uri = DslApi.getUri(this.state.element)
         const title = DslMetaApi.getTitle(name, uri)

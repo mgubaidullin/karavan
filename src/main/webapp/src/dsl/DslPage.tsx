@@ -48,9 +48,9 @@ export class DslPage extends React.Component<Props, State> {
         // })
     }
 
-    unselectSteps = () => {
-        // const r = RouteStepApi.selectStep(this.state.integration.spec.flows, new EmptyStep());
-        // this.updateState(r, undefined);
+    unselectElement = (evt: React.MouseEvent) => {
+        evt.stopPropagation();
+        this.setState({selectedElement:undefined,  selectedUid: ''})
     };
 
     changeView = (view: "design" | "code") => {
@@ -65,10 +65,12 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({view: view});
     }
 
-    updateElement = (p: any, uid: string) => {
+    updateElement = (updatedElement: any, newElement: any) => {
+        console.log(newElement)
         this.setState({flows: []})
-        const flows = DslApi.updateFlows(this.state.flows, uid, p);
-        this.setState({flows: flows})
+        const updatedUid = DslApi.getUid(updatedElement);
+        const flows = DslApi.updateFlows(this.state.flows, updatedUid, updatedElement);
+        this.setState({flows: flows, selectedElement:newElement,  selectedUid: DslApi.getUid(newElement)})
     }
 
     deleteElement = (id: string) => {
@@ -137,9 +139,9 @@ export class DslPage extends React.Component<Props, State> {
             <PageSection className="dsl-page" isFilled padding={{default: 'noPadding'}}>
                 <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
-                <div className="dsl-page-columns">
+                <div className="dsl-page-columns" onClick={event => this.unselectElement(event)}>
                     {this.state.view === 'design' &&
-                    <div className="flows" onClick={event => this.unselectSteps()}>
+                    <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.flows.map((flow, index) => (
                             <FlowBuilder key={DslApi.getUid(flow)}
                                          deleteElement={this.deleteElement}

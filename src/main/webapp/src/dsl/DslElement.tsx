@@ -42,6 +42,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     componentDidUpdate = (prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) => {
         if (prevState.selectedUid !== this.props.selectedUid) {
+            console.log(this.props.selectedUid)
             this.setState({selectedUid: this.props.selectedUid});
         }
     }
@@ -67,7 +68,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         const clone: any = Object.assign(this.state.element);
 
         clone[this.state.name] = step;
-        this.props.updateElement.call(this, clone, DslApi.getUid(this.state.element))
+        this.props.updateElement.call(this, clone, newStep)
         this.setState({showSelector: false})
     }
 
@@ -77,7 +78,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
         const clone: any = Object.assign(this.state.element);
         clone.choice = choice;
-        this.props.updateElement.call(this, clone, DslApi.getUid(this.state.element))
+        this.props.updateElement.call(this, clone, newWhen)
         this.setState({showSelector: false})
     }
 
@@ -87,7 +88,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
             choice.otherwise = newOtherwise;
             const clone: any = Object.assign(this.state.element);
             clone.choice = choice;
-            this.props.updateElement.call(this, clone, DslApi.getUid(this.state.element))
+            this.props.updateElement.call(this, clone, newOtherwise)
         }
         this.setState({showSelector: false})
     }
@@ -96,7 +97,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
         const step: any = Object.assign(this.state.element);
         step.otherwise.steps = [...step.otherwise.steps]
         step.otherwise.steps.push(newStep);
-        this.props.updateElement.call(this, step, DslApi.getUid(this.state.element))
+        this.props.updateElement.call(this, step, newStep)
         this.setState({showSelector: false})
     }
 
@@ -142,12 +143,11 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                 {DslMetaApi.isDslModelHasSteps(this.state.name) &&
                 <div className="steps">
                     {DslApi.getElements(this.state.element).map((element, index) => (
-                        <div className="step">
+                        <div className="step" key={DslApi.getUid(element)}>
                             <DslElement updateElement={this.props.updateElement}
                                         deleteElement={this.props.deleteElement}
                                         selectElement={this.props.selectElement}
                                         selectedUid={this.state.selectedUid}
-                                        key={DslApi.getUid(element)}
                                         element={element}/>
                             {DslMetaApi.showArrowForElement(this.state.name, index, DslApi.getElements(this.state.element).length) &&
                             <img className={"arrow-down"} alt="arrow"
