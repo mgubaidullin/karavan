@@ -9,7 +9,7 @@ const DslMetaModels: DslMetaModel[] = [];
 const StepElements: string[] = [
     "aggregate",
     "choice",
-    "circuitBreaker",
+    // "circuitBreaker",
     "convertBodyTo",
     "doTry",
     "dynamicRouter",
@@ -125,20 +125,15 @@ export const DslMetaApi = {
         return constraints ? list.filter(value => StepElements.includes(value)) : list
     },
 
-    getDslModelProperties: (className: string): DslProperty [] => {
-         const result:DslProperty [] = [];
-
-         return result;
-    },
-
     getClassProperties: (className: string): any [] => {
+         const result:[string, any][] = []
         try {
             if (className !== undefined && CamelYamlDsl.items.definitions[className].properties !== undefined) {
-                return Object.entries(CamelYamlDsl.items.definitions[className].properties);
+                result.push(...Object.entries(CamelYamlDsl.items.definitions[className].properties));
             } else if (className !== undefined && CamelYamlDsl.items.definitions[className].oneOf !== undefined) {
                 const list:[] =  CamelYamlDsl.items.definitions[className].oneOf;
                 const res: any = list.find((e: any) => e.type === 'object' && e.properties != undefined)
-                return res.properties !== undefined ?  Object.entries(res.properties) : []
+                result.push(... (res.properties !== undefined ?  Object.entries(res.properties) : []));
             } else {
                 return []
             }
@@ -146,6 +141,7 @@ export const DslMetaApi = {
             console.log(e)
             return [];
         }
+        return result.map(value => [DslMetaApi.camelizeName(value[0], '-', true), value[1]])
     },
 
     jsonToDslMetaModel: (json: string): DslMetaModel => {

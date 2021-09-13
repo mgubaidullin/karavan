@@ -51,7 +51,7 @@ export class DslSelector extends React.Component<Props, State> {
     render() {
         return (
             <Modal
-                title={this.props.elementName === 'flow' ? "Select source" : "Select step"}
+                title={this.props.elementName === 'flow' ? "Select source/from" : "Select step"}
                 width={'90%'}
                 className='dsl-modal'
                 isOpen={this.state.show}
