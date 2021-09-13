@@ -111,11 +111,13 @@ export class DslProperties extends React.Component<Props, State> {
         const classname = DslMetaApi.getDslClassByName(name);
         if (classname) {
             const params: any[] = DslMetaApi.getClassProperties(classname);
+            console.log(params)
             params.forEach((param: [string, any]) => {
                 const name: string = param[0];
                 const type: string = param[1].type;
                 const modelProperty = modelProperties.find(mp => mp.name === name);
-                if (modelProperty && type) {
+                console.log(modelProperty)
+                if (modelProperty && type && type !== 'array') {
                     properties.push(modelProperty);
                 } else if (name === 'parameters' && type === 'object') {
                     const dslProperty = new DslProperty({
@@ -124,7 +126,6 @@ export class DslProperties extends React.Component<Props, State> {
                         title: "Parameters",
                     });
                     properties.push(dslProperty);
-
                 } else if (modelProperty && name === 'expression') {
                     properties.push(modelProperty);
                 }
@@ -210,9 +211,6 @@ export class DslProperties extends React.Component<Props, State> {
     createKameletProperty = (property: Property): JSX.Element => {
         const propertyName = "parameters." + property.id;
         const value = DslApi.getParameterValue(this.state.element, propertyName);
-        console.log(property)
-        console.log(this.state.element)
-        console.log(value)
         return (
             <FormGroup
                 key={propertyName}
@@ -288,7 +286,7 @@ export class DslProperties extends React.Component<Props, State> {
                         </button>
                     </Popover> : <div></div>
                 }>
-                {property.type === 'string' && <TextInput
+                {['string', 'duration'].includes(property.type) && <TextInput
                     className="text-field" isRequired
                     type={property.secret ? "password" : "text"}
                     id={property.name} name={property.name}
