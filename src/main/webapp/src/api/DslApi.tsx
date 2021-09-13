@@ -63,7 +63,11 @@ export class DslApi {
 
     static getParameterValue = (element: any, propertyName: string): any => {
         const name = DslApi.getName(element)
-        return element[name][propertyName];
+        if (propertyName.startsWith("properties.")){
+            return element[name].properties? element[name].properties[propertyName] : undefined;
+        } else {
+            return element[name][propertyName];
+        }
     }
 
     static processorHasSteps = (processor: ModelProcessorDefinition): boolean => {
@@ -109,6 +113,11 @@ export class DslApi {
             result.push(p.js.toString())
         })
         return result;
+    }
+
+    static hasParametersField = (interfaceName: string): boolean => {
+        const props: [] = typeMap[interfaceName];
+        return props.findIndex((p: any) => p.json === 'parameters') !== -1;
     }
 
     static updateFlows = (flows: DslModelObject[], uid: string, element: any): DslModelObject[] => {
