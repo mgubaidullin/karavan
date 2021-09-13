@@ -107,13 +107,9 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
-        // console.log(fieldId)
-        // console.log(value)
         const name = DslApi.getName(this.state.element)
         const clone = Object.assign({}, this.state.element)
-        // console.log(this.state.element)
-        // console.log(clone)
-        clone[name].parameters[fieldId] = value
+        clone[name][fieldId] = value
         this.setState({element: clone})
         this.props.onPropertyUpdate?.call(this, clone);
     };

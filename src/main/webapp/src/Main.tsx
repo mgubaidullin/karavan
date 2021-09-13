@@ -84,7 +84,7 @@ export class Main extends React.Component<Props, State> {
             this.onGetIntegrations();
         }
         this.setState({
-            isNavOpen: result.itemId !== 'designer',
+            isNavOpen: result.itemId !== 'dsl',
             pageId: result.itemId,
         });
     };
@@ -117,10 +117,6 @@ export class Main extends React.Component<Props, State> {
             <NavItem id="configuration" to="#" itemId={"configuration"}
                      isActive={this.state.pageId === 'configuration'}>
                 Configuration
-            </NavItem>
-            <NavItem id="dsl" to="#" itemId={"dsl"}
-                     isActive={this.state.pageId === 'dsl'}>
-                DSL
             </NavItem>
         </NavList>
     </Nav>);
@@ -157,7 +153,7 @@ export class Main extends React.Component<Props, State> {
             if (res.status === 200) {
                 const code: string = res.data;
                 const i = IntegrationGenerator.yamlToIntegration(code);
-                this.setState({isNavOpen: true, pageId: 'designer', integration: i});
+                this.setState({isNavOpen: true, pageId: 'dsl', integration: i});
             } else {
                 this.toast("Error", res.statusText, "danger");
             }
@@ -165,9 +161,9 @@ export class Main extends React.Component<Props, State> {
     };
 
     onIntegrationCreate = () => {
-        this.setState({isNavOpen: false, pageId: 'designer'});
+        this.setState({isNavOpen: false, pageId: 'dsl'});
         const i = Integration.createNew();
-        this.setState({isNavOpen: true, pageId: 'designer', integration: i});
+        this.setState({isNavOpen: true, pageId: 'dsl', integration: i});
     };
 
     onGetIntegrations() {

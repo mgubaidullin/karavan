@@ -63,7 +63,7 @@ export class DslApi {
 
     static getParameterValue = (element: any, propertyName: string): any => {
         const name = DslApi.getName(element)
-        return element[name].parameters[propertyName];
+        return element[name][propertyName];
     }
 
     static processorHasSteps = (processor: ModelProcessorDefinition): boolean => {
