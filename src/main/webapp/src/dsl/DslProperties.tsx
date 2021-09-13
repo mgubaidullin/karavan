@@ -22,6 +22,7 @@ import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "../api/DslApi";
 import {DslProperty} from "../model/DslMetaModel";
 import {KameletApi} from "../api/KameletApi";
+import {typeMap} from "../model/DslModel";
 
 interface Props {
     integration: Integration,
@@ -75,10 +76,8 @@ export class DslProperties extends React.Component<Props, State> {
 
     getDslModelProperties = (): DslProperty[] => {
         const name = DslApi.getName(this.state.element);
-        const model = DslMetaApi.findDslMetaModelByName(name)
-        const inf = DslMetaApi.getDslModelInterfaceByName(name);
-        console.log(inf)
-        const properties: DslProperty[] = Object.entries(model.properties)
+        const model = DslMetaApi.findDslMetaModelByName(name);
+        return Object.entries(model.properties)
             .map((p: [string, any]) => {
                 const props = p[1];
                 return new DslProperty({
@@ -88,8 +87,47 @@ export class DslProperties extends React.Component<Props, State> {
                     description: props.description,
                     secret: props.secret
                 });
-            }).filter(p => !['object', 'array', "enum"].includes(p.type) && p.name !== 'id');
-        return properties
+            });
+    }
+
+    sortElementProperties = (properties: DslProperty[]): DslProperty[] => {
+        const result = properties.filter(p => !['uri', 'parameters', 'expression'].includes(p.name))
+        const uri = properties.find(p => p.name === 'uri');
+        const expression = properties.find(p => p.name === 'expression');
+        const parameters = properties.find(p => p.name === 'parameters');
+        if (parameters) result.push(parameters)
+        if (expression) result.unshift(expression)
+        if (uri) result.unshift(uri)
+        return result
+    }
+
+    getElementProperties = (): DslProperty[] => {
+        const properties: DslProperty[] = []
+        const modelProperties: DslProperty[] = this.getDslModelProperties();
+        const name = DslApi.getName(this.state.element);
+        const classname = DslMetaApi.getDslClassByName(name);
+        if (classname) {
+            const params: any[] = DslMetaApi.getClassProperties(classname);
+            params.forEach((param: [string, any]) => {
+                const name: string = param[0];
+                const type: string = param[1].type;
+                const modelProperty = modelProperties.find(mp => mp.name === name);
+                if (modelProperty && type) {
+                    properties.push(modelProperty);
+                } else if (name === 'parameters' && type === 'object') {
+                    const dslProperty = new DslProperty({
+                        name: name,
+                        type: type,
+                        title: "Parameters",
+                    });
+                    properties.push(dslProperty);
+
+                } else if (modelProperty && name === 'expression') {
+                    properties.push(modelProperty);
+                }
+            });
+        }
+        return this.sortElementProperties(properties);
     }
 
     getKameletProperties = (): Property[] => {
@@ -111,7 +149,7 @@ export class DslProperties extends React.Component<Props, State> {
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
         const name = DslApi.getName(this.state.element)
         const clone = Object.assign({}, this.state.element)
-        if (fieldId.startsWith("properties.")){
+        if (fieldId.startsWith("properties.")) {
             if (!clone[name].properties) clone[name].properties = {}
             const field = fieldId.replace("properties.", "")
             clone[name].properties[field] = value
@@ -201,6 +239,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
+        console.log(property)
         const propertyName = "properties." + property.id;
         const value = DslApi.getParameterValue(this.state.element, propertyName);
         return (
@@ -233,7 +272,7 @@ export class DslProperties extends React.Component<Props, State> {
                     isChecked={Boolean(value) === true}
                     onChange={e => this.propertyChanged(propertyName, !Boolean(value))}/>
                 }
-                {property.type === 'integer' && <div className="number">
+                {['integer', 'int', 'number'].includes(property.type) && <div className="number">
                     <NumberInput
                         className="number-property"
                         id={propertyName} name={propertyName}
@@ -253,22 +292,25 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
-    createDslProperty = (property: DslProperty): JSX.Element => {
+    createElementProperty = (property: DslProperty): JSX.Element => {
         const value = DslApi.getParameterValue(this.state.element, property.name);
         return (
             <FormGroup
                 key={property.name}
                 label={property.title}
                 fieldId={property.name}
-                labelIcon={
+                labelIcon={ property.description ?
                     <Popover
                         headerContent={property.title}
                         bodyContent={property.description}>
-                        <button type="button" aria-label="More info" onClick={e => {e.preventDefault(); e.stopPropagation();}}
+                        <button type="button" aria-label="More info" onClick={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }}
                                 className="pf-c-form__group-label-help">
                             <HelpIcon noVerticalAlign/>
                         </button>
-                    </Popover>
+                    </Popover> : <div></div>
                 }>
                 {property.type === 'string' && <TextInput
                     className="text-field" isRequired
@@ -300,21 +342,23 @@ export class DslProperties extends React.Component<Props, State> {
                         onClick={e => this.propertyChanged(property.name, undefined)}/>
                 </div>
                 }
+                <div className="parameters">
+                    {property.name === 'parameters' && this.isKameletComponent() && this.getKameletProperties().map(kp => this.createKameletProperty(kp))}
+                </div>
             </FormGroup>
         )
     }
 
     render() {
         return (
-            <div key={this.state.element ? DslApi.getUid(this.state.element): 'integration'} className='properties'>
+            <div key={this.state.element ? DslApi.getUid(this.state.element) : 'integration'} className='properties'>
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}
                     {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
 
                     {/*Properties configurator */}
-                    {this.state.element && this.isDslComponent() && this.getDslModelProperties().map((property: DslProperty) => this.createDslProperty(property))}
-                    {this.state.element && this.isKameletComponent() && this.getKameletProperties().map((property: Property) => this.createKameletProperty(property))}
+                    {this.state.element && this.getElementProperties().map((property: DslProperty) => this.createElementProperty(property))}
                 </Form>
             </div>
         );

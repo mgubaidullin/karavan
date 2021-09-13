@@ -134,11 +134,11 @@ export const DslMetaApi = {
     getClassProperties: (className: string): any [] => {
         try {
             if (className !== undefined && CamelYamlDsl.items.definitions[className].properties !== undefined) {
-                return CamelYamlDsl.items.definitions[className].properties;
+                return Object.entries(CamelYamlDsl.items.definitions[className].properties);
             } else if (className !== undefined && CamelYamlDsl.items.definitions[className].oneOf !== undefined) {
                 const list:[] =  CamelYamlDsl.items.definitions[className].oneOf;
                 const res: any = list.find((e: any) => e.type === 'object' && e.properties != undefined)
-                return res.properties !== undefined ? res.properties : []
+                return res.properties !== undefined ?  Object.entries(res.properties) : []
             } else {
                 return []
             }

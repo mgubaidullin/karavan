@@ -617,6 +617,18 @@
   border-style: solid;
 }
 
+.karavan .dsl-page .properties .parameters {
+  padding-top: 6px;
+  padding-left: 16px;
+  grid-row-gap: 10px;
+  row-gap: 10px;
+  display: grid;
+}
+
+.karavan .dsl-page .properties .parameters .pf-c-form__group-label {
+  font-weight: 100;
+}
+
 .flows {
   display: flex;
   flex-direction: column;

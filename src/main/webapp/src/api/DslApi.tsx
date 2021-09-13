@@ -63,8 +63,8 @@ export class DslApi {
 
     static getParameterValue = (element: any, propertyName: string): any => {
         const name = DslApi.getName(element)
-        if (propertyName.startsWith("properties.")){
-            return element[name].properties? element[name].properties[propertyName] : undefined;
+        if (propertyName.startsWith("properties.")) {
+            return element[name].properties ? element[name].properties[propertyName] : undefined;
         } else {
             return element[name][propertyName];
         }
@@ -107,11 +107,38 @@ export class DslApi {
         return result;
     }
 
-    static getAvailableSteps = (): string[] => {
+    static hasExpressionParameters = (interfaceName: string): boolean => {
+        return typeMap[interfaceName].props.findIndex((p: any) => p.js !== 'expression')
+    }
+
+    static getExpressionParameters = (): string[] => {
         const result: string[] = []
-        typeMap.ModelProcessorDefinition.props.forEach((p: any) => {
-            result.push(p.js.toString())
-        })
+        typeMap.ModelLanguageExpressionDefinition.props
+            .filter((p: any) => p.js !== 'language')
+            .forEach((p: any) => {
+                result.push(p.js.toString())
+            })
+        return result;
+    }
+
+    static isString = (p: any): boolean => {
+        try {
+            return p.type.unionMembers[1].unionMembers[1] === '';
+        } catch (e){
+            return false;
+        }
+    }
+
+    static getDslModelParameters = (interfaceName?: string): any[] => {
+        const result: any[] = []
+        if (interfaceName) {
+            const model = typeMap[interfaceName] ? typeMap[interfaceName] : typeMap[interfaceName+"Object"]
+            model.props
+                .filter((p: any) => DslApi.isString(p))
+                .forEach((p: any) => {
+                    result.push(p)
+                })
+        }
         return result;
     }
 
@@ -185,8 +212,8 @@ export class DslApi {
             if (el.uid !== idToDelete) {
                 if (elName === 'choice') {  //choice specific deletion logic
                     element.choice.when = DslApi.deleteOneWhenElement(element.choice.when, idToDelete);
-                    if (element.choice.otherwise){ // otherwise specific deletion logic
-                        if (element.choice.otherwise.otherwise.uid === idToDelete){
+                    if (element.choice.otherwise) { // otherwise specific deletion logic
+                        if (element.choice.otherwise.otherwise.uid === idToDelete) {
                             element.choice.otherwise = undefined
                         } else {
                             element.choice.otherwise.otherwise.steps = DslApi.deleteOneElement(element.choice.otherwise.otherwise.steps, idToDelete);
