@@ -79,6 +79,26 @@ export class DslSelector extends React.Component<Props, State> {
                             </Gallery>
                         </Tab>
                     )}
+                    {this.props.elementName === 'flow' &&
+                        <Tab eventKey={"routing"} key={"routing"} title={<TabTitleText>{DslMetaApi.capitalizeName('routing')}</TabTitleText>}>
+                            <Gallery key={"gallery"} hasGutter className="dsl-gallery">
+                                {[DslMetaApi.findDslMetaModelByName('from')].map((model, index) => (
+                                    <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(model)}>
+                                        <CardHeader>
+                                            <img draggable="false"
+                                                 src={DslMetaApi.getIcon(model.name)}
+                                                 style={model.name === 'choice' ? {height: "18px"} : {}}  // find better icon
+                                                 className="icon" alt="icon"></img>
+                                            <Text>{model.title}</Text>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <Text>{model.description}</Text>
+                                        </CardBody>
+                                    </Card>
+                                ))}
+                            </Gallery>
+                        </Tab>
+                    }
                     {DslMetaApi.getKameletLabels(this.props.elementName).map((label, index) =>
                         <Tab eventKey={label} key={"tab-k-" + index}
                              title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>

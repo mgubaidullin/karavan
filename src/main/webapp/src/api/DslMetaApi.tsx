@@ -250,9 +250,9 @@ export const DslMetaApi = {
         const title:string | undefined = DslMetaModels.find(d => d.name === name)?.title;
         switch (name){
             case 'from':
-                return isKamelet ? kameletTitle :'from:'+ uri;
+                return isKamelet ? kameletTitle :'From:'+ uri;
             case 'to':
-                return isKamelet ? kameletTitle : (uri !== undefined? 'to:'+ uri : 'To');
+                return isKamelet ? kameletTitle : (uri !== undefined? 'To:'+ uri : 'To');
             default:
                 return title !== undefined ? title : name;
         }
