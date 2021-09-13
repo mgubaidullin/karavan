@@ -27,7 +27,7 @@ interface Props {
     integration: Integration,
     element?: any,
     onIntegrationUpdate?: any,
-    onStepUpdate?: any,
+    onPropertyUpdate?: any,
     onChangeView: any
 }
 
@@ -58,18 +58,18 @@ export class DslProperties extends React.Component<Props, State> {
     onChange = (field: string, value: string) => {
         const clone = this.state.element;
         if (field === 'simple') (clone as ExpressionStep).simple = value;
-        this.props.onStepUpdate?.call(this, clone);
+        this.props.onPropertyUpdate?.call(this, clone);
     }
 
     onChangeWhen = (isDefault: boolean) => {
         if (isDefault) {
             const clone = new OtherwiseStep({...this.state.element, steps: this.state.element?.steps});
             clone.uid = this.state.element?.uid || '';
-            this.props.onStepUpdate?.call(this, clone);
+            this.props.onPropertyUpdate?.call(this, clone);
         } else {
             const clone = new WhenStep({...this.state.element, steps: this.state.element?.steps});
             clone.uid = this.state.element?.uid || '';
-            this.props.onStepUpdate?.call(this, clone);
+            this.props.onPropertyUpdate?.call(this, clone);
         }
     }
 
@@ -107,15 +107,15 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
-        if (this.state.element && ['from', 'to'].includes(this.state.element.type)) {
-            const c: ComponentStep = (this.state.element as ComponentStep);
-            const index: number = c.properties.findIndex((x: Property) => x.id === fieldId);
-            const p: Property = c.properties[index];
-            p.value = value;
-            c.properties[index] = p;
-            const clone: ComponentStep = Object.assign({}, c);
-            this.props.onStepUpdate?.call(this, clone);
-        }
+        // console.log(fieldId)
+        // console.log(value)
+        const name = DslApi.getName(this.state.element)
+        const clone = Object.assign({}, this.state.element)
+        // console.log(this.state.element)
+        // console.log(clone)
+        clone[name].parameters[fieldId] = value
+        this.setState({element: clone})
+        this.props.onPropertyUpdate?.call(this, clone);
     };
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
@@ -197,6 +197,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
+        const value = DslApi.getParameterValue(this.state.element, property.id);
         return (
             <FormGroup
                 key={property.id}
@@ -217,24 +218,24 @@ export class DslProperties extends React.Component<Props, State> {
                     className="text-field" isRequired
                     type={property.format === 'password' ? "password" : "text"}
                     id={property.id} name={property.id}
-                    value={property.value?.toString()}
+                    value={value?.toString()}
                     onChange={e => this.propertyChanged(property.id, e)}/>
                 }
                 {property.type === 'boolean' && <Switch
                     id={property.id} name={property.id}
-                    value={property.value?.toString()}
+                    value={value?.toString()}
                     aria-label={property.id}
-                    isChecked={Boolean(property.value) === true}
-                    onChange={e => this.propertyChanged(property.id, !Boolean(property.value))}/>
+                    isChecked={Boolean(value) === true}
+                    onChange={e => this.propertyChanged(property.id, !Boolean(value))}/>
                 }
                 {property.type === 'integer' && <div className="number">
                     <NumberInput
                         className="number-property"
                         id={property.id} name={property.id}
-                        value={typeof property.value === 'number' ? property.value : undefined}
+                        value={typeof value === 'number' ? value : undefined}
                         inputName={property.id}
-                        onMinus={() => this.propertyChanged(property.id, typeof property.value === 'number' ? property.value - 1 : -1)}
-                        onPlus={() => this.propertyChanged(property.id, typeof property.value === 'number' ? property.value + 1 : 1)}
+                        onMinus={() => this.propertyChanged(property.id, typeof value === 'number' ? value - 1 : -1)}
+                        onPlus={() => this.propertyChanged(property.id, typeof value === 'number' ? value + 1 : 1)}
                         onChange={(e: any) => this.propertyChanged(property.id, Number(e.target.value))}/>
                     <Button
                         className="clear-button"
@@ -248,7 +249,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createDslProperty = (property: DslProperty): JSX.Element => {
-        const value = DslApi.getPropertyValue(this.state.element, property.name);
+        const value = DslApi.getParameterValue(this.state.element, property.name);
         return (
             <FormGroup
                 key={property.name}

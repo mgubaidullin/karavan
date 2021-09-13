@@ -66,11 +66,18 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     updateElement = (updatedElement: any, newElement: any) => {
-        console.log(newElement)
         this.setState({flows: []})
         const updatedUid = DslApi.getUid(updatedElement);
         const flows = DslApi.updateFlows(this.state.flows, updatedUid, updatedElement);
         this.setState({flows: flows, selectedElement:newElement,  selectedUid: DslApi.getUid(newElement)})
+    }
+
+    onPropertyUpdate = (element: any) => {
+        console.log(element)
+        this.setState({flows: []})
+        const updatedUid = DslApi.getUid(element);
+        const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
+        this.setState({flows: flows, selectedElement:element,  selectedUid: updatedUid})
     }
 
     deleteElement = (id: string) => {
@@ -163,7 +170,7 @@ export class DslPage extends React.Component<Props, State> {
                         integration={this.state.integration}
                         element={this.state.selectedElement}
                         onIntegrationUpdate={this.onIntegrationUpdate}
-                        onStepUpdate={this.updateElement}
+                        onPropertyUpdate={this.onPropertyUpdate}
                         onChangeView={this.changeView}
                     />
                 </div>
