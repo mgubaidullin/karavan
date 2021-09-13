@@ -21,6 +21,7 @@ import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/R
 import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "../api/DslApi";
 import {DslProperty} from "../model/DslMetaModel";
+import {KameletApi} from "../api/KameletApi";
 
 interface Props {
     integration: Integration,
@@ -74,7 +75,6 @@ export class DslProperties extends React.Component<Props, State> {
 
     getDslModelProperties = (): DslProperty[] => {
         const name = DslApi.getName(this.state.element);
-        console.log(name)
         const model = DslMetaApi.findDslMetaModelByName(name)
         const properties: DslProperty[] = Object.entries(model.properties)
             .map((p: [string, any]) => {
@@ -87,8 +87,23 @@ export class DslProperties extends React.Component<Props, State> {
                     secret: props.secret
                 });
             }).filter(p => !['object', 'array', "enum"].includes(p.type) && p.name !== 'id');
-        console.log(properties)
         return properties
+    }
+
+    getKameletProperties = (): Property[] => {
+        const uri = DslApi.getUri(this.state.element)
+        const kamelet = KameletApi.findKameletByUri(uri)
+        return kamelet ? KameletApi.getKameletProperties(kamelet?.metadata.name) : []
+    }
+
+    showDslProperties = (): boolean => {
+        const uri = DslApi.getUri(this.state.element)
+        return !(uri !== undefined && uri.startsWith("kamelet"))
+    }
+
+    showKameletProperties = (): boolean => {
+        const uri = DslApi.getUri(this.state.element)
+        return (uri !== undefined && uri.startsWith("kamelet"))
     }
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
@@ -133,7 +148,6 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     getComponentHeader = (): JSX.Element => {
-        // console.log(this.state.element)
         const name = DslApi.getName(this.state.element)
         const uri = DslApi.getUri(this.state.element)
         const title = DslMetaApi.getTitle(name, uri)
@@ -286,14 +300,15 @@ export class DslProperties extends React.Component<Props, State> {
 
     render() {
         return (
-            <div key={DslApi.getUid(this.state.element)} className='properties'>
+            <div key={this.state.element ? DslApi.getUid(this.state.element): 'integration'} className='properties'>
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
-                    {this.state.element !== undefined && this.getComponentHeader()}
+                    {this.state.element && this.getComponentHeader()}
                     {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
 
                     {/*Properties configurator */}
-                    {this.state.element && this.getDslModelProperties().map((property: DslProperty) => this.createDslProperty(property))}
+                    {this.state.element && this.showDslProperties() && this.getDslModelProperties().map((property: DslProperty) => this.createDslProperty(property))}
+                    {this.state.element && this.showKameletProperties() && this.getKameletProperties().map((property: Property) => this.createKameletProperty(property))}
                 </Form>
             </div>
         );

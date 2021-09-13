@@ -249,7 +249,7 @@ export const DslMetaApi = {
 
     getTitle: (name: string, uri?: string): string => {
         const isKamelet = uri !== undefined && uri.startsWith("kamelet:");
-        const kameletTitle:string = uri !== undefined ? KameletApi.findKameletByUri(uri).title() : undefined;
+        const kameletTitle:string  = ''+ (uri !== undefined ? KameletApi.findKameletByUri(uri)?.title() : undefined);
         const title:string | undefined = DslMetaModels.find(d => d.name === name)?.title;
         switch (name){
             case 'from':

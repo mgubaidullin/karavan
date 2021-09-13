@@ -8,23 +8,25 @@ export const Kamelets: Kamelet[] = [];
 export const KameletApi = {
 
     getKameletProperties: (kameletName: string): Property[] => {
-        const kamelet: Kamelet = KameletApi.findKameletByName(kameletName);
+        const kamelet: Kamelet | undefined = KameletApi.findKameletByName(kameletName);
         const properties: Property[] = [];
         try {
-            const map: Map<string, any> = kamelet.spec.definition.properties ? new Map(Object.entries(kamelet.spec.definition.properties)) : new Map();
-            map.forEach((value, key, map) => {
-                const prop = new Property();
-                prop.id = key;
-                prop.title = value.title;
-                prop.default = value.default;
-                prop.description = value.description;
-                prop.format = value.format;
-                prop.example = value.example;
-                prop.type = value.type;
-                if (value.default) prop.value = value.default
-                prop["x-descriptors"] = value["x-descriptors"];
-                properties.push(prop);
-            })
+            if (kamelet !== undefined) {
+                const map: Map<string, any> = kamelet.spec.definition.properties ? new Map(Object.entries(kamelet.spec.definition.properties)) : new Map();
+                map.forEach((value, key, map) => {
+                    const prop = new Property();
+                    prop.id = key;
+                    prop.title = value.title;
+                    prop.default = value.default;
+                    prop.description = value.description;
+                    prop.format = value.format;
+                    prop.example = value.example;
+                    prop.type = value.type;
+                    if (value.default) prop.value = value.default
+                    prop["x-descriptors"] = value["x-descriptors"];
+                    properties.push(prop);
+                })
+            }
         } finally {
             return properties;
         }
@@ -41,19 +43,19 @@ export const KameletApi = {
     },
 
 
-    findKameletByName: (name: string): Kamelet | any => {
+    findKameletByName: (name: string): Kamelet | undefined => {
         return Kamelets.find((k: Kamelet) => k.metadata.name === name);
     },
 
-    findKameletByUri: (uri: string): Kamelet | any => {
+    findKameletByUri: (uri: string): Kamelet | undefined => {
         return KameletApi.findKameletByName(uri.split(":")[1]);
     },
 
-    uriSource: (): Kamelet | any => {
+    uriSource: (): Kamelet | undefined => {
         return Kamelet.default().find((k: Kamelet) => k.metadata.name === 'uri-source');
     },
 
-    uriSink: (): Kamelet | any => {
+    uriSink: (): Kamelet | undefined => {
         return Kamelet.default().find((k: Kamelet) => k.metadata.name === 'uri-sink');
     },
 

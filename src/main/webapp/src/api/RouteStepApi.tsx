@@ -160,10 +160,10 @@ export class RouteStepApi {
         switch (step.type) {
             case 'to':
                 const to = (step as ToStep);
-                return 'To: ' + (to.component === 'kamelet' && to.path ? KameletApi.findKameletByName(to.path + '').spec.definition.title : '');
+                return 'To: ' + (to.component === 'kamelet' && to.path ? KameletApi.findKameletByName(to.path + '')?.spec.definition.title : '');
             case 'from':
                 const from = (step as ToStep);
-                return 'From: ' + (from.component === 'kamelet' && from.path ? KameletApi.findKameletByName(from.path + '').spec.definition.title : '');
+                return 'From: ' + (from.component === 'kamelet' && from.path ? KameletApi.findKameletByName(from.path + '')?.spec.definition.title : '');
             case 'empty':
                 return stepParent === undefined ? "Drop source here" : "Drop component here";
             default:
