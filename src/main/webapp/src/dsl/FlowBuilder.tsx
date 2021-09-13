@@ -47,7 +47,6 @@ export class FlowBuilder extends React.Component<Props, State> {
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
         if (prevState.selectedUid !== this.props.selectedUid) {
-            console.log(this.props.selectedUid)
             this.setState({selectedUid: this.props.selectedUid});
         }
     }
