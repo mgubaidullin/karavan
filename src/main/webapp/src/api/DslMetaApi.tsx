@@ -256,7 +256,7 @@ export const DslMetaApi = {
             case 'from':
                 return isKamelet ? kameletTitle :'from:'+ uri;
             case 'to':
-                return isKamelet ? kameletTitle : (uri !== undefined? 'to:'+ uri : 'to');
+                return isKamelet ? kameletTitle : (uri !== undefined? 'to:'+ uri : 'To');
             default:
                 return title !== undefined ? title : name;
         }

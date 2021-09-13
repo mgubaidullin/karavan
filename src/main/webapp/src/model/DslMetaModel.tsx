@@ -19,6 +19,7 @@ export class DslProperty {
     description: string = ''
     required: boolean = false;
     secret: boolean = false
+    enum: any[] = []
 
     public constructor(init?: Partial<DslProperty>) {
         Object.assign(this, init);

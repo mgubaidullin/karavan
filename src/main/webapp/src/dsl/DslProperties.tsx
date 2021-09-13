@@ -9,7 +9,7 @@ import {
     Switch,
     NumberInput,
     Button,
-    TextArea, Tooltip, TextVariants
+    TextArea, Tooltip, TextVariants, Select, SelectVariant, SelectDirection, SelectOption
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
@@ -35,13 +35,15 @@ interface Props {
 interface State {
     integration: Integration,
     element?: any,
+    selectStatus: Map<string, boolean>
 }
 
 export class DslProperties extends React.Component<Props, State> {
 
     public state: State = {
         element: this.props.element,
-        integration: this.props.integration
+        integration: this.props.integration,
+        selectStatus: new Map<string, boolean>()
     };
 
     setView = (view: string) => {
@@ -85,7 +87,8 @@ export class DslProperties extends React.Component<Props, State> {
                     type: props.type,
                     title: props.displayName,
                     description: props.description,
-                    secret: props.secret
+                    secret: props.secret,
+                    enum: props.enum
                 });
             });
     }
@@ -127,6 +130,7 @@ export class DslProperties extends React.Component<Props, State> {
                 }
             });
         }
+        console.log(properties)
         return this.sortElementProperties(properties);
     }
 
@@ -134,11 +138,6 @@ export class DslProperties extends React.Component<Props, State> {
         const uri = DslApi.getUri(this.state.element)
         const kamelet = KameletApi.findKameletByUri(uri)
         return kamelet ? KameletApi.getKameletProperties(kamelet?.metadata.name) : []
-    }
-
-    isDslComponent = (): boolean => {
-        const uri = DslApi.getUri(this.state.element)
-        return !(uri !== undefined && uri.startsWith("kamelet"))
     }
 
     isKameletComponent = (): boolean => {
@@ -156,7 +155,7 @@ export class DslProperties extends React.Component<Props, State> {
         } else {
             clone[name][fieldId] = value
         }
-        this.setState({element: clone})
+        this.setState({element: clone, selectStatus: new Map<string, boolean>()})
         this.props.onPropertyUpdate?.call(this, clone);
     };
 
@@ -201,41 +200,12 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
-    getExpressionTooltip = (): string => {
-        return this.state.element?.type === 'when' ? "Check to make default" : "Uncheck to make conditional";
+    openSelect = (propertyName: string) => {
+        this.setState({selectStatus: new Map<string, boolean>([[propertyName, true]])});
     }
 
-    getExpressionHeader = (): JSX.Element => {
-        return (
-            <div className="headers">
-                {this.state.element && !['when', 'otherwise'].includes(this.state.element.type) &&
-                <Title headingLevel="h1"
-                       size="md">{this.state.element ? DslMetaApi.getTitle(this.state.element) : ''}</Title>}
-
-                {this.state.element && ['when', 'otherwise'].includes(this.state.element.type) &&
-                <Tooltip position="bottom"
-                         content={<div>{this.getExpressionTooltip()}</div>}>
-                    <Switch
-                        id="type"
-                        label="Otherwise"
-                        labelOff="When"
-                        isReversed
-                        className="expression-title"
-                        isChecked={this.state.element.type === 'otherwise'}
-                        onChange={checked => this.onChangeWhen(checked)}
-                    />
-                </Tooltip>
-                }
-
-                {this.state.element && 'otherwise' !== this.state.element.type &&
-                <FormGroup label="Condition" fieldId="name">
-                    <TextArea className="text-area" type="text" id="simple" name="simple" autoResize
-                              value={(this.state.element as ExpressionStep)?.simple}
-                              onChange={e => this.onChange('simple', e)}/>
-                </FormGroup>
-                }
-            </div>
-        )
+    isSelectOpen = (propertyName: string): boolean => {
+        return this.state.selectStatus.has(propertyName) && this.state.selectStatus.get(propertyName) === true;
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
@@ -294,12 +264,17 @@ export class DslProperties extends React.Component<Props, State> {
 
     createElementProperty = (property: DslProperty): JSX.Element => {
         const value = DslApi.getParameterValue(this.state.element, property.name);
+        const selectOptions: JSX.Element[] = []
+        if (property.type === 'enum'){
+            selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder />);
+            selectOptions.push(...property.enum.map((value: string) => <SelectOption key={value} value={value} />));
+        }
         return (
             <FormGroup
                 key={property.name}
                 label={property.title}
                 fieldId={property.name}
-                labelIcon={ property.description ?
+                labelIcon={property.description ?
                     <Popover
                         headerContent={property.title}
                         bodyContent={property.description}>
@@ -325,6 +300,21 @@ export class DslProperties extends React.Component<Props, State> {
                     aria-label={property.name}
                     isChecked={Boolean(value) === true}
                     onChange={e => this.propertyChanged(property.name, !Boolean(value))}/>
+                }
+
+                {property.type === 'enum' &&
+                <Select
+                    variant={SelectVariant.single}
+                    aria-label={property.name}
+                    onToggle={isExpanded => {this.openSelect(property.name)}}
+                    onSelect={(e, value, isPlaceholder) => this.propertyChanged(property.name, (!isPlaceholder ? value : undefined))}
+                    selections={value}
+                    isOpen={this.isSelectOpen(property.name)}
+                    aria-labelledby={property.name}
+                    direction={SelectDirection.down}
+                >
+                    {selectOptions}
+                </Select>
                 }
                 {property.type === 'integer' && <div className="number">
                     <NumberInput
