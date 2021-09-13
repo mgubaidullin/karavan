@@ -63,8 +63,9 @@ export class DslApi {
 
     static getParameterValue = (element: any, propertyName: string): any => {
         const name = DslApi.getName(element)
-        if (propertyName.startsWith("properties.")) {
-            return element[name].properties ? element[name].properties[propertyName] : undefined;
+        if (propertyName.startsWith("parameters.")) {
+            const paramName = propertyName.replace("parameters.", '')
+            return element[name].parameters ? element[name].parameters[paramName] : undefined;
         } else {
             return element[name][propertyName];
         }

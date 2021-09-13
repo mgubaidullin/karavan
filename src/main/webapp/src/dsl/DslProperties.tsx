@@ -130,7 +130,6 @@ export class DslProperties extends React.Component<Props, State> {
                 }
             });
         }
-        console.log(properties)
         return this.sortElementProperties(properties);
     }
 
@@ -148,10 +147,10 @@ export class DslProperties extends React.Component<Props, State> {
     propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
         const name = DslApi.getName(this.state.element)
         const clone = Object.assign({}, this.state.element)
-        if (fieldId.startsWith("properties.")) {
-            if (!clone[name].properties) clone[name].properties = {}
-            const field = fieldId.replace("properties.", "")
-            clone[name].properties[field] = value
+        if (fieldId.startsWith("parameters.")) {
+            if (!clone[name].parameters) clone[name].parameters = {}
+            const field = fieldId.replace("parameters.", "")
+            clone[name].parameters[field] = value
         } else {
             clone[name][fieldId] = value
         }
@@ -209,9 +208,11 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
-        console.log(property)
-        const propertyName = "properties." + property.id;
+        const propertyName = "parameters." + property.id;
         const value = DslApi.getParameterValue(this.state.element, propertyName);
+        console.log(property)
+        console.log(this.state.element)
+        console.log(value)
         return (
             <FormGroup
                 key={propertyName}

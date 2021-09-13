@@ -73,7 +73,7 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     onPropertyUpdate = (element: any) => {
-        console.log(element)
+        // console.log(element)
         this.setState({flows: []})
         const updatedUid = DslApi.getUid(element);
         const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
