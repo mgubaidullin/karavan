@@ -61,11 +61,30 @@ export class DslApi {
         return (element[name].uri != undefined ? element[name].uri : undefined);
     }
 
-    static getParameterValue = (element: any, propertyName: string): any => {
+    static getPropertyValue = (element: any, propertyName: string): any => {
         const name = DslApi.getName(element)
-        if (propertyName.startsWith("parameters.")) {
-            const paramName = propertyName.replace("parameters.", '')
-            return element[name].parameters ? element[name].parameters[paramName] : undefined;
+            return element[name][propertyName];
+    }
+
+    static getParametersValue = (element: any, propertyName: string): any => {
+        const name = DslApi.getName(element);
+        return element[name].parameters ? element[name].parameters[propertyName] : undefined;
+    }
+
+    static getExpressionLanguage = (element: any): any | undefined => {
+        const name = DslApi.getName(element)
+        if (element[name].expression){
+            const entries: [string, any][] = Object.entries(element[name].expression);
+            return entries.length > 0 ? entries[0][0] : undefined
+        } else {
+            return undefined;
+        }
+    }
+    static getExpressionValue = (element: any, propertyName: string): any => {
+        const name = DslApi.getName(element)
+        if (propertyName.startsWith("expression.")) {
+            const paramName = propertyName.replace("expression.", '')
+            return element[name].expression ? element[name].expression[paramName] : undefined;
         } else {
             return element[name][propertyName];
         }

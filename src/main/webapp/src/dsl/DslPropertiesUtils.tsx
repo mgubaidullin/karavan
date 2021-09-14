@@ -1,4 +1,4 @@
-import {DslProperty} from "../model/DslMetaModel";
+import {DslLanguage, DslMetaModel, DslProperty} from "../model/DslMetaModel";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {DslApi} from "../api/DslApi";
 import {Property} from "../model/KameletModels";
@@ -17,12 +17,20 @@ export const DslPropertiesUtil = {
         return result
     },
 
-    getExpressionProperties: () => {
+    getExpressionLanguages: (): DslLanguage[] => {
+        const array: DslLanguage[] = []
         const classname = DslMetaApi.getDslClassByName('expression');
         if (classname) {
             const params: any[] = DslMetaApi.getClassProperties(classname);
-            console.log(params)
+            params.forEach(value => {
+                const model:DslMetaModel = DslMetaApi.findDslMetaModelByName(value[0]);
+                if (array.findIndex(a => a.name === value[0]) === -1){
+                    array.push(new DslLanguage({name: value[0], title: model.title, description: model.description}));
+                }
+            });
         }
+        const uniqueSet = new Set(array);
+        return Array.from(uniqueSet)
     },
 
     getDslModelProperties: (element: any): DslProperty[] => {
@@ -43,7 +51,7 @@ export const DslPropertiesUtil = {
     },
 
     getElementProperties: (element: any): DslProperty[] => {
-        DslPropertiesUtil.getExpressionProperties()
+        DslPropertiesUtil.getExpressionLanguages()
         const properties: DslProperty[] = []
         const modelProperties: DslProperty[] = DslPropertiesUtil.getDslModelProperties(element);
         const name = DslApi.getName(element);

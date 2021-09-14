@@ -9,7 +9,7 @@ import {
     Switch,
     NumberInput,
     Button,
-    TextArea, Tooltip, TextVariants, Select, SelectVariant, SelectDirection, SelectOption
+    TextVariants, Select, SelectVariant, SelectDirection, SelectOption, TextArea, SelectOptionObject
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
@@ -17,13 +17,11 @@ import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
-import {ComponentStep, ExpressionStep, OtherwiseStep, WhenStep} from "../model/RouteModels";
 import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "../api/DslApi";
-import {DslProperty} from "../model/DslMetaModel";
-import {KameletApi} from "../api/KameletApi";
-import {typeMap} from "../model/DslModel";
+import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";
+import {CodeEditor, Language} from "@patternfly/react-code-editor";
 
 interface Props {
     integration: Integration,
@@ -59,31 +57,13 @@ export class DslProperties extends React.Component<Props, State> {
         }
     };
 
-    onChange = (field: string, value: string) => {
-        const clone = this.state.element;
-        if (field === 'simple') (clone as ExpressionStep).simple = value;
-        this.props.onPropertyUpdate?.call(this, clone);
-    }
-
-    onChangeWhen = (isDefault: boolean) => {
-        if (isDefault) {
-            const clone = new OtherwiseStep({...this.state.element, steps: this.state.element?.steps});
-            clone.uid = this.state.element?.uid || '';
-            this.props.onPropertyUpdate?.call(this, clone);
-        } else {
-            const clone = new WhenStep({...this.state.element, steps: this.state.element?.steps});
-            clone.uid = this.state.element?.uid || '';
-            this.props.onPropertyUpdate?.call(this, clone);
-        }
-    }
-
-    propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
+    propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
+        console.log(fieldId + " + " + value + ", prefix " + prefix)
         const name = DslApi.getName(this.state.element)
         const clone = Object.assign({}, this.state.element)
-        if (fieldId.startsWith("parameters.")) {
-            if (!clone[name].parameters) clone[name].parameters = {}
-            const field = fieldId.replace("parameters.", "")
-            clone[name].parameters[field] = value
+        if (prefix !== undefined) {
+            if (!clone[name][prefix] || unique) clone[name][prefix] = {}
+            clone[name][prefix][fieldId] = value
         } else {
             clone[name][fieldId] = value
         }
@@ -137,13 +117,14 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
-        const propertyName = "parameters." + property.id;
-        const value = DslApi.getParameterValue(this.state.element, propertyName);
+        const prefix = "parameters";
+        const id = prefix + "-" + property.id;
+        const value = DslApi.getParametersValue(this.state.element, property.id);
         return (
             <FormGroup
-                key={propertyName}
+                key={id}
                 label={property.title}
-                fieldId={propertyName}
+                fieldId={id}
                 labelIcon={
                     <Popover
                         headerContent={property.title}
@@ -158,31 +139,31 @@ export class DslProperties extends React.Component<Props, State> {
                 {property.type === 'string' && <TextInput
                     className="text-field" isRequired
                     type={property.format === 'password' ? "password" : "text"}
-                    id={propertyName} name={propertyName}
+                    id={id} name={id}
                     value={value?.toString()}
-                    onChange={e => this.propertyChanged(propertyName, e)}/>
+                    onChange={e => this.propertyChanged(property.id, e, prefix)}/>
                 }
                 {property.type === 'boolean' && <Switch
-                    id={propertyName} name={propertyName}
+                    id={id} name={id}
                     value={value?.toString()}
-                    aria-label={propertyName}
+                    aria-label={id}
                     isChecked={Boolean(value) === true}
-                    onChange={e => this.propertyChanged(propertyName, !Boolean(value))}/>
+                    onChange={e => this.propertyChanged(property.id, !Boolean(value), prefix)}/>
                 }
                 {['integer', 'int', 'number'].includes(property.type) && <div className="number">
                     <NumberInput
                         className="number-property"
-                        id={propertyName} name={propertyName}
+                        id={id} name={id}
                         value={typeof value === 'number' ? value : undefined}
-                        inputName={propertyName}
-                        onMinus={() => this.propertyChanged(propertyName, typeof value === 'number' ? value - 1 : -1)}
-                        onPlus={() => this.propertyChanged(propertyName, typeof value === 'number' ? value + 1 : 1)}
-                        onChange={(e: any) => this.propertyChanged(propertyName, Number(e.target.value))}/>
+                        inputName={id}
+                        onMinus={() => this.propertyChanged(property.id, typeof value === 'number' ? value - 1 : -1, prefix)}
+                        onPlus={() => this.propertyChanged(property.id, typeof value === 'number' ? value + 1 : 1, prefix)}
+                        onChange={(e: any) => this.propertyChanged(property.id, Number(e.target.value), prefix)}/>
                     <Button
                         className="clear-button"
                         variant="tertiary"
                         isSmall icon={<UndoIcon/>}
-                        onClick={e => this.propertyChanged(propertyName, undefined)}/>
+                        onClick={e => this.propertyChanged(property.id, undefined, prefix)}/>
                 </div>
                 }
             </FormGroup>
@@ -190,42 +171,78 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createExpressionProperty = (property: DslProperty): JSX.Element => {
-        const value = DslApi.getParameterValue(this.state.element, property.name);
+        const prefix = "language";
+        const language = DslApi.getExpressionLanguage(this.state.element);
+        const dslLanguage = DslPropertiesUtil.getExpressionLanguages().find(l => l.name === language);
+        const value = language ? DslApi.getExpressionValue(this.state.element, property.name)[language] : undefined;
+
+
+        console.log("++++++++++++")
+        console.log(language)
+        console.log(dslLanguage)
+        console.log(value)
+        console.log("++++++++++++")
+
+        const selectOptions: JSX.Element[] = []
+        selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
+        DslPropertiesUtil.getExpressionLanguages().forEach((lang: DslLanguage) => {
+            const s = <SelectOption key={lang.name} value={lang} description={lang.description} />;
+            selectOptions.push(s);
+        })
+
         return (
-            <FormGroup
-                key={property.name}
-                label={property.title}
-                fieldId={property.name}
-                labelIcon={property.description ?
-                    <Popover
-                        headerContent={property.title}
-                        bodyContent={property.description}>
-                        <button type="button" aria-label="More info" onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
+            <div>
+                <FormGroup key={prefix + "-" + property.name} fieldId={property.name}>
+                    <Select
+                        variant={SelectVariant.typeahead}
+                        aria-label={property.name}
+                        onToggle={isExpanded => {
+                            this.openSelect(property.name)
                         }}
-                                className="pf-c-form__group-label-help">
-                            <HelpIcon noVerticalAlign/>
-                        </button>
-                    </Popover> : <div></div>
-                }>
-                {['string'].includes(property.type) && <TextInput
-                    className="text-field" isRequired
-                    type={"text"}
-                    id={property.name} name={property.name}
-                    value={value?.toString()}
-                    onChange={e => this.propertyChanged(property.name, e)}/>
-                }
-            </FormGroup>
+                        onSelect={(e, lang, isPlaceholder) => this.propertyChanged(DslLanguage.getName(lang as DslLanguage), (!isPlaceholder ? value : undefined), property.name, true)}
+                        selections={dslLanguage}
+                        isOpen={this.isSelectOpen(property.name)}
+                        aria-labelledby={property.name}
+                        direction={SelectDirection.down}
+                    >
+                        {selectOptions}
+                    </Select>
+                </FormGroup>
+                <FormGroup
+                    key={property.name}
+                    fieldId={property.name}
+                    labelIcon={property.description ?
+                        <Popover
+                            headerContent={property.title}
+                            bodyContent={property.description}>
+                            <button type="button" aria-label="More info" onClick={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }}
+                                    className="pf-c-form__group-label-help">
+                                <HelpIcon noVerticalAlign/>
+                            </button>
+                        </Popover> : <div></div>
+                    }>
+                    <TextArea
+                        autoResize
+                        className="text-field" isRequired
+                        type={"text"}
+                        id={property.name} name={property.name}
+                        height={"100px"}
+                        value={value?.toString()}
+                        onChange={e => this.propertyChanged(language, e, property.name, true)}/>
+                </FormGroup>
+            </div>
         )
     }
 
     createElementProperty = (property: DslProperty): JSX.Element => {
-        const value = DslApi.getParameterValue(this.state.element, property.name);
+        const value = DslApi.getPropertyValue(this.state.element, property.name);
         const selectOptions: JSX.Element[] = []
-        if (property.type === 'enum'){
-            selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder />);
-            selectOptions.push(...property.enum.map((value: string) => <SelectOption key={value} value={value} />));
+        if (property.type === 'enum') {
+            selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder/>);
+            selectOptions.push(...property.enum.map((value: string) => <SelectOption key={value} value={value}/>));
         }
         return (
             <FormGroup
@@ -264,7 +281,9 @@ export class DslProperties extends React.Component<Props, State> {
                 <Select
                     variant={SelectVariant.single}
                     aria-label={property.name}
-                    onToggle={isExpanded => {this.openSelect(property.name)}}
+                    onToggle={isExpanded => {
+                        this.openSelect(property.name)
+                    }}
                     onSelect={(e, value, isPlaceholder) => this.propertyChanged(property.name, (!isPlaceholder ? value : undefined))}
                     selections={value}
                     isOpen={this.isSelectOpen(property.name)}
@@ -290,10 +309,10 @@ export class DslProperties extends React.Component<Props, State> {
                         onClick={e => this.propertyChanged(property.name, undefined)}/>
                 </div>
                 }
-                {/*<div className="expression">*/}
-                {/*    {property.name === 'expression' && property.type === 'object' */}
-                {/*    && this.getKameletProperties().map(kp => this.createKameletProperty(kp))}*/}
-                {/*</div>*/}
+                <div className="expression">
+                    {property.name === 'expression' && property.type === 'object'
+                    && this.createExpressionProperty(property)}
+                </div>
                 <div className="parameters">
                     {property.name === 'parameters' && DslPropertiesUtil.isKameletComponent(this.state.element)
                     && DslPropertiesUtil.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}
@@ -308,9 +327,6 @@ export class DslProperties extends React.Component<Props, State> {
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}
-                    {/*{this.state.element && ['filter', 'when', 'otherwise'].includes(this.state.element.type) && this.getExpressionHeader()}*/}
-
-                    {/*Properties configurator */}
                     {this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}
                 </Form>
             </div>

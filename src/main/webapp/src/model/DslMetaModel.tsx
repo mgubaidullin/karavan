@@ -42,3 +42,21 @@ export class DslConstraint {
         Object.assign(this, init);
     }
 }
+
+export class DslLanguage {
+    name: string = ''
+    title: string = ''
+    description: string = ''
+
+    public constructor(init?: Partial<DslLanguage>) {
+        Object.assign(this, init);
+    }
+
+    public toString() {
+        return this.title;
+    }
+
+    static getName(lang: DslLanguage) {
+        return lang.name;
+    }
+}
