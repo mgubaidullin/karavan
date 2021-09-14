@@ -5,6 +5,15 @@
   border-bottom: 1px solid #eee;
 }
 
+.karavan .tools-section .dsl-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.karavan .tools-section .dsl-title .title {
+  margin-right: 16px;
+}
+
 .karavan .brand {
   height: 36px;
 }

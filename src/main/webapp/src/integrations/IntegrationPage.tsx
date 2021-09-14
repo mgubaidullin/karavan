@@ -13,6 +13,8 @@ import {
 import '../karavan.css';
 import {IntegrationCard} from "./IntegrationCard";
 import {MainToolbar} from "../MainToolbar";
+import RefreshIcon from '@patternfly/react-icons/dist/esm/icons/sync-alt-icon';
+import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 
 interface Props {
     integrations: []
@@ -42,7 +44,10 @@ export class IntegrationPage extends React.Component<Props, State> {
                            autoComplete="off" placeholder="Search by name"/>
             </ToolbarItem>
             <ToolbarItem>
-                <Button onClick={e => this.props.onCreate.call(this)}>Create</Button>
+                <Button variant="secondary" icon={<RefreshIcon />} onClick={e => this.props.onCreate.call(this)}>Refresh</Button>
+            </ToolbarItem>
+            <ToolbarItem>
+                <Button icon={<PlusIcon />} onClick={e => this.props.onCreate.call(this)}>Create</Button>
             </ToolbarItem>
         </ToolbarContent>
     </Toolbar>);

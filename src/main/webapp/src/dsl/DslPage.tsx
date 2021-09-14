@@ -3,6 +3,8 @@ import {
     Button, CodeBlock, CodeBlockCode,
     PageSection, Text, TextContent, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem
 } from '@patternfly/react-core';
+import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
+import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 import '../karavan.css';
 import {FlowBuilder} from "./FlowBuilder";
 import {DslApi} from "../api/DslApi";
@@ -50,7 +52,7 @@ export class DslPage extends React.Component<Props, State> {
 
     unselectElement = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-        this.setState({selectedElement:undefined,  selectedUid: ''})
+        this.setState({selectedElement: undefined, selectedUid: ''})
     };
 
     changeView = (view: "design" | "code") => {
@@ -78,7 +80,7 @@ export class DslPage extends React.Component<Props, State> {
         this.setState({flows: []})
         const updatedUid = DslApi.getUid(element);
         const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
-        this.setState({flows: flows, selectedElement:element,  selectedUid: updatedUid})
+        this.setState({flows: flows, selectedElement: element, selectedUid: updatedUid})
     }
 
     deleteElement = (id: string) => {
@@ -88,7 +90,7 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     selectElement = (element: any) => {
-        this.setState({selectedElement:element,  selectedUid: DslApi.getUid(element)})
+        this.setState({selectedElement: element, selectedUid: DslApi.getUid(element)})
     }
 
     showDslSelector = () => {
@@ -113,34 +115,44 @@ export class DslPage extends React.Component<Props, State> {
     tools = (view: "design" | "code") => (
         <Toolbar id="toolbar-group-types">
             <ToolbarContent>
+                <ToolbarItem>
+                    <Button variant="secondary" icon={<SaveIcon/>} onClick={e => this.save()}>Save</Button>
+                </ToolbarItem>
                 {view === 'design' &&
                 <ToolbarItem>
-                    <Button variant="secondary" onClick={e => this.showDslSelector()}>Add flow</Button>
+                    <Button icon={<PlusIcon/>} onClick={e => this.showDslSelector()}>Add flow</Button>
                 </ToolbarItem>
                 }
-                <ToolbarItem>
-                    <Button onClick={e => this.save()}>Save</Button>
-                </ToolbarItem>
             </ToolbarContent>
         </Toolbar>);
 
-    title = (view: "design" | "code") => (<Toolbar id="toolbar-group-types">
-        <ToolbarContent>
-            <ToolbarItem>
-                <TextContent>
-                    <Text component="h1">Designer</Text>
-                </TextContent>
-            </ToolbarItem>
-            <ToolbarItem>
-                <ToggleGroup aria-label="Switch view" className="toggle">
-                    <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}
-                                     onChange={e => this.setView('design')}/>
-                    <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}
-                                     onChange={e => this.setView('code')}/>
-                </ToggleGroup>
-            </ToolbarItem>
-        </ToolbarContent>
-    </Toolbar>);
+    title = (view: "design" | "code") => (
+        // // <Toolbar id="toolbar-group-types">
+        // // <ToolbarContent>
+        // {/*    <ToolbarItem>*/}
+        <div className="dsl-title">
+            <TextContent className="title">
+                <Text component="h1">Designer</Text>
+            </TextContent>
+            <ToggleGroup aria-label="Switch view" className="toggle">
+                <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}
+                                 onChange={e => this.setView('design')}/>
+                <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}
+                                 onChange={e => this.setView('code')}/>
+            </ToggleGroup>
+        </div>
+        //         {/*</ToolbarItem>*/}
+        //         {/*<ToolbarItem className="view-toggle">*/}
+        //         {/*    <ToggleGroup aria-label="Switch view" className="toggle">*/}
+        //         {/*        <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}*/}
+        //         {/*                         onChange={e => this.setView('design')}/>*/}
+        //         {/*        <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}*/}
+        //         {/*                         onChange={e => this.setView('code')}/>*/}
+        //         {/*    </ToggleGroup>*/}
+        //         {/*</ToolbarItem>*/}
+        //     {/*</ToolbarContent>*/}
+        // {/*</Toolbar>*/}
+    );
 
     render() {
         return (
@@ -176,7 +188,7 @@ export class DslPage extends React.Component<Props, State> {
                     />
                 </div>
                 <DslSelector elementName={"flow"} id={""} show={this.state.showSelector}
-                             onDslSelect={this.onDslSelect}  onClose={this.closeDslSelector}/>
+                             onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>
             </PageSection>
         );
     }
