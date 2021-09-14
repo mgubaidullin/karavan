@@ -11,12 +11,11 @@ import logo from './logo.svg';
 import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
-import {IntegrationGenerator} from "./api/IntegrationGenerator";
 import {Integration} from "./model/IntegrationModels";
 import {v4 as uuidv4} from "uuid";
-import {DslPage} from "./dsl/DslPage";
+import {DslPage} from "./designer/DslPage";
 import {DslMetaApi} from "./api/DslMetaApi";
-import {RouteDesignerPage} from "./designer/RouteDesignerPage";
+import {ResourceGenerator} from "./api/ResourceGenerator";
 
 class ToastMessage {
     id: string = ''
@@ -38,7 +37,7 @@ interface Props {
 interface State {
     version: string,
     isNavOpen: boolean,
-    pageId: 'integrations' | 'configuration' | 'designer' | 'kamelets' | 'dsl'
+    pageId: 'integrations' | 'configuration' | 'kamelets' | 'designer'
     integrations: [],
     integration: Integration,
     isModalOpen: boolean,
@@ -84,7 +83,7 @@ export class Main extends React.Component<Props, State> {
             this.onGetIntegrations();
         }
         this.setState({
-            isNavOpen: result.itemId !== 'dsl',
+            isNavOpen: result.itemId !== 'designer',
             pageId: result.itemId,
         });
     };
@@ -152,8 +151,8 @@ export class Main extends React.Component<Props, State> {
         KaravanApi.getIntegration(name, res => {
             if (res.status === 200) {
                 const code: string = res.data;
-                const i = IntegrationGenerator.yamlToIntegration(code);
-                this.setState({isNavOpen: true, pageId: 'dsl', integration: i});
+                const i = ResourceGenerator.yamlToIntegration(code);
+                this.setState({isNavOpen: true, pageId: 'designer', integration: i});
             } else {
                 this.toast("Error", res.statusText, "danger");
             }
@@ -161,9 +160,9 @@ export class Main extends React.Component<Props, State> {
     };
 
     onIntegrationCreate = () => {
-        this.setState({isNavOpen: false, pageId: 'dsl'});
+        this.setState({isNavOpen: false, pageId: 'designer'});
         const i = Integration.createNew();
-        this.setState({isNavOpen: true, pageId: 'dsl', integration: i});
+        this.setState({isNavOpen: true, pageId: 'designer', integration: i});
     };
 
     onGetIntegrations() {
@@ -181,8 +180,8 @@ export class Main extends React.Component<Props, State> {
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {this.state.pageId === 'designer' && <RouteDesignerPage integration={this.state.integration}/>}
-                {this.state.pageId === 'dsl' && <DslPage/>}
+                {this.state.pageId === 'designer' && <DslPage integration={this.state.integration}/>}
+                {this.state.pageId === 'designer' && <DslPage integration={this.state.integration}/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}

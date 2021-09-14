@@ -4,8 +4,7 @@ import {
 } from '@patternfly/react-core';
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import '../karavan.css';
-import {RouteStepApi} from "../api/RouteStepApi";
-import {RouteStep} from "../model/RouteModels";
+import {DslMetaApi} from "../api/DslMetaApi";
 
 interface Props {
     name: string,
@@ -37,12 +36,12 @@ export class IntegrationCard extends React.Component<Props, State> {
         return (
             <Card isHoverable isCompact key={this.state.name} className="integration-card" onClick={event => this.click(event)}>
                 <CardHeader>
-                    <img src={new RouteStep().icon} alt='icon' className="icon"/>
+                    <img src={DslMetaApi.getIcon("camel")} alt='icon' className="icon"/>
                     <CardActions>
                         <Button variant="link" className="delete-button" onClick={e => this.delete(e)}><DeleteIcon/></Button>
                     </CardActions>
                 </CardHeader>
-                <CardTitle>{RouteStepApi.titleFromName(this.state.name)}</CardTitle>
+                <CardTitle>{DslMetaApi.titleFromName(this.state.name)}</CardTitle>
                 <CardBody>{this.state.name}</CardBody>
             </Card>
         );

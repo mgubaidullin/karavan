@@ -3,8 +3,8 @@ import {
     CardHeader, Card, CardTitle, CardBody, CardActions, CardFooter,Badge
 } from '@patternfly/react-core';
 import '../karavan.css';
-import {RouteStepApi} from "../api/RouteStepApi";
 import {Kamelet} from "../model/KameletModels";
+import {DslMetaApi} from "../api/DslMetaApi";
 
 interface Props {
     kamelet: Kamelet,
@@ -37,7 +37,7 @@ export class KameletCard extends React.Component<Props, State> {
                         <Badge className="badge" isRead> {this.state.kamelet.metadata.labels["camel.apache.org/kamelet.type"].toLowerCase()}</Badge>
                     </CardActions>
                 </CardHeader>
-                <CardTitle>{RouteStepApi.titleFromName(this.state.kamelet.metadata.name)}</CardTitle>
+                <CardTitle>{DslMetaApi.titleFromName(this.state.kamelet.metadata.name)}</CardTitle>
                 <CardBody>{this.state.kamelet.spec.definition.description}</CardBody>
                 <CardFooter>
 

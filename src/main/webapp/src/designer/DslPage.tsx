@@ -14,8 +14,10 @@ import {DslMetaModel} from "../model/DslMetaModel";
 import {ResourceGenerator} from "../api/ResourceGenerator";
 import {DslProperties} from "./DslProperties";
 import {Integration} from "../model/IntegrationModels";
+import {KaravanApi} from "../api/KaravanApi";
 
 interface Props {
+    integration: Integration,
 }
 
 interface State {
@@ -30,8 +32,8 @@ interface State {
 export class DslPage extends React.Component<Props, State> {
 
     public state: State = {
-        integration: new Integration(),
-        flows: [],
+        integration: this.props.integration,
+        flows: DslApi.loadFlows(this.props.integration.spec.flows),
         view: "design",
         showSelector: false,
         selectedUid: ''
@@ -41,13 +43,13 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     save = () => {
-        // KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
-        //     if (res.status === 200){
-        //         console.log(res) //TODO show notification
-        //     } else {
-        //         console.log(res) //TODO show notification
-        //     }
-        // })
+        KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
+            if (res.status === 200){
+                console.log(res) //TODO show notification
+            } else {
+                console.log(res) //TODO show notification
+            }
+        })
     }
 
     unselectElement = (evt: React.MouseEvent) => {
@@ -127,9 +129,6 @@ export class DslPage extends React.Component<Props, State> {
         </Toolbar>);
 
     title = (view: "design" | "code") => (
-        // // <Toolbar id="toolbar-group-types">
-        // // <ToolbarContent>
-        // {/*    <ToolbarItem>*/}
         <div className="dsl-title">
             <TextContent className="title">
                 <Text component="h1">Designer</Text>
@@ -141,17 +140,6 @@ export class DslPage extends React.Component<Props, State> {
                                  onChange={e => this.setView('code')}/>
             </ToggleGroup>
         </div>
-        //         {/*</ToolbarItem>*/}
-        //         {/*<ToolbarItem className="view-toggle">*/}
-        //         {/*    <ToggleGroup aria-label="Switch view" className="toggle">*/}
-        //         {/*        <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}*/}
-        //         {/*                         onChange={e => this.setView('design')}/>*/}
-        //         {/*        <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}*/}
-        //         {/*                         onChange={e => this.setView('code')}/>*/}
-        //         {/*    </ToggleGroup>*/}
-        //         {/*</ToolbarItem>*/}
-        //     {/*</ToolbarContent>*/}
-        // {/*</Toolbar>*/}
     );
 
     render() {

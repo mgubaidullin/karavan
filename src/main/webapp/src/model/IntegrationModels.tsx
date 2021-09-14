@@ -1,16 +1,6 @@
-import {EmptyStep, RouteStep} from "./RouteModels";
-
-// export class Annotations {
-    // 'camel.apache.org/integration.title': string | any = '';
-
-    // public constructor(init?: Partial<Annotations>) {
-    //     Object.assign(this, init);
-    // }
-// }
 
 export class Metadata {
     name: string = '';
-    // annotations: Annotations = new Annotations();
 
     public constructor(init?: Partial<Metadata>) {
         Object.assign(this, init);
@@ -36,6 +26,6 @@ export class Integration {
     }
 
     static createNew(): Integration {
-        return new Integration({spec: new Spec({flows: [new EmptyStep()]})})
+        return new Integration({spec: new Spec({flows: []})})
     }
 }

@@ -1,4 +1,5 @@
 import {
+    Convert,
     ModelProcessorDefinition, ModelWhenDefinition, typeMap
 } from "../model/DslModel";
 import {DslModelObject} from "../model/DslModel";
@@ -278,37 +279,17 @@ export class DslApi {
         return clone;
     }
 
-
-    static create = (): any [] => {
-        const to1: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("to"))}
-        const to2: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("to"))}
-        const filter: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("filter"))}
-        const when1: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("when"))}
-        when1.when.steps.push(filter)
-        const when2: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("when"))}
-        when2.when.steps.push(to1, to2)
-        const choice: any = {...DslApi.createChildElement(DslMetaApi.findDslMetaModelByName("choice"))}
-        choice.choice.when.push(when1, when2);
-
-        // const saga: any = {
-        //     saga: {
-        //         uid: uuidv4(),
-        //         steps: [],
-        //         completion: {uri: "direct0"},
-        //         compensation: {uri: "direct1"}
-        //     }
-        // }
-
-        const from: any = {
-            uid: uuidv4(),
-            uri: "kamelet:timer-source",
-            steps: [choice]
-        }
-        const model1: DslModelObject = {from: from};
-
-        const model2: {} = {from: {uid: uuidv4(), uri: "direct1", steps: []}};
-        return [model2, model1];
+    static loadFlows = (f: any[]): any []=>{
+        const result: any[] = []
+        f.forEach(x => {
+            const json: string = JSON.stringify(x);
+            console.log(json);
+            const flow =Convert.toDslModelObject(json);
+            result.push(flow);
+        })
+        return result;
     }
+
 
     // static test =()=>{
     //     const y = " - from: \n" +
