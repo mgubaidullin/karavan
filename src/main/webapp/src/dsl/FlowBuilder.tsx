@@ -64,7 +64,8 @@ export class FlowBuilder extends React.Component<Props, State> {
         this.setState({showSelector: false})
     }
 
-    showDslSelector = () => {
+    showDslSelector = (evt: React.MouseEvent) => {
+        evt.stopPropagation()
         this.setState({showSelector: true})
     }
 
@@ -73,9 +74,8 @@ export class FlowBuilder extends React.Component<Props, State> {
     }
 
     delete = (evt: React.MouseEvent) => {
-        if (evt) {
-            this.props.deleteElement.call(this, this.state.id)
-        }
+        evt.stopPropagation()
+        this.props.deleteElement.call(this, DslApi.getUid(this.state.flow))
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
@@ -123,7 +123,7 @@ export class FlowBuilder extends React.Component<Props, State> {
                     ))}
 
                     <Tooltip position={"bottom"} content={<div>{"Add element to From"}</div>}>
-                        <button type="button" aria-label="Add" onClick={e => this.showDslSelector()}
+                        <button type="button" aria-label="Add" onClick={e => this.showDslSelector(e)}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>

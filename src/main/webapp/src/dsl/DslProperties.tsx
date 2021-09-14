@@ -58,7 +58,6 @@ export class DslProperties extends React.Component<Props, State> {
     };
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
-        console.log(fieldId + " + " + value + ", prefix " + prefix)
         const name = DslApi.getName(this.state.element)
         const clone = Object.assign({}, this.state.element)
         if (prefix !== undefined) {
@@ -175,14 +174,6 @@ export class DslProperties extends React.Component<Props, State> {
         const language = DslApi.getExpressionLanguage(this.state.element);
         const dslLanguage = DslPropertiesUtil.getExpressionLanguages().find(l => l.name === language);
         const value = language ? DslApi.getExpressionValue(this.state.element, property.name)[language] : undefined;
-
-
-        console.log("++++++++++++")
-        console.log(language)
-        console.log(dslLanguage)
-        console.log(value)
-        console.log("++++++++++++")
-
         const selectOptions: JSX.Element[] = []
         selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
         DslPropertiesUtil.getExpressionLanguages().forEach((lang: DslLanguage) => {

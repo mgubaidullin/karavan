@@ -214,11 +214,13 @@ export class DslApi {
         console.log(flows)
         const result: DslModelObject[] = []
         flows.forEach((flow, index) => {
-            if (flow.from?.steps && flow.from?.steps.length > 0) {
-                const steps = DslApi.deleteOneElement(flow.from?.steps || [], idToDelete)
-                flow.from.steps = steps
+            if (DslApi.getUid(flow) !== idToDelete){
+                if (flow.from?.steps && flow.from?.steps.length > 0) {
+                    const steps = DslApi.deleteOneElement(flow.from?.steps || [], idToDelete)
+                    flow.from.steps = steps
+                }
+                result.push(flow);
             }
-            result.push(flow);
         })
         console.log(result)
         return result

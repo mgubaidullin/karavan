@@ -40,19 +40,34 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
 
     }
 
+    componentWillReceiveProps =() => {
+
+    }
+
     componentDidUpdate = (prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) => {
-        if (prevState.selectedUid !== this.props.selectedUid) {
+        console.log("Element start ++++++++++")
+        console.log(this.props.element)
+        console.log(this.props.selectedUid)
+        // console.log(prevState.selectedUid)
+        console.log(prevProps.element)
+        console.log(prevProps.selectedUid)
+        console.log("Element finish ++++++++++")
+        if (prevProps.selectedUid !== this.props.selectedUid) {
+            console.log('changed ' + this.props.selectedUid)
             this.setState({selectedUid: this.props.selectedUid});
+        }
+        if (DslApi.getUid(prevState.element) !== DslApi.getUid(this.props.element)) {
+            this.setState({element: this.props.element});
         }
     }
 
     delete = (evt: React.MouseEvent) => {
-        if (evt) {
-            this.props.deleteElement.call(this, DslApi.getUid(this.state.element))
-        }
+        evt.stopPropagation()
+        this.props.deleteElement.call(this, DslApi.getUid(this.state.element))
     }
 
-    showDslSelector = () => {
+    showDslSelector = (evt: React.MouseEvent) => {
+        evt.stopPropagation()
         this.setState({showSelector: true})
     }
 
@@ -181,7 +196,7 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                 {DslMetaApi.isDslModelHasSteps(this.state.name) &&
                 <Tooltip position={"bottom"}
                          content={<div>{"Add element to " + DslMetaApi.getTitle(this.state.name)}</div>}>
-                    <button type="button" aria-label="Add" onClick={this.showDslSelector}
+                    <button type="button" aria-label="Add" onClick={event => this.showDslSelector(event)}
                             className="add-button">
                         <AddIcon noVerticalAlign/>
                     </button>

@@ -698,7 +698,7 @@ flex-direction: column;
 .element-builder .header .delete-button {
   position: absolute;
   top: 0;
-  right: 0;
+  right: -5px;
   font-size: 13px;
   line-height: 1;
   border: 0;
