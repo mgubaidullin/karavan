@@ -211,7 +211,6 @@ export class DslApi {
 
     static deleteElement = (flows: DslModelObject[], idToDelete: string): DslModelObject[] => {
         console.log("DslApi.delete " + idToDelete)
-        console.log(flows)
         const result: DslModelObject[] = []
         flows.forEach((flow, index) => {
             if (DslApi.getUid(flow) !== idToDelete){

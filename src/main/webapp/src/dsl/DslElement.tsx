@@ -45,19 +45,8 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
     }
 
     componentDidUpdate = (prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) => {
-        console.log("Element start ++++++++++")
-        console.log(this.props.element)
-        console.log(this.props.selectedUid)
-        // console.log(prevState.selectedUid)
-        console.log(prevProps.element)
-        console.log(prevProps.selectedUid)
-        console.log("Element finish ++++++++++")
         if (prevProps.selectedUid !== this.props.selectedUid) {
-            console.log('changed ' + this.props.selectedUid)
             this.setState({selectedUid: this.props.selectedUid});
-        }
-        if (DslApi.getUid(prevState.element) !== DslApi.getUid(this.props.element)) {
-            this.setState({element: this.props.element});
         }
     }
 

@@ -68,8 +68,9 @@ export class DslPage extends React.Component<Props, State> {
     updateElement = (updatedElement: any, newElement: any) => {
         this.setState({flows: []})
         const updatedUid = DslApi.getUid(updatedElement);
-        const flows = DslApi.updateFlows(this.state.flows, updatedUid, updatedElement);
-        this.setState({flows: flows, selectedElement:newElement,  selectedUid: DslApi.getUid(newElement)})
+        const flows = DslApi.updateFlows([...this.state.flows], updatedUid, updatedElement);
+        this.setState({flows: flows})
+        this.selectElement(newElement)
     }
 
     onPropertyUpdate = (element: any) => {
@@ -102,7 +103,7 @@ export class DslPage extends React.Component<Props, State> {
         const flow = DslApi.createFlowElement(dsl);
         const flows: any[] = [...this.state.flows]
         flows.push(flow)
-        this.setState({flows: flows, showSelector: false})
+        this.setState({flows: flows, showSelector: false, selectedElement: flow, selectedUid: DslApi.getUid(flow)})
     }
 
     onIntegrationUpdate = (i: Integration) => {

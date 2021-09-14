@@ -43,7 +43,8 @@ export class DslSelector extends React.Component<Props, State> {
         }
     }
 
-    selectDsl = (dsl: DslMetaModel) => {
+    selectDsl = (evt: React.MouseEvent, dsl: DslMetaModel) => {
+        evt.stopPropagation()
         this.setState({show: false})
         this.props.onDslSelect.call(this, dsl);
     }
@@ -63,7 +64,7 @@ export class DslSelector extends React.Component<Props, State> {
                         <Tab eventKey={label} key={"tab"+index} title={<TabTitleText>{DslMetaApi.capitalizeName(label)}</TabTitleText>}>
                             <Gallery key={"gallery"+index} hasGutter className="dsl-gallery">
                                 {DslMetaApi.getChildrenList(this.props.elementName, label).map((model, index) => (
-                                    <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(model)}>
+                                    <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(event, model)}>
                                         <CardHeader>
                                             <img draggable="false"
                                                  src={DslMetaApi.getIcon(model.name)}
@@ -83,7 +84,7 @@ export class DslSelector extends React.Component<Props, State> {
                         <Tab eventKey={"routing"} key={"routing"} title={<TabTitleText>{DslMetaApi.capitalizeName('routing')}</TabTitleText>}>
                             <Gallery key={"gallery"} hasGutter className="dsl-gallery">
                                 {[DslMetaApi.findDslMetaModelByName('from')].map((model, index) => (
-                                    <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(model)}>
+                                    <Card key={model.name} isHoverable isCompact className="dsl-card" onClick={event => this.selectDsl(event, model)}>
                                         <CardHeader>
                                             <img draggable="false"
                                                  src={DslMetaApi.getIcon(model.name)}
@@ -105,7 +106,7 @@ export class DslSelector extends React.Component<Props, State> {
                             <Gallery key={"gallery" + index} hasGutter className="dsl-gallery">
                                 {DslMetaApi.getKameletList(this.props.elementName, label, this.props.elementName === 'flow' ? 'from' : 'to').map((model, index) => (
                                     <Card key={model.name + model.uri} isHoverable isCompact className="dsl-card"
-                                          onClick={event => this.selectDsl(model)}>
+                                          onClick={event => this.selectDsl(event, model)}>
                                         <CardHeader>
                                             <img draggable="false"
                                                  src={DslMetaApi.getIcon(model.name, model.uri)}
