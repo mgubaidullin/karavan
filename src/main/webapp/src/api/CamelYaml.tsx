@@ -7,7 +7,7 @@ import {
     Expression,
     WhenStep,
     ChoiceStep,
-    FilterStep, FromStep
+    FilterStep, FromStep, MulticastStep
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
 
@@ -58,10 +58,14 @@ export class CamelYaml {
         const to2 = new ToStep({uri: 'log:demo2'});
         const to3 = new ToStep({uri: 'log:demo3'});
         const to4 = new ToStep({uri: 'log:demo4'});
+        const to5 = new ToStep({uri: 'kamelet:ftp-sink'});
+        const direct1 = new ToStep({uri: 'direct1'});
+        const direct2 = new ToStep({uri: 'direct2'});
+        const direct3 = new ToStep({uri: 'direct3'});
 
         const otherwise = new Otherwise({steps: [to3]})
         const expression1 = new Expression({simple: '${body} == "hello"'});
-        const when1 = new WhenStep({steps: [to1], expression: expression1})
+        const when1 = new WhenStep({steps: [to1, to5], expression: expression1})
         const expression2 = new Expression({simple: '${body} == "hello"'});
         const when2 = new WhenStep({steps: [to2], expression: expression2})
 
@@ -69,7 +73,8 @@ export class CamelYaml {
 
         const expression = new Expression({simple: '${body} == "hello"'});
         const filter = new FilterStep({expression: expression, steps:[to3, to4]})
-        const from = new FromStep({uri: 'direct1', steps: [filter, choice]});
+        const multicast = new MulticastStep({steps:[direct1, direct2, direct3]})
+        const from = new FromStep({uri: 'direct1', steps: [filter, multicast, choice]});
         // const from = new FromStep({uri:'direct1', steps:[to1]});
         // console.log(from)
         // const cleanFrom = ResourceGenerator.cleanupElement(from);

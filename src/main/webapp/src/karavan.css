@@ -334,23 +334,6 @@
     width: 100%;
 }
 
-.karavan .dsl-page .flows .step-element .from {
-}
-
-.karavan .dsl-page .flows .step-element .choice .whens .when,
-.karavan .dsl-page .flows .step-element .choice .whens .otherwise {
-    /*margin-left: 6px;*/
-}
-
-.karavan .dsl-page .flows .step-element .choice .whens .when:first-child {
-    /*margin-left: 0px;*/
-}
-
-.karavan .dsl-page .flows .step-element .choice .whens {
-    display: flex;
-    flex-direction: row;
-}
-
 .element-builder {
     min-width: 160px;
     min-height: 65px;
@@ -456,33 +439,6 @@
 
 .element-builder .add-button svg {
     margin: 0 auto 3px auto;
-}
-
-.choice .whens .when,
-.choice .whens .otherwise {
-    margin-left: 6px;
-}
-
-.choice .whens .when:first-child {
-    margin-left: 0px;
-}
-
-.choice .whens {
-    display: flex;
-    flex-direction: row;
-}
-
-.multicast .steps {
-    display: flex;
-    flex-direction: row;
-}
-
-.multicast .steps .step:first-child {
-    margin-left: 0px;
-}
-
-.multicast .steps .step {
-    margin-left: 6px;
 }
 
 
