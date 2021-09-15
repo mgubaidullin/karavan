@@ -114,18 +114,29 @@ public final class CamelModelGenerator {
 
         camelApi.append(
                 "    static createSteps = (elements: any[] | undefined): ProcessorStep[] => {\n" +
-                        "        const result: ProcessorStep[] = []\n" +
-                        "        if (elements !== undefined){\n" +
-                        "            elements.forEach(e => {\n" +
-                        "                const stepName = Object.keys(e)[0];\n" +
-                        "                result.push(CamelApi.createStep(stepName, e));\n" +
-                        "            })\n" +
-                        "        }\n" +
-                        "        return result\n" +
-                        "    }\n");
+                "        const result: ProcessorStep[] = []\n" +
+                "        if (elements !== undefined){\n" +
+                "            elements.forEach(e => {\n" +
+                "                const stepName = Object.keys(e)[0];\n" +
+                "                result.push(CamelApi.createStep(stepName, e));\n" +
+                "            })\n" +
+                "        }\n" +
+                "        return result\n" +
+                "    }\n\n");
+
+
+        camelApi.append(
+                "    static elementFromStep = (step: CamelElement): CamelElement => {\n" +
+                "        switch (step.dslName){\n" +
+                "            case 'from' : return (step as FromStep).from\n");
+        processors.values().forEach(s ->
+                camelApi.append("            case '").append(deCapitalize(s)).append("': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n"));
+        camelApi.append(
+                "            default : return new CamelElement('')\n" +
+                "        }\n" +
+                "    }\n");
 
         camelApi.append("}").append(System.lineSeparator());
-
         vertx.fileSystem().writeFileBlocking(targetApi, Buffer.buffer(camelApi.toString()));
     }
 
@@ -147,7 +158,7 @@ public final class CamelModelGenerator {
             }
         });
         f.append(String.format("        return %s\n", stepField));
-        f.append("    }\n");
+        f.append("    }\n\n");
         return f.toString();
     }
 
