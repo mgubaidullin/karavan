@@ -170,7 +170,10 @@ public final class CamelModelGenerator {
                     String displayName = p.getString("displayName");
                     String desc = p.getString("desc");
                     String type = p.getString("type");
-                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s'),\n", pname, kind, displayName, desc, type));
+                    String en = p.containsKey("enum") ? p.getString("enum") : "";
+                    Boolean required = p.getBoolean("required");
+                    Boolean secret = p.getBoolean("secret");
+                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s', '%s', %b, %b),\n", pname, kind, displayName, desc, type, en, required, secret));
                 });
                 metadata.append("    ]),\n");
             }

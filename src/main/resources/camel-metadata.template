@@ -21,14 +21,20 @@ export class PropertyMeta {
     displayName: string = ''
     description: string = ''
     type: string = ''
+    enumVals: string = ''
+    required: boolean = false
+    secret: boolean = false
 
 
-    constructor(name: string, kind: string, displayName: string, description: string, type: string) {
+    constructor(name: string, kind: string, displayName: string, description: string, type: string, enumVals: string, required: boolean, secret: boolean) {
         this.name = name;
         this.kind = kind;
         this.displayName = displayName;
         this.description = description;
         this.type = type;
+        this.enumVals = enumVals;
+        this.required = required;
+        this.secret = secret;
     }
 }
 
