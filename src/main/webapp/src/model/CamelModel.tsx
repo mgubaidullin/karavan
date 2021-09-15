@@ -34,9 +34,14 @@ export class Integration {
 export class CamelElement {
    uuid: string = ''
    dslName: string = ''
+
    constructor(dslName: string) {
        this.uuid = uuidv4()
        this.dslName = dslName
+   }
+
+   hasSteps(): boolean {
+      return this.hasOwnProperty('steps');
    }
 }
 
@@ -820,24 +825,6 @@ export class RecipientListStep extends ProcessorStep {
     }
 }
 
-export class Step extends CamelElement { 
-    inheritErrorHandler?: boolean
-    steps?: ProcessorStep [] = []
-
-    public constructor(init?: Partial<Step>) { 
-        super('step')
-        Object.assign(this, init)
-    }
-}
-export class StepStep extends ProcessorStep {
-    step: Step = new Step()
-
-    public constructor(init?: Partial<Step>) {
-        super('stepStep')
-        Object.assign(this, {step: new Step({...init})})
-    }
-}
-
 export class Bean extends CamelElement { 
     beanType?: string
     cache?: boolean
@@ -1160,26 +1147,6 @@ export class ServiceCallStep extends ProcessorStep {
     public constructor(init?: Partial<ServiceCall>) {
         super('serviceCallStep')
         Object.assign(this, {serviceCall: new ServiceCall({...init})})
-    }
-}
-
-export class Kamelet extends CamelElement { 
-    inheritErrorHandler?: boolean
-    name?: string
-    parameters?: any
-    steps?: ProcessorStep [] = []
-
-    public constructor(init?: Partial<Kamelet>) { 
-        super('kamelet')
-        Object.assign(this, init)
-    }
-}
-export class KameletStep extends ProcessorStep {
-    kamelet: Kamelet = new Kamelet()
-
-    public constructor(init?: Partial<Kamelet>) {
-        super('kameletStep')
-        Object.assign(this, {kamelet: new Kamelet({...init})})
     }
 }
 

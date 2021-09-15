@@ -13,9 +13,9 @@ import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
 import {Integration} from "./model/CamelModel";
 import {v4 as uuidv4} from "uuid";
-import {DslPage} from "./designer/DslPage";
+import {DesignerPage} from "./designer/DesignerPage";
 import {DslMetaApi} from "./api/DslMetaApi";
-import {ResourceGenerator} from "./api/ResourceGenerator";
+import {CamelYaml} from "./api/CamelYaml";
 
 class ToastMessage {
     id: string = ''
@@ -151,7 +151,7 @@ export class Main extends React.Component<Props, State> {
         KaravanApi.getIntegration(name, res => {
             if (res.status === 200) {
                 const code: string = res.data;
-                const i = ResourceGenerator.yamlToIntegration(code);
+                const i = CamelYaml.yamlToIntegration(code);
                 this.setState({isNavOpen: true, pageId: 'designer', integration: i});
             } else {
                 this.toast("Error", res.statusText, "danger");
@@ -180,8 +180,8 @@ export class Main extends React.Component<Props, State> {
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {this.state.pageId === 'designer' && <DslPage integration={this.state.integration}/>}
-                {this.state.pageId === 'designer' && <DslPage integration={this.state.integration}/>}
+                {this.state.pageId === 'designer' && <DesignerPage integration={this.state.integration}/>}
+                {this.state.pageId === 'designer' && <DesignerPage integration={this.state.integration}/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}

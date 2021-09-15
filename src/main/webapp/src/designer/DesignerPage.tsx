@@ -6,7 +6,7 @@ import {
 import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
 import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 import '../karavan.css';
-import {FlowBuilder} from "./FlowBuilder";
+import {StepElement} from "./StepElement";
 import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
 import {DslSelector} from "./DslSelector";
@@ -28,7 +28,7 @@ interface State {
     selectedUid: string
 }
 
-export class DslPage extends React.Component<Props, State> {
+export class DesignerPage extends React.Component<Props, State> {
 
     public state: State = {
         integration: CamelYaml.demo(), //this.props.integration,
@@ -149,7 +149,7 @@ export class DslPage extends React.Component<Props, State> {
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.integration.spec.flows.map((flow, index) => (
-                            <FlowBuilder key={flow.uuid}
+                            <StepElement key={flow.uuid}
                                          deleteElement={this.deleteElement}
                                          updateElement={this.updateElement}
                                          selectElement={this.selectElement}

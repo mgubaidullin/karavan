@@ -1,5 +1,14 @@
 import * as yaml from 'js-yaml';
-import {Integration, CamelElement} from "../model/CamelModel";
+import {
+    Integration,
+    CamelElement,
+    ToStep,
+    Otherwise,
+    Expression,
+    WhenStep,
+    ChoiceStep,
+    FilterStep, FromStep
+} from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
 
 export class CamelYaml {
@@ -14,13 +23,13 @@ export class CamelYaml {
     }
 
     static cleanupElement = (element: CamelElement): CamelElement => {
-        const result:any = Object.assign({}, element)
+        const result: any = Object.assign({}, element)
         delete result.uuid
         delete result.dslName
         Object.keys(result).forEach(key => {
-            if (result[key] instanceof CamelElement){
+            if (result[key] instanceof CamelElement) {
                 result[key] = CamelYaml.cleanupElement(result[key])
-            } else if (Array.isArray(result[key])){
+            } else if (Array.isArray(result[key])) {
                 result[key] = CamelYaml.cleanupElements(result[key])
             }
         })
@@ -28,7 +37,7 @@ export class CamelYaml {
     }
 
     static cleanupElements = (elements: CamelElement[]): CamelElement[] => {
-        const result:any[] = []
+        const result: any[] = []
         elements.forEach(element => {
             const newElement = CamelYaml.cleanupElement(element)
             result.push(newElement)
@@ -41,6 +50,31 @@ export class CamelYaml {
         const int: Integration = new Integration({...fromYaml});
         const flows = int.spec.flows.map(f => CamelApi.createFrom(f))
         int.spec.flows = flows;
+        return int;
+    }
+
+    static demo = (): Integration => {
+        const to1 = new ToStep({uri: 'log:demo1'});
+        const to2 = new ToStep({uri: 'log:demo2'});
+        const to3 = new ToStep({uri: 'log:demo3'});
+        const to4 = new ToStep({uri: 'log:demo4'});
+
+        const otherwise = new Otherwise({steps: [to3]})
+        const expression1 = new Expression({simple: '${body} == "hello"'});
+        const when1 = new WhenStep({steps: [to1], expression: expression1})
+        const expression2 = new Expression({simple: '${body} == "hello"'});
+        const when2 = new WhenStep({steps: [to2], expression: expression2})
+
+        const choice = new ChoiceStep({otherwise: otherwise, when: [when1, when2]})
+
+        const expression = new Expression({simple: '${body} == "hello"'});
+        const filter = new FilterStep({expression: expression, steps:[to3, to4]})
+        const from = new FromStep({uri: 'direct1', steps: [filter, choice]});
+        // const from = new FromStep({uri:'direct1', steps:[to1]});
+        // console.log(from)
+        // const cleanFrom = ResourceGenerator.cleanupElement(from);
+        const flows: FromStep[] = [from as FromStep];
+        const int = new Integration({metadata: {name: "hello-world"}, spec: {flows: flows}});
         return int;
     }
 }

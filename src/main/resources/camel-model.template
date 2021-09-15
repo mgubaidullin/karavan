@@ -34,9 +34,14 @@ export class Integration {
 export class CamelElement {
    uuid: string = ''
    dslName: string = ''
+
    constructor(dslName: string) {
        this.uuid = uuidv4()
        this.dslName = dslName
+   }
+
+   hasSteps(): boolean {
+      return this.hasOwnProperty('steps');
    }
 }
 
