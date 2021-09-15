@@ -178,7 +178,7 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
-    createExpressionProperty = (property: DslProperty): JSX.Element => {
+    createExpressionProperty = (property: PropertyMeta): JSX.Element => {
         const prefix = "language";
         const language = DslApi.getExpressionLanguage(this.state.element);
         const dslLanguage = DslPropertiesUtil.getExpressionLanguages().find(l => l.name === language);
@@ -213,7 +213,7 @@ export class DslProperties extends React.Component<Props, State> {
                     fieldId={property.name}
                     labelIcon={property.description ?
                         <Popover
-                            headerContent={property.title}
+                            headerContent={property.displayName}
                             bodyContent={property.description}>
                             <button type="button" aria-label="More info" onClick={e => {
                                 e.preventDefault();
@@ -238,6 +238,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createElementProperty = (property: PropertyMeta): JSX.Element => {
+        console.log(property)
         const value = DslApi.getPropertyValue(this.state.element, property.name);
         const selectOptions: JSX.Element[] = []
         if (property.type === 'enum') {
@@ -309,10 +310,10 @@ export class DslProperties extends React.Component<Props, State> {
                         onClick={e => this.propertyChanged(property.name, undefined)}/>
                 </div>
                 }
-                {/*<div className="expression">*/}
-                {/*    {property.name === 'expression' && property.type === 'object'*/}
-                {/*    && this.createExpressionProperty(property)}*/}
-                {/*</div>*/}
+                <div className="expression">
+                    {property.name === 'expression' && property.type === "Expression"
+                    && this.createExpressionProperty(property)}
+                </div>
                 {/*<div className="parameters">*/}
                 {/*    {property.name === 'parameters' && DslPropertiesUtil.isKameletComponent(this.state.element)*/}
                 {/*    && DslPropertiesUtil.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}*/}

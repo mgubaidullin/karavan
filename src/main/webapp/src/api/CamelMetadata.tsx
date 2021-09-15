@@ -45,7 +45,32 @@ export class CamelMetadataApi {
     static getElementMeta = (name: string): ElementMeta | undefined => {
        return Metadata.find(value => value.name === name);
     }
+
+    static getLanguage = (name: string): [string, string, string] | undefined => {
+        return Languages.find(value => value[0] === name);
+    }
 }
+const Languages: [string, string, string][] = [
+    ['constant','Constant',"A fixed value set only once during the route startup."],
+    ['csimple','CSimple',"Evaluate a compile simple expression language."],
+    ['datasonnet','DataSonnet',"To use DataSonnet scripts in Camel expressions or predicates."],
+    ['exchangeProperty','ExchangeProperty',"Get the value of named Camel Exchange property."],
+    ['groovy','Groovy',"Evaluate a Groovy script."],
+    ['header','Header',"Get the value of the named Camel Message header."],
+    ['hl7terser','HL7 Terser',"Get the value of an HL7 message field specified by terse location specification syntax."],
+    ['joor','jOOR',"Evaluate a jOOR (Java compiled once at runtime) expression language."],
+    ['jsonpath','JsonPath',"Evaluate a JsonPath expression against a JSON message body."],
+    ['method','Bean method',"Call a method of the specified Java bean passing the Exchange, Body or specific headers to it."],
+    ['mvel','MVEL',"Evaluate an MVEL template against the Camel Exchange."],
+    ['ognl','OGNL',"Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange."],
+    ['ref','Ref',"Look up an expression in the Camel Registry and evaluate it."],
+    ['simple','Simple',"Evaluate Camel's built-in Simple language expression against the Camel Exchange."],
+    ['spel','SpEL',"Evaluate a Spring Expression Language (SpEL) expression against the Camel Exchange."],
+    ['tokenize','Tokenize',"Tokenize text payloads using the specified delimiter patterns."],
+    ['xpath','XPath',"Evaluate an XPath expression against an XML payload."],
+    ['xquery','XQuery',"Evaluate an XQuery expressions against an XML payload."],
+    ['xtokenize','XML Tokenize',"Tokenize XML payloads using the specified path expression."],
+]
 const Metadata: ElementMeta[] = [
     new ElementMeta('policy', 'Policy', 'Defines a policy the route will use', 'null', [
         new PropertyMeta('inheritErrorHandler', 'inheritErrorHandler', "inheritErrorHandler", 'boolean', '', false, false, false, false),

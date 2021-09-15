@@ -152,6 +152,19 @@ public final class CamelModelGenerator {
         // Generate Metadata
         Buffer metadataBuffer = vertx.fileSystem().readFileBlocking(metadataTemplate);
         StringBuilder metadata = new StringBuilder(metadataBuffer.toString());
+
+        metadata.append("const Languages: [string, string, string][] = [\n");
+        models.get("expression").forEach(el -> {
+            String name = el.name;
+            String json = getMetaModel(name);
+            JsonObject model = new JsonObject(json).getJsonObject("model");
+            String title = model.getString("title");
+            String description = model.getString("description");
+            metadata.append(String.format("    ['%s','%s',\"%s\"],\n", name, title, description));
+        });
+        metadata.append("]\n");
+
+
         metadata.append("const Metadata: ElementMeta[] = [\n");
         models.keySet().forEach(s -> {
             String name = deCapitalize(s);
@@ -168,7 +181,7 @@ public final class CamelModelGenerator {
                     JsonObject p = props.getJsonObject(pname);
                     String displayName = p != null && p.containsKey("displayName") ? p.getString("displayName") : pname;
                     String desc = p != null && p.containsKey("description") ? p.getString("description") : pname;
-                    String en = p != null && p.containsKey("enum") ? p.getString("enum").replace("[","").replace("]", "") : "";
+                    String en = p != null && p.containsKey("enum") ? p.getString("enum").replace("[", "").replace("]", "") : "";
                     String type = p != null && p.containsKey("desc") ? p.getString("type") : el.type;
                     Boolean required = p != null && p.containsKey("required") ? p.getBoolean("required") : false;
                     Boolean secret = p != null && p.containsKey("secret") ? p.getBoolean("secret") : false;
