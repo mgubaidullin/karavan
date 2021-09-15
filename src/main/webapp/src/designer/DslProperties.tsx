@@ -23,7 +23,7 @@ import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
-import {CamelMetadataApi} from "../api/CamelMetadata";
+import {CamelMetadataApi, PropertyMeta} from "../api/CamelMetadata";
 
 interface Props {
     integration: Integration,
@@ -35,16 +35,16 @@ interface Props {
 
 interface State {
     integration: Integration,
-    step: CamelElement,
-    element: CamelElement,
+    step?: CamelElement,
+    element?: CamelElement,
     selectStatus: Map<string, boolean>
 }
 
 export class DslProperties extends React.Component<Props, State> {
 
     public state: State = {
-        step: this.props.step ? this.props.step : new ProcessorStep('empty'),
-        element: this.props.step ? CamelApi.elementFromStep(this.props.step) : new CamelElement('empty'),
+        step: this.props.step,
+        element: this.props.step,
         integration: this.props.integration,
         selectStatus: new Map<string, boolean>()
     };
@@ -111,9 +111,11 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     getComponentHeader = (): JSX.Element => {
-        const title = CamelUi.getTitle(this.state.element)
-        const kamelet = CamelUi.getKamelet(this.state.element)
-        const description = kamelet ? kamelet.spec.definition.description : CamelMetadataApi.getElementMeta(this.state.element.dslName)?.description
+        const title = this.state.element && CamelUi.getTitle(this.state.element)
+        const kamelet = this.state.element &&  CamelUi.getKamelet(this.state.element)
+        const description = this.state.element && kamelet
+            ? kamelet.spec.definition.description
+            : this.state.element?.dslName ? CamelMetadataApi.getElementMeta(this.state.element?.dslName)?.description : title;
         return (
             <div className="headers">
                 <Title headingLevel="h1" size="md">{title}</Title>
@@ -235,21 +237,21 @@ export class DslProperties extends React.Component<Props, State> {
         )
     }
 
-    createElementProperty = (property: DslProperty): JSX.Element => {
+    createElementProperty = (property: PropertyMeta): JSX.Element => {
         const value = DslApi.getPropertyValue(this.state.element, property.name);
         const selectOptions: JSX.Element[] = []
         if (property.type === 'enum') {
             selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder/>);
-            selectOptions.push(...property.enum.map((value: string) => <SelectOption key={value} value={value}/>));
+            selectOptions.push(...property.enumVals.split(',').map((value: string) => <SelectOption key={value} value={value}/>));
         }
         return (
             <FormGroup
                 key={property.name}
-                label={property.title}
+                label={property.displayName}
                 fieldId={property.name}
                 labelIcon={property.description ?
                     <Popover
-                        headerContent={property.title}
+                        headerContent={property.displayName}
                         bodyContent={property.description}>
                         <button type="button" aria-label="More info" onClick={e => {
                             e.preventDefault();
@@ -307,14 +309,14 @@ export class DslProperties extends React.Component<Props, State> {
                         onClick={e => this.propertyChanged(property.name, undefined)}/>
                 </div>
                 }
-                <div className="expression">
-                    {property.name === 'expression' && property.type === 'object'
-                    && this.createExpressionProperty(property)}
-                </div>
-                <div className="parameters">
-                    {property.name === 'parameters' && DslPropertiesUtil.isKameletComponent(this.state.element)
-                    && DslPropertiesUtil.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}
-                </div>
+                {/*<div className="expression">*/}
+                {/*    {property.name === 'expression' && property.type === 'object'*/}
+                {/*    && this.createExpressionProperty(property)}*/}
+                {/*</div>*/}
+                {/*<div className="parameters">*/}
+                {/*    {property.name === 'parameters' && DslPropertiesUtil.isKameletComponent(this.state.element)*/}
+                {/*    && DslPropertiesUtil.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}*/}
+                {/*</div>*/}
             </FormGroup>
         )
     }
@@ -326,7 +328,7 @@ export class DslProperties extends React.Component<Props, State> {
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}
                     {/*{this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}*/}
-                    {this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}
+                    {this.state.element && CamelUi.getElementProperties(this.state.element.dslName).map((property: PropertyMeta) => this.createElementProperty(property))}
                 </Form>
             </div>
         );

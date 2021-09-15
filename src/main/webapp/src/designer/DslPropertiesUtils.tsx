@@ -4,6 +4,7 @@ import {DslApi} from "../api/DslApi";
 import {Property} from "../model/KameletModels";
 import {KameletApi} from "../api/KameletApi";
 import {CamelElement, From} from "../model/CamelModel";
+import {PropertyMeta} from "../api/CamelMetadata";
 
 export const DslPropertiesUtil = {
 
@@ -51,7 +52,7 @@ export const DslPropertiesUtil = {
             });
     },
 
-    getElementProperties: (element: CamelElement): DslProperty[] => {
+    getElementProperties: (element: CamelElement): PropertyMeta[] => {
         console.log(element);
         Object.entries(element).forEach((v: [string, any]) => {
             console.log(v[0])

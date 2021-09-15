@@ -23,9 +23,11 @@ export class PropertyMeta {
     enumVals: string = ''
     required: boolean = false
     secret: boolean = false
+    isArray: boolean = false
+    isObject: boolean = false
 
 
-    constructor(name: string, displayName: string, description: string, type: string, enumVals: string, required: boolean, secret: boolean) {
+    constructor(name: string, displayName: string, description: string, type: string, enumVals: string, required: boolean, secret: boolean, isArray: boolean, isObject: boolean) {
         this.name = name;
         this.displayName = displayName;
         this.description = description;
@@ -33,6 +35,8 @@ export class PropertyMeta {
         this.enumVals = enumVals;
         this.required = required;
         this.secret = secret;
+        this.isArray = isArray;
+        this.isObject = isObject;
     }
 }
 

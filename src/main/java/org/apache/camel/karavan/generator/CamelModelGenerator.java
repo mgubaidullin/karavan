@@ -172,22 +172,8 @@ public final class CamelModelGenerator {
                     String type = p != null && p.containsKey("desc") ? p.getString("type") : el.type;
                     Boolean required = p != null && p.containsKey("required") ? p.getBoolean("required") : false;
                     Boolean secret = p != null && p.containsKey("secret") ? p.getBoolean("secret") : false;
-                    metadata.append(String.format("        new PropertyMeta('%s', '%s', \"%s\", '%s', '%s', %b, %b),\n", pname, displayName, desc, type, en, required, secret));
+                    metadata.append(String.format("        new PropertyMeta('%s', '%s', \"%s\", '%s', '%s', %b, %b, %b, %b),\n", pname, displayName, desc, type, en, required, secret, el.isArray, (el.isArray ? el.isArrayTypeClass : el.isObject)));
                 });
-//
-//
-//                props.stream().forEach(e -> {
-//                    String pname = e.getKey();
-//                    JsonObject p = props.getJsonObject(pname);
-//                    String kind = p.getString("kind");
-//                    String displayName = p.getString("displayName");
-//                    String desc = p.getString("desc");
-//                    String type = p.getString("type");
-//                    String en = p.containsKey("enum") ? p.getString("enum") : "";
-//                    Boolean required = p.getBoolean("required");
-//                    Boolean secret = p.getBoolean("secret");
-//                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s', '%s', %b, %b),\n", pname, kind, displayName, desc, type, en, required, secret));
-//                });
                 metadata.append("    ]),\n");
             }
         });

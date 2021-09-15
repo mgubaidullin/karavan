@@ -1,8 +1,32 @@
 import {KameletApi} from "./KameletApi";
 import {CamelElement} from "../model/CamelModel";
 import {Kamelet} from "../model/KameletModels";
+import {CamelMetadataApi, ElementMeta, PropertyMeta} from "./CamelMetadata";
 
 export class CamelUi {
+
+    static getElementProperties = (name: string | undefined): PropertyMeta[] => {
+        const result: PropertyMeta[] = []
+        let uri = undefined;
+        let expression = undefined;
+        let parameters = undefined;
+        if (name)
+        CamelMetadataApi.getElementMeta(name)?.properties
+            .filter(p => p.name !== 'steps' && p.name !== 'inheritErrorHandler')
+            .filter(p => !p.isObject  || (p.isObject && p.name === 'expression'))
+            .forEach(p => {
+                switch (p.name){
+                    case 'uri': uri = p; break
+                    case 'expression': expression = p; break
+                    case 'parameters': parameters = p; break
+                    default: result.push(p)
+                }
+            })
+        if (uri) result.unshift(uri)
+        if (expression) result.unshift(expression)
+        if (parameters) result.push(parameters)
+        return result
+    }
 
     static nameFomTitle = (title: string): string => {
         return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
