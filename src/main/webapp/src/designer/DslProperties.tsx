@@ -23,6 +23,7 @@ import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
+import {CamelMetadataApi} from "../api/CamelMetadata";
 
 interface Props {
     integration: Integration,
@@ -111,10 +112,12 @@ export class DslProperties extends React.Component<Props, State> {
 
     getComponentHeader = (): JSX.Element => {
         const title = CamelUi.getTitle(this.state.element)
+        const kamelet = CamelUi.getKamelet(this.state.element)
+        const description = kamelet ? kamelet.spec.definition.description : CamelMetadataApi.getElementMeta(this.state.element.dslName)?.description
         return (
             <div className="headers">
                 <Title headingLevel="h1" size="md">{title}</Title>
-                {/*<Text component={TextVariants.p}>{DslMetaApi.findDslMetaModelByName(name).description}</Text>*/}
+                <Text component={TextVariants.p}>{description}</Text>
             </div>
         )
     }
