@@ -1,6 +1,37 @@
-import {v4 as uuidv4} from 'uuid' 
+import {v4 as uuidv4} from 'uuid'
 
-export class CamelElement { 
+export class Metadata {
+    name: string = '';
+
+    public constructor(init?: Partial<Metadata>) {
+        Object.assign(this, init);
+    }
+}
+
+export class Spec {
+    flows: FromStep[] = [];
+
+    public constructor(init?: Partial<Spec>) {
+        Object.assign(this, init);
+    }
+}
+
+export class Integration {
+    apiVersion: string = 'camel.apache.org/v1';
+    kind: string = 'Integration';
+    metadata: Metadata = new Metadata();
+    spec: Spec = new Spec();
+
+    public constructor(init?: Partial<Integration>) {
+        Object.assign(this, init);
+    }
+
+    static createNew(): Integration {
+        return new Integration({spec: new Spec({flows: []})})
+    }
+}
+
+export class CamelElement {
    uuid: string = ''
    dslName: string = ''
    constructor(dslName: string) {
@@ -11,7 +42,6 @@ export class CamelElement {
 
 export class ProcessorStep extends CamelElement {
 }
-
 export class Policy extends CamelElement { 
     inheritErrorHandler?: boolean
     ref?: string

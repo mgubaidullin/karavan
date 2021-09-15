@@ -17,7 +17,7 @@ import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
-import {Integration} from "../model/IntegrationModels";
+import {Integration} from "../model/CamelModel";
 import {DslApi} from "../api/DslApi";
 import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";

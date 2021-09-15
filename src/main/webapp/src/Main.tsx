@@ -11,7 +11,7 @@ import logo from './logo.svg';
 import './karavan.css';
 import {ConfigurationPage} from "./config/ConfigurationPage";
 import {KameletsPage} from "./kamelets/KameletsPage";
-import {Integration} from "./model/IntegrationModels";
+import {Integration} from "./model/CamelModel";
 import {v4 as uuidv4} from "uuid";
 import {DslPage} from "./designer/DslPage";
 import {DslMetaApi} from "./api/DslMetaApi";

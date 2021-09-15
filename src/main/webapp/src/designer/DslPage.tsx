@@ -13,7 +13,7 @@ import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
 import {ResourceGenerator} from "../api/ResourceGenerator";
 import {DslProperties} from "./DslProperties";
-import {Integration} from "../model/IntegrationModels";
+import {Integration} from "../model/CamelModel";
 import {KaravanApi} from "../api/KaravanApi";
 
 interface Props {

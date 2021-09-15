@@ -19,32 +19,22 @@ public final class CamelModelGenerator {
         CamelModelGenerator g = new CamelModelGenerator();
         g.createModels(
                 "src/main/resources/camel-yaml-dsl.json",
+                "src/main/resources/camel-model.template",
                 "src/main/webapp/src/model/CamelModel.tsx",
                 "src/main/webapp/src/api/CamelApi.tsx");
     }
 
-    private void createModels(String source, String targetModel, String targetApi) throws Exception {
+    private void createModels(String source, String template, String targetModel, String targetApi) throws Exception {
         Vertx vertx = Vertx.vertx();
 
         Buffer buffer = vertx.fileSystem().readFileBlocking(source);
         JsonObject definitions = new JsonObject(buffer).getJsonObject("items").getJsonObject("definitions");
 
+        Buffer templateBuffer = vertx.fileSystem().readFileBlocking(template);
+
+
         StringBuilder camelModel = new StringBuilder();
-        camelModel.append("import {v4 as uuidv4} from 'uuid' \n\n");
-
-        camelModel.append(
-                "export class CamelElement { \n" +
-                "   uuid: string = ''\n" +
-                "   dslName: string = ''\n" +
-                "   constructor(dslName: string) {\n" +
-                "       this.uuid = uuidv4()\n" +
-                "       this.dslName = dslName\n" +
-                "   }\n" +
-                "}\n\n");
-
-        camelModel.append(
-                "export class ProcessorStep extends CamelElement {\n" +
-                "}\n\n");
+        camelModel.append(templateBuffer.toString());
 
         // generate properties for elements
         Map<String, List<ElementProp>> models = new HashMap<>();
@@ -308,4 +298,5 @@ public final class CamelModelGenerator {
                 return "string";
         }
     }
+
 }

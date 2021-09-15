@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from 'uuid'
 
 export class Metadata {
     name: string = '';
@@ -8,7 +9,7 @@ export class Metadata {
 }
 
 export class Spec {
-    flows: any[] = [];
+    flows: FromStep[] = [];
 
     public constructor(init?: Partial<Spec>) {
         Object.assign(this, init);
@@ -28,4 +29,16 @@ export class Integration {
     static createNew(): Integration {
         return new Integration({spec: new Spec({flows: []})})
     }
+}
+
+export class CamelElement {
+   uuid: string = ''
+   dslName: string = ''
+   constructor(dslName: string) {
+       this.uuid = uuidv4()
+       this.dslName = dslName
+   }
+}
+
+export class ProcessorStep extends CamelElement {
 }
