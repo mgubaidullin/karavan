@@ -12,7 +12,41 @@ import {
     When, WhenStep
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
+import {CamelYaml} from "./CamelYaml";
 export class ResourceGenerator {
+
+
+    static integrationToYaml = (integration: Integration): string => {
+        const clone: any = Object.assign({}, integration);
+        const flows = integration.spec.flows
+        clone.spec.flows = flows.map((f: any) => ResourceGenerator.cleanupElement(f));
+        const i = JSON.parse(JSON.stringify(clone, null, 3)); // fix undefined in string attributes
+        const text = yaml.dump(i);
+        return text;
+    }
+
+    static cleanupElement = (element: CamelElement): CamelElement => {
+        const result:any = Object.assign({}, element)
+        delete result.uuid
+        delete result.dslName
+        Object.keys(result).forEach(key => {
+            if (result[key] instanceof CamelElement){
+                result[key] = ResourceGenerator.cleanupElement(result[key])
+            } else if (Array.isArray(result[key])){
+                result[key] = ResourceGenerator.cleanupElements(result[key])
+            }
+        })
+        return result as CamelElement
+    }
+
+    static cleanupElements = (elements: CamelElement[]): CamelElement[] => {
+        const result:any[] = []
+        elements.forEach(element => {
+            const newElement = ResourceGenerator.cleanupElement(element)
+            result.push(newElement)
+        })
+        return result
+    }
 
     static flowsToYaml = (name:string, flows: any[]): string => {
         const integration:Integration = new Integration();
@@ -108,17 +142,25 @@ export class ResourceGenerator {
         const filter = new FilterStep({expression: expression})
         const from = new FromStep({uri:'direct1', steps:[filter, choice]});
         // const from = new FromStep({uri:'direct1', steps:[to1]});
-        console.log(from)
-        const cleanFrom = ResourceGenerator.cleanupElement(from);
-        const flows:FromStep[] = [cleanFrom as FromStep];
-        const result = JSON.parse(JSON.stringify(flows, null, 3));
-        const yamlText = yaml.dump(result);
-        console.log(yamlText)
+        // console.log(from)
+        // const cleanFrom = ResourceGenerator.cleanupElement(from);
+        const flows:FromStep[] = [from as FromStep];
+        const int = new Integration({metadata:{name:"hello-world"}, spec:{flows: flows}});
 
-        const fromYaml:[] = yaml.load(yamlText) as [];
-       fromYaml.forEach(f => {
-           console.log(ResourceGenerator.createFrom(f))
-       })
+
+        const text = CamelYaml.integrationToYaml(int)
+        console.log(text);
+        console.log(CamelYaml.yamlToIntegration(text));
+
+
+       //  const result = JSON.parse(JSON.stringify(flows, null, 3));
+       //  const yamlText = yaml.dump(result);
+       //  console.log(yamlText)
+       //
+       //  const fromYaml:[] = yaml.load(yamlText) as [];
+       // fromYaml.forEach(f => {
+       //     console.log(ResourceGenerator.createFrom(f))
+       // })
     }
 
     static createFrom = (element: any): FromStep => {
@@ -152,28 +194,7 @@ export class ResourceGenerator {
 
 
 
-    static cleanupElement = (element: CamelElement): CamelElement => {
-        const result:any = Object.assign({}, element)
-        delete result.uuid
-        delete result.dslName
-        Object.keys(result).forEach(key => {
-            if (result[key] instanceof CamelElement){
-                result[key] = ResourceGenerator.cleanupElement(result[key])
-            } else if (Array.isArray(result[key])){
-                result[key] = ResourceGenerator.cleanupElements(result[key])
-            }
-        })
-        return result as CamelElement
-    }
 
-    static cleanupElements = (elements: CamelElement[]): CamelElement[] => {
-        const result:any[] = []
-        elements.forEach(element => {
-            const newElement = ResourceGenerator.cleanupElement(element)
-            result.push(newElement)
-        })
-        return result
-    }
 
     static prepareElement = (element: any): any => {
         console.log("--------");
