@@ -4,7 +4,13 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import org.apache.camel.karavan.dsl.DslResources;
 
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,11 +26,14 @@ public final class CamelModelGenerator {
         g.createModels(
                 "src/main/resources/camel-yaml-dsl.json",
                 "src/main/resources/camel-model.template",
+                "src/main/resources/camel-metadata.template",
                 "src/main/webapp/src/model/CamelModel.tsx",
-                "src/main/webapp/src/api/CamelApi.tsx");
+                "src/main/webapp/src/api/CamelApi.tsx",
+                "src/main/webapp/src/api/CamelMetadata.tsx"
+        );
     }
 
-    private void createModels(String source, String template, String targetModel, String targetApi) throws Exception {
+    private void createModels(String source, String template, String metadataTemplate, String targetModel, String targetApi, String targetMetadata) throws Exception {
         Vertx vertx = Vertx.vertx();
 
         Buffer buffer = vertx.fileSystem().readFileBlocking(source);
@@ -138,6 +147,36 @@ public final class CamelModelGenerator {
 
         camelApi.append("}").append(System.lineSeparator());
         vertx.fileSystem().writeFileBlocking(targetApi, Buffer.buffer(camelApi.toString()));
+
+
+        // Generate Metadata
+        Buffer metadataBuffer = vertx.fileSystem().readFileBlocking(metadataTemplate);
+        StringBuilder metadata = new StringBuilder(metadataBuffer.toString());
+        metadata.append("const Metadata: ElementMeta[] = [\n");
+        models.keySet().forEach(s -> {
+            String name = deCapitalize(s);
+            String json = getMetaModel(name);
+            if (json != null) {
+                JsonObject model = new JsonObject(json).getJsonObject("model");
+                JsonObject props = new JsonObject(json).getJsonObject("properties");
+                String title = model.getString("title");
+                String description = model.getString("description");
+                String labels = model.getString("labels");
+                metadata.append(String.format("    new ElementMeta('%s', '%s', '%s', '%s', [\n", name, title, description, labels));
+                props.stream().forEach(e -> {
+                    String pname = e.getKey();
+                    JsonObject p = props.getJsonObject(pname);
+                    String kind = p.getString("kind");
+                    String displayName = p.getString("displayName");
+                    String desc = p.getString("desc");
+                    String type = p.getString("type");
+                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s'),\n", pname, kind, displayName, desc, type));
+                });
+                metadata.append("    ]),\n");
+            }
+        });
+        metadata.append("]\n");
+        vertx.fileSystem().writeFileBlocking(targetMetadata, Buffer.buffer(metadata.toString()));
     }
 
     private String createCreateFunction(String name, List<ElementProp> elProps) {
@@ -309,6 +348,17 @@ public final class CamelModelGenerator {
                 return arrayClassName + " [] = []";
             default:
                 return "string";
+        }
+    }
+
+    public String getMetaModel(String name) {
+        try {
+            InputStream inputStream = DslResources.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
+            String data = new BufferedReader(new InputStreamReader(inputStream))
+                    .lines().collect(Collectors.joining(System.getProperty("line.separator")));
+            return data;
+        } catch (Exception e){
+            return null;
         }
     }
 

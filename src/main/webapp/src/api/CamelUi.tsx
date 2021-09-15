@@ -4,6 +4,20 @@ import {Kamelet} from "../model/KameletModels";
 
 export class CamelUi {
 
+    static nameFomTitle = (title: string): string => {
+        return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
+    }
+
+    static titleFromName = (name?: string) => {
+        return name ?
+            name
+                .replace(".yaml", '')
+                .split('-')
+                .map(value => CamelUi.capitalizeName(value))
+                .reduce((previousValue, currentValue) => previousValue + " " + currentValue)
+            : name;
+    }
+
     static getKamelet = (element: CamelElement): Kamelet | undefined => {
         if (['from', 'to'].includes(element.dslName)) {
             const uri: string = (element as any).uri;

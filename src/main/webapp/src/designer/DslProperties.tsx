@@ -17,15 +17,16 @@ import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
-import {Integration} from "../model/CamelModel";
+import {CamelElement, Integration, ProcessorStep} from "../model/CamelModel";
 import {DslApi} from "../api/DslApi";
 import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";
-import {CodeEditor, Language} from "@patternfly/react-code-editor";
+import {CamelApi} from "../api/CamelApi";
+import {CamelUi} from "../api/CamelUi";
 
 interface Props {
     integration: Integration,
-    element?: any,
+    step?: CamelElement,
     onIntegrationUpdate?: any,
     onPropertyUpdate?: any,
     onChangeView: any
@@ -33,14 +34,16 @@ interface Props {
 
 interface State {
     integration: Integration,
-    element?: any,
+    step: CamelElement,
+    element: CamelElement,
     selectStatus: Map<string, boolean>
 }
 
 export class DslProperties extends React.Component<Props, State> {
 
     public state: State = {
-        element: this.props.element,
+        step: this.props.step ? this.props.step : new ProcessorStep('empty'),
+        element: this.props.step ? CamelApi.elementFromStep(this.props.step) : new CamelElement('empty'),
         integration: this.props.integration,
         selectStatus: new Map<string, boolean>()
     };
@@ -52,27 +55,30 @@ export class DslProperties extends React.Component<Props, State> {
     onIntegrationChange = (field: string, value: string) => {
         let clone = new Integration({...this.state.integration});
         if (field === 'title') {
-            clone.metadata.name = DslMetaApi.nameFomTitle(value);
+            clone.metadata.name = CamelUi.nameFomTitle(value);
             this.props.onIntegrationUpdate?.call(this, clone);
         }
     };
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
-        const name = DslApi.getName(this.state.element)
-        const clone = Object.assign({}, this.state.element)
-        if (prefix !== undefined) {
-            if (!clone[name][prefix] || unique) clone[name][prefix] = {}
-            clone[name][prefix][fieldId] = value
-        } else {
-            clone[name][fieldId] = value
-        }
-        this.setState({element: clone, selectStatus: new Map<string, boolean>()})
-        this.props.onPropertyUpdate?.call(this, clone);
+        // const name = DslApi.getName(this.state.element)
+        // const clone = Object.assign({}, this.state.element)
+        // if (prefix !== undefined) {
+        //     if (!clone[name][prefix] || unique) clone[name][prefix] = {}
+        //     clone[name][prefix][fieldId] = value
+        // } else {
+        //     clone[name][fieldId] = value
+        // }
+        // this.setState({element: clone, selectStatus: new Map<string, boolean>()})
+        // this.props.onPropertyUpdate?.call(this, clone);
     };
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
-        if (prevProps.element !== this.props.element) {
-            this.setState({element: this.props.element});
+        if (prevProps.step !== this.props.step) {
+            this.setState({
+                step: this.props.step ? this.props.step : new ProcessorStep('empty'),
+                element: this.props.step ? CamelApi.elementFromStep(this.props.step) : new CamelElement('empty')
+            });
         }
     }
 
@@ -104,13 +110,11 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     getComponentHeader = (): JSX.Element => {
-        const name = DslApi.getName(this.state.element)
-        const uri = DslApi.getUri(this.state.element)
-        const title = DslMetaApi.getTitle(name, uri)
+        const title = CamelUi.getTitle(this.state.element)
         return (
             <div className="headers">
                 <Title headingLevel="h1" size="md">{title}</Title>
-                <Text component={TextVariants.p}>{DslMetaApi.findDslMetaModelByName(name).description}</Text>
+                {/*<Text component={TextVariants.p}>{DslMetaApi.findDslMetaModelByName(name).description}</Text>*/}
             </div>
         )
     }
@@ -318,7 +322,7 @@ export class DslProperties extends React.Component<Props, State> {
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}
-                    {this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}
+                    {/*{this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}*/}
                 </Form>
             </div>
         );

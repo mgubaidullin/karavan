@@ -1,0 +1,40 @@
+export class ElementMeta {
+    name: string = ''
+    title: string = ''
+    description: string = ''
+    labels: string = ''
+    properties: PropertyMeta[] = []
+
+
+    constructor(name: string, title: string, description: string, labels: string, properties: PropertyMeta[]) {
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.labels = labels;
+        this.properties = properties;
+    }
+}
+
+export class PropertyMeta {
+    name: string = ''
+    kind: string = ''
+    displayName: string = ''
+    description: string = ''
+    type: string = ''
+
+
+    constructor(name: string, kind: string, displayName: string, description: string, type: string) {
+        this.name = name;
+        this.kind = kind;
+        this.displayName = displayName;
+        this.description = description;
+        this.type = type;
+    }
+}
+
+export class CamelMetadataApi {
+
+    static getElementMeta = (name: string): ElementMeta | undefined => {
+       return Metadata.find(value => value.name === name);
+    }
+}

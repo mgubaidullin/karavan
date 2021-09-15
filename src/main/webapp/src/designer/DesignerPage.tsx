@@ -7,7 +7,6 @@ import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
 import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 import '../karavan.css';
 import {StepElement} from "./StepElement";
-import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
@@ -22,7 +21,7 @@ interface Props {
 
 interface State {
     integration: Integration,
-    selectedElement?: CamelElement,
+    selectedStep?: CamelElement,
     view: "design" | "code",
     showSelector: boolean
     selectedUuid: string
@@ -52,7 +51,7 @@ export class DesignerPage extends React.Component<Props, State> {
 
     unselectElement = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-        this.setState({selectedElement: undefined, selectedUuid: ''})
+        this.setState({selectedStep: undefined, selectedUuid: ''})
     };
 
     changeView = (view: "design" | "code") => {
@@ -90,7 +89,7 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     selectElement = (element: CamelElement) => {
-        this.setState({selectedElement: element, selectedUuid: element.uuid})
+        this.setState({selectedStep: element, selectedUuid: element.uuid})
     }
 
     showDslSelector = () => {
@@ -167,7 +166,7 @@ export class DesignerPage extends React.Component<Props, State> {
                     }
                     <DslProperties
                         integration={this.state.integration}
-                        element={this.state.selectedElement}
+                        step={this.state.selectedStep}
                         onIntegrationUpdate={this.onIntegrationUpdate}
                         onPropertyUpdate={this.onPropertyUpdate}
                         onChangeView={this.changeView}
