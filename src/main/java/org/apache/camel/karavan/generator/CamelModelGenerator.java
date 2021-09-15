@@ -123,27 +123,27 @@ public final class CamelModelGenerator {
 
         camelApi.append(
                 "    static createSteps = (elements: any[] | undefined): ProcessorStep[] => {\n" +
-                "        const result: ProcessorStep[] = []\n" +
-                "        if (elements !== undefined){\n" +
-                "            elements.forEach(e => {\n" +
-                "                const stepName = Object.keys(e)[0];\n" +
-                "                result.push(CamelApi.createStep(stepName, e));\n" +
-                "            })\n" +
-                "        }\n" +
-                "        return result\n" +
-                "    }\n\n");
+                        "        const result: ProcessorStep[] = []\n" +
+                        "        if (elements !== undefined){\n" +
+                        "            elements.forEach(e => {\n" +
+                        "                const stepName = Object.keys(e)[0];\n" +
+                        "                result.push(CamelApi.createStep(stepName, e));\n" +
+                        "            })\n" +
+                        "        }\n" +
+                        "        return result\n" +
+                        "    }\n\n");
 
 
         camelApi.append(
                 "    static elementFromStep = (step: CamelElement): CamelElement => {\n" +
-                "        switch (step.dslName){\n" +
-                "            case 'fromStep' : return (step as FromStep).from\n");
+                        "        switch (step.dslName){\n" +
+                        "            case 'fromStep' : return (step as FromStep).from\n");
         processors.values().forEach(s ->
                 camelApi.append("            case '").append(deCapitalize(s)).append("Step': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n"));
         camelApi.append(
                 "            default : return new CamelElement('')\n" +
-                "        }\n" +
-                "    }\n");
+                        "        }\n" +
+                        "    }\n");
 
         camelApi.append("}").append(System.lineSeparator());
         vertx.fileSystem().writeFileBlocking(targetApi, Buffer.buffer(camelApi.toString()));
@@ -163,18 +163,31 @@ public final class CamelModelGenerator {
                 String description = model.getString("description");
                 String labels = model.getString("labels");
                 metadata.append(String.format("    new ElementMeta('%s', '%s', '%s', '%s', [\n", name, title, description, labels));
-                props.stream().forEach(e -> {
-                    String pname = e.getKey();
+                models.get(s).forEach(el -> {
+                    String pname = el.name;
                     JsonObject p = props.getJsonObject(pname);
-                    String kind = p.getString("kind");
-                    String displayName = p.getString("displayName");
-                    String desc = p.getString("desc");
-                    String type = p.getString("type");
-                    String en = p.containsKey("enum") ? p.getString("enum") : "";
-                    Boolean required = p.getBoolean("required");
-                    Boolean secret = p.getBoolean("secret");
-                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s', '%s', %b, %b),\n", pname, kind, displayName, desc, type, en, required, secret));
+                    String displayName = p != null && p.containsKey("displayName") ? p.getString("displayName") : pname;
+                    String desc = p != null && p.containsKey("description") ? p.getString("description") : pname;
+                    String en = p != null && p.containsKey("enum") ? p.getString("enum").replace("[","").replace("]", "") : "";
+                    String type = p != null && p.containsKey("desc") ? p.getString("type") : el.type;
+                    Boolean required = p != null && p.containsKey("required") ? p.getBoolean("required") : false;
+                    Boolean secret = p != null && p.containsKey("secret") ? p.getBoolean("secret") : false;
+                    metadata.append(String.format("        new PropertyMeta('%s', '%s', \"%s\", '%s', '%s', %b, %b),\n", pname, displayName, desc, type, en, required, secret));
                 });
+//
+//
+//                props.stream().forEach(e -> {
+//                    String pname = e.getKey();
+//                    JsonObject p = props.getJsonObject(pname);
+//                    String kind = p.getString("kind");
+//                    String displayName = p.getString("displayName");
+//                    String desc = p.getString("desc");
+//                    String type = p.getString("type");
+//                    String en = p.containsKey("enum") ? p.getString("enum") : "";
+//                    Boolean required = p.getBoolean("required");
+//                    Boolean secret = p.getBoolean("secret");
+//                    metadata.append(String.format("        new PropertyMeta('%s', '%s', '%s', '%s', '%s', '%s', %b, %b),\n", pname, kind, displayName, desc, type, en, required, secret));
+//                });
                 metadata.append("    ]),\n");
             }
         });
@@ -360,7 +373,7 @@ public final class CamelModelGenerator {
             String data = new BufferedReader(new InputStreamReader(inputStream))
                     .lines().collect(Collectors.joining(System.getProperty("line.separator")));
             return data;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

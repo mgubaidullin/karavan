@@ -3,6 +3,7 @@ import {DslMetaApi} from "../api/DslMetaApi";
 import {DslApi} from "../api/DslApi";
 import {Property} from "../model/KameletModels";
 import {KameletApi} from "../api/KameletApi";
+import {CamelElement, From} from "../model/CamelModel";
 
 export const DslPropertiesUtil = {
 
@@ -50,35 +51,41 @@ export const DslPropertiesUtil = {
             });
     },
 
-    getElementProperties: (element: any): DslProperty[] => {
-        DslPropertiesUtil.getExpressionLanguages()
-        const properties: DslProperty[] = []
-        const modelProperties: DslProperty[] = DslPropertiesUtil.getDslModelProperties(element);
-        const name = DslApi.getName(element);
-        const classname = DslMetaApi.getDslClassByName(name);
-        if (classname) {
-            const params: any[] = DslMetaApi.getClassProperties(classname);
-            // console.log(params)
-            params.forEach((param: [string, any]) => {
-                const name: string = param[0];
-                const type: string = param[1].type;
-                const modelProperty = modelProperties.find(mp => mp.name === name);
-                // console.log(modelProperty)
-                if (modelProperty && type && type !== 'array') {
-                    properties.push(modelProperty);
-                } else if (name === 'parameters' && type === 'object') {
-                    const dslProperty = new DslProperty({
-                        name: name,
-                        type: type,
-                        title: "Parameters",
-                    });
-                    properties.push(dslProperty);
-                } else if (modelProperty && name === 'expression') {
-                    properties.push(modelProperty);
-                }
-            });
-        }
-        return DslPropertiesUtil.sortElementProperties(properties);
+    getElementProperties: (element: CamelElement): DslProperty[] => {
+        console.log(element);
+        Object.entries(element).forEach((v: [string, any]) => {
+            console.log(v[0])
+            console.log(v[1])
+        })
+        return []
+        // DslPropertiesUtil.getExpressionLanguages()
+        // const properties: DslProperty[] = []
+        // const modelProperties: DslProperty[] = DslPropertiesUtil.getDslModelProperties(element);
+        // const name = DslApi.getName(element);
+        // const classname = DslMetaApi.getDslClassByName(name);
+        // if (classname) {
+        //     const params: any[] = DslMetaApi.getClassProperties(classname);
+        //     // console.log(params)
+        //     params.forEach((param: [string, any]) => {
+        //         const name: string = param[0];
+        //         const type: string = param[1].type;
+        //         const modelProperty = modelProperties.find(mp => mp.name === name);
+        //         // console.log(modelProperty)
+        //         if (modelProperty && type && type !== 'array') {
+        //             properties.push(modelProperty);
+        //         } else if (name === 'parameters' && type === 'object') {
+        //             const dslProperty = new DslProperty({
+        //                 name: name,
+        //                 type: type,
+        //                 title: "Parameters",
+        //             });
+        //             properties.push(dslProperty);
+        //         } else if (modelProperty && name === 'expression') {
+        //             properties.push(modelProperty);
+        //         }
+        //     });
+        // }
+        // return DslPropertiesUtil.sortElementProperties(properties);
     },
 
     getKameletProperties: (element: any): Property[] => {
