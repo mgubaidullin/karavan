@@ -51,7 +51,7 @@ public final class CamelModelGenerator {
         // fill processors name + class
         Map<String, String> processors = new HashMap();
         procList.getMap().entrySet().stream()
-                .filter(e -> !e.getKey().equals("step"))
+                .filter(e -> !e.getKey().equals("step") && !e.getKey().equals("kamelet"))
                 .collect(Collectors.toMap(
                         e -> e.getKey(),
                         e -> e.getValue()
@@ -60,13 +60,15 @@ public final class CamelModelGenerator {
                     String className = classNameFromRef(procList.getJsonObject(s).getString("$ref"));
                     processors.put(className, name);
                 });
-        procList.getMap().forEach((s, o) -> {
-            String name = camelize(s, "-");
-            String className = classNameFromRef(procList.getJsonObject(s).getString("$ref"));
-            JsonObject props = getProperties(definitions, className);
-            List<ElementProp> elProps = generateElementProp(name, props, definitions, processors);
-            models.put(name, elProps);
-        });
+        procList.getMap().entrySet().stream()
+                .filter(e -> !e.getKey().equals("step") && !e.getKey().equals("kamelet"))
+                .forEach((s) -> {
+                    String name = camelize(s.getKey(), "-");
+                    String className = classNameFromRef(procList.getJsonObject(s.getKey()).getString("$ref"));
+                    JsonObject props = getProperties(definitions, className);
+                    List<ElementProp> elProps = generateElementProp(name, props, definitions, processors);
+                    models.put(name, elProps);
+                });
 
         // generate models code
         models.forEach((name, elementProps) -> {
@@ -94,7 +96,7 @@ public final class CamelModelGenerator {
                 "    static createStep = (name: string, body: any): CamelElement => {\n" +
                         "       switch (name){\n" +
                         "            case 'from': return CamelApi.createFrom(body)\n" +
-                        "            case 'expression': return CamelApi.createExpression(body)\n" );
+                        "            case 'expression': return CamelApi.createExpression(body)\n");
         processors.values().forEach(s ->
                 camelApi.append("            case '").append(deCapitalize(s)).append("': return CamelApi.create").append(capitalize(s)).append("(body)\n"));
         camelApi.append("            default: return new ProcessorStep('') \n");
@@ -104,8 +106,8 @@ public final class CamelModelGenerator {
 
         camelApi.append(
                 "    static createExpression = (element: any): Expression => {\n" +
-                "        return new Expression({...element.expression})\n" +
-                "    }\n");
+                        "        return new Expression({...element.expression})\n" +
+                        "    }\n");
         camelApi.append(createCreateFunction("from", models.get("from")));
         processors.values().forEach((model) -> camelApi.append(createCreateFunction(model, models.get(model))));
 
@@ -135,12 +137,12 @@ public final class CamelModelGenerator {
         StringBuilder f = new StringBuilder();
         f.append(String.format("    static %s = (element: any): %s => {\n", funcName, stepClass));
         f.append(String.format("        const %s = new %s({...element.%s})\n", stepField, stepClass, elementName));
-        elProps.stream().forEach(e ->{
-            if (e.name.equals("steps")){
+        elProps.stream().forEach(e -> {
+            if (e.name.equals("steps")) {
                 f.append(String.format("        %s.%s.steps = CamelApi.createSteps(element?.%s?.steps)\n", stepField, elementName, elementName));
-            } else if (e.isArray && e.isArrayTypeClass){
+            } else if (e.isArray && e.isArrayTypeClass) {
                 f.append(String.format("        %s.%s.%s =  [...element?.%s?.%s].map(x => CamelApi.create%s(x))\n", stepField, elementName, e.name, elementName, e.name, e.arrayType));
-            } else if (e.isObject){
+            } else if (e.isObject) {
                 f.append(String.format("        %s.%s.%s = CamelApi.create%s(element?.%s?.%s)\n", stepField, elementName, e.name, e.type, elementName, e.name));
             }
         });
