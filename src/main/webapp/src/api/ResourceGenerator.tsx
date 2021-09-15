@@ -3,17 +3,16 @@ import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "./DslApi";
 import {v4 as uuidv4} from "uuid";
 import {
+    CamelElement,
     ChoiceStep,
-    Element,
     Expression,
-    Filter,
     FilterStep,
-    From,
     FromStep,
-    Otherwise,
+    Otherwise, ProcessorStep,
     ToStep,
     When, WhenStep
 } from "../model/CamelModel";
+import {CamelApi} from "./CamelApi";
 export class ResourceGenerator {
 
     static flowsToYaml = (name:string, flows: any[]): string => {
@@ -110,27 +109,65 @@ export class ResourceGenerator {
         const filter = new FilterStep({expression: expression})
         const from = new FromStep({uri:'direct1', steps:[filter, choice]});
         // const from = new FromStep({uri:'direct1', steps:[to1]});
+        console.log(from)
         const cleanFrom = ResourceGenerator.cleanupElement(from);
         const flows:FromStep[] = [cleanFrom as FromStep];
         const result = JSON.parse(JSON.stringify(flows, null, 3));
-        console.log(yaml.dump(result))
+        const yamlText = yaml.dump(result);
+        console.log(yamlText)
+
+        const fromYaml:[] = yaml.load(yamlText) as [];
+       fromYaml.forEach(f => {
+           console.log(ResourceGenerator.createFrom(f))
+       })
     }
 
-    static cleanupElement = (element: Element): Element => {
+    static createFrom = (element: any): FromStep => {
+        const fromStep =  new FromStep({...element.from})
+        fromStep.from.steps = CamelApi.createSteps(element?.from?.steps);
+
+        return fromStep
+    }
+
+    // static createElement = (element: any): CamelElement => {
+    //     console.log(element.name)
+    //     console.log(element.from)
+    //     console.log(element.from.from)
+    //     Object.keys(element).forEach(key => {
+    //         console.log("   " + key)
+    //         if (CamelElements.includes(key)){
+    //             if (element.hasOwnProperty(key) && element[key] && element[key].hasOwnProperty(key)){
+    //                 console.log("    is Step")
+    //                 return  CamelApi.createStep(key, element[key][key])
+    //             } else if (element.hasOwnProperty(key) && element[key]){
+    //                 console.log("    is Element")
+    //             }
+    //         }
+    //     })
+    //
+    //     if (element){
+    //
+    //     }
+    //     return new CamelElement('xxx');
+    // }
+
+
+
+    static cleanupElement = (element: CamelElement): CamelElement => {
         const result:any = Object.assign({}, element)
         delete result.uuid
         delete result.dslName
         Object.keys(result).forEach(key => {
-            if (result[key] instanceof Element){
+            if (result[key] instanceof CamelElement){
                 result[key] = ResourceGenerator.cleanupElement(result[key])
             } else if (Array.isArray(result[key])){
                 result[key] = ResourceGenerator.cleanupElements(result[key])
             }
         })
-        return result as Element
+        return result as CamelElement
     }
 
-    static cleanupElements = (elements: Element[]): Element[] => {
+    static cleanupElements = (elements: CamelElement[]): CamelElement[] => {
         const result:any[] = []
         elements.forEach(element => {
             const newElement = ResourceGenerator.cleanupElement(element)
