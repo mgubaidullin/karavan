@@ -128,9 +128,9 @@ public final class CamelModelGenerator {
         camelApi.append(
                 "    static elementFromStep = (step: CamelElement): CamelElement => {\n" +
                 "        switch (step.dslName){\n" +
-                "            case 'from' : return (step as FromStep).from\n");
+                "            case 'fromStep' : return (step as FromStep).from\n");
         processors.values().forEach(s ->
-                camelApi.append("            case '").append(deCapitalize(s)).append("': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n"));
+                camelApi.append("            case '").append(deCapitalize(s)).append("Step': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n"));
         camelApi.append(
                 "            default : return new CamelElement('')\n" +
                 "        }\n" +

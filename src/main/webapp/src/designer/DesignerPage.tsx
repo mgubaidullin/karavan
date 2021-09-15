@@ -11,10 +11,10 @@ import {DslApi} from "../api/DslApi";
 import {MainToolbar} from "../MainToolbar";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
-import {ResourceGenerator} from "../api/ResourceGenerator";
 import {DslProperties} from "./DslProperties";
-import {Integration} from "../model/CamelModel";
+import {CamelElement, Integration} from "../model/CamelModel";
 import {KaravanApi} from "../api/KaravanApi";
+import {CamelYaml} from "../api/CamelYaml";
 
 interface Props {
     integration: Integration,
@@ -22,8 +22,7 @@ interface Props {
 
 interface State {
     integration: Integration,
-    selectedElement?: any,
-    flows: any []
+    selectedElement?: CamelElement,
     view: "design" | "code",
     showSelector: boolean
     selectedUid: string
@@ -32,8 +31,7 @@ interface State {
 export class DslPage extends React.Component<Props, State> {
 
     public state: State = {
-        integration: this.props.integration,
-        flows: DslApi.loadFlows(this.props.integration.spec.flows),
+        integration: CamelYaml.demo(), //this.props.integration,
         view: "design",
         showSelector: false,
         selectedUid: ''
@@ -62,7 +60,7 @@ export class DslPage extends React.Component<Props, State> {
     };
 
     getCode = (): string => {
-        return ResourceGenerator.flowsToYaml(this.state.integration.metadata.name, this.state.flows);
+        return CamelYaml.integrationToYaml(this.state.integration);
     }
 
     setView = (view: "design" | "code") => {
@@ -70,25 +68,25 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     updateElement = (updatedElement: any, newElement: any) => {
-        this.setState({flows: []})
-        const updatedUid = DslApi.getUid(updatedElement);
-        const flows = DslApi.updateFlows([...this.state.flows], updatedUid, updatedElement);
-        this.setState({flows: flows})
-        this.selectElement(newElement)
+        // this.setState({flows: []})
+        // const updatedUid = DslApi.getUid(updatedElement);
+        // const flows = DslApi.updateFlows([...this.state.flows], updatedUid, updatedElement);
+        // this.setState({flows: flows})
+        // this.selectElement(newElement)
     }
 
     onPropertyUpdate = (element: any) => {
-        // console.log(element)
-        this.setState({flows: []})
-        const updatedUid = DslApi.getUid(element);
-        const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
-        this.setState({flows: flows, selectedElement: element, selectedUid: updatedUid})
+        // // console.log(element)
+        // this.setState({flows: []})
+        // const updatedUid = DslApi.getUid(element);
+        // const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
+        // this.setState({flows: flows, selectedElement: element, selectedUid: updatedUid})
     }
 
     deleteElement = (id: string) => {
-        this.setState({flows: []})
-        const flows = DslApi.deleteElement(this.state.flows, id);
-        this.setState({flows: flows})
+        // this.setState({flows: []})
+        // const flows = DslApi.deleteElement(this.state.flows, id);
+        // this.setState({flows: flows})
     }
 
     selectElement = (element: any) => {
@@ -104,10 +102,10 @@ export class DslPage extends React.Component<Props, State> {
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
-        const flow = DslApi.createFlowElement(dsl);
-        const flows: any[] = [...this.state.flows]
-        flows.push(flow)
-        this.setState({flows: flows, showSelector: false, selectedElement: flow, selectedUid: DslApi.getUid(flow)})
+        // const flow = DslApi.createFlowElement(dsl);
+        // const flows: any[] = [...this.state.flows]
+        // flows.push(flow)
+        // this.setState({flows: flows, showSelector: false, selectedElement: flow, selectedUid: DslApi.getUid(flow)})
     }
 
     onIntegrationUpdate = (i: Integration) => {
@@ -150,13 +148,13 @@ export class DslPage extends React.Component<Props, State> {
                 <div className="dsl-page-columns">
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
-                        {this.state.flows.map((flow, index) => (
-                            <FlowBuilder key={DslApi.getUid(flow)}
+                        {this.state.integration.spec.flows.map((flow, index) => (
+                            <FlowBuilder key={flow.uuid}
                                          deleteElement={this.deleteElement}
                                          updateElement={this.updateElement}
                                          selectElement={this.selectElement}
                                          selectedUid={this.state.selectedUid}
-                                         index={index} flow={flow}/>
+                                         step={flow}/>
                         ))}
                     </div>
                     }
