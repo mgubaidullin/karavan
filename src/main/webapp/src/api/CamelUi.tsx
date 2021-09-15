@@ -5,6 +5,27 @@ import {CamelMetadataApi, ElementMeta, PropertyMeta} from "./CamelMetadata";
 
 export class CamelUi {
 
+    static getExpressionLanguage = (element: CamelElement | undefined): any | undefined => {
+        const el: any = Object.assign({}, element);
+        if (el.hasOwnProperty('expression') && el.expression){
+            const entries: [string, any][] = Object.entries(el.expression);
+            return entries.length > 0 ? entries[0][0] : undefined
+        } else {
+            return undefined;
+        }
+    }
+
+    static getExpressionValue = (element: CamelElement | undefined): any | undefined => {
+        const el: any = Object.assign({}, element);
+        if (el.hasOwnProperty('expression') && el.expression){
+            const entries: [string, any][] = Object.entries(el.expression);
+            return entries.length > 0 ? entries[0][0] : undefined
+        } else {
+            return undefined;
+        }
+    }
+
+
     static getElementProperties = (name: string | undefined): PropertyMeta[] => {
         const result: PropertyMeta[] = []
         let uri = undefined;

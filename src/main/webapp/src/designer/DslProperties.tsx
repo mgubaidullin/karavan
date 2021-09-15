@@ -23,7 +23,7 @@ import {DslLanguage, DslProperty} from "../model/DslMetaModel";
 import {DslPropertiesUtil} from "./DslPropertiesUtils";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
-import {CamelMetadataApi, PropertyMeta} from "../api/CamelMetadata";
+import {CamelMetadataApi, Languages, PropertyMeta} from "../api/CamelMetadata";
 
 interface Props {
     integration: Integration,
@@ -180,13 +180,13 @@ export class DslProperties extends React.Component<Props, State> {
 
     createExpressionProperty = (property: PropertyMeta): JSX.Element => {
         const prefix = "language";
-        const language = DslApi.getExpressionLanguage(this.state.element);
-        const dslLanguage = DslPropertiesUtil.getExpressionLanguages().find(l => l.name === language);
+        const language = CamelUi.getExpressionLanguage(this.state.element)
+        const dslLanguage = Languages.find((l:[string, string, string]) => l[0] === language);
         const value = language ? DslApi.getExpressionValue(this.state.element, property.name)[language] : undefined;
         const selectOptions: JSX.Element[] = []
         selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
-        DslPropertiesUtil.getExpressionLanguages().forEach((lang: DslLanguage) => {
-            const s = <SelectOption key={lang.name} value={lang} description={lang.description} />;
+        Languages.forEach((lang: [string, string, string]) => {
+            const s = <SelectOption key={lang[0]} value={lang} description={lang[2]} />;
             selectOptions.push(s);
         })
 

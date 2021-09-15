@@ -153,7 +153,7 @@ public final class CamelModelGenerator {
         Buffer metadataBuffer = vertx.fileSystem().readFileBlocking(metadataTemplate);
         StringBuilder metadata = new StringBuilder(metadataBuffer.toString());
 
-        metadata.append("const Languages: [string, string, string][] = [\n");
+        metadata.append("export const Languages: [string, string, string][] = [\n");
         models.get("expression").forEach(el -> {
             String name = el.name;
             String json = getMetaModel(name);
@@ -165,7 +165,7 @@ public final class CamelModelGenerator {
         metadata.append("]\n");
 
 
-        metadata.append("const Metadata: ElementMeta[] = [\n");
+        metadata.append("export const Metadata: ElementMeta[] = [\n");
         models.keySet().forEach(s -> {
             String name = deCapitalize(s);
             String json = getMetaModel(name);
@@ -243,7 +243,7 @@ public final class CamelModelGenerator {
         Set<String> keys = new HashSet<>();
         properties.getMap().forEach((s, o) -> {
             String propName = deCapitalize(camelize(s, "-"));
-            if (!keys.contains(propName) && !(name.equals("Choice") && propName.equals("steps"))) {
+            if (!keys.contains(propName) && !(name.equalsIgnoreCase("Choice") && propName.equals("steps"))) {
                 String type = properties.getJsonObject(s).getString("type");
                 String ref = properties.getJsonObject(s).getString("$ref");
                 if (type != null) {
@@ -264,7 +264,10 @@ public final class CamelModelGenerator {
                 } else if (ref != null) {
                     String className = classNameFromRef(ref);
                     String processorName = processors.get(className);
-                    if (processorName != null) {
+
+                    if (name.equalsIgnoreCase("Expression") && propName.equalsIgnoreCase("language")){
+                        props.add(new ElementProp(propName, "string", false, false, false, null, false, "string"));
+                    } else if (processorName != null) {
                         props.add(new ElementProp(propName, processorName, true, false, false, null, false, capitalize(processorName)));
                     } else if (isClassOneOfString(className, definitions)) {
                         props.add(new ElementProp(propName, "string", false, false, false, null, false, "string"));

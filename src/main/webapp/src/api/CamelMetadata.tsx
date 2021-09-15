@@ -50,7 +50,7 @@ export class CamelMetadataApi {
         return Languages.find(value => value[0] === name);
     }
 }
-const Languages: [string, string, string][] = [
+export const Languages: [string, string, string][] = [
     ['constant','Constant',"A fixed value set only once during the route startup."],
     ['csimple','CSimple',"Evaluate a compile simple expression language."],
     ['datasonnet','DataSonnet',"To use DataSonnet scripts in Camel expressions or predicates."],
@@ -60,6 +60,7 @@ const Languages: [string, string, string][] = [
     ['hl7terser','HL7 Terser',"Get the value of an HL7 message field specified by terse location specification syntax."],
     ['joor','jOOR',"Evaluate a jOOR (Java compiled once at runtime) expression language."],
     ['jsonpath','JsonPath',"Evaluate a JsonPath expression against a JSON message body."],
+    ['language','Language',"Evaluate the given expression using the specified language."],
     ['method','Bean method',"Call a method of the specified Java bean passing the Exchange, Body or specific headers to it."],
     ['mvel','MVEL',"Evaluate an MVEL template against the Camel Exchange."],
     ['ognl','OGNL',"Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange."],
@@ -71,7 +72,7 @@ const Languages: [string, string, string][] = [
     ['xquery','XQuery',"Evaluate an XQuery expressions against an XML payload."],
     ['xtokenize','XML Tokenize',"Tokenize XML payloads using the specified path expression."],
 ]
-const Metadata: ElementMeta[] = [
+export const Metadata: ElementMeta[] = [
     new ElementMeta('policy', 'Policy', 'Defines a policy the route will use', 'null', [
         new PropertyMeta('inheritErrorHandler', 'inheritErrorHandler', "inheritErrorHandler", 'boolean', '', false, false, false, false),
         new PropertyMeta('ref', 'Ref', "Sets a reference to use for lookup the policy in the registry.", 'string', '', true, false, false, false),
@@ -427,6 +428,7 @@ const Metadata: ElementMeta[] = [
         new PropertyMeta('hl7terser', 'hl7terser', "hl7terser", 'string', '', false, false, false, false),
         new PropertyMeta('joor', 'joor', "joor", 'string', '', false, false, false, false),
         new PropertyMeta('jsonpath', 'jsonpath', "jsonpath", 'string', '', false, false, false, false),
+        new PropertyMeta('language', 'language', "language", 'string', '', false, false, false, false),
         new PropertyMeta('method', 'method', "method", 'string', '', false, false, false, false),
         new PropertyMeta('mvel', 'mvel', "mvel", 'string', '', false, false, false, false),
         new PropertyMeta('ognl', 'ognl', "ognl", 'string', '', false, false, false, false),

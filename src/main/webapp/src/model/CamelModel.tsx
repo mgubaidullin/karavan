@@ -1098,6 +1098,7 @@ export class Expression extends CamelElement {
     hl7terser?: string
     joor?: string
     jsonpath?: string
+    language?: string
     method?: string
     mvel?: string
     ognl?: string
