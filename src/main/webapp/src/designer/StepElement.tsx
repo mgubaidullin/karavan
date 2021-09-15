@@ -16,7 +16,7 @@ interface Props {
     updateElement: any
     deleteElement: any
     selectElement: any
-    selectedUid: string
+    selectedUuid: string
 }
 
 interface State {
@@ -24,7 +24,7 @@ interface State {
     element: CamelElement,
     showSelector: boolean
     tabIndex: string | number
-    selectedUid: string
+    selectedUuid: string
 }
 
 export class StepElement extends React.Component<Props, State> {
@@ -34,15 +34,15 @@ export class StepElement extends React.Component<Props, State> {
         element: CamelApi.elementFromStep(this.props.step),
         showSelector: false,
         tabIndex: 0,
-        selectedUid: this.props.selectedUid
+        selectedUuid: this.props.selectedUuid
     };
 
     componentDidMount() {
     }
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
-        if (prevState.selectedUid !== this.props.selectedUid) {
-            this.setState({selectedUid: this.props.selectedUid});
+        if (prevState.selectedUuid !== this.props.selectedUuid) {
+            this.setState({selectedUuid: this.props.selectedUuid});
         }
     }
 
@@ -79,11 +79,11 @@ export class StepElement extends React.Component<Props, State> {
 
     selectElement = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-        // this.props.selectElement.call(this, this.state.flow);
+        this.props.selectElement.call(this, this.state.step);
     }
 
     isSelected = (): boolean => {
-        return false; // this.state.selectedUid === DslApi.getUid(this.state.flow);
+        return this.state.selectedUuid === this.state.step.uuid
     }
 
     getSteps = (): ProcessorStep[] => {
@@ -121,7 +121,7 @@ export class StepElement extends React.Component<Props, State> {
                                     deleteElement={this.props.deleteElement}
                                     updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}
-                                    selectedUid={this.state.selectedUid}
+                                    selectedUuid={this.state.selectedUuid}
                                     step={step}/>
                                 {index < this.getSteps().length - 1 && !this.horizontal() &&
                                 <img className={"arrow-down"} alt="arrow"
@@ -157,7 +157,7 @@ export class StepElement extends React.Component<Props, State> {
                                     deleteElement={this.props.deleteElement}
                                     updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}
-                                    selectedUid={this.state.selectedUid}
+                                    selectedUuid={this.state.selectedUuid}
                                     step={when}/>
                             </div>
                         ))}

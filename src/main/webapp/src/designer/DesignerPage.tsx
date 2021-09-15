@@ -25,7 +25,7 @@ interface State {
     selectedElement?: CamelElement,
     view: "design" | "code",
     showSelector: boolean
-    selectedUid: string
+    selectedUuid: string
 }
 
 export class DesignerPage extends React.Component<Props, State> {
@@ -34,7 +34,7 @@ export class DesignerPage extends React.Component<Props, State> {
         integration: CamelYaml.demo(), //this.props.integration,
         view: "design",
         showSelector: false,
-        selectedUid: ''
+        selectedUuid: ''
     };
 
     componentDidMount() {
@@ -52,7 +52,7 @@ export class DesignerPage extends React.Component<Props, State> {
 
     unselectElement = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-        this.setState({selectedElement: undefined, selectedUid: ''})
+        this.setState({selectedElement: undefined, selectedUuid: ''})
     };
 
     changeView = (view: "design" | "code") => {
@@ -89,8 +89,8 @@ export class DesignerPage extends React.Component<Props, State> {
         // this.setState({flows: flows})
     }
 
-    selectElement = (element: any) => {
-        this.setState({selectedElement: element, selectedUid: DslApi.getUid(element)})
+    selectElement = (element: CamelElement) => {
+        this.setState({selectedElement: element, selectedUuid: element.uuid})
     }
 
     showDslSelector = () => {
@@ -153,7 +153,7 @@ export class DesignerPage extends React.Component<Props, State> {
                                          deleteElement={this.deleteElement}
                                          updateElement={this.updateElement}
                                          selectElement={this.selectElement}
-                                         selectedUid={this.state.selectedUid}
+                                         selectedUuid={this.state.selectedUuid}
                                          step={flow}/>
                         ))}
                     </div>

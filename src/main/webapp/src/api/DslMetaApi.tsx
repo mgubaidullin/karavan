@@ -4,6 +4,8 @@ import {DslMetaModel, DslProperty} from "../model/DslMetaModel";
 import {DslApi} from "./DslApi";
 import {KameletApi} from "./KameletApi";
 import {Convert, DslYamlDeserializersRouteFromDefinitionDeserializer, typeMap} from "../model/DslModel";
+import {v4 as uuidv4} from "uuid";
+import {FromStep} from "../model/CamelModel";
 
 const DslMetaModels: DslMetaModel[] = [];
 const StepElements: string[] = [
@@ -43,6 +45,12 @@ const KameletLabels = ['source', 'action', 'sink'];
 let CamelYamlDsl: any = {};
 
 export const DslMetaApi = {
+
+    createFromStep: (dsl: DslMetaModel): FromStep => {
+        const fromStep = new FromStep();
+        fromStep.from.uri = dsl.uri
+        return fromStep;
+    },
 
      nameFomTitle: (title: string): string => {
         return title.replace(/[^a-z0-9+]+/gi, '-').toLowerCase()
