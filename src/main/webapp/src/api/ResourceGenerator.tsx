@@ -1,8 +1,19 @@
 import * as yaml from 'js-yaml';
-import {Integration, Metadata} from "../model/IntegrationModels";
+import {Integration} from "../model/IntegrationModels";
 import {DslApi} from "./DslApi";
-import {Convert, DslModelObject} from "../model/DslModel";
-
+import {v4 as uuidv4} from "uuid";
+import {
+    ChoiceStep,
+    Element,
+    Expression,
+    Filter,
+    FilterStep,
+    From,
+    FromStep,
+    Otherwise,
+    ToStep,
+    When, WhenStep
+} from "../model/CamelModel";
 export class ResourceGenerator {
 
     static flowsToYaml = (name:string, flows: any[]): string => {
@@ -52,7 +63,7 @@ export class ResourceGenerator {
     }
 
     static yamlToIntegration = (y: string): Integration => {
-        console.log(y)
+        ResourceGenerator.test(y)
         const i: any = yaml.load(y);
         const integration: Integration = new Integration({...i})
         // const flows: any[] = integration.spec.flows.map(f => {
@@ -63,7 +74,6 @@ export class ResourceGenerator {
         //     return flow;
         // })
         // integration.spec.flows = flows;
-        console.log(integration);
         return new Integration();
     }
 
@@ -74,4 +84,79 @@ export class ResourceGenerator {
         return i;
     }
 
+    static test =(y: string)=>{
+        // console.log(y)
+        // const i:{} = yaml.load(y) as {};
+        // const int:Integration = new Integration({...i})
+        // int.spec.flows.forEach(from => {
+        //     // console.log(from)
+        //     // const t: string = JSON.stringify(from);
+        //     // console.log(Convert.toDslModelObject(t));
+        //     ResourceGenerator.prepareElement(from)
+        // })
+        const to1 = new ToStep({uri:'log:demo1'});
+        const to2 = new ToStep({uri:'log:demo2'});
+        const to3 = new ToStep({uri:'log:demo3'});
+
+        const otherwise = new Otherwise({steps:[to3]})
+        const expression1 = new Expression({simple:'${body} == "hello"'});
+        const when1 = new WhenStep({steps:[to1], expression: expression1})
+        const expression2 = new Expression({simple:'${body} == "hello"'});
+        const when2 = new WhenStep({steps:[to2], expression: expression2})
+
+        const choice = new ChoiceStep({otherwise:otherwise, when:[when1,when2]})
+
+        const expression = new Expression({simple:'${body} == "hello"'});
+        const filter = new FilterStep({expression: expression})
+        const from = new FromStep({uri:'direct1', steps:[filter, choice]});
+        // const from = new FromStep({uri:'direct1', steps:[to1]});
+        const cleanFrom = ResourceGenerator.cleanupElement(from);
+        const flows:FromStep[] = [cleanFrom as FromStep];
+        const result = JSON.parse(JSON.stringify(flows, null, 3));
+        console.log(yaml.dump(result))
+    }
+
+    static cleanupElement = (element: Element): Element => {
+        const result:any = Object.assign({}, element)
+        delete result.uuid
+        delete result.dslName
+        Object.keys(result).forEach(key => {
+            if (result[key] instanceof Element){
+                result[key] = ResourceGenerator.cleanupElement(result[key])
+            } else if (Array.isArray(result[key])){
+                result[key] = ResourceGenerator.cleanupElements(result[key])
+            }
+        })
+        return result as Element
+    }
+
+    static cleanupElements = (elements: Element[]): Element[] => {
+        const result:any[] = []
+        elements.forEach(element => {
+            const newElement = ResourceGenerator.cleanupElement(element)
+            result.push(newElement)
+        })
+        return result
+    }
+
+    static prepareElement = (element: any): any => {
+        console.log("--------");
+        console.log(element);
+        if (Array.isArray(element)){
+            console.log("array")
+            return (element as []).map(e => ResourceGenerator.prepareElement(e));
+        } else if (typeof element === 'object'){
+            console.log("object " + Object.keys(element).length)
+            // const result = {uid: uu}
+            Object.entries(element).forEach((props: [string, any]) => {
+
+            });
+            // console.log(result)
+            return element
+        } else {
+            console.log("property " + Object.keys(element).length)
+            return Object.keys(element).length === 0 ? undefined : element;
+        }
+    }
 }
+
