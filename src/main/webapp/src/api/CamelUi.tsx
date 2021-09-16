@@ -58,6 +58,7 @@ export class CamelUi {
     }
 
     static getSelectorModels = (label: string, type: "element" | "kamel", parentDslName: string): DslMetaModel[] => {
+        console.log(parentDslName)
         if (type === "element") {
             if (parentDslName === undefined || parentDslName.length === 0) {
                 return Metadata
@@ -77,7 +78,7 @@ export class CamelUi {
             return KameletApi.getKamelets()
                 .filter(k => k.metadata.labels["camel.apache.org/kamelet.type"] === label)
                 .map(k => new DslMetaModel({
-                    name: parentDslName,
+                    name: parentDslName ? "to" : "from",
                     uri: 'kamelet:' + k.metadata.name,
                     title: k.title(),
                     description: k.title()

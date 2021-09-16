@@ -101,10 +101,6 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     openSelector = (parentId: string | undefined, parentType: string | undefined) => {
-        console.log("---------------")
-        console.log(parentType)
-        console.log(parentId)
-        console.log("---------------")
         this.setState({showSelector: true, parentId: parentId || '', parentType: parentType || ''})
     }
 
@@ -113,6 +109,7 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
+        console.log(dsl)
         // const flow = DslApi.createFlowElement(dsl);
         // const flows: any[] = [...this.state.flows]
         // flows.push(flow)
