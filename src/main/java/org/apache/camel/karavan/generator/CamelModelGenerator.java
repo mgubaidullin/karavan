@@ -149,6 +149,40 @@ public final class CamelModelGenerator {
                         "        }\n" +
                         "    }\n");
 
+        // addStep functions
+        camelApi.append(
+                "    static addStep = (steps: ProcessorStep[], step: ProcessorStep, parentId: string): ProcessorStep[] => {\n" +
+                        "        const result: ProcessorStep[] = [];\n" +
+                        "        steps.forEach(el => {\n" +
+                        "            switch (el.dslName) {\n" );
+        models.entrySet().forEach(s -> {
+            String name = deCapitalize(s.getKey());
+            String stepClass = capitalize(s.getKey()).concat("Step");
+            String stepField = deCapitalize(s.getKey()).concat("Step");
+            if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
+                camelApi.append(String.format(
+                        "                case '%1$s':\n" +
+                                "                    const %3$sChildren = (el as %2$s).%3$s?.steps || [];\n" +
+                                "                    if (el.uuid === parentId) %3$sChildren.push(step);\n" +
+                                "                    (el as %2$s).%3$s.steps = CamelApi.addStep(%3$sChildren, step, parentId);\n" +
+                                "                    break;\n",
+                        stepField, stepClass, name));
+            } else if (name.equals("choice")){
+                camelApi.append(
+                        "                    const choiceChildren = (el as ChoiceStep).choice?.when || [];\n" +
+                                "                    if (el.uuid === parentId) choiceChildren.push(step as WhenStep);\n" +
+                                "                    (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
+                                "                    break;\n");
+            }
+        });
+        camelApi.append(
+                "            }\n" +
+                        "            result.push(el);\n" +
+                        "        })\n" +
+                        "        return result;\n" +
+                        "    }\n\n");
+
+
         // deleteStep functions
         camelApi.append(
                 "    static deleteStep = (steps: ProcessorStep[] | undefined, uuidToDelete: string): ProcessorStep[] => {\n" +
