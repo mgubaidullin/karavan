@@ -164,6 +164,8 @@ public final class CamelModelGenerator {
             if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
                 camelApi.append(String.format("                        case '%s': (step as %s).%s.steps = CamelApi.deleteStep((step as %s).%s.steps, uuidToDelete); break;\n",
                         stepField, stepClass, name, stepClass,name));
+            } else if (name.equals("choice")){
+                camelApi.append("                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;\n");
             }
         });
         camelApi.append(
@@ -173,8 +175,20 @@ public final class CamelModelGenerator {
                         "            })\n" +
                         "        }\n" +
                         "        return result\n" +
-                        "    }\n");
-
+                        "    }\n\n");
+        camelApi.append(
+                "    static deleteWhen = (whens: WhenStep[] | undefined, uuidToDelete: string): WhenStep[] => {\n" +
+                "        const result: WhenStep[] = []\n" +
+                "        if (whens !== undefined){\n" +
+                "            whens.forEach(when => {\n" +
+                "                if (when.uuid !== uuidToDelete) {\n" +
+                "                    when.when.steps = CamelApi.deleteStep(when.when.steps, uuidToDelete);\n" +
+                "                    result.push(when);\n" +
+                "                }\n" +
+                "            })\n" +
+                "        }\n" +
+                "        return result\n" +
+                "    }\n\n");
 
         // Expression language finder
         camelApi.append("    static getExpressionLanguage = (init?: Partial<Expression>): string | undefined => {\n");

@@ -667,6 +667,7 @@ export class CamelApi {
                 if (step.uuid !== uuidToDelete){
                     switch (step.dslName){
                         case 'policyStep': (step as PolicyStep).policy.steps = CamelApi.deleteStep((step as PolicyStep).policy.steps, uuidToDelete); break;
+                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;
                         case 'otherwiseStep': (step as OtherwiseStep).otherwise.steps = CamelApi.deleteStep((step as OtherwiseStep).otherwise.steps, uuidToDelete); break;
                         case 'fromStep': (step as FromStep).from.steps = CamelApi.deleteStep((step as FromStep).from.steps, uuidToDelete); break;
                         case 'onCompletionStep': (step as OnCompletionStep).onCompletion.steps = CamelApi.deleteStep((step as OnCompletionStep).onCompletion.steps, uuidToDelete); break;
@@ -698,6 +699,20 @@ export class CamelApi {
         }
         return result
     }
+
+    static deleteWhen = (whens: WhenStep[] | undefined, uuidToDelete: string): WhenStep[] => {
+        const result: WhenStep[] = []
+        if (whens !== undefined){
+            whens.forEach(when => {
+                if (when.uuid !== uuidToDelete) {
+                    when.when.steps = CamelApi.deleteStep(when.when.steps, uuidToDelete);
+                    result.push(when);
+                }
+            })
+        }
+        return result
+    }
+
     static getExpressionLanguage = (init?: Partial<Expression>): string | undefined => {
         if (init?.constant) return 'constant'
         if (init?.csimple) return 'csimple'
