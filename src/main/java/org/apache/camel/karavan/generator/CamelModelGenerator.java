@@ -126,7 +126,7 @@ public final class CamelModelGenerator {
                         "        const result: ProcessorStep[] = []\n" +
                         "        if (elements !== undefined){\n" +
                         "            elements.forEach(e => {\n" +
-                        "                const stepName = Object.keys(e)[0];\n" +
+                        "                const stepName = Object.keys(e).filter(key => !['uuid', 'dslName'].includes(key))[0];\n" +
                         "                result.push(CamelApi.createStep(stepName, e));\n" +
                         "            })\n" +
                         "        }\n" +
@@ -211,6 +211,7 @@ public final class CamelModelGenerator {
                 f.append(String.format("        %s.%s.%s = CamelApi.create%s(element?.%s?.%s)\n", stepField, elementName, e.name, e.type, elementName, e.name));
             }
         });
+        f.append(String.format("        %s.uuid = element?.uuid ? element.uuid : %s.uuid\n", stepField, stepField));
         f.append(String.format("        return %s\n", stepField));
         f.append("    }\n\n");
         return f.toString();

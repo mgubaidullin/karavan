@@ -19,11 +19,11 @@ import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
 import {CamelElement, Integration, ProcessorStep} from "../model/CamelModel";
 import {DslApi} from "../api/DslApi";
-import {DslLanguage, DslProperty} from "../model/DslMetaModel";
-import {DslPropertiesUtil} from "./DslPropertiesUtils";
+import {DslLanguage} from "../model/DslMetaModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
 import {CamelMetadataApi, Languages, PropertyMeta} from "../api/CamelMetadata";
+import {CamelYaml} from "../api/CamelYaml";
 
 interface Props {
     integration: Integration,
@@ -44,7 +44,7 @@ export class DslProperties extends React.Component<Props, State> {
 
     public state: State = {
         step: this.props.step,
-        element: this.props.step,
+        element: this.props.step ? CamelApi.elementFromStep(this.props.step) : undefined,
         integration: this.props.integration,
         selectStatus: new Map<string, boolean>()
     };
@@ -62,25 +62,25 @@ export class DslProperties extends React.Component<Props, State> {
     };
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
-        // const name = DslApi.getName(this.state.element)
-        // const clone = Object.assign({}, this.state.element)
-        // if (prefix !== undefined) {
-        //     if (!clone[name][prefix] || unique) clone[name][prefix] = {}
-        //     clone[name][prefix][fieldId] = value
-        // } else {
-        //     clone[name][fieldId] = value
-        // }
-        // this.setState({element: clone, selectStatus: new Map<string, boolean>()})
-        // this.props.onPropertyUpdate?.call(this, clone);
+        console.log(fieldId)
+        console.log(value)
+        console.log(prefix)
+        if (this.state.step && this.state.element){
+            const clone = CamelYaml.cloneStep(this.state.step);
+            (clone as any)[this.state.element?.dslName][fieldId] = value;
+            this.setStep(clone)
+            this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
+        }
     };
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
         if (prevProps.step !== this.props.step) {
-            this.setState({
-                step: this.props.step ? this.props.step : new ProcessorStep('empty'),
-                element: this.props.step ? CamelApi.elementFromStep(this.props.step) : new CamelElement('empty')
-            });
+            this.setStep(this.props.step);
         }
+    }
+
+    setStep = (step?: CamelElement) => {
+        this.setState({ step: step, element: step ? CamelApi.elementFromStep(step) : undefined });
     }
 
     openSelect = (propertyName: string) => {
@@ -180,13 +180,13 @@ export class DslProperties extends React.Component<Props, State> {
 
     createExpressionProperty = (property: PropertyMeta): JSX.Element => {
         const prefix = "language";
-        const language = CamelUi.getExpressionLanguage(this.state.element)
+        const language = CamelUi.getExpressionLanguage(this.state.element) || 'Simple'
         const dslLanguage = Languages.find((l:[string, string, string]) => l[0] === language);
-        const value = language ? DslApi.getExpressionValue(this.state.element, property.name)[language] : undefined;
+        const value = language ? CamelUi.getExpressionValue(this.state.element) : undefined;
         const selectOptions: JSX.Element[] = []
         selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
         Languages.forEach((lang: [string, string, string]) => {
-            const s = <SelectOption key={lang[0]} value={lang} description={lang[2]} />;
+            const s = <SelectOption key={lang[0]} value={lang[1]} description={lang[2]} />;
             selectOptions.push(s);
         })
 
@@ -238,8 +238,8 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createElementProperty = (property: PropertyMeta): JSX.Element => {
-        console.log(property)
-        const value = DslApi.getPropertyValue(this.state.element, property.name);
+        // console.log(property)
+        const value = this.state.element ? (this.state.element as any)[property.name] : undefined;
         const selectOptions: JSX.Element[] = []
         if (property.type === 'enum') {
             selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder/>);

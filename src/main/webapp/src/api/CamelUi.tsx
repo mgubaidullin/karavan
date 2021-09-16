@@ -1,28 +1,60 @@
 import {KameletApi} from "./KameletApi";
-import {CamelElement} from "../model/CamelModel";
+import {CamelElement, FromStep, Integration} from "../model/CamelModel";
 import {Kamelet} from "../model/KameletModels";
 import {CamelMetadataApi, ElementMeta, PropertyMeta} from "./CamelMetadata";
+import {CamelApi} from "./CamelApi";
 
 export class CamelUi {
 
-    static getExpressionLanguage = (element: CamelElement | undefined): any | undefined => {
+    static getExpressionLanguage = (element: CamelElement | undefined): string | undefined => {
         const el: any = Object.assign({}, element);
         if (el.hasOwnProperty('expression') && el.expression){
-            const entries: [string, any][] = Object.entries(el.expression);
-            return entries.length > 0 ? entries[0][0] : undefined
+            return el.expression.language
         } else {
             return undefined;
         }
     }
 
-    static getExpressionValue = (element: CamelElement | undefined): any | undefined => {
-        const el: any = Object.assign({}, element);
-        if (el.hasOwnProperty('expression') && el.expression){
-            const entries: [string, any][] = Object.entries(el.expression);
-            return entries.length > 0 ? entries[0][0] : undefined
+    static getExpressionValue = (element: CamelElement | undefined): string | undefined => {
+        const language = CamelUi.getExpressionLanguage(element);
+        if (language){
+           return (element as any).expression[language];
         } else {
             return undefined;
         }
+    }
+
+    static updateIntegration = (integration: Integration, e: CamelElement, updatedUuid: string): Integration => {
+        const int: Integration = new Integration({...integration});
+        const flows = integration.spec.flows.map(f => CamelUi.updateElement(f, e) as FromStep)
+        const flows2 = flows.map(f => CamelApi.createFrom(f));
+        int.spec.flows = flows2
+        return int;
+    }
+
+    static updateElement = (element: CamelElement, e: CamelElement): CamelElement => {
+        if (element.uuid === e.uuid){
+            console.log("update " + e.uuid)
+            return e;
+        }
+        const result: any = Object.assign({}, element)
+        Object.keys(result).forEach(key => {
+            if (result[key] instanceof CamelElement) {
+                result[key] = CamelUi.updateElement(result[key], e)
+            } else if (Array.isArray(result[key])) {
+                result[key] = CamelUi.updateElements(result[key], e)
+            }
+        })
+        return result as CamelElement
+    }
+
+    static updateElements = (elements: CamelElement[], e: CamelElement): CamelElement[] => {
+        const result: any[] = []
+        elements.forEach(element => {
+            const newElement = CamelUi.updateElement(element, e)
+            result.push(newElement)
+        })
+        return result
     }
 
 

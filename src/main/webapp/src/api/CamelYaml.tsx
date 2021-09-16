@@ -54,6 +54,20 @@ export class CamelYaml {
         return int;
     }
 
+    static cloneIntegration = (integration: Integration): Integration => {
+        const clone = JSON.parse(JSON.stringify(integration));
+        const int: Integration = new Integration({...clone});
+        const flows = int.spec.flows.map(f => CamelApi.createFrom(f))
+        int.spec.flows = flows;
+        return int;
+    }
+
+    static cloneStep = (step: CamelElement): CamelElement => {
+        const dslName = step.dslName.replace("Step", "");
+        const clone = JSON.parse(JSON.stringify(step));
+        return CamelApi.createStep(dslName, clone);
+    }
+
     static demo = (): Integration => {
         const to1 = new ToStep({uri: 'log:demo1'});
         const to2 = new ToStep({uri: 'log:demo2'});

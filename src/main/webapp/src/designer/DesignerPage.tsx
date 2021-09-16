@@ -14,6 +14,8 @@ import {DslProperties} from "./DslProperties";
 import {CamelElement, Integration} from "../model/CamelModel";
 import {KaravanApi} from "../api/KaravanApi";
 import {CamelYaml} from "../api/CamelYaml";
+import {v4 as uuidv4} from 'uuid'
+import {CamelUi} from "../api/CamelUi";
 
 interface Props {
     integration: Integration,
@@ -25,6 +27,7 @@ interface State {
     view: "design" | "code",
     showSelector: boolean
     selectedUuid: string
+    key: string
 }
 
 export class DesignerPage extends React.Component<Props, State> {
@@ -33,7 +36,8 @@ export class DesignerPage extends React.Component<Props, State> {
         integration: CamelYaml.demo(), //this.props.integration,
         view: "design",
         showSelector: false,
-        selectedUuid: ''
+        selectedUuid: '',
+        key: ""
     };
 
     componentDidMount() {
@@ -54,15 +58,12 @@ export class DesignerPage extends React.Component<Props, State> {
         this.setState({selectedStep: undefined, selectedUuid: ''})
     };
 
-    changeView = (view: "design" | "code") => {
-        this.setState({view: view});
-    };
-
     getCode = (): string => {
-        return CamelYaml.integrationToYaml(this.state.integration);
+        const clone = CamelYaml.cloneIntegration(this.state.integration);
+        return CamelYaml.integrationToYaml(clone);
     }
 
-    setView = (view: "design" | "code") => {
+    changeView = (view: "design" | "code") => {
         this.setState({view: view});
     }
 
@@ -74,12 +75,17 @@ export class DesignerPage extends React.Component<Props, State> {
         // this.selectElement(newElement)
     }
 
-    onPropertyUpdate = (element: any) => {
-        // // console.log(element)
+    onPropertyUpdate = (element: CamelElement, updatedUuid: string) => {
+        console.log("onPropertyUpdate 1-------")
+        console.log(element)
+        console.log(updatedUuid)
+        console.log("onPropertyUpdate 2-------")
         // this.setState({flows: []})
         // const updatedUid = DslApi.getUid(element);
-        // const flows = DslApi.updateFlows(this.state.flows, updatedUid, element);
-        // this.setState({flows: flows, selectedElement: element, selectedUid: updatedUid})
+        const clone = CamelYaml.cloneIntegration(this.state.integration);
+        const i = CamelUi.updateIntegration(clone, element, updatedUuid);
+        console.log(i)
+        this.setState({integration: i, key: Math.random().toString()})
     }
 
     deleteElement = (id: string) => {
@@ -132,12 +138,17 @@ export class DesignerPage extends React.Component<Props, State> {
             </TextContent>
             <ToggleGroup aria-label="Switch view" className="toggle">
                 <ToggleGroupItem text="Design" buttonId="design" isSelected={view === 'design'}
-                                 onChange={e => this.setView('design')}/>
+                                 onChange={e => this.changeView('design')}/>
                 <ToggleGroupItem text="YAML" buttonId="yaml" isSelected={view === 'code'}
-                                 onChange={e => this.setView('code')}/>
+                                 onChange={e => this.changeView('code')}/>
             </ToggleGroup>
         </div>
     );
+
+    test = ():boolean =>{
+        // console.log(this.state.integration)
+        return true;
+    }
 
     render() {
         return (
@@ -145,10 +156,10 @@ export class DesignerPage extends React.Component<Props, State> {
                 <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
                 <div className="dsl-page-columns">
-                    {this.state.view === 'design' &&
+                    {this.state.view === 'design' && this.test() &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.integration.spec.flows.map((flow, index) => (
-                            <StepElement key={flow.uuid}
+                            <StepElement key={flow.uuid + this.state.key}
                                          deleteElement={this.deleteElement}
                                          updateElement={this.updateElement}
                                          selectElement={this.selectElement}
