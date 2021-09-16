@@ -10,7 +10,6 @@ import {
     FilterStep, FromStep, MulticastStep
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
-import {CamelUi} from "./CamelUi";
 
 export class CamelYaml {
 
@@ -88,8 +87,6 @@ export class CamelYaml {
 
         const expression = new Expression({simple: '${body} == "hello"'});
         const filter = new FilterStep({expression: expression, steps:[to3, to4]})
-
-        console.log(CamelUi.getExpressionLanguage(filter.filter))
 
         const multicast = new MulticastStep({steps:[direct1, direct2, direct3]})
         const from = new FromStep({uri: 'direct1', steps: [filter, multicast, choice]});

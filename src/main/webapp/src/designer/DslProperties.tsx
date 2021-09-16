@@ -251,12 +251,12 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createElementProperty = (property: PropertyMeta): JSX.Element => {
-        // console.log(property)
+        console.log(property)
         const value = this.state.element ? (this.state.element as any)[property.name] : undefined;
         const selectOptions: JSX.Element[] = []
-        if (property.type === 'enum') {
+        if (property.enumVals && property.enumVals.length > 0) {
             selectOptions.push(<SelectOption key={0} value={"Select " + property.name} isPlaceholder/>);
-            selectOptions.push(...property.enumVals.split(',').map((value: string) => <SelectOption key={value} value={value}/>));
+            selectOptions.push(...property.enumVals.split(',').map((value: string) => <SelectOption key={value} value={value.trim()}/>));
         }
         return (
             <FormGroup
@@ -276,7 +276,7 @@ export class DslProperties extends React.Component<Props, State> {
                         </button>
                     </Popover> : <div></div>
                 }>
-                {['string', 'duration'].includes(property.type) && <TextInput
+                {['string', 'duration'].includes(property.type) && !property.enumVals && <TextInput
                     className="text-field" isRequired
                     type={property.secret ? "password" : "text"}
                     id={property.name} name={property.name}
@@ -291,7 +291,7 @@ export class DslProperties extends React.Component<Props, State> {
                     onChange={e => this.propertyChanged(property.name, !Boolean(value))}/>
                 }
 
-                {property.type === 'enum' &&
+                {property.enumVals &&
                 <Select
                     variant={SelectVariant.single}
                     aria-label={property.name}

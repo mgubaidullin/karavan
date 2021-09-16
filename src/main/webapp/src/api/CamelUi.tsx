@@ -34,7 +34,6 @@ export class CamelUi {
 
     static updateElement = (element: CamelElement, e: CamelElement): CamelElement => {
         if (element.uuid === e.uuid){
-            console.log("update " + e.uuid)
             return e;
         }
         const result: any = Object.assign({}, element)

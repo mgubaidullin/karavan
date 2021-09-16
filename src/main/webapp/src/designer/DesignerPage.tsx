@@ -84,7 +84,6 @@ export class DesignerPage extends React.Component<Props, State> {
         // const updatedUid = DslApi.getUid(element);
         const clone = CamelYaml.cloneIntegration(this.state.integration);
         const i = CamelUi.updateIntegration(clone, element, updatedUuid);
-        console.log(i)
         this.setState({integration: i, key: Math.random().toString()})
     }
 
