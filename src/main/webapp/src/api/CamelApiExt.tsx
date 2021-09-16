@@ -1,8 +1,43 @@
-import {CamelElement, FromStep, Integration} from "../model/CamelModel";
+import {CamelElement, FilterStep, FromStep, Integration, ProcessorStep} from "../model/CamelModel";
 import {CamelMetadataApi, PropertyMeta} from "./CamelMetadata";
 import {CamelApi} from "./CamelApi";
 
 export class CamelApiExt {
+
+    static addStepToIntegration = (integration: Integration, step: CamelElement, parentId: string): Integration => {
+        if (step.dslName === 'fromStep') {
+            integration.spec.flows.push(step as FromStep);
+        } else {
+            const flows = CamelApiExt.addStep(integration.spec.flows, step, parentId);
+            integration.spec.flows = flows as FromStep[];
+        }
+        return integration;
+    }
+
+    static addStep = (steps: ProcessorStep[], step: ProcessorStep, parentId: string): ProcessorStep[] => {
+        console.log(step);
+        const result: ProcessorStep[] = [];
+        steps.forEach(el => {
+            console.log(el.dslName + " step uuid " + el.uuid);
+            console.log("parent          " + parentId);
+            switch (el.dslName) {
+                case 'fromStep':
+                    const fromSteps = (el as FromStep).from?.steps || [];
+                    if (el.uuid === parentId) fromSteps.push(step);
+                    (el as FromStep).from.steps = CamelApiExt.addStep(fromSteps, step, parentId);
+                    break;
+                case 'filterStep':
+                    const filterSteps = (el as FilterStep).filter?.steps || [];
+                    if (el.uuid === parentId) filterSteps.push(step);
+                    (el as FilterStep).filter.steps = CamelApiExt.addStep(filterSteps, step, parentId);
+                    break;
+                case 'choiceStep':
+                case 'otherwiseStep':
+            }
+            result.push(el);
+        })
+        return result;
+    }
 
     static deleteStepFromIntegration = (integration: Integration, uuidToDelete: string): Integration => {
         const flows = CamelApi.deleteStep(integration.spec.flows, uuidToDelete);
@@ -93,7 +128,7 @@ export class CamelApiExt {
 
     static getParametersValue = (element: CamelElement | undefined, propertyName: string): any => {
         console.log(element)
-        if (element && (element as any).parameters){
+        if (element && (element as any).parameters) {
             return (element as any).parameters[propertyName];
         }
     }

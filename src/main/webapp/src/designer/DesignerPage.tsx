@@ -59,7 +59,7 @@ export class DesignerPage extends React.Component<Props, State> {
 
     unselectElement = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-        this.setState({selectedStep: undefined, selectedUuid: ''})
+        this.setState({selectedStep: undefined, selectedUuid: '', showSelector: false})
     };
 
     getCode = (): string => {
@@ -68,24 +68,10 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     changeView = (view: "design" | "code") => {
-        this.setState({view: view, selectedStep: undefined, selectedUuid: ''});
-    }
-
-    updateElement = (updatedElement: any, newElement: any) => {
-        // this.setState({flows: []})
-        // const updatedUid = DslApi.getUid(updatedElement);
-        // const flows = DslApi.updateFlows([...this.state.flows], updatedUid, updatedElement);
-        // this.setState({flows: flows})
-        // this.selectElement(newElement)
+        this.setState({view: view, selectedStep: undefined, selectedUuid: '', showSelector: false});
     }
 
     onPropertyUpdate = (element: CamelElement, updatedUuid: string) => {
-        // console.log("onPropertyUpdate 1-------")
-        // console.log(element)
-        // console.log(updatedUuid)
-        // console.log("onPropertyUpdate 2-------")
-        // this.setState({flows: []})
-        // const updatedUid = DslApi.getUid(element);
         const clone = CamelYaml.cloneIntegration(this.state.integration);
         const i = CamelApiExt.updateIntegration(clone, element, updatedUuid);
         console.log(i)
@@ -109,27 +95,29 @@ export class DesignerPage extends React.Component<Props, State> {
         this.setState({showSelector: false})
     }
 
-    onDslSelect = (dsl: DslMetaModel) => {
-        console.log(dsl)
+    onDslSelect = (dsl: DslMetaModel, parentId: string) => {
         switch (dsl.name){
             case 'from' :
                 const from = CamelApi.createStep(dsl.name, {from:{uri:dsl.uri}});
-                console.log(from)
+                this.addStep(from, parentId)
                 break;
             case 'to' :
                 const to = CamelApi.createStep(dsl.name, {to:{uri:dsl.uri}});
-                console.log(to)
+                this.addStep(to, parentId)
                 break;
             default:
                 const step = CamelApi.createStep(dsl.name, {});
-                console.log(step)
+                this.addStep(step, parentId)
                 break;
         }
+    }
 
-
-        // const flows: any[] = [...this.state.flows]
-        // flows.push(flow)
-        // this.setState({flows: flows, showSelector: false, selectedElement: flow, selectedUid: DslApi.getUid(flow)})
+    addStep = (step: CamelElement, parentId: string) =>{
+        console.log(step)
+        const i = CamelApiExt.addStepToIntegration(this.state.integration, step, parentId);
+        const clone = CamelYaml.cloneIntegration(i);
+        console.log(clone)
+        this.setState({integration: clone, key: Math.random().toString()})
     }
 
     onIntegrationUpdate = (i: Integration) => {
@@ -177,7 +165,6 @@ export class DesignerPage extends React.Component<Props, State> {
                             <StepElement key={flow.uuid + this.state.key}
                                          openSelector={this.openSelector}
                                          deleteElement={this.deleteElement}
-                                         updateElement={this.updateElement}
                                          selectElement={this.selectElement}
                                          selectedUuid={this.state.selectedUuid}
                                          step={flow}/>

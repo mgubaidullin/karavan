@@ -46,7 +46,7 @@ export class DslSelector extends React.Component<Props, State> {
     selectDsl = (evt: React.MouseEvent, dsl: any) => {
         evt.stopPropagation()
         this.setState({show: false})
-        this.props.onDslSelect.call(this, dsl);
+        this.props.onDslSelect.call(this, dsl, this.props.parentId);
     }
 
     render() {

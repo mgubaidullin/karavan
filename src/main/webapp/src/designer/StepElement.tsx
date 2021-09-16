@@ -4,17 +4,13 @@ import {
 } from '@patternfly/react-core';
 import '../karavan.css';
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
-import {DslApi} from "../api/DslApi";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
-import {DslMetaModel} from "../model/DslMetaModel";
-import {CamelElement, FromStep, ProcessorStep, WhenStep} from "../model/CamelModel";
-import {CamelApiExt} from "../api/CamelApiExt";
+import {CamelElement, ProcessorStep, WhenStep} from "../model/CamelModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
 
 interface Props {
     step: CamelElement,
-    updateElement: any
     deleteElement: any
     selectElement: any
     openSelector: any
@@ -48,22 +44,9 @@ export class StepElement extends React.Component<Props, State> {
         }
     }
 
-    addStep = (newStep: any) => {
-        // const step: any = {...this.state.flow}.from
-        // const steps: any[] = [...step.steps]
-        //
-        // steps.push(newStep)
-        // step.steps = steps;
-        //
-        // const clone: DslModelObject = {...this.state.flow} as DslModelObject;
-        // clone.from = {...step} as DslYamlDeserializersRouteFromDefinitionDeserializer;
-        // this.props.updateElement.call(this, clone, newStep)
-        // this.setState({showSelector: false})
-    }
-
     openSelector = (evt: React.MouseEvent) => {
         evt.stopPropagation()
-        this.props.openSelector.call(this, this.state.element.uuid, this.state.element.dslName)
+        this.props.openSelector.call(this, this.state.step.uuid, this.state.element.dslName)
     }
 
     closeDslSelector = () => {
@@ -73,10 +56,6 @@ export class StepElement extends React.Component<Props, State> {
     delete = (evt: React.MouseEvent) => {
         evt.stopPropagation();
         this.props.deleteElement.call(this, this.state.step.uuid);
-    }
-
-    onDslSelect = (dsl: DslMetaModel) => {
-        this.addStep(DslApi.createChildElement(dsl))
     }
 
     selectElement = (evt: React.MouseEvent) => {
@@ -100,9 +79,13 @@ export class StepElement extends React.Component<Props, State> {
         return ['choice', 'multicast'].includes(this.state.element.dslName);
     }
 
+    isRoot = (): boolean => {
+        return this.state.step.dslName.startsWith("from");
+    }
+
     render() {
         return (
-            <div className="step-element" style={{borderWidth: this.isSelected() ? "2px" : "1px"}}
+            <div className="step-element" style={{borderWidth: this.isSelected() ? "2px" : "1px", marginTop: this.isRoot() ? "16px" : ""}}
                  onClick={event => this.selectElement(event)}>
                 <div className="header">
                     <img draggable="false"
@@ -122,7 +105,6 @@ export class StepElement extends React.Component<Props, State> {
                                 <StepElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
-                                    updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}
                                     selectedUuid={this.state.selectedUuid}
                                     step={step}/>
@@ -159,7 +141,6 @@ export class StepElement extends React.Component<Props, State> {
                                 <StepElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
-                                    updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}
                                     selectedUuid={this.state.selectedUuid}
                                     step={when}/>
@@ -168,9 +149,7 @@ export class StepElement extends React.Component<Props, State> {
                     </div>
                     }
                 </div>
-                {/*<DslSelector elementName={"from"} id={this.state.id} show={this.state.showSelector}*/}
-                {/*             onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>*/}
             </div>
         );
     }
-};
+}
