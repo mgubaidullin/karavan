@@ -83,8 +83,6 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     parametersChanged = (parameter: string, value: string | number | boolean | any) => {
-        console.log(parameter);
-        console.log(value);
         if (this.state.step && this.state.element){
             const clone = (CamelYaml.cloneStep(this.state.step));
             const parameters: any = {...(clone as any)[this.state.element?.dslName].parameters};
@@ -147,7 +145,6 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
-        console.log(property)
         const prefix = "parameters";
         const id = prefix + "-" + property.id;
         const value = CamelUi.getParametersValue(this.state.element, property.id);
