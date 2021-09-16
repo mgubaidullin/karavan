@@ -1,11 +1,17 @@
 import {KameletApi} from "./KameletApi";
-import {CamelElement, FromStep, Integration} from "../model/CamelModel";
+import {CamelElement, FilterStep, FromStep, Integration, MulticastStep, ProcessorStep} from "../model/CamelModel";
 import {Kamelet, Property} from "../model/KameletModels";
-import {CamelMetadataApi, ElementMeta, PropertyMeta} from "./CamelMetadata";
+import {CamelMetadataApi, PropertyMeta} from "./CamelMetadata";
 import {CamelApi} from "./CamelApi";
-import {DslApi} from "./DslApi";
 
+// TODO need to split and regroup functions here
 export class CamelUi {
+
+    static deleteStepFromIntegration = (integration: Integration, uuidToDelete: string): Integration => {
+        const flows = CamelApi.deleteStep(integration.spec.flows, uuidToDelete);
+        integration.spec.flows = flows as FromStep[];
+        return integration;
+    }
 
     static getExpressionLanguage = (element: CamelElement | undefined): string | undefined => {
         const el: any = Object.assign({}, element);

@@ -11,6 +11,7 @@ import {
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
 
+// TODO need to split and regroup functions here
 export class CamelYaml {
 
     static integrationToYaml = (integration: Integration): string => {

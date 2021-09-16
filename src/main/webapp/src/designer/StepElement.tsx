@@ -69,8 +69,8 @@ export class StepElement extends React.Component<Props, State> {
     }
 
     delete = (evt: React.MouseEvent) => {
-        evt.stopPropagation()
-        // this.props.deleteElement.call(this, DslApi.getUid(this.state.flow))
+        evt.stopPropagation();
+        this.props.deleteElement.call(this, this.state.step.uuid);
     }
 
     onDslSelect = (dsl: DslMetaModel) => {
