@@ -72,7 +72,7 @@ export class CamelYaml {
         const to2 = new ToStep({uri: 'log:demo2'});
         const to3 = new ToStep({uri: 'log:demo3'});
         const to4 = new ToStep({uri: 'log:demo4'});
-        const to5 = new ToStep({uri: 'kamelet:ftp-sink'});
+        const to5 = new ToStep({uri: 'kamelet:ftp-sink', parameters:{host:'localhost', port:'8021'}});
         const direct1 = new ToStep({uri: 'direct1'});
         const direct2 = new ToStep({uri: 'direct2'});
         const direct3 = new ToStep({uri: 'direct3'});

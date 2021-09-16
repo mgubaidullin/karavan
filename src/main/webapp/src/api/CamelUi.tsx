@@ -1,14 +1,15 @@
 import {KameletApi} from "./KameletApi";
 import {CamelElement, FromStep, Integration} from "../model/CamelModel";
-import {Kamelet} from "../model/KameletModels";
+import {Kamelet, Property} from "../model/KameletModels";
 import {CamelMetadataApi, ElementMeta, PropertyMeta} from "./CamelMetadata";
 import {CamelApi} from "./CamelApi";
+import {DslApi} from "./DslApi";
 
 export class CamelUi {
 
     static getExpressionLanguage = (element: CamelElement | undefined): string | undefined => {
         const el: any = Object.assign({}, element);
-        if (el.hasOwnProperty('expression') && el.expression){
+        if (el.hasOwnProperty('expression') && el.expression) {
             return el.expression.language
         } else {
             return undefined;
@@ -17,8 +18,8 @@ export class CamelUi {
 
     static getExpressionValue = (element: CamelElement | undefined): string | undefined => {
         const language = CamelUi.getExpressionLanguage(element);
-        if (language){
-           return (element as any).expression[language];
+        if (language) {
+            return (element as any).expression[language];
         } else {
             return undefined;
         }
@@ -33,7 +34,7 @@ export class CamelUi {
     }
 
     static updateElement = (element: CamelElement, e: CamelElement): CamelElement => {
-        if (element.uuid === e.uuid){
+        if (element.uuid === e.uuid) {
             return e;
         }
         const result: any = Object.assign({}, element)
@@ -63,21 +64,35 @@ export class CamelUi {
         let expression = undefined;
         let parameters = undefined;
         if (name)
-        CamelMetadataApi.getElementMeta(name)?.properties
-            .filter(p => p.name !== 'steps' && p.name !== 'inheritErrorHandler')
-            .filter(p => !p.isObject  || (p.isObject && p.name === 'expression'))
-            .forEach(p => {
-                switch (p.name){
-                    case 'uri': uri = p; break
-                    case 'expression': expression = p; break
-                    case 'parameters': parameters = p; break
-                    default: result.push(p)
-                }
-            })
+            CamelMetadataApi.getElementMeta(name)?.properties
+                .filter(p => p.name !== 'steps' && p.name !== 'inheritErrorHandler')
+                .filter(p => !p.isObject || (p.isObject && p.name === 'expression'))
+                .forEach(p => {
+                    switch (p.name) {
+                        case 'uri':
+                            uri = p;
+                            break
+                        case 'expression':
+                            expression = p;
+                            break
+                        case 'parameters':
+                            parameters = p;
+                            break
+                        default:
+                            result.push(p)
+                    }
+                })
         if (uri) result.unshift(uri)
         if (expression) result.unshift(expression)
         if (parameters) result.push(parameters)
         return result
+    }
+
+    static getParametersValue = (element: CamelElement | undefined, propertyName: string): any => {
+        console.log(element)
+        if (element && (element as any).parameters){
+            return (element as any).parameters[propertyName];
+        }
     }
 
     static nameFomTitle = (title: string): string => {
@@ -94,15 +109,29 @@ export class CamelUi {
             : name;
     }
 
+    static isKameletComponent = (element: CamelElement | undefined): boolean => {
+        if (element && ['from', 'to'].includes(element.dslName)) {
+            const uri: string = (element as any).uri;
+            return uri !== undefined && uri.startsWith("kamelet:")
+        } else {
+            return false
+        }
+    }
+
     static getKamelet = (element: CamelElement): Kamelet | undefined => {
         if (['from', 'to'].includes(element.dslName)) {
             const uri: string = (element as any).uri;
-            const isKamelet = uri !== undefined && uri.startsWith("kamelet:");
             const k = (uri !== undefined ? KameletApi.findKameletByUri(uri) : undefined);
             return k;
         } else {
             return undefined
         }
+    }
+
+    static getKameletProperties = (element: any): Property[] => {
+        const uri: string = (element as any).uri;
+        const kamelet = KameletApi.findKameletByUri(uri)
+        return kamelet ? KameletApi.getKameletProperties(kamelet?.metadata.name) : []
     }
 
     static getTitle = (element: CamelElement): string => {

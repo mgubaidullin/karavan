@@ -61,10 +61,7 @@ export class DslProperties extends React.Component<Props, State> {
         }
     };
 
-    propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
-        // console.log(fieldId)
-        // console.log(value)
-        // console.log(prefix)
+    propertyChanged = (fieldId: string, value: string | number | boolean | any) => {
         if (this.state.step && this.state.element){
             const clone = CamelYaml.cloneStep(this.state.step);
             (clone as any)[this.state.element?.dslName][fieldId] = value;
@@ -74,8 +71,6 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     expressionChanged = (language: string, value: string | undefined) => {
-        // console.log(language)
-        // console.log(value)
         if (this.state.step && this.state.element){
             const clone = (CamelYaml.cloneStep(this.state.step));
             const e: any = {};
@@ -83,6 +78,19 @@ export class DslProperties extends React.Component<Props, State> {
             const exp: any = new Expression(e);
             (clone as any)[this.state.element?.dslName].expression = exp;
             this.setStep(clone)
+            this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
+        }
+    }
+
+    parametersChanged = (parameter: string, value: string | number | boolean | any) => {
+        console.log(parameter);
+        console.log(value);
+        if (this.state.step && this.state.element){
+            const clone = (CamelYaml.cloneStep(this.state.step));
+            const parameters: any = {...(clone as any)[this.state.element?.dslName].parameters};
+            parameters[parameter] = value;
+            (clone as any)[this.state.element?.dslName].parameters = parameters;
+            this.setStep(clone);
             this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
         }
     };
@@ -139,9 +147,10 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createKameletProperty = (property: Property): JSX.Element => {
+        console.log(property)
         const prefix = "parameters";
         const id = prefix + "-" + property.id;
-        const value = DslApi.getParametersValue(this.state.element, property.id);
+        const value = CamelUi.getParametersValue(this.state.element, property.id);
         return (
             <FormGroup
                 key={id}
@@ -163,14 +172,14 @@ export class DslProperties extends React.Component<Props, State> {
                     type={property.format === 'password' ? "password" : "text"}
                     id={id} name={id}
                     value={value?.toString()}
-                    onChange={e => this.propertyChanged(property.id, e, prefix)}/>
+                    onChange={e => this.parametersChanged(property.id, e)}/>
                 }
                 {property.type === 'boolean' && <Switch
                     id={id} name={id}
                     value={value?.toString()}
                     aria-label={id}
                     isChecked={Boolean(value) === true}
-                    onChange={e => this.propertyChanged(property.id, !Boolean(value), prefix)}/>
+                    onChange={e => this.parametersChanged(property.id, !Boolean(value))}/>
                 }
                 {['integer', 'int', 'number'].includes(property.type) && <div className="number">
                     <NumberInput
@@ -178,14 +187,14 @@ export class DslProperties extends React.Component<Props, State> {
                         id={id} name={id}
                         value={typeof value === 'number' ? value : undefined}
                         inputName={id}
-                        onMinus={() => this.propertyChanged(property.id, typeof value === 'number' ? value - 1 : -1, prefix)}
-                        onPlus={() => this.propertyChanged(property.id, typeof value === 'number' ? value + 1 : 1, prefix)}
-                        onChange={(e: any) => this.propertyChanged(property.id, Number(e.target.value), prefix)}/>
+                        onMinus={() => this.parametersChanged(property.id, typeof value === 'number' ? value - 1 : -1)}
+                        onPlus={() => this.parametersChanged(property.id, typeof value === 'number' ? value + 1 : 1)}
+                        onChange={(e: any) => this.parametersChanged(property.id, Number(e.target.value))}/>
                     <Button
                         className="clear-button"
                         variant="tertiary"
                         isSmall icon={<UndoIcon/>}
-                        onClick={e => this.propertyChanged(property.id, undefined, prefix)}/>
+                        onClick={e => this.parametersChanged(property.id, undefined)}/>
                 </div>
                 }
             </FormGroup>
@@ -251,7 +260,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     createElementProperty = (property: PropertyMeta): JSX.Element => {
-        console.log(property)
+        // console.log(property)
         const value = this.state.element ? (this.state.element as any)[property.name] : undefined;
         const selectOptions: JSX.Element[] = []
         if (property.enumVals && property.enumVals.length > 0) {
@@ -327,10 +336,10 @@ export class DslProperties extends React.Component<Props, State> {
                     {property.name === 'expression' && property.type === "Expression"
                     && this.createExpressionProperty(property)}
                 </div>
-                {/*<div className="parameters">*/}
-                {/*    {property.name === 'parameters' && DslPropertiesUtil.isKameletComponent(this.state.element)*/}
-                {/*    && DslPropertiesUtil.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}*/}
-                {/*</div>*/}
+                <div className="parameters">
+                    {property.name === 'parameters' && CamelUi.isKameletComponent(this.state.element)
+                    && CamelUi.getKameletProperties(this.state.element).map(kp => this.createKameletProperty(kp))}
+                </div>
             </FormGroup>
         )
     }

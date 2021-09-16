@@ -64,7 +64,7 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     changeView = (view: "design" | "code") => {
-        this.setState({view: view});
+        this.setState({view: view, selectedStep: undefined, selectedUuid: ''});
     }
 
     updateElement = (updatedElement: any, newElement: any) => {
@@ -84,6 +84,7 @@ export class DesignerPage extends React.Component<Props, State> {
         // const updatedUid = DslApi.getUid(element);
         const clone = CamelYaml.cloneIntegration(this.state.integration);
         const i = CamelUi.updateIntegration(clone, element, updatedUuid);
+        console.log(i)
         this.setState({integration: i, key: Math.random().toString()})
     }
 
@@ -144,18 +145,13 @@ export class DesignerPage extends React.Component<Props, State> {
         </div>
     );
 
-    test = ():boolean =>{
-        // console.log(this.state.integration)
-        return true;
-    }
-
     render() {
         return (
             <PageSection className="dsl-page" isFilled padding={{default: 'noPadding'}}>
                 <MainToolbar title={this.title(this.state.view)}
                              tools={this.tools(this.state.view)}/>
                 <div className="dsl-page-columns">
-                    {this.state.view === 'design' && this.test() &&
+                    {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.integration.spec.flows.map((flow, index) => (
                             <StepElement key={flow.uuid + this.state.key}
@@ -174,6 +170,7 @@ export class DesignerPage extends React.Component<Props, State> {
                         </CodeBlock>
                     </div>
                     }
+                    {this.state.view === 'design' &&
                     <DslProperties
                         integration={this.state.integration}
                         step={this.state.selectedStep}
@@ -181,6 +178,7 @@ export class DesignerPage extends React.Component<Props, State> {
                         onPropertyUpdate={this.onPropertyUpdate}
                         onChangeView={this.changeView}
                     />
+                    }
                 </div>
                 <DslSelector elementName={"flow"} id={""} show={this.state.showSelector}
                              onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>
