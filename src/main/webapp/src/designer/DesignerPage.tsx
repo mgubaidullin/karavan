@@ -21,10 +21,12 @@ interface Props {
 }
 
 interface State {
-    integration: Integration,
-    selectedStep?: CamelElement,
-    view: "design" | "code",
+    integration: Integration
+    selectedStep?: CamelElement
+    view: "design" | "code"
     showSelector: boolean
+    parentId: string
+    parentType: string
     selectedUuid: string
     key: string
 }
@@ -35,6 +37,8 @@ export class DesignerPage extends React.Component<Props, State> {
         integration: CamelYaml.demo(), //this.props.integration,
         view: "design",
         showSelector: false,
+        parentId: '',
+        parentType: '',
         selectedUuid: '',
         key: ""
     };
@@ -44,7 +48,7 @@ export class DesignerPage extends React.Component<Props, State> {
 
     save = () => {
         KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
-            if (res.status === 200){
+            if (res.status === 200) {
                 console.log(res) //TODO show notification
             } else {
                 console.log(res) //TODO show notification
@@ -96,8 +100,12 @@ export class DesignerPage extends React.Component<Props, State> {
         this.setState({selectedStep: element, selectedUuid: element.uuid})
     }
 
-    showDslSelector = () => {
-        this.setState({showSelector: true})
+    openSelector = (parentId: string | undefined, parentType: string | undefined) => {
+        console.log("---------------")
+        console.log(parentType)
+        console.log(parentId)
+        console.log("---------------")
+        this.setState({showSelector: true, parentId: parentId || '', parentType: parentType || ''})
     }
 
     closeDslSelector = () => {
@@ -123,7 +131,8 @@ export class DesignerPage extends React.Component<Props, State> {
                 </ToolbarItem>
                 {view === 'design' &&
                 <ToolbarItem>
-                    <Button icon={<PlusIcon/>} onClick={e => this.showDslSelector()}>Add flow</Button>
+                    <Button icon={<PlusIcon/>} onClick={e => this.openSelector(undefined, undefined)}>Add
+                        flow</Button>
                 </ToolbarItem>
                 }
             </ToolbarContent>
@@ -153,6 +162,7 @@ export class DesignerPage extends React.Component<Props, State> {
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.integration.spec.flows.map((flow, index) => (
                             <StepElement key={flow.uuid + this.state.key}
+                                         openSelector={this.openSelector}
                                          deleteElement={this.deleteElement}
                                          updateElement={this.updateElement}
                                          selectElement={this.selectElement}
@@ -178,8 +188,12 @@ export class DesignerPage extends React.Component<Props, State> {
                     />
                     }
                 </div>
-                <DslSelector elementName={"flow"} id={""} show={this.state.showSelector}
-                             onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>
+                <DslSelector
+                    parentId={this.state.parentId}
+                    parentType={this.state.parentType}
+                    show={this.state.showSelector}
+                    onDslSelect={this.onDslSelect}
+                    onClose={this.closeDslSelector}/>
             </PageSection>
         );
     }

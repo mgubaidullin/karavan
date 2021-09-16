@@ -17,6 +17,7 @@ interface Props {
     updateElement: any
     deleteElement: any
     selectElement: any
+    openSelector: any
     selectedUuid: string
 }
 
@@ -60,9 +61,9 @@ export class StepElement extends React.Component<Props, State> {
         // this.setState({showSelector: false})
     }
 
-    showDslSelector = (evt: React.MouseEvent) => {
+    openSelector = (evt: React.MouseEvent) => {
         evt.stopPropagation()
-        this.setState({showSelector: true})
+        this.props.openSelector.call(this, this.state.element.uuid, this.state.element.dslName)
     }
 
     closeDslSelector = () => {
@@ -119,6 +120,7 @@ export class StepElement extends React.Component<Props, State> {
                         {this.getSteps().map((step, index) => (
                             <div key={step.uuid} style={this.horizontal() ? {marginRight: (index < this.getSteps().length - 1) ? "6px" : "0"} :{}}>
                                 <StepElement
+                                    openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
                                     updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}
@@ -136,7 +138,7 @@ export class StepElement extends React.Component<Props, State> {
                     {this.state.element.hasSteps() &&
                     <Tooltip position={"bottom"}
                              content={<div>{"Add element to " + CamelUi.getTitle(this.state.element)}</div>}>
-                        <button type="button" aria-label="Add" onClick={e => this.showDslSelector(e)}
+                        <button type="button" aria-label="Add" onClick={e => this.openSelector(e)}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>
@@ -144,7 +146,7 @@ export class StepElement extends React.Component<Props, State> {
                     }
                     {this.state.element.dslName === 'choice' &&
                     <Tooltip position={"bottom"} content={<div>{"Add element to Choice"}</div>}>
-                        <button type="button" aria-label="Add" onClick={e => this.showDslSelector(e)}
+                        <button type="button" aria-label="Add" onClick={e => this.openSelector(e)}
                                 className="add-button">
                             <AddIcon noVerticalAlign/>
                         </button>
@@ -155,6 +157,7 @@ export class StepElement extends React.Component<Props, State> {
                         {this.getWhens().map((when, index) => (
                             <div key={when.uuid} style={{marginRight: (index < this.getWhens().length - 1) ? "6px" : "0"}}>
                                 <StepElement
+                                    openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
                                     updateElement={this.props.updateElement}
                                     selectElement={this.props.selectElement}

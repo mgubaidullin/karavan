@@ -192,9 +192,6 @@ export class DslElement extends React.Component<Props<any>, State<any>> {
                 </Tooltip>
 
                 }
-                <DslSelector elementName={this.state.name} id={DslApi.getUid(this.state.element)}
-                             show={this.state.showSelector}
-                             onDslSelect={this.onDslSelect} onClose={this.closeDslSelector}/>
             </div>
         );
     }
