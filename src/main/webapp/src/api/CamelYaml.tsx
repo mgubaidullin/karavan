@@ -93,9 +93,6 @@ export class CamelYaml {
 
         const multicast = new MulticastStep({steps:[direct1, direct2, direct3]})
         const from = new FromStep({uri: 'direct1', steps: [filter, multicast, choice]});
-        // const from = new FromStep({uri:'direct1', steps:[to1]});
-        // console.log(from)
-        // const cleanFrom = ResourceGenerator.cleanupElement(from);
         const flows: FromStep[] = [from as FromStep];
         const int = new Integration({metadata: {name: "hello-world"}, spec: {flows: flows}});
         return int;

@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid'
+import {CamelApi} from "../api/CamelApi";
 
 export class Metadata {
     name: string = '';
@@ -1112,6 +1113,7 @@ export class Expression extends CamelElement {
 
     public constructor(init?: Partial<Expression>) { 
         super('expression')
+        if (init) init.language = CamelApi.getExpressionLanguage(init);
         Object.assign(this, init)
     }
 }

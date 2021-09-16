@@ -138,7 +138,7 @@ export class CamelApi {
         }
     }
     static createExpression = (element: any): Expression => {
-        return new Expression({...element.expression})
+        return new Expression({...element})
     }
     static createFrom = (element: any): FromStep => {
         const fromStep = new FromStep({...element.from})
@@ -657,4 +657,27 @@ export class CamelApi {
             default : return new CamelElement('')
         }
     }
+    static getExpressionLanguage = (init?: Partial<Expression>): string | undefined => {
+        if (init?.constant) return 'constant'
+        if (init?.csimple) return 'csimple'
+        if (init?.datasonnet) return 'datasonnet'
+        if (init?.exchangeProperty) return 'exchangeProperty'
+        if (init?.groovy) return 'groovy'
+        if (init?.header) return 'header'
+        if (init?.hl7terser) return 'hl7terser'
+        if (init?.joor) return 'joor'
+        if (init?.jsonpath) return 'jsonpath'
+        if (init?.method) return 'method'
+        if (init?.mvel) return 'mvel'
+        if (init?.ognl) return 'ognl'
+        if (init?.ref) return 'ref'
+        if (init?.simple) return 'simple'
+        if (init?.spel) return 'spel'
+        if (init?.tokenize) return 'tokenize'
+        if (init?.xpath) return 'xpath'
+        if (init?.xquery) return 'xquery'
+        if (init?.xtokenize) return 'xtokenize'
+        return undefined;
+    }
 }
+

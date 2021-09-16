@@ -76,10 +76,10 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     onPropertyUpdate = (element: CamelElement, updatedUuid: string) => {
-        console.log("onPropertyUpdate 1-------")
-        console.log(element)
-        console.log(updatedUuid)
-        console.log("onPropertyUpdate 2-------")
+        // console.log("onPropertyUpdate 1-------")
+        // console.log(element)
+        // console.log(updatedUuid)
+        // console.log("onPropertyUpdate 2-------")
         // this.setState({flows: []})
         // const updatedUid = DslApi.getUid(element);
         const clone = CamelYaml.cloneIntegration(this.state.integration);

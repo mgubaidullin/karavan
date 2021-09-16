@@ -115,7 +115,7 @@ public final class CamelModelGenerator {
 
         camelApi.append(
                 "    static createExpression = (element: any): Expression => {\n" +
-                        "        return new Expression({...element.expression})\n" +
+                        "        return new Expression({...element})\n" +
                         "    }\n");
         camelApi.append(createCreateFunction("from", models.get("from")));
         processors.values().forEach((model) -> camelApi.append(createCreateFunction(model, models.get(model))));
@@ -145,7 +145,18 @@ public final class CamelModelGenerator {
                         "        }\n" +
                         "    }\n");
 
-        camelApi.append("}").append(System.lineSeparator());
+
+        // Expression language finder
+        camelApi.append("    static getExpressionLanguage = (init?: Partial<Expression>): string | undefined => {\n");
+        models.get("expression").forEach(el -> {
+            if (!el.name.equals("language"))
+            camelApi.append(String.format("        if (init?.%s) return '%s'\n", el.name, el.name));
+        });
+        camelApi.append("        return undefined;\n");
+        camelApi.append("    }\n");
+        // if (init) init.language = CamelApi.getExpressionLanguage(init);
+        camelApi.append("}\n").append(System.lineSeparator());
+
         vertx.fileSystem().writeFileBlocking(targetApi, Buffer.buffer(camelApi.toString()));
 
 
@@ -307,6 +318,9 @@ public final class CamelModelGenerator {
         element.append("\n");
         element.append("    public constructor(init?: Partial<").append(capitalize(name)).append(">) { \n");
         element.append("        super('").append(deCapitalize(name)).append("')\n");
+        if (name.equals("expression")){
+            element.append("        if (init) init.language = CamelApi.getExpressionLanguage(init);\n");
+        }
         element.append("        Object.assign(this, init)\n");
         element.append("    }\n");
         element.append("}");

@@ -17,7 +17,7 @@ import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
 import {DslMetaApi} from "../api/DslMetaApi";
-import {CamelElement, Integration, ProcessorStep} from "../model/CamelModel";
+import {CamelElement, Expression, ExpressionStep, Integration, ProcessorStep} from "../model/CamelModel";
 import {DslApi} from "../api/DslApi";
 import {DslLanguage} from "../model/DslMetaModel";
 import {CamelApi} from "../api/CamelApi";
@@ -62,12 +62,26 @@ export class DslProperties extends React.Component<Props, State> {
     };
 
     propertyChanged = (fieldId: string, value: string | number | boolean | any, prefix?: string, unique?: boolean) => {
-        console.log(fieldId)
-        console.log(value)
-        console.log(prefix)
+        // console.log(fieldId)
+        // console.log(value)
+        // console.log(prefix)
         if (this.state.step && this.state.element){
             const clone = CamelYaml.cloneStep(this.state.step);
             (clone as any)[this.state.element?.dslName][fieldId] = value;
+            this.setStep(clone)
+            this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
+        }
+    }
+
+    expressionChanged = (language: string, value: string | undefined) => {
+        // console.log(language)
+        // console.log(value)
+        if (this.state.step && this.state.element){
+            const clone = (CamelYaml.cloneStep(this.state.step));
+            const e: any = {};
+            e[language] = value
+            const exp: any = new Expression(e);
+            (clone as any)[this.state.element?.dslName].expression = exp;
             this.setStep(clone)
             this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
         }
@@ -80,7 +94,7 @@ export class DslProperties extends React.Component<Props, State> {
     }
 
     setStep = (step?: CamelElement) => {
-        this.setState({ step: step, element: step ? CamelApi.elementFromStep(step) : undefined });
+        this.setState({ step: step, element: step ? CamelApi.elementFromStep(step) : undefined , selectStatus: new Map<string, boolean>()});
     }
 
     openSelect = (propertyName: string) => {
@@ -184,12 +198,11 @@ export class DslProperties extends React.Component<Props, State> {
         const dslLanguage = Languages.find((l:[string, string, string]) => l[0] === language);
         const value = language ? CamelUi.getExpressionValue(this.state.element) : undefined;
         const selectOptions: JSX.Element[] = []
-        selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
+        // selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
         Languages.forEach((lang: [string, string, string]) => {
-            const s = <SelectOption key={lang[0]} value={lang[1]} description={lang[2]} />;
+            const s = <SelectOption key={lang[0]} value={lang[0]} description={lang[2]} />;
             selectOptions.push(s);
         })
-
         return (
             <div>
                 <FormGroup key={prefix + "-" + property.name} fieldId={property.name}>
@@ -199,7 +212,7 @@ export class DslProperties extends React.Component<Props, State> {
                         onToggle={isExpanded => {
                             this.openSelect(property.name)
                         }}
-                        onSelect={(e, lang, isPlaceholder) => this.propertyChanged(DslLanguage.getName(lang as DslLanguage), (!isPlaceholder ? value : undefined), property.name, true)}
+                        onSelect={(e, lang, isPlaceholder) => this.expressionChanged(lang.toString(), value)}
                         selections={dslLanguage}
                         isOpen={this.isSelectOpen(property.name)}
                         aria-labelledby={property.name}
@@ -231,7 +244,7 @@ export class DslProperties extends React.Component<Props, State> {
                         id={property.name} name={property.name}
                         height={"100px"}
                         value={value?.toString()}
-                        onChange={e => this.propertyChanged(language, e, property.name, true)}/>
+                        onChange={e => this.expressionChanged(language, e)}/>
                 </FormGroup>
             </div>
         )
