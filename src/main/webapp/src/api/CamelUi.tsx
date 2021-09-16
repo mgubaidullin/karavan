@@ -58,7 +58,6 @@ export class CamelUi {
     }
 
     static getSelectorModels = (label: string, type: "element" | "kamel", parentDslName: string): DslMetaModel[] => {
-        console.log(parentDslName)
         if (type === "element") {
             if (parentDslName === undefined || parentDslName.length === 0) {
                 return Metadata

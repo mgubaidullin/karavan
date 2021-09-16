@@ -15,6 +15,7 @@ import {CamelElement, Integration} from "../model/CamelModel";
 import {KaravanApi} from "../api/KaravanApi";
 import {CamelYaml} from "../api/CamelYaml";
 import {CamelApiExt} from "../api/CamelApiExt";
+import {CamelApi} from "../api/CamelApi";
 
 interface Props {
     integration: Integration,
@@ -110,7 +111,22 @@ export class DesignerPage extends React.Component<Props, State> {
 
     onDslSelect = (dsl: DslMetaModel) => {
         console.log(dsl)
-        // const flow = DslApi.createFlowElement(dsl);
+        switch (dsl.name){
+            case 'from' :
+                const from = CamelApi.createStep(dsl.name, {from:{uri:dsl.uri}});
+                console.log(from)
+                break;
+            case 'to' :
+                const to = CamelApi.createStep(dsl.name, {to:{uri:dsl.uri}});
+                console.log(to)
+                break;
+            default:
+                const step = CamelApi.createStep(dsl.name, {});
+                console.log(step)
+                break;
+        }
+
+
         // const flows: any[] = [...this.state.flows]
         // flows.push(flow)
         // this.setState({flows: flows, showSelector: false, selectedElement: flow, selectedUid: DslApi.getUid(flow)})

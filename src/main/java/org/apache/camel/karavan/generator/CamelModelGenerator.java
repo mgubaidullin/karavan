@@ -256,12 +256,12 @@ public final class CamelModelGenerator {
         String funcName = "create".concat(capitalize(name));
         StringBuilder f = new StringBuilder();
         f.append(String.format("    static %s = (element: any): %s => {\n", funcName, stepClass));
-        f.append(String.format("        const %s = new %s({...element.%s})\n", stepField, stepClass, elementName));
+        f.append(String.format("        const %1$s = element ? new %2$s({...element.%3$s}) : new %2$s()\n", stepField, stepClass, elementName));
         elProps.stream().forEach(e -> {
             if (e.name.equals("steps")) {
                 f.append(String.format("        %s.%s.steps = CamelApi.createSteps(element?.%s?.steps)\n", stepField, elementName, elementName));
             } else if (e.isArray && e.isArrayTypeClass) {
-                f.append(String.format("        %s.%s.%s =  [...element?.%s?.%s].map(x => CamelApi.create%s(x))\n", stepField, elementName, e.name, elementName, e.name, e.arrayType));
+                f.append(String.format("        %1$s.%2$s.%3$s = element && element?.%2$s ? element?.%2$s?.%3$s.map((x:any) => CamelApi.create%4$s(x)) :[]\n", stepField, elementName, e.name, e.arrayType));
             } else if (e.isObject) {
                 f.append(String.format("        %s.%s.%s = CamelApi.create%s(element?.%s?.%s)\n", stepField, elementName, e.name, e.type, elementName, e.name));
             }
