@@ -163,15 +163,17 @@ public final class CamelModelGenerator {
                 camelApi.append(String.format(
                         "                case '%1$s':\n" +
                                 "                    const %3$sChildren = (el as %2$s).%3$s?.steps || [];\n" +
-                                "                    if (el.uuid === parentId) %3$sChildren.push(step);\n" +
-                                "                    (el as %2$s).%3$s.steps = CamelApi.addStep(%3$sChildren, step, parentId);\n" +
+                                "                    if (el.uuid === parentId) %3$sChildren.push(step)\n" +
+                                "                    else (el as %2$s).%3$s.steps = CamelApi.addStep(%3$sChildren, step, parentId);\n" +
                                 "                    break;\n",
                         stepField, stepClass, name));
             } else if (name.equals("choice")){
                 camelApi.append(
-                        "                    const choiceChildren = (el as ChoiceStep).choice?.when || [];\n" +
-                                "                    if (el.uuid === parentId) choiceChildren.push(step as WhenStep);\n" +
-                                "                    (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
+                        "                case 'choiceStep':\n" +
+                                "                    const choiceChildren = (el as ChoiceStep).choice?.when || [];\n" +
+                                "                    if (el.uuid === parentId && step.dslName === 'whenStep') choiceChildren.push(step as WhenStep);\n" +
+                                "                    else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) (el as ChoiceStep).choice.otherwise = step;\n" +
+                                "                    else (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
                                 "                    break;\n");
             }
         });

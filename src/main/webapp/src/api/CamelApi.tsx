@@ -666,62 +666,64 @@ export class CamelApi {
             switch (el.dslName) {
                 case 'policyStep':
                     const policyChildren = (el as PolicyStep).policy?.steps || [];
-                    if (el.uuid === parentId) policyChildren.push(step);
-                    (el as PolicyStep).policy.steps = CamelApi.addStep(policyChildren, step, parentId);
+                    if (el.uuid === parentId) policyChildren.push(step)
+                    else (el as PolicyStep).policy.steps = CamelApi.addStep(policyChildren, step, parentId);
                     break;
+                case 'choiceStep':
                     const choiceChildren = (el as ChoiceStep).choice?.when || [];
-                    if (el.uuid === parentId) choiceChildren.push(step as WhenStep);
-                    (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];
+                    if (el.uuid === parentId && step.dslName === 'whenStep') choiceChildren.push(step as WhenStep);
+                    else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) (el as ChoiceStep).choice.otherwise = step;
+                    else (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];
                     break;
                 case 'otherwiseStep':
                     const otherwiseChildren = (el as OtherwiseStep).otherwise?.steps || [];
-                    if (el.uuid === parentId) otherwiseChildren.push(step);
-                    (el as OtherwiseStep).otherwise.steps = CamelApi.addStep(otherwiseChildren, step, parentId);
+                    if (el.uuid === parentId) otherwiseChildren.push(step)
+                    else (el as OtherwiseStep).otherwise.steps = CamelApi.addStep(otherwiseChildren, step, parentId);
                     break;
                 case 'fromStep':
                     const fromChildren = (el as FromStep).from?.steps || [];
-                    if (el.uuid === parentId) fromChildren.push(step);
-                    (el as FromStep).from.steps = CamelApi.addStep(fromChildren, step, parentId);
+                    if (el.uuid === parentId) fromChildren.push(step)
+                    else (el as FromStep).from.steps = CamelApi.addStep(fromChildren, step, parentId);
                     break;
                 case 'onCompletionStep':
                     const onCompletionChildren = (el as OnCompletionStep).onCompletion?.steps || [];
-                    if (el.uuid === parentId) onCompletionChildren.push(step);
-                    (el as OnCompletionStep).onCompletion.steps = CamelApi.addStep(onCompletionChildren, step, parentId);
+                    if (el.uuid === parentId) onCompletionChildren.push(step)
+                    else (el as OnCompletionStep).onCompletion.steps = CamelApi.addStep(onCompletionChildren, step, parentId);
                     break;
                 case 'splitStep':
                     const splitChildren = (el as SplitStep).split?.steps || [];
-                    if (el.uuid === parentId) splitChildren.push(step);
-                    (el as SplitStep).split.steps = CamelApi.addStep(splitChildren, step, parentId);
+                    if (el.uuid === parentId) splitChildren.push(step)
+                    else (el as SplitStep).split.steps = CamelApi.addStep(splitChildren, step, parentId);
                     break;
                 case 'transactedStep':
                     const transactedChildren = (el as TransactedStep).transacted?.steps || [];
-                    if (el.uuid === parentId) transactedChildren.push(step);
-                    (el as TransactedStep).transacted.steps = CamelApi.addStep(transactedChildren, step, parentId);
+                    if (el.uuid === parentId) transactedChildren.push(step)
+                    else (el as TransactedStep).transacted.steps = CamelApi.addStep(transactedChildren, step, parentId);
                     break;
                 case 'interceptFromStep':
                     const interceptFromChildren = (el as InterceptFromStep).interceptFrom?.steps || [];
-                    if (el.uuid === parentId) interceptFromChildren.push(step);
-                    (el as InterceptFromStep).interceptFrom.steps = CamelApi.addStep(interceptFromChildren, step, parentId);
+                    if (el.uuid === parentId) interceptFromChildren.push(step)
+                    else (el as InterceptFromStep).interceptFrom.steps = CamelApi.addStep(interceptFromChildren, step, parentId);
                     break;
                 case 'doCatchStep':
                     const doCatchChildren = (el as DoCatchStep).doCatch?.steps || [];
-                    if (el.uuid === parentId) doCatchChildren.push(step);
-                    (el as DoCatchStep).doCatch.steps = CamelApi.addStep(doCatchChildren, step, parentId);
+                    if (el.uuid === parentId) doCatchChildren.push(step)
+                    else (el as DoCatchStep).doCatch.steps = CamelApi.addStep(doCatchChildren, step, parentId);
                     break;
                 case 'circuitBreakerStep':
                     const circuitBreakerChildren = (el as CircuitBreakerStep).circuitBreaker?.steps || [];
-                    if (el.uuid === parentId) circuitBreakerChildren.push(step);
-                    (el as CircuitBreakerStep).circuitBreaker.steps = CamelApi.addStep(circuitBreakerChildren, step, parentId);
+                    if (el.uuid === parentId) circuitBreakerChildren.push(step)
+                    else (el as CircuitBreakerStep).circuitBreaker.steps = CamelApi.addStep(circuitBreakerChildren, step, parentId);
                     break;
                 case 'interceptStep':
                     const interceptChildren = (el as InterceptStep).intercept?.steps || [];
-                    if (el.uuid === parentId) interceptChildren.push(step);
-                    (el as InterceptStep).intercept.steps = CamelApi.addStep(interceptChildren, step, parentId);
+                    if (el.uuid === parentId) interceptChildren.push(step)
+                    else (el as InterceptStep).intercept.steps = CamelApi.addStep(interceptChildren, step, parentId);
                     break;
                 case 'onFallbackStep':
                     const onFallbackChildren = (el as OnFallbackStep).onFallback?.steps || [];
-                    if (el.uuid === parentId) onFallbackChildren.push(step);
-                    (el as OnFallbackStep).onFallback.steps = CamelApi.addStep(onFallbackChildren, step, parentId);
+                    if (el.uuid === parentId) onFallbackChildren.push(step)
+                    else (el as OnFallbackStep).onFallback.steps = CamelApi.addStep(onFallbackChildren, step, parentId);
                     break;
                 case 'multicastStep':
                     const multicastChildren = (el as MulticastStep).multicast?.steps || [];
@@ -730,53 +732,53 @@ export class CamelApi {
                     break;
                 case 'loadBalanceStep':
                     const loadBalanceChildren = (el as LoadBalanceStep).loadBalance?.steps || [];
-                    if (el.uuid === parentId) loadBalanceChildren.push(step);
-                    (el as LoadBalanceStep).loadBalance.steps = CamelApi.addStep(loadBalanceChildren, step, parentId);
+                    if (el.uuid === parentId) loadBalanceChildren.push(step)
+                    else (el as LoadBalanceStep).loadBalance.steps = CamelApi.addStep(loadBalanceChildren, step, parentId);
                     break;
                 case 'whenSkipSendToEndpointStep':
                     const whenSkipSendToEndpointChildren = (el as WhenSkipSendToEndpointStep).whenSkipSendToEndpoint?.steps || [];
-                    if (el.uuid === parentId) whenSkipSendToEndpointChildren.push(step);
-                    (el as WhenSkipSendToEndpointStep).whenSkipSendToEndpoint.steps = CamelApi.addStep(whenSkipSendToEndpointChildren, step, parentId);
+                    if (el.uuid === parentId) whenSkipSendToEndpointChildren.push(step)
+                    else (el as WhenSkipSendToEndpointStep).whenSkipSendToEndpoint.steps = CamelApi.addStep(whenSkipSendToEndpointChildren, step, parentId);
                     break;
                 case 'loopStep':
                     const loopChildren = (el as LoopStep).loop?.steps || [];
-                    if (el.uuid === parentId) loopChildren.push(step);
-                    (el as LoopStep).loop.steps = CamelApi.addStep(loopChildren, step, parentId);
+                    if (el.uuid === parentId) loopChildren.push(step)
+                    else (el as LoopStep).loop.steps = CamelApi.addStep(loopChildren, step, parentId);
                     break;
                 case 'interceptSendToEndpointStep':
                     const interceptSendToEndpointChildren = (el as InterceptSendToEndpointStep).interceptSendToEndpoint?.steps || [];
-                    if (el.uuid === parentId) interceptSendToEndpointChildren.push(step);
-                    (el as InterceptSendToEndpointStep).interceptSendToEndpoint.steps = CamelApi.addStep(interceptSendToEndpointChildren, step, parentId);
+                    if (el.uuid === parentId) interceptSendToEndpointChildren.push(step)
+                    else (el as InterceptSendToEndpointStep).interceptSendToEndpoint.steps = CamelApi.addStep(interceptSendToEndpointChildren, step, parentId);
                     break;
                 case 'doTryStep':
                     const doTryChildren = (el as DoTryStep).doTry?.steps || [];
-                    if (el.uuid === parentId) doTryChildren.push(step);
-                    (el as DoTryStep).doTry.steps = CamelApi.addStep(doTryChildren, step, parentId);
+                    if (el.uuid === parentId) doTryChildren.push(step)
+                    else (el as DoTryStep).doTry.steps = CamelApi.addStep(doTryChildren, step, parentId);
                     break;
                 case 'resequenceStep':
                     const resequenceChildren = (el as ResequenceStep).resequence?.steps || [];
-                    if (el.uuid === parentId) resequenceChildren.push(step);
-                    (el as ResequenceStep).resequence.steps = CamelApi.addStep(resequenceChildren, step, parentId);
+                    if (el.uuid === parentId) resequenceChildren.push(step)
+                    else (el as ResequenceStep).resequence.steps = CamelApi.addStep(resequenceChildren, step, parentId);
                     break;
                 case 'pipelineStep':
                     const pipelineChildren = (el as PipelineStep).pipeline?.steps || [];
-                    if (el.uuid === parentId) pipelineChildren.push(step);
-                    (el as PipelineStep).pipeline.steps = CamelApi.addStep(pipelineChildren, step, parentId);
+                    if (el.uuid === parentId) pipelineChildren.push(step)
+                    else (el as PipelineStep).pipeline.steps = CamelApi.addStep(pipelineChildren, step, parentId);
                     break;
                 case 'sagaStep':
                     const sagaChildren = (el as SagaStep).saga?.steps || [];
-                    if (el.uuid === parentId) sagaChildren.push(step);
-                    (el as SagaStep).saga.steps = CamelApi.addStep(sagaChildren, step, parentId);
+                    if (el.uuid === parentId) sagaChildren.push(step)
+                    else (el as SagaStep).saga.steps = CamelApi.addStep(sagaChildren, step, parentId);
                     break;
                 case 'whenStep':
                     const whenChildren = (el as WhenStep).when?.steps || [];
-                    if (el.uuid === parentId) whenChildren.push(step);
-                    (el as WhenStep).when.steps = CamelApi.addStep(whenChildren, step, parentId);
+                    if (el.uuid === parentId) whenChildren.push(step)
+                    else (el as WhenStep).when.steps = CamelApi.addStep(whenChildren, step, parentId);
                     break;
                 case 'doFinallyStep':
                     const doFinallyChildren = (el as DoFinallyStep).doFinally?.steps || [];
-                    if (el.uuid === parentId) doFinallyChildren.push(step);
-                    (el as DoFinallyStep).doFinally.steps = CamelApi.addStep(doFinallyChildren, step, parentId);
+                    if (el.uuid === parentId) doFinallyChildren.push(step)
+                    else (el as DoFinallyStep).doFinally.steps = CamelApi.addStep(doFinallyChildren, step, parentId);
                     break;
                 case 'filterStep':
                     const filterChildren = (el as FilterStep).filter?.steps || [];
@@ -785,13 +787,13 @@ export class CamelApi {
                     break;
                 case 'aggregateStep':
                     const aggregateChildren = (el as AggregateStep).aggregate?.steps || [];
-                    if (el.uuid === parentId) aggregateChildren.push(step);
-                    (el as AggregateStep).aggregate.steps = CamelApi.addStep(aggregateChildren, step, parentId);
+                    if (el.uuid === parentId) aggregateChildren.push(step)
+                    else (el as AggregateStep).aggregate.steps = CamelApi.addStep(aggregateChildren, step, parentId);
                     break;
                 case 'idempotentConsumerStep':
                     const idempotentConsumerChildren = (el as IdempotentConsumerStep).idempotentConsumer?.steps || [];
-                    if (el.uuid === parentId) idempotentConsumerChildren.push(step);
-                    (el as IdempotentConsumerStep).idempotentConsumer.steps = CamelApi.addStep(idempotentConsumerChildren, step, parentId);
+                    if (el.uuid === parentId) idempotentConsumerChildren.push(step)
+                    else (el as IdempotentConsumerStep).idempotentConsumer.steps = CamelApi.addStep(idempotentConsumerChildren, step, parentId);
                     break;
             }
             result.push(el);
