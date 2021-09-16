@@ -5,7 +5,7 @@ import {
 import '../karavan.css';
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
-import {CamelElement, ProcessorStep, WhenStep} from "../model/CamelModel";
+import {CamelElement, Choice, Otherwise, OtherwiseStep, ProcessorStep, WhenStep} from "../model/CamelModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
 
@@ -75,6 +75,10 @@ export class StepElement extends React.Component<Props, State> {
         return (this.state.element as any).when
     }
 
+    getOtherwise = (): OtherwiseStep => {
+        return (this.state.element as any).otherwise
+    }
+
     horizontal = (): boolean => {
         return ['choice', 'multicast'].includes(this.state.element.dslName);
     }
@@ -137,7 +141,7 @@ export class StepElement extends React.Component<Props, State> {
                     {this.state.element.dslName === 'choice' &&
                     <div className="whens" style={this.horizontal() ? {display: "flex", flexDirection: "row"} : {}}>
                         {this.getWhens().map((when, index) => (
-                            <div key={when.uuid} style={{marginRight: (index < this.getWhens().length - 1) ? "6px" : "0"}}>
+                            <div key={when.uuid} style={{marginLeft: (index != 0) ? "6px" : "0"}}>
                                 <StepElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
@@ -146,6 +150,16 @@ export class StepElement extends React.Component<Props, State> {
                                     step={when}/>
                             </div>
                         ))}
+                        {this.getOtherwise() &&
+                            <div key={this.getOtherwise().uuid} style={{marginLeft: (this.getWhens().length > 0) ? "6px" : "0"}}>
+                                <StepElement
+                                    openSelector={this.props.openSelector}
+                                    deleteElement={this.props.deleteElement}
+                                    selectElement={this.props.selectElement}
+                                    selectedUuid={this.state.selectedUuid}
+                                    step={this.getOtherwise()}/>
+                            </div>
+                        }
                     </div>
                     }
                 </div>
