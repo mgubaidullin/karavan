@@ -14,7 +14,7 @@ import {DslProperties} from "./DslProperties";
 import {CamelElement, Integration} from "../model/CamelModel";
 import {KaravanApi} from "../api/KaravanApi";
 import {CamelYaml} from "../api/CamelYaml";
-import {CamelUi} from "../api/CamelUi";
+import {CamelApiExt} from "../api/CamelApiExt";
 
 interface Props {
     integration: Integration,
@@ -82,13 +82,13 @@ export class DesignerPage extends React.Component<Props, State> {
         // this.setState({flows: []})
         // const updatedUid = DslApi.getUid(element);
         const clone = CamelYaml.cloneIntegration(this.state.integration);
-        const i = CamelUi.updateIntegration(clone, element, updatedUuid);
+        const i = CamelApiExt.updateIntegration(clone, element, updatedUuid);
         console.log(i)
         this.setState({integration: i, key: Math.random().toString()})
     }
 
     deleteElement = (id: string) => {
-        const i = CamelUi.deleteStepFromIntegration(this.state.integration, id);
+        const i = CamelApiExt.deleteStepFromIntegration(this.state.integration, id);
         this.setState({integration: i})
     }
 

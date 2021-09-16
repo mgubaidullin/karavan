@@ -21,9 +21,10 @@ import {CamelElement, Expression, ExpressionStep, Integration, ProcessorStep} fr
 import {DslApi} from "../api/DslApi";
 import {DslLanguage} from "../model/DslMetaModel";
 import {CamelApi} from "../api/CamelApi";
-import {CamelUi} from "../api/CamelUi";
+import {CamelApiExt} from "../api/CamelApiExt";
 import {CamelMetadataApi, Languages, PropertyMeta} from "../api/CamelMetadata";
 import {CamelYaml} from "../api/CamelYaml";
+import {CamelUi} from "../api/CamelUi";
 
 interface Props {
     integration: Integration,
@@ -147,7 +148,7 @@ export class DslProperties extends React.Component<Props, State> {
     createKameletProperty = (property: Property): JSX.Element => {
         const prefix = "parameters";
         const id = prefix + "-" + property.id;
-        const value = CamelUi.getParametersValue(this.state.element, property.id);
+        const value = CamelApiExt.getParametersValue(this.state.element, property.id);
         return (
             <FormGroup
                 key={id}
@@ -200,9 +201,9 @@ export class DslProperties extends React.Component<Props, State> {
 
     createExpressionProperty = (property: PropertyMeta): JSX.Element => {
         const prefix = "language";
-        const language = CamelUi.getExpressionLanguage(this.state.element) || 'Simple'
+        const language = CamelApiExt.getExpressionLanguage(this.state.element) || 'Simple'
         const dslLanguage = Languages.find((l:[string, string, string]) => l[0] === language);
-        const value = language ? CamelUi.getExpressionValue(this.state.element) : undefined;
+        const value = language ? CamelApiExt.getExpressionValue(this.state.element) : undefined;
         const selectOptions: JSX.Element[] = []
         // selectOptions.push(<SelectOption key={'placeholder'} value={"Select language"} isPlaceholder/>);
         Languages.forEach((lang: [string, string, string]) => {
@@ -348,7 +349,7 @@ export class DslProperties extends React.Component<Props, State> {
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}
                     {/*{this.state.element && DslPropertiesUtil.getElementProperties(this.state.element).map((property: DslProperty) => this.createElementProperty(property))}*/}
-                    {this.state.element && CamelUi.getElementProperties(this.state.element.dslName).map((property: PropertyMeta) => this.createElementProperty(property))}
+                    {this.state.element && CamelApiExt.getElementProperties(this.state.element.dslName).map((property: PropertyMeta) => this.createElementProperty(property))}
                 </Form>
             </div>
         );

@@ -229,8 +229,8 @@ public final class CamelModelGenerator {
                 JsonObject props = new JsonObject(json).getJsonObject("properties");
                 String title = model.getString("title");
                 String description = model.getString("description");
-                String labels = model.getString("labels");
-                metadata.append(String.format("    new ElementMeta('%s', '%s', '%s', '%s', [\n", name, title, description, labels));
+                String label = model.getString("label");
+                metadata.append(String.format("    new ElementMeta('%s', '%s', '%s', '%s', [\n", name, title, description, label));
                 models.get(s).forEach(el -> {
                     String pname = el.name;
                     JsonObject p = props.getJsonObject(pname);

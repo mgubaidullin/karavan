@@ -8,8 +8,9 @@ import {DslApi} from "../api/DslApi";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import {DslMetaModel} from "../model/DslMetaModel";
 import {CamelElement, FromStep, ProcessorStep, WhenStep} from "../model/CamelModel";
-import {CamelUi} from "../api/CamelUi";
+import {CamelApiExt} from "../api/CamelApiExt";
 import {CamelApi} from "../api/CamelApi";
+import {CamelUi} from "../api/CamelUi";
 
 interface Props {
     step: CamelElement,
