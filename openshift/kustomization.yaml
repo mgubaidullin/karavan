@@ -4,7 +4,7 @@ namespace: karavan
 
 bases:
   - gitea
-#  - karavan
+  - karavan
 
 resources:
   - namespace.yaml
