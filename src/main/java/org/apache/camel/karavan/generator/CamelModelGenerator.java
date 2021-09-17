@@ -235,7 +235,18 @@ public final class CamelModelGenerator {
             if (name.equals("otherwise")){
                 camelApi.append("                        case 'otherwise': (step as Otherwise).steps = CamelApi.deleteStep((step as Otherwise).steps, uuidToDelete); break;\n");
             } else if (name.equals("choice")){
-                camelApi.append("                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;\n");
+                camelApi.append("                        case 'choiceStep':\n" +
+                        "                            console.log(step);\n" +
+                        "                            console.log(uuidToDelete);\n" +
+                        "                            const otherwise = (step as ChoiceStep).choice.otherwise;\n" +
+                        "                            if (otherwise && otherwise.uuid === uuidToDelete) {\n" +
+                        "                                (step as ChoiceStep).choice.otherwise = undefined;\n" +
+                        "                            } else if (otherwise && otherwise.uuid !== uuidToDelete) {\n" +
+                        "                                otherwise.steps = CamelApi.deleteStep(otherwise.steps, uuidToDelete);\n" +
+                        "                                (step as ChoiceStep).choice.otherwise = otherwise;\n" +
+                        "                            }\n" +
+                        "                            (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete);\n" +
+                        "                            break;\n");
             } else if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
                 camelApi.append(String.format("                        case '%s': (step as %s).%s.steps = CamelApi.deleteStep((step as %s).%s.steps, uuidToDelete); break;\n",
                         stepField, stepClass, name, stepClass,name));

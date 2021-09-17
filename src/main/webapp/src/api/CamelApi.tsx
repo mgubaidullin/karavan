@@ -822,7 +822,18 @@ export class CamelApi {
                 if (step.uuid !== uuidToDelete){
                     switch (step.dslName){
                         case 'policyStep': (step as PolicyStep).policy.steps = CamelApi.deleteStep((step as PolicyStep).policy.steps, uuidToDelete); break;
-                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;
+                        case 'choiceStep':
+                            console.log(step);
+                            console.log(uuidToDelete);
+                            const otherwise = (step as ChoiceStep).choice.otherwise;
+                            if (otherwise && otherwise.uuid === uuidToDelete) {
+                                (step as ChoiceStep).choice.otherwise = undefined;
+                            } else if (otherwise && otherwise.uuid !== uuidToDelete) {
+                                otherwise.steps = CamelApi.deleteStep(otherwise.steps, uuidToDelete);
+                                (step as ChoiceStep).choice.otherwise = otherwise;
+                            }
+                            (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete);
+                            break;
                         case 'otherwise': (step as Otherwise).steps = CamelApi.deleteStep((step as Otherwise).steps, uuidToDelete); break;
                         case 'fromStep': (step as FromStep).from.steps = CamelApi.deleteStep((step as FromStep).from.steps, uuidToDelete); break;
                         case 'onCompletionStep': (step as OnCompletionStep).onCompletion.steps = CamelApi.deleteStep((step as OnCompletionStep).onCompletion.steps, uuidToDelete); break;
