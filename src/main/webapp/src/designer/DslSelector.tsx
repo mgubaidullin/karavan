@@ -63,7 +63,7 @@ export class DslSelector extends React.Component<Props, State> {
                         <Tab eventKey={label[0]} key={"tab-" + label[0]}
                              title={<TabTitleText>{CamelUi.capitalizeName(label[0])}</TabTitleText>}>
                             <Gallery key={"gallery-" + label[0]} hasGutter className="dsl-gallery">
-                                {CamelUi.getSelectorModels(label[0], label[1], this.props.parentType).map((dsl, index) => (
+                                {CamelUi.sortSelectorModels(CamelUi.getSelectorModels(label[0], label[1], this.props.parentType)).map((dsl, index) => (
                                     <Card key={dsl.name + index} isHoverable isCompact className="dsl-card"
                                           onClick={event => this.selectDsl(event, dsl)}>
                                         <CardHeader>

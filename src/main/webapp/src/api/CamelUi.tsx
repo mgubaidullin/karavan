@@ -57,6 +57,9 @@ export class CamelUi {
         }
     }
 
+    static sortSelectorModels = (models: DslMetaModel[]): DslMetaModel[] => {
+        return models.sort((a, b) => a.title > b.title ? 1 : -1);
+    }
     static getSelectorModels = (label: string, type: "element" | "kamel", parentDslName: string): DslMetaModel[] => {
         if (type === "element") {
             if (parentDslName === undefined || parentDslName.length === 0) {
