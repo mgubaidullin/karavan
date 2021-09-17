@@ -13,12 +13,12 @@ public class GitResource {
     @Inject
     GitService gitService;
 
-   @POST
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    @Path("/push")
-    public String push(String message) throws GitAPIException, IOException {
-        gitService.commitAndPush(message);
+    @Path("/push/{name}")
+    public String push(@PathParam("name") String name, String message) throws GitAPIException, IOException {
+        gitService.commitAndPush(name, message);
         return message;
     }
 }

@@ -3,6 +3,7 @@ import {
     Button, CodeBlock, CodeBlockCode,
     PageSection, Text, TextContent, ToggleGroup, ToggleGroupItem, Toolbar, ToolbarContent, ToolbarItem
 } from '@patternfly/react-core';
+import PublishIcon from '@patternfly/react-icons/dist/esm/icons/openshift-icon';
 import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
 import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 import '../karavan.css';
@@ -49,6 +50,16 @@ export class DesignerPage extends React.Component<Props, State> {
 
     save = () => {
         KaravanApi.postIntegrations(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
+            if (res.status === 200) {
+                console.log(res) //TODO show notification
+            } else {
+                console.log(res) //TODO show notification
+            }
+        })
+    }
+
+    publish = () => {
+        KaravanApi.publishIntegrations(this.state.integration.metadata.name + ".yaml", Date.now().toString(), res => {
             if (res.status === 200) {
                 console.log(res) //TODO show notification
             } else {
@@ -124,6 +135,9 @@ export class DesignerPage extends React.Component<Props, State> {
     tools = (view: "design" | "code") => (
         <Toolbar id="toolbar-group-types">
             <ToolbarContent>
+                <ToolbarItem>
+                    <Button variant="secondary" icon={<PublishIcon/>} onClick={e => this.publish()}>Publish</Button>
+                </ToolbarItem>
                 <ToolbarItem>
                     <Button variant="secondary" icon={<SaveIcon/>} onClick={e => this.save()}>Save</Button>
                 </ToolbarItem>

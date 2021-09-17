@@ -35,12 +35,12 @@ public class GitService {
         }
     }
 
-    public void commitAndPush(String message) throws GitAPIException, IOException {
-        LOGGER.info("Push changes...");
+    public void commitAndPush(String name, String message) throws GitAPIException, IOException {
+        LOGGER.info("Push changes for " + name);
         String username = ConfigProvider.getConfig().getValue("karavan.git.username", String.class);
         String password = ConfigProvider.getConfig().getValue("karavan.git.password", String.class);
         try (Git git = Git.open(Path.of(root, integrations).toFile())) {
-            LOGGER.info("Git add status: " + git.add().addFilepattern(".").call());
+            LOGGER.info("Git add status: " + git.add().addFilepattern(name).call());
             LOGGER.info("Git commit status: " + git.commit().setMessage(message).call());
             LOGGER.info("Git push status: " + git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
         }

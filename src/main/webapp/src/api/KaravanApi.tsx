@@ -55,4 +55,14 @@ export const KaravanApi = {
             after(err);
         });
     },
+
+    publishIntegrations: async (name: string, yaml: string, after: (res: AxiosResponse<any>) => void) => {
+        axios.post('/git/push/' + name, yaml,
+            {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}})
+            .then(res => {
+                after(res);
+            }).catch(err => {
+            after(err);
+        });
+    },
 }
