@@ -25,6 +25,9 @@ export class CamelYaml {
 
     static cleanupElement = (element: CamelElement): CamelElement => {
         const result: any = Object.assign({}, element)
+        if (result.dslName === 'expression'){
+            delete result.language
+        }
         delete result.uuid
         delete result.dslName
         Object.keys(result).forEach(key => {
