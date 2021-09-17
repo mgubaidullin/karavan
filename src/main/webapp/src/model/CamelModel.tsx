@@ -284,7 +284,6 @@ export class Otherwise extends CamelElement {
         Object.assign(this, init)
     }
 }
-
 export class RemoveProperty extends CamelElement { 
     inheritErrorHandler?: boolean
     propertyName?: string

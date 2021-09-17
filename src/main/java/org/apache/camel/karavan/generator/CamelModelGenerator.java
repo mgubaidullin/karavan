@@ -83,7 +83,7 @@ public final class CamelModelGenerator {
         models.forEach((name, elementProps) -> {
             String pcode = generateElementCode(name, elementProps);
             camelModel.append(pcode).append(System.lineSeparator());
-            if (!name.equals("otherwise")){
+            if (!name.equalsIgnoreCase("otherwise")){
                 camelModel.append(generateStepCode(name)).append(System.lineSeparator());
             }
         });
@@ -102,7 +102,13 @@ public final class CamelModelGenerator {
         camelApi.append("    ProcessorStep, \n");
         camelApi.append("    FromStep, \n");
         camelApi.append("    Expression, \n");
-        processors.values().forEach(s -> camelApi.append("    ").append(s).append("Step, \n"));
+        processors.values().forEach(s -> {
+            if (s.toLowerCase().equals("otherwise")){
+                camelApi.append("    Otherwise, \n");
+            } else {
+                camelApi.append("    ").append(s).append("Step, \n");
+            }
+        });
         camelApi.append("} from '../model/CamelModel' \n\n");
 
         camelApi.append("export class CamelApi { \n\n");
@@ -144,8 +150,13 @@ public final class CamelModelGenerator {
                 "    static elementFromStep = (step: CamelElement): CamelElement => {\n" +
                         "        switch (step.dslName){\n" +
                         "            case 'fromStep' : return (step as FromStep).from\n");
-        processors.values().forEach(s ->
-                camelApi.append("            case '").append(deCapitalize(s)).append("Step': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n"));
+        processors.values().forEach(s -> {
+            if (s.toLowerCase().startsWith("otherwise")){
+                camelApi.append("            case 'otherwise': return (step as Otherwise)\n");
+            } else {
+                camelApi.append("            case '").append(deCapitalize(s)).append("Step': return (step as ").append(capitalize(s)).append("Step).").append(deCapitalize(s)).append("\n");
+            }
+        });
         camelApi.append(
                 "            default : return new CamelElement('')\n" +
                         "        }\n" +
@@ -161,15 +172,8 @@ public final class CamelModelGenerator {
             String name = deCapitalize(s.getKey());
             String stepClass = capitalize(s.getKey()).concat("Step");
             String stepField = deCapitalize(s.getKey()).concat("Step");
-            if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
-                camelApi.append(String.format(
-                        "                case '%1$s':\n" +
-                                "                    const %3$sChildren = (el as %2$s).%3$s?.steps || [];\n" +
-                                "                    if (el.uuid === parentId) %3$sChildren.push(step)\n" +
-                                "                    else (el as %2$s).%3$s.steps = CamelApi.addStep(%3$sChildren, step, parentId);\n" +
-                                "                    break;\n",
-                        stepField, stepClass, name));
-            } else if (name.equals("choice")){
+
+            if (name.equals("choice")){
                 camelApi.append(
                         "                case 'choiceStep':\n" +
                                 "                    const choiceChildren = (el as ChoiceStep).choice?.when || [];\n" +
@@ -198,6 +202,14 @@ public final class CamelModelGenerator {
                         "                    if (el.uuid === parentId) otherwiseChildren.push(step)\n" +
                         "                    else (el as Otherwise).steps = CamelApi.addStep(otherwiseChildren, step, parentId);\n" +
                         "                    break;\n");
+            } else if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0) {
+                camelApi.append(String.format(
+                        "                case '%1$s':\n" +
+                                "                    const %3$sChildren = (el as %2$s).%3$s?.steps || [];\n" +
+                                "                    if (el.uuid === parentId) %3$sChildren.push(step)\n" +
+                                "                    else (el as %2$s).%3$s.steps = CamelApi.addStep(%3$sChildren, step, parentId);\n" +
+                                "                    break;\n",
+                        stepField, stepClass, name));
             }
         });
         camelApi.append(
@@ -220,13 +232,13 @@ public final class CamelModelGenerator {
             String name = deCapitalize(s.getKey());
             String stepClass = capitalize(s.getKey()).concat("Step");
             String stepField = deCapitalize(s.getKey()).concat("Step");
-            if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
-                camelApi.append(String.format("                        case '%s': (step as %s).%s.steps = CamelApi.deleteStep((step as %s).%s.steps, uuidToDelete); break;\n",
-                        stepField, stepClass, name, stepClass,name));
-            } else if (name.equals("otherwise")){
+            if (name.equals("otherwise")){
                 camelApi.append("                        case 'otherwise': (step as Otherwise).steps = CamelApi.deleteStep((step as Otherwise).steps, uuidToDelete); break;\n");
             } else if (name.equals("choice")){
                 camelApi.append("                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;\n");
+            } else if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
+                camelApi.append(String.format("                        case '%s': (step as %s).%s.steps = CamelApi.deleteStep((step as %s).%s.steps, uuidToDelete); break;\n",
+                        stepField, stepClass, name, stepClass,name));
             }
         });
         camelApi.append(
@@ -311,6 +323,14 @@ public final class CamelModelGenerator {
     }
 
     private String createCreateFunction(String name, List<ElementProp> elProps) {
+        if (name.equalsIgnoreCase("otherwise")){
+            return "    static createOtherwise = (element: any): Otherwise => {\n" +
+                    "        const otherwise = element ? new Otherwise({...element}) : new Otherwise();\n" +
+                    "        otherwise.steps = CamelApi.createSteps(element?.steps);\n" +
+                    "        otherwise.uuid = element?.uuid;\n" +
+                    "        return otherwise\n" +
+                    "    }\n\n";
+        }
         String stepClass = capitalize(name).concat("Step");
         String stepField = deCapitalize(name).concat("Step");
         String elementName = deCapitalize(name);
