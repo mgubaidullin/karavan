@@ -5,7 +5,7 @@ import {
 import '../karavan.css';
 import AddIcon from "@patternfly/react-icons/dist/js/icons/plus-circle-icon";
 import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
-import {CamelElement, Choice, Otherwise, OtherwiseStep, ProcessorStep, WhenStep} from "../model/CamelModel";
+import {CamelElement, Otherwise, ProcessorStep, WhenStep} from "../model/CamelModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
 

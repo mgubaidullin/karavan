@@ -83,7 +83,9 @@ public final class CamelModelGenerator {
         models.forEach((name, elementProps) -> {
             String pcode = generateElementCode(name, elementProps);
             camelModel.append(pcode).append(System.lineSeparator());
-            camelModel.append(generateStepCode(name)).append(System.lineSeparator());
+            if (!name.equals("otherwise")){
+                camelModel.append(generateStepCode(name)).append(System.lineSeparator());
+            }
         });
 
         vertx.fileSystem().writeFileBlocking(targetModel, Buffer.buffer(camelModel.toString()));
@@ -171,10 +173,31 @@ public final class CamelModelGenerator {
                 camelApi.append(
                         "                case 'choiceStep':\n" +
                                 "                    const choiceChildren = (el as ChoiceStep).choice?.when || [];\n" +
-                                "                    if (el.uuid === parentId && step.dslName === 'whenStep') choiceChildren.push(step as WhenStep);\n" +
-                                "                    else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) (el as ChoiceStep).choice.otherwise = step;\n" +
-                                "                    else (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
+                                "                    if (el.uuid === parentId && step.dslName === 'whenStep') {\n" +
+                                "                        choiceChildren.push(step as WhenStep);\n" +
+                                "                        (el as ChoiceStep).choice.when = choiceChildren;\n" +
+                                "                    }  else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) {\n" +
+                                "                        (el as ChoiceStep).choice.otherwise = step;\n" +
+                                "                    } else {\n" +
+                                "                        (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
+                                "                        const otherwise = (el as ChoiceStep).choice.otherwise;\n" +
+                                "                        if (otherwise?.uuid === parentId){\n" +
+                                "                            otherwise.steps = otherwise.steps ? [...otherwise.steps] : [];\n" +
+                                "                            otherwise.steps.push(step);\n" +
+                                "                            (el as ChoiceStep).choice.otherwise = otherwise\n" +
+                                "                        } else if (otherwise && otherwise.steps && otherwise.steps.length > 0){\n" +
+                                "                            otherwise.steps = CamelApi.addStep(otherwise.steps, step, parentId);\n" +
+                                "                            (el as ChoiceStep).choice.otherwise = otherwise;\n" +
+                                "                        }\n" +
+                                "                    }\n" +
                                 "                    break;\n");
+            } else if (name.equals("otherwise")){
+                camelApi.append(
+                        "                case 'otherwise':\n" +
+                        "                    const otherwiseChildren = (el as Otherwise).steps || [];\n" +
+                        "                    if (el.uuid === parentId) otherwiseChildren.push(step)\n" +
+                        "                    else (el as Otherwise).steps = CamelApi.addStep(otherwiseChildren, step, parentId);\n" +
+                        "                    break;\n");
             }
         });
         camelApi.append(
@@ -200,6 +223,8 @@ public final class CamelModelGenerator {
             if (s.getValue().stream().filter(e -> e.name.equals("steps")).count() > 0){
                 camelApi.append(String.format("                        case '%s': (step as %s).%s.steps = CamelApi.deleteStep((step as %s).%s.steps, uuidToDelete); break;\n",
                         stepField, stepClass, name, stepClass,name));
+            } else if (name.equals("otherwise")){
+                camelApi.append("                        case 'otherwise': (step as Otherwise).steps = CamelApi.deleteStep((step as Otherwise).steps, uuidToDelete); break;\n");
             } else if (name.equals("choice")){
                 camelApi.append("                        case 'choiceStep': (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete); break;\n");
             }

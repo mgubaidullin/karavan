@@ -34,7 +34,6 @@ import {
     ConvertBodyToStep,
     CircuitBreakerStep,
     PollEnrichStep,
-    OtherwiseStep,
     ResequenceStep,
     RoutingSlipStep,
     BeanStep,
@@ -343,11 +342,11 @@ export class CamelApi {
         return pollEnrichStep
     }
 
-    static createOtherwise = (element: any): OtherwiseStep => {
-        const otherwiseStep = element ? new OtherwiseStep({...element.otherwise}) : new OtherwiseStep()
-        otherwiseStep.otherwise.steps = CamelApi.createSteps(element?.otherwise?.steps)
-        otherwiseStep.uuid = element?.uuid ? element.uuid : otherwiseStep.uuid
-        return otherwiseStep
+    static createOtherwise = (element: any): Otherwise => {
+        const otherwise = element ? new Otherwise({...element}) : new Otherwise()
+        otherwise.steps = CamelApi.createSteps(element?.steps)
+        otherwise.uuid = element?.uuid
+        return otherwise
     }
 
     static createResequence = (element: any): ResequenceStep => {
@@ -624,7 +623,7 @@ export class CamelApi {
             case 'convertBodyToStep': return (step as ConvertBodyToStep).convertBodyTo
             case 'circuitBreakerStep': return (step as CircuitBreakerStep).circuitBreaker
             case 'pollEnrichStep': return (step as PollEnrichStep).pollEnrich
-            case 'otherwiseStep': return (step as OtherwiseStep).otherwise
+            case 'otherwise': return (step as Otherwise)
             case 'resequenceStep': return (step as ResequenceStep).resequence
             case 'routingSlipStep': return (step as RoutingSlipStep).routingSlip
             case 'beanStep': return (step as BeanStep).bean
@@ -671,17 +670,29 @@ export class CamelApi {
                     else (el as PolicyStep).policy.steps = CamelApi.addStep(policyChildren, step, parentId);
                     break;
                 case 'choiceStep':
-                    console.log(step);
                     const choiceChildren = (el as ChoiceStep).choice?.when || [];
-                    if (el.uuid === parentId && step.dslName === 'whenStep') choiceChildren.push(step as WhenStep);
-                    else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) (el as ChoiceStep).choice.otherwise = step;
-                    else (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];
+                    if (el.uuid === parentId && step.dslName === 'whenStep') {
+                        choiceChildren.push(step as WhenStep);
+                        (el as ChoiceStep).choice.when = choiceChildren;
+                    }  else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) {
+                        (el as ChoiceStep).choice.otherwise = step;
+                    } else {
+                        (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];
+                        const otherwise = (el as ChoiceStep).choice.otherwise;
+                        if (otherwise?.uuid === parentId){
+                            otherwise.steps = otherwise.steps ? [...otherwise.steps] : [];
+                            otherwise.steps.push(step);
+                            (el as ChoiceStep).choice.otherwise = otherwise
+                        } else if (otherwise && otherwise.steps && otherwise.steps.length > 0){
+                            otherwise.steps = CamelApi.addStep(otherwise.steps, step, parentId);
+                            (el as ChoiceStep).choice.otherwise = otherwise;
+                        }
+                    }
                     break;
-                case 'otherwiseStep':
-                    console.log(step);
-                    const otherwiseChildren = (el as OtherwiseStep).otherwise?.steps || [];
+                case 'otherwise':
+                    const otherwiseChildren = (el as Otherwise).steps || [];
                     if (el.uuid === parentId) otherwiseChildren.push(step)
-                    else (el as OtherwiseStep).otherwise.steps = CamelApi.addStep(otherwiseChildren, step, parentId);
+                    else (el as Otherwise).steps = CamelApi.addStep(otherwiseChildren, step, parentId);
                     break;
                 case 'fromStep':
                     const fromChildren = (el as FromStep).from?.steps || [];
@@ -823,10 +834,7 @@ export class CamelApi {
                             } else {
                                 (step as ChoiceStep).choice.when = CamelApi.deleteWhen((step as ChoiceStep).choice.when, uuidToDelete);
                             } break;
-                        case 'otherwiseStep':
-                            console.log(step);
-                            console.log(uuidToDelete);
-                            (step as OtherwiseStep).otherwise.steps = CamelApi.deleteStep((step as OtherwiseStep).otherwise.steps, uuidToDelete); break;
+                        case 'otherwise': (step as Otherwise).steps = CamelApi.deleteStep((step as Otherwise).steps, uuidToDelete); break;
                         case 'fromStep': (step as FromStep).from.steps = CamelApi.deleteStep((step as FromStep).from.steps, uuidToDelete); break;
                         case 'onCompletionStep': (step as OnCompletionStep).onCompletion.steps = CamelApi.deleteStep((step as OnCompletionStep).onCompletion.steps, uuidToDelete); break;
                         case 'splitStep': (step as SplitStep).split.steps = CamelApi.deleteStep((step as SplitStep).split.steps, uuidToDelete); break;

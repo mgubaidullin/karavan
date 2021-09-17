@@ -7,7 +7,7 @@ import {
     Expression,
     WhenStep,
     ChoiceStep,
-    FilterStep, FromStep, MulticastStep, OtherwiseStep
+    FilterStep, FromStep, MulticastStep,
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
 

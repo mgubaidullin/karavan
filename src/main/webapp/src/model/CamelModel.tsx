@@ -284,14 +284,6 @@ export class Otherwise extends CamelElement {
         Object.assign(this, init)
     }
 }
-export class OtherwiseStep extends ProcessorStep {
-    otherwise: Otherwise = new Otherwise()
-
-    public constructor(init?: Partial<Otherwise>) {
-        super('otherwiseStep')
-        Object.assign(this, {otherwise: new Otherwise({...init})})
-    }
-}
 
 export class RemoveProperty extends CamelElement { 
     inheritErrorHandler?: boolean
