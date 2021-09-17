@@ -16,6 +16,8 @@ import java.nio.file.Path;
 @ApplicationScoped
 public class GitService {
 
+    private static final String FILENAME = "kustomization.yaml";
+
     @ConfigProperty(name = "karavan.folder.root")
     String root;
 
@@ -40,9 +42,10 @@ public class GitService {
         String username = ConfigProvider.getConfig().getValue("karavan.git.username", String.class);
         String password = ConfigProvider.getConfig().getValue("karavan.git.password", String.class);
         try (Git git = Git.open(Path.of(root, integrations).toFile())) {
-            LOGGER.info("Git add status: " + git.add().addFilepattern(name).call());
-            LOGGER.info("Git commit status: " + git.commit().setMessage(message).call());
-            LOGGER.info("Git push status: " + git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
+            LOGGER.info("Git add: " + git.add().addFilepattern(FILENAME).call());
+            LOGGER.info("Git add: " + git.add().addFilepattern(name).call());
+            LOGGER.info("Git commit: " + git.commit().setMessage(message).call());
+            LOGGER.info("Git push: " + git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
         }
     }
 }
