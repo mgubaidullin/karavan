@@ -35,7 +35,7 @@ interface State {
 export class DesignerPage extends React.Component<Props, State> {
 
     public state: State = {
-        integration: CamelYaml.demo(), //this.props.integration,
+        integration: this.props.integration, // CamelYaml.demo(),
         view: "design",
         showSelector: false,
         parentId: '',

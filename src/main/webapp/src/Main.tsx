@@ -150,7 +150,7 @@ export class Main extends React.Component<Props, State> {
             if (res.status === 200) {
                 const code: string = res.data;
                 const i = CamelYaml.yamlToIntegration(code);
-                this.setState({isNavOpen: true, pageId: 'designer', integration: i});
+                this.setState({isNavOpen: false, pageId: 'designer', integration: i});
             } else {
                 this.toast("Error", res.statusText, "danger");
             }
@@ -160,7 +160,7 @@ export class Main extends React.Component<Props, State> {
     onIntegrationCreate = () => {
         this.setState({isNavOpen: false, pageId: 'designer'});
         const i = Integration.createNew();
-        this.setState({isNavOpen: true, pageId: 'designer', integration: i});
+        this.setState({isNavOpen: false, pageId: 'designer', integration: i});
     };
 
     onGetIntegrations() {
