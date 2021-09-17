@@ -23,6 +23,15 @@ spec:
       - name: karavan
         imagePullPolicy: Always
         image: entropy1/karavan:latest
+        env:
+        - name: KARAVAN_FOLDER_SYNC
+          value: "true"
+        - name: KARAVAN_GIT_URI
+          value: "http://gitea:3000/git/karavan.git"
+        - name: KARAVAN_GIT_USERNAME
+          value: "git"
+        - name: KARAVAN_GIT_PASSWORD
+          value: "gitgit"
         livenessProbe:
           failureThreshold: 3
           httpGet:

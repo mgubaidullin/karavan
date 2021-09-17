@@ -31,7 +31,7 @@ public class GitService {
         LOGGER.info("Cloning repository...");
         String uri = ConfigProvider.getConfig().getValue("karavan.git.uri", String.class);
         try (Git git = Git.cloneRepository().setDirectory(Path.of(root, integrations).toFile()).setURI(uri).call()) {
-            LOGGER.info("Git clone status: " + git.status().call());
+            LOGGER.info("Git status: " + git.status().call());
         }
     }
 
