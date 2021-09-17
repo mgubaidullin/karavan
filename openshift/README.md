@@ -27,7 +27,7 @@ oc apply -k apps
 To find the default admin password for Argo CD using the cli, run:
 
 ```
-oc get secret openshift-gitops-cluster \
-    -n openshift-gitops \
+oc get secret argocd-cluster \
+    -n karavan \
     -o jsonpath='{.data.admin\.password}' | base64 -d
 ```

@@ -2,5 +2,5 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - gitops-project.yaml
+  - gitops-instance.yaml
   - gitops-application.yaml
