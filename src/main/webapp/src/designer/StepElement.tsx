@@ -29,14 +29,11 @@ export class StepElement extends React.Component<Props, State> {
 
     public state: State = {
         step: this.props.step,
-        element: CamelApi.elementFromStep(this.props.step),
+        element: this.props.step.dslName === 'otherwise' ? this.props.step : CamelApi.elementFromStep(this.props.step),
         showSelector: false,
         tabIndex: 0,
         selectedUuid: this.props.selectedUuid
     };
-
-    componentDidMount() {
-    }
 
     componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
         if (prevState.selectedUuid !== this.props.selectedUuid) {
@@ -55,6 +52,7 @@ export class StepElement extends React.Component<Props, State> {
 
     delete = (evt: React.MouseEvent) => {
         evt.stopPropagation();
+
         this.props.deleteElement.call(this, this.state.step.uuid);
     }
 
@@ -75,7 +73,7 @@ export class StepElement extends React.Component<Props, State> {
         return (this.state.element as any).when
     }
 
-    getOtherwise = (): OtherwiseStep => {
+    getOtherwise = (): Otherwise => {
         return (this.state.element as any).otherwise
     }
 

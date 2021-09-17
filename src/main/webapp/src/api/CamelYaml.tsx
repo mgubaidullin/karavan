@@ -7,7 +7,7 @@ import {
     Expression,
     WhenStep,
     ChoiceStep,
-    FilterStep, FromStep, MulticastStep
+    FilterStep, FromStep, MulticastStep, OtherwiseStep
 } from "../model/CamelModel";
 import {CamelApi} from "./CamelApi";
 
@@ -69,6 +69,7 @@ export class CamelYaml {
     }
 
     static demo = (): Integration => {
+        const to0 = new ToStep({uri: 'log:demo0'});
         const to1 = new ToStep({uri: 'log:demo1'});
         const to2 = new ToStep({uri: 'log:demo2'});
         const to3 = new ToStep({uri: 'log:demo3'});
@@ -78,7 +79,7 @@ export class CamelYaml {
         const direct2 = new ToStep({uri: 'direct2'});
         const direct3 = new ToStep({uri: 'direct3'});
 
-        const otherwise = new Otherwise({steps: [to3]})
+        const otherwise = new Otherwise({steps: [to0]})
         const expression1 = new Expression({simple: '${body} == "hello"'});
         const when1 = new WhenStep({steps: [to1, to5], expression: expression1})
         const expression2 = new Expression({simple: '${body} == "hello"'});

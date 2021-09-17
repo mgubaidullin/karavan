@@ -80,11 +80,11 @@ export class DesignerPage extends React.Component<Props, State> {
 
     deleteElement = (id: string) => {
         const i = CamelApiExt.deleteStepFromIntegration(this.state.integration, id);
-        this.setState({integration: i})
+        this.setState({integration: i, showSelector: false})
     }
 
     selectElement = (element: CamelElement) => {
-        this.setState({selectedStep: element, selectedUuid: element.uuid})
+        this.setState({selectedStep: element, selectedUuid: element.uuid, showSelector: false})
     }
 
     openSelector = (parentId: string | undefined, parentType: string | undefined) => {
@@ -117,11 +117,11 @@ export class DesignerPage extends React.Component<Props, State> {
         const i = CamelApiExt.addStepToIntegration(this.state.integration, step, parentId);
         const clone = CamelYaml.cloneIntegration(i);
         console.log(clone)
-        this.setState({integration: clone, key: Math.random().toString()})
+        this.setState({integration: clone, key: Math.random().toString(), showSelector: false})
     }
 
     onIntegrationUpdate = (i: Integration) => {
-        this.setState({integration: i});
+        this.setState({integration: i, showSelector: false});
     };
 
     tools = (view: "design" | "code") => (
