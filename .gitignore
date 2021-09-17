@@ -39,3 +39,4 @@ nb-configuration.xml
 .env
 /.java-version
 /keys/*
+/karavan/

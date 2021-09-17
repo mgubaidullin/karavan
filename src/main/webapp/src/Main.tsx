@@ -2,7 +2,19 @@ import React from 'react';
 import {
     Brand,
     Page,
-    PageHeader, PageSidebar, NavItem, NavList, Nav, ModalVariant, Button, Modal, Alert, AlertActionCloseButton
+    PageHeader,
+    PageSidebar,
+    NavItem,
+    NavList,
+    Nav,
+    ModalVariant,
+    Button,
+    Modal,
+    Alert,
+    AlertActionCloseButton,
+    Text,
+    Flex,
+    FlexItem, TextVariants, TextContent
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationPage} from "./integrations/IntegrationPage";
@@ -22,7 +34,7 @@ class ToastMessage {
     title: string = ''
     variant?: 'success' | 'danger' | 'warning' | 'info' | 'default';
 
-    constructor(title:string, text: string, variant: 'success' | 'danger' | 'warning' | 'info' | 'default') {
+    constructor(title: string, text: string, variant: 'success' | 'danger' | 'warning' | 'info' | 'default') {
         this.id = uuidv4();
         this.title = title;
         this.text = text;
@@ -77,7 +89,7 @@ export class Main extends React.Component<Props, State> {
     };
 
     onNavSelect = (result: any) => {
-        if (result.itemId === 'integrations'){
+        if (result.itemId === 'integrations') {
             this.onGetIntegrations();
         }
         this.setState({
@@ -88,7 +100,18 @@ export class Main extends React.Component<Props, State> {
 
     toolBar = (
         <div className="top-toolbar">
-            {/*<Button variant="secondary" onClick={event => this.setState({saveWindowOpen: true})} icon={<OpenshiftIcon />}>Deploy</Button>*/}
+            <Flex direction={{default: "row"}} justifyContent={{default: "justifyContentSpaceBetween"}} style={{width:"100%"}}>
+                <FlexItem style={{marginTop: "auto", marginBottom:"auto"}}>
+                    <TextContent>
+                        <Text component={TextVariants.h1}>Karavan</Text>
+                    </TextContent>
+                </FlexItem>
+                <FlexItem style={{marginTop: "auto", marginBottom:"auto"}}>
+                    <TextContent>
+                        <Text component={TextVariants.h4}>{this.state.version}</Text>
+                    </TextContent>
+                </FlexItem>
+            </Flex>
         </div>
     );
 
@@ -174,7 +197,8 @@ export class Main extends React.Component<Props, State> {
         return (
             <Page className="karavan" header={this.header()} sidebar={this.sidebar()}>
                 {this.state.pageId === 'integrations' &&
-                <IntegrationPage key={this.state.request} integrations={this.state.integrations} onDelete={this.onIntegrationDelete} onSelect={this.onIntegrationSelect}
+                <IntegrationPage key={this.state.request} integrations={this.state.integrations}
+                                 onDelete={this.onIntegrationDelete} onSelect={this.onIntegrationSelect}
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}

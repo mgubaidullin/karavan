@@ -22,13 +22,18 @@
     margin-left: var(--pf-c-page__header-tools--MarginRight);
 }
 
-.karavan .top-toolbar {
-    margin-right: 16px;
-}
-
 .karavan .page-header {
     display: flex;
     justify-content: space-between;
+}
+
+.karavan .page-header .top-toolbar {
+    margin-right: 16px;
+    width: 100%;
+}
+
+.karavan .page-header .pf-c-page__header-brand {
+    padding-right: 16px;
 }
 
 .karavan .main-alert {

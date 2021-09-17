@@ -37,6 +37,7 @@ public class KameletService {
     }
 
     public void saveKamelet(String name) {
+        LOGGER.info("Creating kamelet " + name);
         String fileName = name + ".kamelet.yaml";
         InputStream inputStream = KameletsCatalog.class.getResourceAsStream("/kamelets/" + fileName);
         try {
