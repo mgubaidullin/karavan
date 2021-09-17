@@ -102,7 +102,6 @@ export class CamelApiExt {
     }
 
     static getParametersValue = (element: CamelElement | undefined, propertyName: string): any => {
-        console.log(element)
         if (element && (element as any).parameters) {
             return (element as any).parameters[propertyName];
         }

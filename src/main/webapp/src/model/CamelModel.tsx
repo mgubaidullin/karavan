@@ -1107,7 +1107,7 @@ export class Expression extends CamelElement {
 
     public constructor(init?: Partial<Expression>) { 
         super('expression')
-        if (init) init.language = CamelApi.getExpressionLanguage(init);
+        if (init && init.language === undefined) init.language = CamelApi.getExpressionLanguage(init);
         Object.assign(this, init)
     }
 }

@@ -72,10 +72,11 @@ export class DslProperties extends React.Component<Props, State> {
         if (this.state.step && this.state.element){
             const clone = (CamelYaml.cloneStep(this.state.step));
             const e: any = {};
-            e[language] = value
+            e.language = language;
+            e[language] = value;
             const exp: any = new Expression(e);
             (clone as any)[this.state.element?.dslName].expression = exp;
-            this.setStep(clone)
+            this.setStep(clone);
             this.props.onPropertyUpdate?.call(this, clone, this.state.step.uuid);
         }
     }

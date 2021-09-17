@@ -455,7 +455,7 @@ public final class CamelModelGenerator {
         element.append("    public constructor(init?: Partial<").append(capitalize(name)).append(">) { \n");
         element.append("        super('").append(deCapitalize(name)).append("')\n");
         if (name.equals("expression")) {
-            element.append("        if (init) init.language = CamelApi.getExpressionLanguage(init);\n");
+            element.append("        if (init && init.language === undefined) init.language = CamelApi.getExpressionLanguage(init);\n");
         }
         element.append("        Object.assign(this, init)\n");
         element.append("    }\n");
