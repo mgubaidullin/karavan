@@ -22,3 +22,12 @@ oc apply -k apps
 
 - username: `git`
 - password: `gitgit`
+
+### Help
+To find the default admin password for Argo CD using the cli, run:
+
+```
+oc get secret openshift-gitops-cluster \
+    -n openshift-gitops \
+    -o jsonpath='{.data.admin\.password}' | base64 -d
+```
