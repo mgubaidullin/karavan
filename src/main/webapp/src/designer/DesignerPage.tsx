@@ -6,7 +6,7 @@ import {
 import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
 import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
 import '../karavan.css';
-import {StepElement} from "./StepElement";
+import {DslElement} from "./DslElement";
 import {MainToolbar} from "../MainToolbar";
 import {DslSelector} from "./DslSelector";
 import {DslMetaModel} from "../model/DslMetaModel";
@@ -74,7 +74,6 @@ export class DesignerPage extends React.Component<Props, State> {
     onPropertyUpdate = (element: CamelElement, updatedUuid: string) => {
         const clone = CamelYaml.cloneIntegration(this.state.integration);
         const i = CamelApiExt.updateIntegration(clone, element, updatedUuid);
-        console.log(i)
         this.setState({integration: i, key: Math.random().toString()})
     }
 
@@ -113,10 +112,8 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     addStep = (step: CamelElement, parentId: string) =>{
-        console.log(step)
         const i = CamelApiExt.addStepToIntegration(this.state.integration, step, parentId);
         const clone = CamelYaml.cloneIntegration(i);
-        console.log(clone)
         this.setState({integration: clone, key: Math.random().toString(), showSelector: false})
     }
 
@@ -162,12 +159,12 @@ export class DesignerPage extends React.Component<Props, State> {
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
                         {this.state.integration.spec.flows.map((flow, index) => (
-                            <StepElement key={flow.uuid + this.state.key}
-                                         openSelector={this.openSelector}
-                                         deleteElement={this.deleteElement}
-                                         selectElement={this.selectElement}
-                                         selectedUuid={this.state.selectedUuid}
-                                         step={flow}/>
+                            <DslElement key={flow.uuid + this.state.key}
+                                        openSelector={this.openSelector}
+                                        deleteElement={this.deleteElement}
+                                        selectElement={this.selectElement}
+                                        selectedUuid={this.state.selectedUuid}
+                                        step={flow}/>
                         ))}
                     </div>
                     }

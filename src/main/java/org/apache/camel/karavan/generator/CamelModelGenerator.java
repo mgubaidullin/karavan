@@ -180,7 +180,7 @@ public final class CamelModelGenerator {
                                 "                    if (el.uuid === parentId && step.dslName === 'whenStep') {\n" +
                                 "                        choiceChildren.push(step as WhenStep);\n" +
                                 "                        (el as ChoiceStep).choice.when = choiceChildren;\n" +
-                                "                    }  else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) {\n" +
+                                "                    }  else if (el.uuid === parentId && step.dslName === 'otherwise' && !(el as ChoiceStep).choice.otherwise) {\n" +
                                 "                        (el as ChoiceStep).choice.otherwise = step;\n" +
                                 "                    } else {\n" +
                                 "                        (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];\n" +
@@ -338,7 +338,7 @@ public final class CamelModelGenerator {
             return "    static createOtherwise = (element: any): Otherwise => {\n" +
                     "        const otherwise = element ? new Otherwise({...element}) : new Otherwise();\n" +
                     "        otherwise.steps = CamelApi.createSteps(element?.steps);\n" +
-                    "        otherwise.uuid = element?.uuid;\n" +
+                    "        if (element?.uuid) otherwise.uuid = element?.uuid;\n" +
                     "        return otherwise\n" +
                     "    }\n\n";
         }

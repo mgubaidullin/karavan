@@ -25,7 +25,7 @@ interface State {
     selectedUuid: string
 }
 
-export class StepElement extends React.Component<Props, State> {
+export class DslElement extends React.Component<Props, State> {
 
     public state: State = {
         step: this.props.step,
@@ -42,7 +42,7 @@ export class StepElement extends React.Component<Props, State> {
     }
 
     openSelector = (evt: React.MouseEvent) => {
-        evt.stopPropagation()
+        evt.stopPropagation();
         this.props.openSelector.call(this, this.state.step.uuid, this.state.element.dslName)
     }
 
@@ -52,7 +52,6 @@ export class StepElement extends React.Component<Props, State> {
 
     delete = (evt: React.MouseEvent) => {
         evt.stopPropagation();
-
         this.props.deleteElement.call(this, this.state.step.uuid);
     }
 
@@ -104,7 +103,7 @@ export class StepElement extends React.Component<Props, State> {
                     <div className="steps" style={this.horizontal() ? {display: "flex", flexDirection: "row"} : {}}>
                         {this.getSteps().map((step, index) => (
                             <div key={step.uuid} style={this.horizontal() ? {marginRight: (index < this.getSteps().length - 1) ? "6px" : "0"} :{}}>
-                                <StepElement
+                                <DslElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
                                     selectElement={this.props.selectElement}
@@ -140,7 +139,7 @@ export class StepElement extends React.Component<Props, State> {
                     <div className="whens" style={this.horizontal() ? {display: "flex", flexDirection: "row"} : {}}>
                         {this.getWhens().map((when, index) => (
                             <div key={when.uuid} style={{marginLeft: (index != 0) ? "6px" : "0"}}>
-                                <StepElement
+                                <DslElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
                                     selectElement={this.props.selectElement}
@@ -150,7 +149,7 @@ export class StepElement extends React.Component<Props, State> {
                         ))}
                         {this.getOtherwise() &&
                             <div key={this.getOtherwise().uuid} style={{marginLeft: (this.getWhens().length > 0) ? "6px" : "0"}}>
-                                <StepElement
+                                <DslElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}
                                     selectElement={this.props.selectElement}

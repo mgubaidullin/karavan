@@ -345,7 +345,7 @@ export class CamelApi {
     static createOtherwise = (element: any): Otherwise => {
         const otherwise = element ? new Otherwise({...element}) : new Otherwise();
         otherwise.steps = CamelApi.createSteps(element?.steps);
-        otherwise.uuid = element?.uuid;
+        if (element?.uuid) otherwise.uuid = element?.uuid;
         return otherwise
     }
 
@@ -674,7 +674,7 @@ export class CamelApi {
                     if (el.uuid === parentId && step.dslName === 'whenStep') {
                         choiceChildren.push(step as WhenStep);
                         (el as ChoiceStep).choice.when = choiceChildren;
-                    }  else if (el.uuid === parentId && step.dslName === 'otherwiseStep' && !(el as ChoiceStep).choice.otherwise) {
+                    }  else if (el.uuid === parentId && step.dslName === 'otherwise' && !(el as ChoiceStep).choice.otherwise) {
                         (el as ChoiceStep).choice.otherwise = step;
                     } else {
                         (el as ChoiceStep).choice.when = CamelApi.addStep(choiceChildren, step, parentId) as WhenStep[];
@@ -823,6 +823,8 @@ export class CamelApi {
                     switch (step.dslName){
                         case 'policyStep': (step as PolicyStep).policy.steps = CamelApi.deleteStep((step as PolicyStep).policy.steps, uuidToDelete); break;
                         case 'choiceStep':
+                            console.log(step);
+                            console.log(uuidToDelete);
                             const otherwise = (step as ChoiceStep).choice.otherwise;
                             if (otherwise && otherwise.uuid === uuidToDelete) {
                                 (step as ChoiceStep).choice.otherwise = undefined;
