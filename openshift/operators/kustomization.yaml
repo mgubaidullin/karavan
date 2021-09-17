@@ -1,0 +1,9 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: karavan
+
+resources:
+- namespace.yaml
+- openshift-gitops-operator-subscription.yaml
+- camel-k-operator-subscription.yaml

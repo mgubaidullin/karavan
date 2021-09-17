@@ -1,8 +1,13 @@
 # Karavan demo on Openshift
 
-### Deploy
+### Deploy Operators
+Deploy GitOps and Camel-K operators
 ```shell
-oc apply -k .
+oc apply -k operators
+```
+Deploy Apps (ArgoCD, Gitea, Karavan)
+```shell
+oc apply -k apps
 ```
 
 ### Configure Gitea
