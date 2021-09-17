@@ -9,17 +9,14 @@ import {
     Switch,
     NumberInput,
     Button,
-    TextVariants, Select, SelectVariant, SelectDirection, SelectOption, TextArea, SelectOptionObject
+    TextVariants, Select, SelectVariant, SelectDirection, SelectOption, TextArea
 } from '@patternfly/react-core';
 import '../karavan.css';
 import "@patternfly/patternfly/patternfly.css";
 import UndoIcon from "@patternfly/react-icons/dist/js/icons/backspace-icon";
 import HelpIcon from "@patternfly/react-icons/dist/js/icons/help-icon";
 import {Property} from "../model/KameletModels";
-import {DslMetaApi} from "../api/DslMetaApi";
-import {CamelElement, Expression, ExpressionStep, Integration, ProcessorStep} from "../model/CamelModel";
-import {DslApi} from "../api/DslApi";
-import {DslLanguage} from "../model/DslMetaModel";
+import {CamelElement, Expression, Integration} from "../model/CamelModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelApiExt} from "../api/CamelApiExt";
 import {CamelMetadataApi, Languages, PropertyMeta} from "../api/CamelMetadata";
@@ -119,7 +116,7 @@ export class DslProperties extends React.Component<Props, State> {
                 <FormGroup label="Title" fieldId="title">
                     <TextInput className="text-field" type="text" id="title" name="title"
                                value={
-                                   DslMetaApi.titleFromName(this.state.integration.metadata.name)
+                                   CamelUi.titleFromName(this.state.integration.metadata.name)
                                }
                                onChange={e => this.onIntegrationChange('title', e)}/>
                 </FormGroup>
@@ -344,7 +341,7 @@ export class DslProperties extends React.Component<Props, State> {
 
     render() {
         return (
-            <div key={this.state.element ? DslApi.getUid(this.state.element) : 'integration'} className='properties'>
+            <div key={this.state.step ? this.state.step.uuid : 'integration'} className='properties'>
                 <Form autoComplete="off">
                     {this.state.element === undefined && this.getIntegrationHeader()}
                     {this.state.element && this.getComponentHeader()}

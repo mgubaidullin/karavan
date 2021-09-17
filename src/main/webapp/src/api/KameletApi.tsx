@@ -1,5 +1,4 @@
 import {Kamelet, Property} from "../model/KameletModels";
-import {EventBus, KaravanEvent} from "./EventBus";
 import * as yaml from 'js-yaml';
 import axios from "axios";
 
@@ -90,7 +89,6 @@ export const KameletApi = {
                     return a.spec.definition.title > b.spec.definition.title ? 1 : 0;
                 })
             );
-            EventBus.sendEvent(KaravanEvent.KAMELETS_PREPARED);
         });
     }
 }

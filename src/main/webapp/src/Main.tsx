@@ -14,7 +14,6 @@ import {KameletsPage} from "./kamelets/KameletsPage";
 import {Integration} from "./model/CamelModel";
 import {v4 as uuidv4} from "uuid";
 import {DesignerPage} from "./designer/DesignerPage";
-import {DslMetaApi} from "./api/DslMetaApi";
 import {CamelYaml} from "./api/CamelYaml";
 
 class ToastMessage {
@@ -68,7 +67,6 @@ export class Main extends React.Component<Props, State> {
                 version: config?.['karavan.version'],
             }));
         KameletApi.prepareKamelets();
-        DslMetaApi.prepareDslMetaModels();
         this.onGetIntegrations();
     }
 
