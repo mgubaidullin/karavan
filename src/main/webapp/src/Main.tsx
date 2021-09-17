@@ -198,6 +198,7 @@ export class Main extends React.Component<Props, State> {
             <Page className="karavan" header={this.header()} sidebar={this.sidebar()}>
                 {this.state.pageId === 'integrations' &&
                 <IntegrationPage key={this.state.request} integrations={this.state.integrations}
+                                 onRefresh={this.onGetIntegrations}
                                  onDelete={this.onIntegrationDelete} onSelect={this.onIntegrationSelect}
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}

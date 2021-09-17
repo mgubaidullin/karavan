@@ -21,6 +21,7 @@ interface Props {
     onSelect: any
     onCreate: any
     onDelete: any
+    onRefresh: any
 }
 
 interface State {
@@ -44,7 +45,7 @@ export class IntegrationPage extends React.Component<Props, State> {
                            autoComplete="off" placeholder="Search by name"/>
             </ToolbarItem>
             <ToolbarItem>
-                <Button variant="secondary" icon={<RefreshIcon />} onClick={e => this.props.onCreate.call(this)}>Refresh</Button>
+                <Button variant="secondary" icon={<RefreshIcon />} onClick={e => this.props.onRefresh.call(this)}>Refresh</Button>
             </ToolbarItem>
             <ToolbarItem>
                 <Button icon={<PlusIcon />} onClick={e => this.props.onCreate.call(this)}>Create</Button>
