@@ -3,12 +3,14 @@ package org.apache.camel.karavan.git;
 import io.vertx.core.Vertx;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.nio.file.Path;
 
 @ApplicationScoped
@@ -30,6 +32,17 @@ public class GitService {
         String uri = ConfigProvider.getConfig().getValue("karavan.git.uri", String.class);
         try (Git git = Git.cloneRepository().setDirectory(Path.of(root, integrations).toFile()).setURI(uri).call()) {
             LOGGER.info("Git clone status: " + git.status().call());
+        }
+    }
+
+    public void commitAndPush(String message) throws GitAPIException, IOException {
+        LOGGER.info("Push changes...");
+        String username = ConfigProvider.getConfig().getValue("karavan.git.username", String.class);
+        String password = ConfigProvider.getConfig().getValue("karavan.git.password", String.class);
+        try (Git git = Git.open(Path.of(root, integrations).toFile())) {
+            LOGGER.info("Git add status: " + git.add().addFilepattern(".").call());
+            LOGGER.info("Git commit status: " + git.commit().setMessage(message).call());
+            LOGGER.info("Git push status: " + git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
         }
     }
 }

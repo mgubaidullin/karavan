@@ -4,10 +4,8 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import org.apache.camel.karavan.dsl.DslResources;
+import org.apache.camel.catalog.CamelCatalog;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -522,7 +520,7 @@ public final class CamelModelGenerator {
 
     public String getMetaModel(String name) {
         try {
-            InputStream inputStream = DslResources.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
+            InputStream inputStream = CamelCatalog.class.getResourceAsStream("/org/apache/camel/catalog/models/" + name + ".json");
             String data = new BufferedReader(new InputStreamReader(inputStream))
                     .lines().collect(Collectors.joining(System.getProperty("line.separator")));
             return data;
