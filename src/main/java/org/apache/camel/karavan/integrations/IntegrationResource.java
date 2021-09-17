@@ -77,7 +77,7 @@ public class IntegrationResource {
 
     private String getTemplate() {
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("/kustomization.yaml");
+            InputStream inputStream = IntegrationResource.class.getResourceAsStream("/"+FILENAME);
             String data = new BufferedReader(new InputStreamReader(inputStream))
                     .lines().collect(Collectors.joining(System.getProperty("line.separator")));
             return data;
