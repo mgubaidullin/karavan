@@ -32,6 +32,17 @@ spec:
       - image: docker.io/gitea/gitea:1.14-rootless
         imagePullPolicy: Always
         name: gitea
+        env:
+        - name: GITEA__database__DB_TYPE
+          value: "mysql"
+        - name: GITEA__database__HOST
+          value: "giteadb:3306"
+        - name: GITEA__database__NAME
+          value: "giteadb"
+        - name: GITEA__database__USER
+          value: "gitea"
+        - name: GITEA__database__PASSWD
+          value: "password"
         ports:
         - containerPort: 2222
           protocol: TCP

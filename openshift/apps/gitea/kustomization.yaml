@@ -2,6 +2,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
+- gitea-cm.yaml
 - config-pvc.yaml
 - data-pvc.yaml
 - gitea-deployment.yaml
