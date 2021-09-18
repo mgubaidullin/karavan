@@ -14,9 +14,9 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    openshift.io/description: karavan-flows
-    openshift.io/display-name: karavan-flows
-  name: karavan-flows
+    openshift.io/description: karavan-demo
+    openshift.io/display-name: karavan-demo
+  name: karavan-demo
 spec:
   finalizers:
     - kubernetes
