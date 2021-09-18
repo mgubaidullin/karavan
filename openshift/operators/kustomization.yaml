@@ -2,8 +2,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - namespaces.yaml
   - gitops-rbac.yaml
   - gitops-operator-subscription.yaml
-  - karavan-operator-group.yaml
+#  - karavan-operator-group.yaml
   - camel-k-operator-subscription.yaml

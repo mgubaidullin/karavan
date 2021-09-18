@@ -7,3 +7,6 @@ bases:
   - gitops
   - gitea
   - karavan
+
+resources:
+  - namespaces.yaml

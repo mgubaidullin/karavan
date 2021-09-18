@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: karavan
-  namescape: karavan-flows
+  namescape: karavan
 spec:
   destination:
     server: https://kubernetes.default.svc
