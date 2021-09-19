@@ -1,88 +1,86 @@
 package org.apache.camel.karavan.integrations;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
-import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.karavan.fs.FileSystemService;
+import org.apache.camel.karavan.git.GitService;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Paths;
-import java.util.Arrays;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/integration")
 public class IntegrationResource {
 
     private static final String FILENAME = "kustomization.yaml";
 
-    @ConfigProperty(name = "karavan.folder.root")
-    String root;
-
-    @ConfigProperty(name = "karavan.folder.integrations")
-    String integrations;
+    @ConfigProperty(name = "karavan.mode", defaultValue = "local")
+    String mode;
 
     @Inject
     Vertx vertx;
 
+    @Inject
+    GitService gitService;
+
+    @Inject
+    FileSystemService fileSystemService;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getList() {
-        return vertx.fileSystem().readDirBlocking(Paths.get(root, integrations).toString())
-                .stream()
-                .filter(s -> s.endsWith(".yaml"))
-                .filter(s -> !s.endsWith(FILENAME))
-                .map(s -> {
-                    String[] parts = s.split("/");
-                    return parts[parts.length - 1];
-                }).collect(Collectors.toList());
+    public List<String> getList(@HeaderParam("username") String username) throws GitAPIException {
+        if (mode.equals("cloud")){
+            String dir = gitService.pullIntegrations(username);
+            return fileSystemService.getIntegrationList(dir);
+        } else {
+            return fileSystemService.getIntegrationList();
+        }
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{name}")
-    public String getYaml(@PathParam("name") String name) {
-        return vertx.fileSystem().readFileBlocking(Paths.get(root, integrations, name).toString()).toString();
+    public String getYaml(@HeaderParam("username") String username, @PathParam("name") String name) throws GitAPIException {
+        if (mode.equals("cloud")){
+            String dir = gitService.pullIntegrations(username);
+            return fileSystemService.getFile(dir, name);
+        } else {
+            return fileSystemService.getIntegrationsFile(name);
+        }
     }
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{name}")
-    public String postYaml(@PathParam("name") String name, String yaml) {
-        vertx.fileSystem().writeFileBlocking(Paths.get(root, integrations, name).toString(), Buffer.buffer(yaml));
-        createKustomization();
+    public String save(@HeaderParam("username") String username, @PathParam("name") String name, String yaml) throws GitAPIException, IOException {
+        if (mode.equals("cloud")){
+            String dir = gitService.pullIntegrations(username);
+            fileSystemService.saveFile(dir, name, yaml);
+            fileSystemService.createKustomization(dir);
+            gitService.commitAndPush(dir, username, name, LocalDate.now().toString());
+        } else {
+            fileSystemService.saveIntegrationsFile(name, yaml);
+            fileSystemService.createIntegrationsKustomization();
+        }
         return yaml;
     }
 
     @DELETE
     @Path("/{name}")
-    public void delete(@PathParam("name") String name) {
-        vertx.fileSystem().deleteBlocking(Paths.get(root, integrations, name).toString());
-    }
-
-    private void createKustomization(){
-        StringBuilder template = new StringBuilder(getTemplate()).append("\n");
-        Arrays.stream(Paths.get(root, integrations).toFile().list())
-                .filter(s -> !s.equalsIgnoreCase(FILENAME))
-                .forEach(s -> template.append("  - ").append(s).append("\n"));
-        Buffer kust = Buffer.buffer(template.toString());
-        vertx.fileSystem().writeFileBlocking(Paths.get(root, integrations, FILENAME).toString(), kust);
-    }
-
-    private String getTemplate() {
-        try {
-            InputStream inputStream = IntegrationResource.class.getResourceAsStream("/"+FILENAME);
-            String data = new BufferedReader(new InputStreamReader(inputStream))
-                    .lines().collect(Collectors.joining(System.getProperty("line.separator")));
-            return data;
-        } catch (Exception e) {
-            return null;
+    public void delete(@HeaderParam("username") String username, @PathParam("name") String name) throws GitAPIException, IOException {
+        if (mode.equals("cloud")){
+            String dir = gitService.pullIntegrations(username);
+            fileSystemService.delete(dir, name);
+            fileSystemService.createKustomization(dir);
+            gitService.commitAndPush(dir, username, name, LocalDate.now().toString());
+        } else {
+            fileSystemService.deleteIntegration(name);
+            fileSystemService.createIntegrationsKustomization();
         }
     }
 }

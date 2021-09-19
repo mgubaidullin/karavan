@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 @Path("/kamelet")
 public class KameletResources {
 
-    @ConfigProperty(name = "karavan.folder.root")
-    String root;
-
     @ConfigProperty(name = "karavan.folder.kamelets")
     String kamelets;
 
@@ -28,7 +25,7 @@ public class KameletResources {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getList() {
-        return vertx.fileSystem().readDirBlocking(Paths.get(root, kamelets).toString())
+        return vertx.fileSystem().readDirBlocking(Paths.get(kamelets).toString())
                 .stream()
                 .filter(s -> s.endsWith(".yaml"))
                 .map(s -> {
@@ -41,6 +38,6 @@ public class KameletResources {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{name}")
     public String getYaml(@PathParam("name") String name) {
-        return vertx.fileSystem().readFileBlocking(Paths.get(root, kamelets, name).toString()).toString();
+        return vertx.fileSystem().readFileBlocking(Paths.get(kamelets, name).toString()).toString();
     }
 }

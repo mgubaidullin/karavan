@@ -16,9 +16,6 @@ import java.nio.file.StandardCopyOption;
 @ApplicationScoped
 public class KameletService {
 
-    @ConfigProperty(name = "karavan.folder.root")
-    String root;
-
     @ConfigProperty(name = "karavan.folder.kamelets")
     String kamelets;
 
@@ -41,7 +38,7 @@ public class KameletService {
         String fileName = name + ".kamelet.yaml";
         InputStream inputStream = KameletsCatalog.class.getResourceAsStream("/kamelets/" + fileName);
         try {
-        File targetFile = Paths.get(root, kamelets, fileName).toFile();
+        File targetFile = Paths.get(kamelets, fileName).toFile();
         Files.copy(inputStream,targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
