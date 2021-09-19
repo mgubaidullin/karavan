@@ -1,6 +1,9 @@
 # Karavan demo on Openshift
 Required: Openshift 4.7 installed
 
+### Architecture
+![Architecture](karavan-cloud.png)
+
 ### Deploy Operators
 Deploy GitOps and Camel-K operators
 ```shell
