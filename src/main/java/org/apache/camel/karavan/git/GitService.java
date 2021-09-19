@@ -4,7 +4,10 @@ import io.vertx.core.Vertx;
 import org.apache.camel.karavan.fs.FileSystemService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -14,8 +17,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.HeaderParam;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,14 +58,38 @@ public class GitService {
         }
     }
 
-    public void commitAndPush(String folder, String branch, String fileName, String message) throws GitAPIException, IOException {
-        LOGGER.info("Push changes for " + fileName);
-        try (Git git = Git.open(Path.of(folder).toFile())) {
-            LOGGER.info("Git add: " + git.add().addFilepattern(FileSystemService.kustomization).call());
-            LOGGER.info("Git add: " + git.add().addFilepattern(fileName).call());
-            LOGGER.info("Git commit: " + git.commit().setMessage(message).call());
-            LOGGER.info("Git push: " + git.push().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
+    public void save(String branch, String fileName, String yaml) throws GitAPIException, IOException, URISyntaxException {
+        LOGGER.info("Save " + fileName);
+        String dir;
+        Git git;
+        try {
+            dir = pullIntegrations(branch);
+            git = Git.open(Path.of(dir).toFile());
+        } catch (RepositoryNotFoundException e) {
+            dir = vertx.fileSystem().createTempDirectoryBlocking(branch);
+            git = Git.init().setInitialBranch(branch).setDirectory(Path.of(dir).toFile()).call();
+            git.remoteAdd().setName("origin").setUri(new URIish(uri)).call();
         }
+        fileSystemService.saveFile(dir, fileName, yaml);
+        fileSystemService.createKustomization(dir);
+        commitAndPush(git, branch, fileName);
+    }
+
+    public void delete(String branch, String fileName) throws GitAPIException, IOException, URISyntaxException {
+        LOGGER.info("Delete " + fileName);
+        String dir = pullIntegrations(branch);
+        Git git = Git.open(Path.of(dir).toFile());
+        fileSystemService.delete(dir, fileName);
+        fileSystemService.createKustomization(dir);
+        commitAndPush(git, branch, fileName);
+    }
+
+    public void commitAndPush(Git git, String branch, String fileName) throws GitAPIException, IOException, URISyntaxException {
+        LOGGER.info("Commit and push changes for " + fileName);
+        LOGGER.info("Git add: " + git.add().addFilepattern(fileName).call());
+        LOGGER.info("Git add: " + git.add().addFilepattern(FileSystemService.kustomization).call());
+        LOGGER.info("Git commit: " + git.commit().setAll(true).setMessage(LocalDate.now().toString()).call());
+        LOGGER.info("Git push: " + git.push().add(branch).setRemote("origin").setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password)).call());
     }
 
     public String pullIntegrations(String branch) throws GitAPIException {
@@ -68,21 +97,22 @@ public class GitService {
         System.out.println(dir);
         try {
             Git git = clone(branch, dir);
+            LOGGER.info("Git pull branch : " + git.pull().call());
             if (fileSystemService.getIntegrationList(branch).isEmpty()) {
                 LOGGER.info("Git pull remote branch : " + git.pull().setRemoteBranchName(mainBranch).call());
             }
             LOGGER.info("Git status: " + git.status().call());
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }
         return dir;
     }
 
-    private Git clone (String branch, String dir) throws GitAPIException {
-        return  Git.cloneRepository()
+    private Git clone(String branch, String dir) throws GitAPIException {
+        return Git.cloneRepository()
                 .setDirectory(Paths.get(dir).toFile())
                 .setURI(uri)
-                .setBranchesToClone(List.of(branch, mainBranch))
+                .setBranch(branch)
                 .call();
     }
 }
