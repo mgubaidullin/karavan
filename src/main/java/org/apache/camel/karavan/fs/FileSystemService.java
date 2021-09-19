@@ -52,14 +52,16 @@ public class FileSystemService {
         if (!Files.exists(Paths.get(name))) {
             Path path = Files.createDirectory(Path.of(name));
             LOGGER.info("Folder " + path + " created");
+        } else {
+            getIntegrationList().forEach(s -> LOGGER.info("Integration found: " + s));
         }
     }
 
-    public List<String> getIntegrationList() throws GitAPIException {
+    public List<String> getIntegrationList() {
         return getIntegrationList(integrations);
     }
 
-    public List<String> getIntegrationList(String folder) throws GitAPIException {
+    public List<String> getIntegrationList(String folder) {
         return vertx.fileSystem().readDirBlocking(Paths.get(folder).toString())
                 .stream()
                 .filter(s -> s.endsWith(".yaml"))
