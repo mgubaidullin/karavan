@@ -1,4 +1,5 @@
 # Karavan demo on Openshift
+Required: Openshift 4.7 installed
 
 ### Deploy Operators
 Deploy GitOps and Camel-K operators

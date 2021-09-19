@@ -1,28 +1,32 @@
-# karavan Project
+# Karavan
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Integration Designer for Apache Camel
 
 ## Running the application in dev mode
-
 You can run your application in dev mode that enables live coding using:
+### Backend
 ```shell script
-./mvnw compile quarkus:dev
+mvn compile quarkus:dev
+```
+### Frontend
+```shell script
+cd src/main/webapp/
+npm start
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
-
-## Packaging and running the application
-
+## Packaging and running in local mode
+### Packaging 
 The application can be packaged using:
 ```shell script
-./mvnw package
+mvn clean package -Dquarkus.container-image.build=true
 ```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-If you want to build an _über-jar_, execute the following command:
+### Run 
 ```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations  entropy1/karavan
 ```
+
+## Running in cloud mode
+
+
+[Karavan demo on Openshift](openshift/README.md)
