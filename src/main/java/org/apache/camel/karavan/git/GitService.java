@@ -94,7 +94,7 @@ public class GitService {
 
     public String pullIntegrations(String branch) throws GitAPIException {
         String dir = vertx.fileSystem().createTempDirectoryBlocking(branch);
-        System.out.println(dir);
+        LOGGER.info("Pulling into " + dir);
         try {
             Git git = clone(branch, dir);
             LOGGER.info("Git pull branch : " + git.pull().call());
