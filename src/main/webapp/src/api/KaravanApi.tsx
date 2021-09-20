@@ -16,7 +16,7 @@ export const KaravanApi = {
 
     getIntegrations: async (after: (integrations: []) => void) => {
         axios.get('/integration',
-            {headers: {'Accept': 'application/json'}})
+            {headers: {'Accept': 'application/json', 'username': 'cameleer'}})
             .then(res => {
                 if (res.status === 200) {
                     after(res.data);
@@ -28,7 +28,7 @@ export const KaravanApi = {
 
     getIntegration: async (name: string, after: (res: AxiosResponse<any>) => void) => {
         axios.get('/integration/' + name,
-            {headers: {'Accept': 'text/plain'}})
+            {headers: {'Accept': 'text/plain', 'username': 'cameleer'}})
             .then(res => {
                 after(res);
             }).catch(err => {
@@ -38,7 +38,7 @@ export const KaravanApi = {
 
     postIntegrations: async (name: string, yaml: string, after: (res: AxiosResponse<any>) => void) => {
         axios.post('/integration/' + name, yaml,
-            {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}})
+            {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain', 'username': 'cameleer'}})
             .then(res => {
                 after(res);
             }).catch(err => {
@@ -48,7 +48,7 @@ export const KaravanApi = {
 
     deleteIntegration: async (name: string, after: (res: AxiosResponse<any>) => void) => {
         axios.delete('/integration/' + name,
-            {})
+            {headers:{'username': 'cameleer'}})
             .then(res => {
                 after(res);
             }).catch(err => {

@@ -27,8 +27,10 @@
     justify-content: space-between;
 }
 
+.karavan .page-header .top-toolbar .pf-c-page__header-tools{
+    margin-right: 0;
+}
 .karavan .page-header .top-toolbar {
-    margin-right: 16px;
     width: 100%;
 }
 

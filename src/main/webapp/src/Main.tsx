@@ -14,7 +14,14 @@ import {
     AlertActionCloseButton,
     Text,
     Flex,
-    FlexItem, TextVariants, TextContent
+    FlexItem,
+    TextVariants,
+    TextContent,
+    Avatar,
+    PageHeaderTools,
+    PageHeaderToolsGroup,
+    ButtonVariant,
+    PageHeaderToolsItem, Dropdown, DropdownToggle
 } from '@patternfly/react-core';
 import {KaravanApi} from "./api/KaravanApi";
 import {IntegrationPage} from "./integrations/IntegrationPage";
@@ -27,6 +34,7 @@ import {Integration} from "./model/CamelModel";
 import {v4 as uuidv4} from "uuid";
 import {DesignerPage} from "./designer/DesignerPage";
 import {CamelYaml} from "./api/CamelYaml";
+import avatarImg from './avatarImg.svg';
 
 class ToastMessage {
     id: string = ''
@@ -74,10 +82,13 @@ export class Main extends React.Component<Props, State> {
     designer = React.createRef();
 
     componentDidMount() {
-        KaravanApi.getConfiguration((config: any) =>
+        KaravanApi.getConfiguration((config: any) => {
+            console.log(config);
+            console.log(config?.['karavan.version']);
             this.setState({
                 version: config?.['karavan.version'],
-            }));
+            })
+        });
         KameletApi.prepareKamelets();
         this.onGetIntegrations();
     }
@@ -98,29 +109,52 @@ export class Main extends React.Component<Props, State> {
         });
     };
 
-    toolBar = (
+    toolBar = (version: string) => (
         <div className="top-toolbar">
             <Flex direction={{default: "row"}} justifyContent={{default: "justifyContentSpaceBetween"}} style={{width:"100%"}}>
                 <FlexItem style={{marginTop: "auto", marginBottom:"auto"}}>
-                    <TextContent>
-                        <Text component={TextVariants.h1}>Karavan</Text>
-                    </TextContent>
+                    <Flex direction={{default: "row"}}>
+                        <FlexItem>
+                            <TextContent>
+                                <Text component={TextVariants.h1}>Karavan</Text>
+                            </TextContent>
+                        </FlexItem>
+                        <FlexItem>
+                            <TextContent>
+                                <Text component={TextVariants.h5}>{"v. " + version}</Text>
+                            </TextContent>
+                        </FlexItem>
+                    </Flex>
                 </FlexItem>
                 <FlexItem style={{marginTop: "auto", marginBottom:"auto"}}>
-                    <TextContent>
-                        <Text component={TextVariants.h4}>{this.state.version}</Text>
-                    </TextContent>
+                    <PageHeaderTools>
+                        <PageHeaderToolsGroup>
+                            <PageHeaderToolsItem>
+                                <Avatar src={avatarImg} alt="avatar" border="dark"/>
+                            </PageHeaderToolsItem>
+                            <PageHeaderToolsItem>
+                                <Dropdown
+                                    isPlain
+                                    position="right"
+                                    onSelect={event => {}}
+                                    isOpen={false}
+                                    toggle={<DropdownToggle onToggle={isOpen => {}}>cameleer</DropdownToggle>}
+                                    // dropdownItems={userDropdownItems}
+                                />
+                            </PageHeaderToolsItem>
+                        </PageHeaderToolsGroup>
+                    </PageHeaderTools>
                 </FlexItem>
             </Flex>
         </div>
     );
 
-    header = () => (
+    header = (version: string) => (
         <PageHeader className="page-header"
                     onNavToggle={this.onNavToggle}
                     showNavToggle
                     logo={<Brand className="brand" src={logo} alt="Karavan"/>}
-                    headerTools={this.toolBar}
+                    headerTools={this.toolBar(version)}
         />
     );
 
@@ -195,7 +229,7 @@ export class Main extends React.Component<Props, State> {
 
     render() {
         return (
-            <Page className="karavan" header={this.header()} sidebar={this.sidebar()}>
+            <Page className="karavan" header={this.header(this.state.version)} sidebar={this.sidebar()}>
                 {this.state.pageId === 'integrations' &&
                 <IntegrationPage key={this.state.request} integrations={this.state.integrations}
                                  onRefresh={this.onGetIntegrations}

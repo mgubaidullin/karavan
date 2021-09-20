@@ -27,6 +27,10 @@ oc apply -k apps
 - username: `git`
 - password: `gitgit`
 
+### Create Gitea repository
+
+- name: `karavan`
+
 ### Help
 To find the default admin password for Argo CD using the cli, run:
 
