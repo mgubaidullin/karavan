@@ -96,7 +96,7 @@ public class GitService {
             }
             LOGGER.info("Git status: " + git.status().call());
         } catch (Exception e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error("Error", e);
         }
         return dir;
     }
