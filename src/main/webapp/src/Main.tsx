@@ -83,8 +83,6 @@ export class Main extends React.Component<Props, State> {
 
     componentDidMount() {
         KaravanApi.getConfiguration((config: any) => {
-            console.log(config);
-            console.log(config?.['karavan.version']);
             this.setState({
                 version: config?.['karavan.version'],
             })

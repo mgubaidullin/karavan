@@ -33,7 +33,7 @@ spec:
         - name: KARAVAN_GIT_PASSWORD
           value: "gitgit"
         - name: KARAVAN_GIT_MAIN
-            value: "master"
+          value: "master"
         - name: KARAVAN_NAMESPACE
           value: "karavan-demo"
 #        livenessProbe:

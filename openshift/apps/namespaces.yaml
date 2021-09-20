@@ -16,6 +16,8 @@ metadata:
   annotations:
     openshift.io/description: karavan-demo
     openshift.io/display-name: karavan-demo
+  labels:
+    argocd.argoproj.io/managed-by: karavan
   name: karavan-demo
 spec:
   finalizers:
