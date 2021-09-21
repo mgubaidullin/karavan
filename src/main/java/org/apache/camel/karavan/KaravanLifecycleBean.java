@@ -43,8 +43,5 @@ public class KaravanLifecycleBean {
         if (mode.equals("local")) {
             fileSystemService.createIntegrationsFolder();
         }
-//        integrationResource.save("cameleer", "demoX.yaml", "yaml");
-        integrationResource.publish("cameleer", "demoX.yaml");
-//        System.out.println(integrationResource.getList("calemeer"));
     }
 }
