@@ -5,6 +5,7 @@ metadata:
   namescape: karavan
 spec:
   destination:
+    namespace: karavan-demo
     server: https://kubernetes.default.svc
   project: default
   source:

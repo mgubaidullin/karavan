@@ -62,9 +62,19 @@ public class IntegrationResource {
             gitService.save(username, name, yaml);
         } else {
             fileSystemService.saveIntegrationsFile(name, yaml);
-            fileSystemService.createIntegrationsKustomization();
         }
         return yaml;
+    }
+
+    @PATCH
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/{name}")
+    public String publish(@HeaderParam("username") String username, @PathParam("name") String name) throws GitAPIException, IOException, URISyntaxException {
+        if (mode.equals(CLOUD_MODE)) {
+            gitService.publish(username, name);
+        }
+        return "OK";
     }
 
     @DELETE
@@ -74,7 +84,6 @@ public class IntegrationResource {
             gitService.delete(username, name);
         } else {
             fileSystemService.deleteIntegration(name);
-            fileSystemService.createIntegrationsKustomization();
         }
     }
 }

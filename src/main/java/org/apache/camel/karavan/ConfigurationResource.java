@@ -15,13 +15,17 @@ public class ConfigurationResource {
     @ConfigProperty(name = "karavan.version")
     String version;
 
+    @ConfigProperty(name = "karavan.mode")
+    String mode;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<Map<String, String>> getConfiguration() throws Exception {
 
         return RestResponse.ResponseBuilder.ok(
                 Map.of(
-                        "karavan.version", version
+                        "karavan.version", version,
+                        "karavan.mode", mode
                 )
         ).build();
     }
