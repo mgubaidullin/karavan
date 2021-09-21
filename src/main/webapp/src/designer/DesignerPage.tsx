@@ -59,7 +59,7 @@ export class DesignerPage extends React.Component<Props, State> {
     }
 
     publish = () => {
-        KaravanApi.publishIntegrations(this.state.integration.metadata.name + ".yaml", Date.now().toString(), res => {
+        KaravanApi.publishIntegration(this.state.integration.metadata.name + ".yaml", this.getCode(), res => {
             if (res.status === 200) {
                 console.log(res) //TODO show notification
             } else {

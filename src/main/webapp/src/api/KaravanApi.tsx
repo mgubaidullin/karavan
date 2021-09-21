@@ -56,9 +56,9 @@ export const KaravanApi = {
         });
     },
 
-    publishIntegrations: async (name: string, yaml: string, after: (res: AxiosResponse<any>) => void) => {
-        axios.post('/git/push/' + name, yaml,
-            {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}})
+    publishIntegration: async (name: string, yaml: string, after: (res: AxiosResponse<any>) => void) => {
+        axios.patch('/integration/' + name, yaml,
+            {headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain', 'username': 'cameleer'}})
             .then(res => {
                 after(res);
             }).catch(err => {

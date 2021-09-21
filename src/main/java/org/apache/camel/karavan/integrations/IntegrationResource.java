@@ -70,11 +70,12 @@ public class IntegrationResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     @Path("/{name}")
-    public String publish(@HeaderParam("username") String username, @PathParam("name") String name) throws GitAPIException, IOException, URISyntaxException {
+    public String publish(@HeaderParam("username") String username, @PathParam("name") String name, String yaml) throws GitAPIException, IOException, URISyntaxException {
         if (mode.equals(CLOUD_MODE)) {
+            gitService.save(username, name, yaml);
             gitService.publish(username, name);
         }
-        return "OK";
+        return yaml;
     }
 
     @DELETE
