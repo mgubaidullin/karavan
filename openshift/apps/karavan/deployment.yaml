@@ -34,8 +34,6 @@ spec:
           value: "gitgit"
         - name: KARAVAN_GIT_MAIN
           value: "master"
-        - name: KARAVAN_NAMESPACE
-          value: "karavan-demo"
         livenessProbe:
           failureThreshold: 30
           httpGet:
