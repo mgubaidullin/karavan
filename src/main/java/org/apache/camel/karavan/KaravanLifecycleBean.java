@@ -29,9 +29,6 @@ public class KaravanLifecycleBean {
     @Inject
     KameletService kameletService;
 
-    @Inject
-    IntegrationResource integrationResource;
-
     private static final Logger LOGGER = Logger.getLogger(KaravanLifecycleBean.class.getName());
 
     void onStart(@Observes StartupEvent ev) throws IOException, GitAPIException, URISyntaxException {
@@ -43,8 +40,5 @@ public class KaravanLifecycleBean {
         if (mode.equals("local")) {
             fileSystemService.createIntegrationsFolder();
         }
-        integrationResource.save("cameleer", "demoX.yaml", "yaml");
-//        integrationResource.publish("cameleer", "demoX.yaml");
-//        System.out.println(integrationResource.getList("calemeer"));
     }
 }
