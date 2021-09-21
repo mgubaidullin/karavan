@@ -1,4 +1,0 @@
-FROM gcr.io/distroless/java:11
-COPY target/*-runner.jar /app/karavan.jar
-WORKDIR /app
-CMD ["karavan.jar"]
