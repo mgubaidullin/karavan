@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class FileSystemService {
 
 
-    @ConfigProperty(name = "karavan.namespace")
-    String namespace;
-
     @ConfigProperty(name = "karavan.folder.integrations")
     String integrations;
 

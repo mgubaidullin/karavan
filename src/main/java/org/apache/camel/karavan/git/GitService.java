@@ -124,12 +124,12 @@ public class GitService {
         return dir;
     }
 
-    private Git init(String branch, String dir) throws GitAPIException, IOException {
+    private Git init(String branch, String dir) throws GitAPIException, IOException, URISyntaxException {
         Git git = Git.init().setInitialBranch(mainBranch).setDirectory(Path.of(dir).toFile()).call();
         Files.writeString(Path.of(dir).resolve("README.md"), "#Karavan");
         git.add().addFilepattern("README.md").call();
         git.commit().setMessage("initial commit").call();
-        checkout(git, mainBranch, true, null, null);
+        addRemote(git);
         push(git);
         checkout(git, branch, true, null, null);
         return git;
