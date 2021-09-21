@@ -156,7 +156,9 @@ public class GitService {
         CheckoutCommand checkoutCommand = git.checkout();
         checkoutCommand.setName(branch);
         checkoutCommand.setCreateBranch(create);
-        checkoutCommand.setStartPoint("origin/" + branch);
+        if (create){
+            checkoutCommand.setStartPoint("origin/" + branch);
+        }
         if (path != null) {
             checkoutCommand.addPath(path);
         }
