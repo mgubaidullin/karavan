@@ -65,7 +65,7 @@ public class GitService {
         Git git = null;
         try {
             git = clone(branch, dir);
-            checkout(git, branch, false, null);
+            checkout(git, branch, false, null, null);
         } catch (RefNotFoundException e) {
             LOGGER.error("New repository");
             git = init(branch, dir);
@@ -80,8 +80,8 @@ public class GitService {
         LOGGER.info("Publish " + fileName);
         String dir = vertx.fileSystem().createTempDirectoryBlocking(branch);
         Git git = clone(mainBranch, dir);
-        checkout(git, mainBranch, false, null);
-        checkout(git, branch, true, fileName);
+        checkout(git, mainBranch, false, null, null);
+        checkout(git, branch, true, fileName, "origin/" + branch);
         commitAddedAndPush(git, mainBranch, fileName);
     }
 
@@ -129,9 +129,9 @@ public class GitService {
         Files.writeString(Path.of(dir).resolve("README.md"), "#Karavan");
         git.add().addFilepattern("README.md").call();
         git.commit().setMessage("initial commit").call();
-        checkout(git, mainBranch, true, null);
+        checkout(git, mainBranch, true, null, null);
         push(git);
-        checkout(git, branch, true, null);
+        checkout(git, branch, true, null, null);
         return git;
     }
 
@@ -151,13 +151,13 @@ public class GitService {
         remoteAddCommand.call();
     }
 
-    private void checkout(Git git, String branch, boolean create, String path) throws GitAPIException {
+    private void checkout(Git git, String branch, boolean create, String path, String startPoint) throws GitAPIException {
         // create branch:
         CheckoutCommand checkoutCommand = git.checkout();
         checkoutCommand.setName(branch);
         checkoutCommand.setCreateBranch(create);
-        if (create){
-            checkoutCommand.setStartPoint("origin/" + branch);
+        if (startPoint != null){
+            checkoutCommand.setStartPoint(startPoint);
         }
         if (path != null) {
             checkoutCommand.addPath(path);
