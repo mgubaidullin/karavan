@@ -30,6 +30,10 @@ mvn clean package -Dquarkus.container-image.build=true
 ```shell script
 docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations  entropy1/karavan
 ```
+For SELunux
+```shell script
+docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations:z  entropy1/karavan
+```
 
 ## Running in cloud mode
 
