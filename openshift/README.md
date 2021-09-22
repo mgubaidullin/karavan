@@ -2,7 +2,7 @@
 Required: Openshift 4.7 installed
 
 ### Demo
-<iframe width="500" height="300" src="https://www.youtube.com/embed/CUCpw1UFLCc>" frameborder="0" allowfullscreen></iframe>
+[Video of Karavan demo on Openshift](https://youtu.be/CUCpw1UFLCc)
 
 
 ### Architecture
