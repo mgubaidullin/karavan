@@ -6,6 +6,7 @@ import {
 import PublishIcon from '@patternfly/react-icons/dist/esm/icons/openshift-icon';
 import SaveIcon from '@patternfly/react-icons/dist/esm/icons/upload-icon';
 import PlusIcon from '@patternfly/react-icons/dist/esm/icons/plus-icon';
+import CopyIcon from '@patternfly/react-icons/dist/esm/icons/copy-icon';
 import '../karavan.css';
 import {DslElement} from "./DslElement";
 import {MainToolbar} from "../MainToolbar";
@@ -20,6 +21,7 @@ import {CamelApi} from "../api/CamelApi";
 
 interface Props {
     integration: Integration,
+    mode: 'local' | 'cloud',
 }
 
 interface State {
@@ -66,6 +68,20 @@ export class DesignerPage extends React.Component<Props, State> {
                 console.log(res) //TODO show notification
             }
         })
+    }
+
+    copy = () => {
+        this.copyToClipboard(this.getCode());
+    }
+
+    copyToClipboard = (data: string) => {
+        const listener = (e: ClipboardEvent) => {
+            e.clipboardData?.setData('text/plain', data);
+            e.preventDefault();
+            document.removeEventListener('copy', listener);
+        };
+        document.addEventListener('copy', listener);
+        document.execCommand('copy');
     }
 
     unselectElement = (evt: React.MouseEvent) => {
@@ -135,9 +151,16 @@ export class DesignerPage extends React.Component<Props, State> {
     tools = (view: "design" | "code") => (
         <Toolbar id="toolbar-group-types">
             <ToolbarContent>
+                {this.props.mode === 'cloud' &&
                 <ToolbarItem>
                     <Button variant="secondary" icon={<PublishIcon/>} onClick={e => this.publish()}>Publish</Button>
                 </ToolbarItem>
+                }
+                {this.props.mode === 'local' &&
+                <ToolbarItem>
+                    <Button variant="secondary" icon={<CopyIcon/>} onClick={e => this.copy()}>Copy</Button>
+                </ToolbarItem>
+                }
                 <ToolbarItem>
                     <Button variant="secondary" icon={<SaveIcon/>} onClick={e => this.save()}>Save</Button>
                 </ToolbarItem>

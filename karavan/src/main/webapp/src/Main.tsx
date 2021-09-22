@@ -55,6 +55,7 @@ interface Props {
 
 interface State {
     version: string,
+    mode: 'local' | 'cloud',
     isNavOpen: boolean,
     pageId: 'integrations' | 'configuration' | 'kamelets' | 'designer'
     integrations: [],
@@ -69,6 +70,7 @@ export class Main extends React.Component<Props, State> {
 
     public state: State = {
         version: '',
+        mode: 'local',
         isNavOpen: true,
         pageId: "integrations",
         integrations: [],
@@ -85,6 +87,7 @@ export class Main extends React.Component<Props, State> {
         KaravanApi.getConfiguration((config: any) => {
             this.setState({
                 version: config?.['karavan.version'],
+                mode: config?.['karavan.mode'],
             })
         });
         KameletApi.prepareKamelets();
@@ -235,7 +238,7 @@ export class Main extends React.Component<Props, State> {
                                  onCreate={this.onIntegrationCreate}/>}
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
-                {this.state.pageId === 'designer' && <DesignerPage integration={this.state.integration}/>}
+                {this.state.pageId === 'designer' && <DesignerPage mode={this.state.mode} integration={this.state.integration}/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}
