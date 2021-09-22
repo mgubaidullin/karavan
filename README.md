@@ -14,6 +14,10 @@ mvn compile quarkus:dev
 cd src/main/webapp/
 npm start
 ```
+### Generate Typescript models, API and Kamelets
+```shell
+ mvn clean compile exec:java -Dexec.mainClass="org.apache.camel.karavan.generator.KaravanGenerator" -f generator
+```
 
 ## Packaging and running in local mode
 ### Packaging 
