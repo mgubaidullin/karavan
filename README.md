@@ -7,22 +7,24 @@ Integration Designer for Apache Camel
 You can run your application in dev mode that enables live coding using:
 ### Backend
 ```shell script
+cd karavan
 mvn compile quarkus:dev
 ```
 ### Frontend
 ```shell script
-cd src/main/webapp/
+cd karavan/src/main/webapp/
 npm start
 ```
 ### Generate Typescript models, API and Kamelets
 ```shell
- mvn clean compile exec:java -Dexec.mainClass="org.apache.camel.karavan.generator.KaravanGenerator" -f generator
+mvn clean compile exec:java -Dexec.mainClass="org.apache.camel.karavan.generator.KaravanGenerator" -f generator
 ```
 
 ## Packaging and running in local mode
 ### Packaging 
 The application can be packaged using:
 ```shell script
+cd karavan
 mvn clean package -Dquarkus.container-image.build=true
 ```
 
