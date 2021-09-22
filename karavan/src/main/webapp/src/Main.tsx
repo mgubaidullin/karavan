@@ -236,7 +236,6 @@ export class Main extends React.Component<Props, State> {
                 {this.state.pageId === 'configuration' && <ConfigurationPage/>}
                 {this.state.pageId === 'kamelets' && <KameletsPage/>}
                 {this.state.pageId === 'designer' && <DesignerPage integration={this.state.integration}/>}
-                {this.state.pageId === 'designer' && <DesignerPage integration={this.state.integration}/>}
                 <Modal
                     title="Confirmation"
                     variant={ModalVariant.small}
