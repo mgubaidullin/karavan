@@ -19,6 +19,12 @@ jobs:
         with:
           java-version: 11
 
+      - name: Generate models and Kamelets application
+        run: |
+          mvn clean compile exec:java \
+          -Dexec.mainClass="org.apache.camel.karavan.generator.KaravanGenerator" \
+          -f generator
+
       - name: Build application
         run: |
           mvn package -DskipTest \
