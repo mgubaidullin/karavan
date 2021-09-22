@@ -2,8 +2,8 @@
 Required: Openshift 4.7 installed
 
 ### Demo
-[![Everything Is AWESOME](https://img.youtube.com/vi/StTqXEQ2l-Y/0.jpg)]
-(https://youtu.be/CUCpw1UFLCc "Everything Is AWESOME")
+[![Karavan Demo](karavan-cloud.png)]
+(https://youtu.be/CUCpw1UFLCc "Karavan Demo")
 
 ### Architecture
 ![Architecture](karavan-cloud.png)
