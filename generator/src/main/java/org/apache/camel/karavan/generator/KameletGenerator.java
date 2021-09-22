@@ -23,7 +23,7 @@ public class KameletGenerator {
 
     public static void generate() throws Exception {
         KameletGenerator g = new KameletGenerator();
-        g.createKamelets("karavan/kamelets");
+        g.createKamelets("karavan/src/main/resources/kamelets");
     }
 
     public void createKamelets(String folder){

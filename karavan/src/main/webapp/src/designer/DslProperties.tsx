@@ -114,8 +114,8 @@ export class DslProperties extends React.Component<Props, State> {
         return (
             <div className="headers">
                 <Title headingLevel="h1" size="md">Integration</Title>
-                <FormGroup label="Title" fieldId="title">
-                    <TextInput className="text-field" type="text" id="title" name="title"
+                <FormGroup label="Title" fieldId="title" isRequired>
+                    <TextInput className="text-field" type="text" id="title" name="title" isRequired
                                value={
                                    CamelUi.titleFromName(this.state.integration.metadata.name)
                                }
