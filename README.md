@@ -35,6 +35,20 @@ For SELunux
 docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations:z  entropy1/karavan
 ```
 
+## Packaging and running in local mode (native)
+### Build native
+```shell
+DOCKER_BUILDKIT=1 docker build -f karavan/src/main/docker/Dockerfile.multistage -t entropy1/karavan-native .
+```
+### Run
+```shell script
+docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations  entropy1/karavan-native
+```
+For SELunux
+```shell script
+docker run -it -p 8080:8080 -e KARAVAN_MODE=local -v $(pwd):/deployments/integrations:z  entropy1/karavan-native
+```
+
 ## Running in cloud mode
 
 
