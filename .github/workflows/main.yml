@@ -28,7 +28,7 @@ jobs:
       - name: Build application
         run: |
           mvn package -DskipTest \
-          -f karavan
+          -f karavan \
           -Dquarkus.container-image.build=true \
           -Dquarkus.container-image.push=true \
           -Dquarkus.container-image.username=${{ secrets.DOCKERHUB_USERNAME }} \
