@@ -1,30 +1,18 @@
 import {CamelUi} from "../api/CamelUi";
 
-export class Incoming {
+export class InOut {
+  type: 'in' | 'out'  = 'in';
   uuid: string = ''
   icon: string = CamelUi.getIconForName("");
   top: number = 0;
-  right: number = 0;
+  side: number = 0;
 
-  constructor(uuid: string, icon: string, top: number, right: number) {
+  constructor(type: 'in' | 'out', uuid: string, icon: string, top: number, side: number) {
+    this.type = type;
     this.uuid = uuid;
     this.icon = icon;
     this.top = top;
-    this.right = right;
-  }
-}
-
-export class Outgoing {
-  uuid: string = ''
-  icon: string = CamelUi.getIconForName("");
-  top: number = 0;
-  left: number = 0;
-
-  constructor(uuid: string, icon: string, top: number, left: number) {
-    this.uuid = uuid;
-    this.icon = icon;
-    this.top = top;
-    this.left = left;
+    this.side = side;
   }
 }
 

@@ -1,4 +1,4 @@
-import {CamelElement, FilterStep, FromStep, Integration, ProcessorStep} from "../model/CamelModel";
+import {CamelElement, FromStep, Integration, ProcessorStep} from "../model/CamelModel";
 import {CamelMetadataApi, PropertyMeta} from "./CamelMetadata";
 import {CamelApi} from "./CamelApi";
 
@@ -105,5 +105,39 @@ export class CamelApiExt {
         if (element && (element as any).parameters) {
             return (element as any).parameters[propertyName];
         }
+    }
+
+    static getToStepsFromIntegration = (integration: Integration): CamelElement[] => {
+        const result: CamelElement[] = [];
+        integration.spec.flows.forEach((flow, index) => {
+            const steps: CamelElement[] = CamelApiExt.getToStepsFromStep(flow.from);
+            result.push(...steps);
+        })
+        return result;
+    }
+
+    static getToStepsFromStep = (step: ProcessorStep): CamelElement[] => {
+        const result: CamelElement[] = [];
+        if (step.dslName === 'toStep') result.push(step);
+        const element: any = Object.assign({}, step);
+        Object.keys(element).forEach(key => {
+            if (element[key] instanceof CamelElement) {
+                const steps = CamelApiExt.getToStepsFromStep(element[key]);
+                result.push(...steps);
+            } else if (Array.isArray(element[key])) {
+                const steps = CamelApiExt.getStepsFromSteps(element[key]);
+                result.push(...steps);
+            }
+        })
+        return result;
+    }
+
+    static getStepsFromSteps = (steps: CamelElement[]): CamelElement[] => {
+        const result: CamelElement[] = [];
+        steps.forEach(step => {
+            const steps = CamelApiExt.getToStepsFromStep(step);
+            result.push(...steps);
+        })
+        return result;
     }
 }

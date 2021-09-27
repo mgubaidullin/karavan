@@ -9,6 +9,7 @@ import {CamelElement, Otherwise, ProcessorStep, WhenStep} from "../model/CamelMo
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
 import { EventBus } from "../api/EventBus";
+import {DslPath} from "./DslPath";
 
 interface Props {
     step: CamelElement,
@@ -87,10 +88,15 @@ export class DslElement extends React.Component<Props, State> {
 
     render() {
         return (
-            <div className="step-element" style={{borderWidth: this.isSelected() ? "2px" : "1px", marginTop: this.isRoot() ? "16px" : ""}}
+            <div className="step-element"
+                 style={{
+                     borderWidth: this.isSelected() ? "2px" : "1px",
+                     marginTop: this.isRoot() ? "16px" : "",
+                     zIndex: this.state.step.dslName === 'toStep' ? 20 : 10
+                 }}
                  onClick={event => this.selectElement(event)}
                  ref={el => {
-                     if (el && this.state.step.dslName === 'fromStep') EventBus.sendPosition(this.state.step, el.getBoundingClientRect());
+                     if (el && (this.state.step.dslName === 'fromStep' || this.state.step.dslName === 'toStep')) EventBus.sendPosition(this.state.step, el.getBoundingClientRect());
                  }}
             >
                 <div className="header">
@@ -144,7 +150,7 @@ export class DslElement extends React.Component<Props, State> {
                     {this.state.element.dslName === 'choice' &&
                     <div className="whens" style={this.horizontal() ? {display: "flex", flexDirection: "row"} : {}}>
                         {this.getWhens().map((when, index) => (
-                            <div key={when.uuid} style={{marginLeft: (index != 0) ? "6px" : "0"}}>
+                            <div key={when.uuid} style={{marginLeft: (index !== 0) ? "6px" : "0"}}>
                                 <DslElement
                                     openSelector={this.props.openSelector}
                                     deleteElement={this.props.deleteElement}

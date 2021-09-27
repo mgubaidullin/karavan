@@ -21,14 +21,14 @@ export class MainToolbar extends React.Component<Props, State> {
         tools: this.props.tools
     };
 
-    componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
-        if (prevState.tools !== this.props.tools) {
-            this.setState({tools: this.props.tools});
-        }
-        if (prevState.title !== this.props.title) {
-            this.setState({title: this.props.title});
-        }
-    }
+    // componentDidUpdate = (prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) => {
+    //     if (prevState.tools !== this.props.tools) {
+    //         this.setState({tools: this.props.tools});
+    //     }
+    //     if (prevState.title !== this.props.title) {
+    //         this.setState({title: this.props.title});
+    //     }
+    // }
 
     render() {
         return (

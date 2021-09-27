@@ -322,22 +322,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    /*background-color: grey;*/
-    z-index: 0;
-    /*opacity: 0.5;*/
-}
-
-.karavan .dsl-page .flows .connections .outgoing-stack {
-    min-width: 50px;
-    max-width: 100px;
-    position: absolute;
-    right: 3px;
-    top: 0;
-    height: 90%;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: space-evenly;*/
+    z-index: 13;
 }
 
 .karavan .dsl-page .flows .connections .incoming {
@@ -353,7 +338,21 @@
     display: flex;
 }
 
-.karavan .dsl-page .flows .connections .incoming .icon {
+.karavan .dsl-page .flows .connections .outgoing {
+    border-color: #e97826;
+    border-style: solid;
+    border-radius: 50px;
+    border-width: 1px;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 6px;
+    display: flex;
+}
+
+.karavan .dsl-page .flows .connections .incoming .icon,
+.karavan .dsl-page .flows .connections .outgoing .icon {
     height: 36px;
     margin: auto;
 }
@@ -372,19 +371,6 @@
 @keyframes dashdraw{0%{stroke-dashoffset:10}}
 
 
-
-.karavan .dsl-page .flows .connections .outgoing {
-    border-color: #e97826;
-    border-style: solid;
-    border-radius: 3px;
-    border-width: 1px;
-    background: #fff;
-    min-width: 50px;
-    min-height: 50px;
-    /*position: absolute;*/
-    /*right: 16px;*/
-}
-
 .karavan .dsl-page .flows .step-element {
     align-items: center;
     text-align: center;
@@ -401,7 +387,6 @@
     min-width: 160px;
     min-height: 73px;
     padding: 4px 10px;
-    z-index: 100;
     position: relative;
 }
 

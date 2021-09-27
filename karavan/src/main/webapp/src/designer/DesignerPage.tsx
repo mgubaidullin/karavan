@@ -196,7 +196,9 @@ export class DesignerPage extends React.Component<Props, State> {
                 <div className="dsl-page-columns">
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
-                        <DslConnections />
+                        <DslConnections key={this.state.key + "-connections"}
+                            integration={this.state.integration}
+                        />
                         {this.state.integration.spec.flows.map((flow, index) => (
                                 <DslElement key={flow.uuid + this.state.key}
                                         openSelector={this.openSelector}
