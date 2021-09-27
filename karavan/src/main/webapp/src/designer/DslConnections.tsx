@@ -1,33 +1,9 @@
 import React from 'react';
 import '../karavan.css';
-import {EventBus, DslPosition, Incoming} from "../api/EventBus";
+import {EventBus, DslPosition} from "../api/EventBus";
 import {Subscription} from "rxjs";
 import {CamelUi} from "../api/CamelUi";
-import {CamelElement} from "../model/CamelModel";
-
-class Path {
-    uuid: string = ''
-    startX: number = 0
-    startY: number = 0
-    endX: number = 0
-    endY: number = 0
-
-    constructor(uuid: string, startX: number, startY: number, endX: number, endY: number) {
-        this.uuid = uuid;
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
-    }
-
-    getPath(): string {
-        const x = (this.endX + this.startX) / 2;
-        const y = (this.endY + this.startY) / 2;
-        return 'M ' + this.startX + ',' + this.startY
-            + ' C ' + x + ','+ this.startY + ' ' + y +', ' + this.endY
-            + ' ' + this.endX + ',' + this.endY ;
-    }
-}
+import {Incoming, Outgoing, Path} from "../model/ConnectionModels";
 
 interface Props {
 }
@@ -35,7 +11,8 @@ interface Props {
 interface State {
     positions: DslPosition[]
     incomings: Incoming[]
-    pasths: Path[]
+    outgoings: Outgoing[]
+    paths: Path[]
     sub?: Subscription
 }
 
@@ -44,7 +21,8 @@ export class DslConnections extends React.Component<Props, State> {
     public state: State = {
         positions: [],
         incomings: [],
-        pasths: []
+        outgoings: [],
+        paths: []
     };
 
 
@@ -67,33 +45,30 @@ export class DslConnections extends React.Component<Props, State> {
         const ps: Path[] = incs.map(i => new Path(i.uuid, 56, i.top + 25 , i.right, i.top ))
         this.setState(state => ({
             incomings: incs,
-            pasths: ps,
+            paths: ps,
         }), () => {
             console.log(this.state.incomings);
         });
-        //
-        // this.setState(state => ({
-        //     positions: state.positions.findIndex(p => p.step.uuid === evt.step.uuid) === -1
-        //         ? [...state.positions, evt]
-        //         : state.positions.map((p: DslPosition) => {
-        //             if (p.step.uuid === evt.step.uuid) {
-        //                 return evt;
-        //             }
-        //             return p;
-        //         })
-        // }), () => {
-        //     console.log(this.state.positions);
-        // });
     }
 
+    addOutgoing(evt: DslPosition) {
+        const out: Outgoing = new Outgoing(evt.step.uuid, CamelUi.getIcon((evt.step as any).from), evt.rect.top - 130, evt.rect.right + (evt.rect.width / 2));
+        const outs: Outgoing[] = [...this.state.outgoings.filter(i => i.uuid !== evt.step.uuid), out];
+        const ps: Path[] = outs.map(i => new Path(i.uuid, i.left, i.top + 25 , 600, i.top ));
+        this.setState(state => ({
+            outgoings: outs,
+            paths: ps,
+        }), () => {
+            console.log(this.state.incomings);
+        });
+    }
 
     render() {
         return (
             <div className="connections">
                 <svg style={{width: '100%', height: '100%', }} viewBox="0 0 100% 100%">
-                    {this.state.pasths.map(path => <path key={path.uuid} d={path.getPath()} className="path"/>)}
+                    {this.state.paths.map(path => <path key={path.uuid} d={path.getPath()} className="path"/>)}
                 </svg>
-                {/*<div className="incoming-stack">*/}
                 {this.state.incomings.map((i: Incoming) =>
                     <div key={i.uuid} className="incoming" style={{top: i.top + 'px'}}>
                         <img draggable="false"
@@ -102,7 +77,6 @@ export class DslConnections extends React.Component<Props, State> {
                         </img>
                     </div>
                 )}
-                {/*</div>*/}
                 <div className="outgoing-stack">
                     {this.state.positions.filter(p => p.step.dslName === 'toStep').map((p: DslPosition) =>
                         <div key={p.step.uuid} className="outgoing">World</div>
