@@ -347,7 +347,7 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    right: 6px;
+    right: 1px;
     display: flex;
 }
 
@@ -358,7 +358,7 @@
 }
 
 .karavan .dsl-page .flows .connections .path {
-     stroke: #b1b1b7;
+     stroke: #e97826;
      stroke-width: 1;
      fill: none;
 }

@@ -55,7 +55,7 @@ export class DslPath extends React.Component<Props, State> {
                 position: "absolute",
                 left: this.state.left,
                 top: this.state.top
-            }} viewBox={"0 0 " + this.state.width + " 10"}>
+            }} viewBox={"0 0 " + this.state.width + " 2"}>
                 <path d={"M 0 0, " + this.state.width + " 0"} className="path"/>
             </svg>
         );
