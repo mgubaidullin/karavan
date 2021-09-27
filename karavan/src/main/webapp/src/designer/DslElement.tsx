@@ -8,6 +8,7 @@ import DeleteIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
 import {CamelElement, Otherwise, ProcessorStep, WhenStep} from "../model/CamelModel";
 import {CamelApi} from "../api/CamelApi";
 import {CamelUi} from "../api/CamelUi";
+import { EventBus } from "../api/EventBus";
 
 interface Props {
     step: CamelElement,
@@ -87,11 +88,16 @@ export class DslElement extends React.Component<Props, State> {
     render() {
         return (
             <div className="step-element" style={{borderWidth: this.isSelected() ? "2px" : "1px", marginTop: this.isRoot() ? "16px" : ""}}
-                 onClick={event => this.selectElement(event)}>
+                 onClick={event => this.selectElement(event)}
+                 ref={el => {
+                     if (el && this.state.step.dslName === 'fromStep') EventBus.sendPosition(this.state.step, el.getBoundingClientRect());
+                 }}
+            >
                 <div className="header">
                     <img draggable="false"
                          src={CamelUi.getIcon(this.state.element)}
-                         className="icon" alt="icon"></img>
+                         className="icon" alt="icon">
+                    </img>
                     <Text>{CamelUi.getTitle(this.state.element)}</Text>
                     <button type="button" aria-label="Delete" onClick={e => this.delete(e)}
                             className="delete-button">

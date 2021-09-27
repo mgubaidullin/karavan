@@ -314,6 +314,75 @@
     width: 100%;
     overflow-y: auto;
     padding-bottom: 100px;
+    position: relative;
+}
+
+.karavan .dsl-page .flows .connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: grey;*/
+    z-index: 0;
+    /*opacity: 0.5;*/
+}
+
+.karavan .dsl-page .flows .connections .outgoing-stack {
+    min-width: 50px;
+    max-width: 100px;
+    position: absolute;
+    right: 3px;
+    top: 0;
+    height: 90%;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-evenly;*/
+}
+
+.karavan .dsl-page .flows .connections .incoming {
+    border-color: #e97826;
+    border-style: solid;
+    border-radius: 50px;
+    border-width: 1px;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 6px;
+    display: flex;
+}
+
+.karavan .dsl-page .flows .connections .incoming .icon {
+    height: 36px;
+    margin: auto;
+}
+
+.karavan .dsl-page .flows .connections .path {
+     stroke: #b1b1b7;
+     stroke-width: 1;
+     fill: none;
+}
+
+.karavan .dsl-page .flows .connections path{
+    stroke-dasharray: 5;
+    -webkit-animation: dashdraw .5s linear infinite;
+    animation: dashdraw .5s linear infinite;
+}
+@keyframes dashdraw{0%{stroke-dashoffset:10}}
+
+
+
+.karavan .dsl-page .flows .connections .outgoing {
+    border-color: #e97826;
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    background: #fff;
+    min-width: 50px;
+    min-height: 50px;
+    /*position: absolute;*/
+    /*right: 16px;*/
 }
 
 .karavan .dsl-page .flows .step-element {
@@ -332,6 +401,8 @@
     min-width: 160px;
     min-height: 73px;
     padding: 4px 10px;
+    z-index: 100;
+    position: relative;
 }
 
 .karavan .dsl-page .flows .step-element .header {
@@ -339,6 +410,7 @@
     justify-content: center;
     position: relative;
     width: 100%;
+    z-index: 101;
 }
 
 .element-builder {

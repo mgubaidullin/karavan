@@ -18,6 +18,7 @@ import {KaravanApi} from "../api/KaravanApi";
 import {CamelYaml} from "../api/CamelYaml";
 import {CamelApiExt} from "../api/CamelApiExt";
 import {CamelApi} from "../api/CamelApi";
+import {DslConnections} from "./DslConnections";
 
 interface Props {
     integration: Integration,
@@ -44,7 +45,7 @@ export class DesignerPage extends React.Component<Props, State> {
         parentId: '',
         parentType: '',
         selectedUuid: '',
-        key: ""
+        key: "",
     };
 
     componentDidMount() {
@@ -195,8 +196,9 @@ export class DesignerPage extends React.Component<Props, State> {
                 <div className="dsl-page-columns">
                     {this.state.view === 'design' &&
                     <div className="flows" onClick={event => this.unselectElement(event)}>
+                        <DslConnections />
                         {this.state.integration.spec.flows.map((flow, index) => (
-                            <DslElement key={flow.uuid + this.state.key}
+                                <DslElement key={flow.uuid + this.state.key}
                                         openSelector={this.openSelector}
                                         deleteElement={this.deleteElement}
                                         selectElement={this.selectElement}
