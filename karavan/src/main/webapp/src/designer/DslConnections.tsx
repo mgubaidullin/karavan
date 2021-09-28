@@ -8,6 +8,7 @@ import {CamelApiExt} from "../api/CamelApiExt";
 import {KameletApi} from "../api/KameletApi";
 import {DslInOut} from "./DslInOut";
 import {DslPath} from "./DslPath";
+import {DslPosition, EventBus} from "../api/EventBus";
 
 interface Props {
     integration: Integration
@@ -17,15 +18,33 @@ interface State {
     integration: Integration
     paths: Path[]
     sub?: Subscription
+    outs: Map<string, DslPosition>
 }
 
 export class DslConnections extends React.Component<Props, State> {
 
     public state: State = {
         integration: this.props.integration,
-        paths: []
+        paths: [],
+        outs: new Map<string, DslPosition>()
     };
 
+    componentDidMount() {
+        const sub = EventBus.onPosition()?.subscribe(evt => {
+                // this.setPosition(evt);
+        });
+        this.setState({sub: sub});
+    }
+
+    componentWillUnmount() {
+        this.state.sub?.unsubscribe();
+    }
+
+    // setPosition(evt: DslPosition) {
+    //     if (this.getOutgoings().findIndex(i => i.uuid === evt.step.uuid) !== -1){
+    //         // console.log(evt);
+    //     }
+    // }
 
     getIncomings(): InOut[] {
         const result: InOut[] = [];

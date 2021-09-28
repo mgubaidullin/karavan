@@ -1,6 +1,5 @@
 import React from 'react';
 import '../karavan.css';
-import {Path} from "../model/ConnectionModels";
 import {Subscription} from "rxjs";
 import {DslPosition, EventBus} from "../api/EventBus";
 
@@ -40,7 +39,6 @@ export class DslPath extends React.Component<Props, State> {
 
     setPosition(evt: DslPosition) {
         if (evt.step.dslName === 'fromStep'){
-            console.log(evt);
             this.setState({left: 56, top: (evt.rect.top - 140 + 25), width: (evt.rect.x) - 56});
         } else {
             this.setState({left: evt.rect.x + evt.rect.width, top: (evt.rect.top - 140 + 25), width: (evt.rect.x + evt.rect.width + 200)});
@@ -51,7 +49,7 @@ export class DslPath extends React.Component<Props, State> {
         return (
             <svg style={{
                 width: this.state.width,
-                height: '10',
+                height: '2',
                 position: "absolute",
                 left: this.state.left,
                 top: this.state.top
