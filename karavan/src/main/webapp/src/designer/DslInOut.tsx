@@ -36,7 +36,11 @@ export class DslInOut extends React.Component<Props, State> {
     }
 
     setPosition(evt: DslPosition) {
-        this.setState({top: evt.rect.top - 140 + (this.state.inout.index * 10)});
+        if (evt.step.dslName === 'fromStep'){
+            this.setState({top: evt.rect.top - 140});
+        } else {
+            this.setState({top: evt.rect.top - 150 + (this.state.inout.index * 17)});
+        }
     }
 
     render() {

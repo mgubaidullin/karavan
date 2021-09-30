@@ -42,7 +42,7 @@ export class DslPath extends React.Component<Props, State> {
         if (evt.step.dslName === 'fromStep'){
             this.setState({left: 56, top: (evt.rect.top - 140 + 25), width: (evt.rect.x) - 56});
         } else {
-            this.setState({left: evt.rect.x + evt.rect.width, top: (evt.rect.top - 140 + 25 + 12 * this.state.path.index), width: (evt.rect.x + evt.rect.width + 200)});
+            this.setState({left: evt.rect.x + evt.rect.width, top: (evt.rect.top - 150 + 25 + 17 * this.state.path.index), width: (evt.rect.x + evt.rect.width + 200)});
         }
     }
 
