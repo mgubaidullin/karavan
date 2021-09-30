@@ -3,6 +3,7 @@ import '../karavan.css';
 import {InOut} from "../model/ConnectionModels";
 import {Subscription} from "rxjs";
 import {DslPosition, EventBus} from "../api/EventBus";
+import ReactDOM from "react-dom";
 
 interface Props {
     inout: InOut,
@@ -35,12 +36,12 @@ export class DslInOut extends React.Component<Props, State> {
     }
 
     setPosition(evt: DslPosition) {
-        this.setState({top: evt.rect.top - 140});
+        this.setState({top: evt.rect.top - 140 + (this.state.inout.index * 10)});
     }
 
     render() {
         return (
-            <div className={this.state.inout.type === 'out' ? 'outgoing' : 'incoming'} style={{top: this.state.top + 'px'}}>
+            <div id={this.state.inout.uuid} custom-top={this.state.top} className={this.state.inout.type === 'out' ? 'outgoing' : 'incoming'} style={{top: this.state.top + 'px'}}>
                 <img draggable="false"
                      src={this.state.inout.icon}
                      className="icon" alt="icon">

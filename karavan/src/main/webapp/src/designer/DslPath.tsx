@@ -2,13 +2,14 @@ import React from 'react';
 import '../karavan.css';
 import {Subscription} from "rxjs";
 import {DslPosition, EventBus} from "../api/EventBus";
+import {InOut, Path} from "../model/ConnectionModels";
 
 interface Props {
-    uuid: string,
+    path: Path,
 }
 
 interface State {
-    uuid: string,
+    path: Path,
     width: number,
     left: number,
     top: number,
@@ -18,7 +19,7 @@ interface State {
 export class DslPath extends React.Component<Props, State> {
 
     public state: State = {
-        uuid: this.props.uuid,
+        path: this.props.path,
         width: 0,
         left: 0,
         top: 0,
@@ -26,7 +27,7 @@ export class DslPath extends React.Component<Props, State> {
 
     componentDidMount() {
         const sub = EventBus.onPosition()?.subscribe(evt => {
-            if (evt.step.uuid === this.state.uuid) {
+            if (evt.step.uuid === this.state.path.uuid) {
                 this.setPosition(evt);
             }
         });
@@ -41,7 +42,7 @@ export class DslPath extends React.Component<Props, State> {
         if (evt.step.dslName === 'fromStep'){
             this.setState({left: 56, top: (evt.rect.top - 140 + 25), width: (evt.rect.x) - 56});
         } else {
-            this.setState({left: evt.rect.x + evt.rect.width, top: (evt.rect.top - 140 + 25), width: (evt.rect.x + evt.rect.width + 200)});
+            this.setState({left: evt.rect.x + evt.rect.width, top: (evt.rect.top - 140 + 25 + 12 * this.state.path.index), width: (evt.rect.x + evt.rect.width + 200)});
         }
     }
 
